@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UexCorpDataRunner.DesktopClient.Views.HiddenInterfaceView"
+             Title="Hidden Interface"
+             BackgroundColor="Transparent"
+             HeightRequest="600"
+             WidthRequest="200">
+    <StackLayout>
+        <Button
+            Command="{Binding ShowUserInterfaceCommand}"
+            Rotation="90"
+            HeightRequest="30"
+            WidthRequest="60"
+            Padding="-10"
+            Text="Show"
+            TextColor="DimGray"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand"
+            BackgroundColor="Black"/>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UexCorpDataRunner.DesktopClient.Views.ActiveInterfaceView"
+             Title="Active Interface"
+             BackgroundColor="White"
+             HeightRequest="600"
+             WidthRequest="200">
+    <StackLayout>
+        <StackLayout>
+            <Button
+                Command="{Binding HideUserInterfaceCommand}"
+                Text="Hide"/>
+            <!--<Button
+                Command="{Binding TestCommand}"
+                Text="Test"/>-->
+        </StackLayout>
+        <StackLayout>
+            <Label Text="Active Interface"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
