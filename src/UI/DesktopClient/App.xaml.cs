@@ -1,36 +1,67 @@
-﻿using Microsoft.UI;
-using Microsoft.UI.Windowing;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.DesktopClient.ViewModels;
 using UexCorpDataRunner.DesktopClient.Views;
 
-namespace UexCorpDataRunner.DesktopClient;
-
-public partial class App : Application
+namespace UexCorpDataRunner.DesktopClient
 {
-    public App(ActiveInterfaceView activeInterfaceView)
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
     {
-        InitializeComponent();
+        public static IServiceProvider ServiceProvider { get; private set; }
+        public static IConfiguration Configuration { get; private set; }
 
-        MainPage = new NavigationPage(activeInterfaceView);
+        public App()
+        {
+            Configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
 
-        Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) => {
-#if WINDOWS
-            var nativeWindow = handler.PlatformView;
-            nativeWindow.Activate();
+            ServiceCollection services = new ServiceCollection();
 
-            IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
-            WindowId windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
-            AppWindow appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-            var displayBounds = Microsoft.UI.Windowing.DisplayArea.Primary.OuterBounds;
-            int displayWidth = displayBounds.Width;
-            int displayHeight = displayBounds.Height;
+            ConfigureServices(services);
 
-            int windowY = (displayHeight / 2) - 350;
-            int windowX = (displayWidth / 2) - 175;
+            ServiceProvider = services.BuildServiceProvider();
+        }
 
-            appWindow.MoveAndResize(new Windows.Graphics.RectInt32(windowX, windowY, 350, 700));
-#endif
-        });
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton(Configuration);
+            services.AddSingleton<ViewModelMessenger>();
+            services.AddSingleton<MainWindow>();
 
+            services.AddSingleton<MainView>();
+            services.AddSingleton<MainViewModel>();
+
+            services.AddSingleton<MinimizedView>();
+            services.AddSingleton<MinimizedViewModel>();
+
+            services.AddSingleton<SettingsView>();
+            services.AddSingleton<SettingsViewModel>();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+
+            if(mainWindow is null)
+            {
+                throw new Exception($"Main Window could not be resolved!");
+            }
+
+            mainWindow.Show();
+        }
     }
-
 }

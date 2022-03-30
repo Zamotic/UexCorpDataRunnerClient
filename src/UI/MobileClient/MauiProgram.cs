@@ -1,6 +1,7 @@
 ﻿using UexCorpDataRunner.DesktopClient.Views;
 using UexCorpDataRunner.DesktopClient.ViewModels;
 using UexCorpDataRunner.DesktopClient.Services;
+using UexCorpDataRunner.DesktopClient.Extensions;
 
 namespace UexCorpDataRunner.DesktopClient;
 public static class MauiProgram

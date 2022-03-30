@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UexCorpDataRunner.DesktopClient.Views.HiddenInterfaceView"
+             BackgroundColor="Black" 
+             Appearing="ContentPage_Appearing"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
+    <AbsoluteLayout>
+        <Button
+            Command="{Binding ShowUserInterfaceCommand}"
+            AbsoluteLayout.LayoutBounds="0,0,80,40"
+            AbsoluteLayout.LayoutFlags="None"
+            Rotation="90"
+            HeightRequest="40"
+            WidthRequest="80"
+            Padding="0"
+            Margin="-22,-30"
+            Text="Show"
+            TextColor="GhostWhite"
+            BackgroundColor="Black"/>
+    </AbsoluteLayout>
+</ContentPage>

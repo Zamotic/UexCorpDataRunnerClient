@@ -11,14 +11,6 @@ namespace UexCorpDataRunner.DesktopClient.ViewModels
     {
         readonly INavigationService _NavigationService;
         public Command HideUserInterfaceCommand => new Command(async () => await _NavigationService.NavigateToHiddenInterface());
-        //private bool ShowUserInterfaceCommandCanExecute()
-        //{
-        //    return true;
-        //}
-        //private void ShowUserInterfaceCommandExecute()
-        //{
-        //    _NavigationService.NavigateToHiddenInterface();
-        //}
 
         //public Command TestCommand => new Command(TestCommandExecute, TestCommandCanExecute);
         //private bool TestCommandCanExecute()
