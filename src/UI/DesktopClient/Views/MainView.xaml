@@ -7,37 +7,32 @@
       xmlns:views="clr-namespace:UexCorpDataRunner.DesktopClient.Views"
       xmlns:local="clr-namespace:UexCorpDataRunner.DesktopClient"
       local:ViewModelLocator.AutoWireViewModel="True"
-      DataContextChanged="UserControl_DataContextChanged"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="350">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
-    </UserControl.Resources>
-    <Grid>
-        <DockPanel>
-            <DockPanel
-                DockPanel.Dock="Top">
-                <Button
-                    DockPanel.Dock="Top"
-                    Padding="14,10"
-                    Command="{Binding HideUserInterfaceCommand}"
-                    Content="Hide"/>
-            </DockPanel>        
-            <DockPanel
-                DockPanel.Dock="Top">
-                <TextBlock
-                    DockPanel.Dock="Top"
-                    Text ="Active Interface"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center" />
-            </DockPanel>
-            <DockPanel />
+      d:DesignHeight="700" d:DesignWidth="350"
+      DataContextChanged="UserControl_DataContextChanged"
+      IsEnabled="{Binding IsEnabled}">
+    <DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <Button
+                DockPanel.Dock="Top"
+                Padding="14,10"
+                Command="{Binding HideUserInterfaceCommand}"
+                Content="Hide"/>
+        </DockPanel>        
+        <DockPanel
+            DockPanel.Dock="Top">
+            <TextBlock
+                DockPanel.Dock="Top"
+                Text ="IsEnabled:"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" />
+            <TextBlock
+                DockPanel.Dock="Top"
+                Text ="{Binding IsEnabled}"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" />
         </DockPanel>
-        <Grid
-            IsEnabled="{Binding IsMinimizedEnabled}"
-            Visibility="{Binding IsMinimizedEnabled, Converter={StaticResource boolToVisibilityConverter}}" >
-            <views:MinimizedView/>
-        </Grid>
-
-    </Grid>
+        <DockPanel />
+    </DockPanel>
 </UserControl>

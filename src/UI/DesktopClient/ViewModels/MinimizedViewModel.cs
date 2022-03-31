@@ -1,38 +1,31 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using UexCorpDataRunner.DesktopClient.Core;
-using UexCorpDataRunner.DesktopClient.Models;
+using UexCorpDataRunner.DesktopClient.Notifications;
 
 namespace UexCorpDataRunner.DesktopClient.ViewModels;
 
-public class MinimizedViewModel : ViewModelBase, IMinimizedVewModel
+public class MinimizedViewModel : ViewModelBase
 {
-    public event ShowUserInterfaceEventHandler? ShowUserInterfaceClicked;
+    public readonly IMessenger _Messenger;
 
-    public readonly ViewModelMessenger _ViewModelMessenger;
-
-    public MinimizedViewModel(ViewModelMessenger viewModelMessenger)
+    public MinimizedViewModel(IMessenger messenger)
     {
-        _ViewModelMessenger = viewModelMessenger;
-    }
-
-    protected virtual void OnShowUserInterfaceClicked(EventArgs e)
-    {
-        if (ShowUserInterfaceClicked is null)
-        {
-            return;
-        }
-
-        _ViewModelMessenger.Send(new ShowUserInterfaceClickedModel());
-
-        ShowUserInterfaceEventHandler handler = ShowUserInterfaceClicked;
-        handler?.Invoke(this, e);
-
+        _Messenger = messenger;
+        _Messenger.Register<HideUserInterfaceNotification>(this, HideUserInterfaceNotified);
     }
 
     public ICommand ShowUserInterfaceCommand => new RelayCommand(ShowUserInterfaceCommandExecute);
     private void ShowUserInterfaceCommandExecute()
     {
-        OnShowUserInterfaceClicked(new EventArgs());
+        IsEnabled = false;
+        _Messenger.Send(new ShowUserInterfaceNotification());
+    }
+
+    private void HideUserInterfaceNotified(HideUserInterfaceNotification notification)
+    {
+        IsEnabled = true;
     }
 }

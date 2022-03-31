@@ -1,7 +1,11 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.DesktopClient.Notifications;
 using UexCorpDataRunner.DesktopClient.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace UexCorpDataRunner.DesktopClient.Views;
 
@@ -10,34 +14,25 @@ namespace UexCorpDataRunner.DesktopClient.Views;
 /// </summary>
 public partial class MainView : UserControl
 {
+
     public MainView()
     {
         InitializeComponent();
     }
 
-    private void UserControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+    public void ShowUserInterfaceNotified(ShowUserInterfaceNotification notification)
     {
-        if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this) == true)
-        {
-            return;
-        }
-
-        var viewModel = e.NewValue as IMainVewModel;
-        if (viewModel is null)
-        {
-            return;
-        }
-
-        viewModel.HideUserInterfaceClicked += ViewModel_HideUserInterfaceClicked;
+        Window window = Application.Current.MainWindow;
+        window.WindowStyle = WindowStyle.SingleBorderWindow;
+        window.Width = 350;
+        window.Height = 700;
+        window.ResizeMode = ResizeMode.CanResize;
+        window.Topmost = true;
     }
 
-    private void ViewModel_HideUserInterfaceClicked(object sender, System.EventArgs e)
+    private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        Window window = Window.GetWindow(this);
-        window.WindowStyle = WindowStyle.None;
-        window.Width = 38;
-        window.Height = 78;
-        window.ResizeMode = ResizeMode.NoResize;
-        window.Topmost = true;
+        IMessenger? messenger = App.ServiceProvider?.GetService<IMessenger>();
+        messenger?.Register<ShowUserInterfaceNotification>(this, ShowUserInterfaceNotified);
     }
 }

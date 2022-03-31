@@ -10,58 +10,65 @@ using Microsoft.Extensions.DependencyInjection;
 using UexCorpDataRunner.DesktopClient.Core;
 using UexCorpDataRunner.DesktopClient.ViewModels;
 using UexCorpDataRunner.DesktopClient.Views;
+using UexCorpDataRunner.DesktopClient.Notifications;
 
-namespace UexCorpDataRunner.DesktopClient
+namespace UexCorpDataRunner.DesktopClient;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public static IServiceProvider? ServiceProvider { get; private set; }
+    public static IConfiguration? Configuration { get; private set; }
+
+    public App()
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
-        public static IConfiguration Configuration { get; private set; }
+        Configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
 
-        public App()
+        ServiceCollection services = new ServiceCollection();
+
+        ConfigureServices(services);
+
+        ServiceProvider = services.BuildServiceProvider();
+    }
+
+    private void ConfigureServices(IServiceCollection services)
+    {
+        if(Configuration is null)
         {
-            Configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            ServiceCollection services = new ServiceCollection();
-
-            ConfigureServices(services);
-
-            ServiceProvider = services.BuildServiceProvider();
+            throw new Exception($"{nameof(Configuration)} cannot be null.");
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        services.AddSingleton(Configuration);
+
+        services.AddSingleton<IMessenger, Messenger>();
+
+        services.AddSingleton<MainWindow>();
+
+        services.AddSingleton<MainView>();
+        services.AddSingleton<MainViewModel>();
+
+        services.AddSingleton<MinimizedView>();
+        services.AddSingleton<MinimizedViewModel>();
+
+        services.AddSingleton<SettingsView>();
+        services.AddSingleton<SettingsViewModel>();
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+
+        var mainWindow = ServiceProvider?.GetRequiredService<MainWindow>();
+
+        if(mainWindow is null)
         {
-            services.AddSingleton(Configuration);
-            services.AddSingleton<ViewModelMessenger>();
-            services.AddSingleton<MainWindow>();
-
-            services.AddSingleton<MainView>();
-            services.AddSingleton<MainViewModel>();
-
-            services.AddSingleton<MinimizedView>();
-            services.AddSingleton<MinimizedViewModel>();
-
-            services.AddSingleton<SettingsView>();
-            services.AddSingleton<SettingsViewModel>();
+            throw new Exception($"Main Window could not be resolved!");
         }
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-
-            if(mainWindow is null)
-            {
-                throw new Exception($"Main Window could not be resolved!");
-            }
-
-            mainWindow.Show();
-        }
+        mainWindow.Show();
     }
 }

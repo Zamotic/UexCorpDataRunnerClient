@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UexCorpDataRunner.DesktopClient.Core;
-public class ViewModelMessenger
+public class Messenger : IMessenger
 {
     //private static readonly object CreationLock = new object();
     private static readonly ConcurrentDictionary<MessengerKey, object> Dictionary = new ConcurrentDictionary<MessengerKey, object>();
@@ -42,7 +42,7 @@ public class ViewModelMessenger
     /// <summary>
     /// Initializes a new instance of the Messenger class.
     /// </summary>
-    public ViewModelMessenger()
+    public Messenger()
     {
     }
 
@@ -113,7 +113,7 @@ public class ViewModelMessenger
     /// <typeparam name="T"></typeparam>
     /// <param name="message"></param>
     /// <param name="context"></param>
-    public void Send<T>(T message, object context)
+    public void Send<T>(T message, object? context)
     {
         IEnumerable<KeyValuePair<MessengerKey, object>> result;
 

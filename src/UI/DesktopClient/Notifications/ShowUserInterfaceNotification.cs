@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UexCorpDataRunner.DesktopClient.Models;
-public class ShowUserInterfaceClickedModel
+namespace UexCorpDataRunner.DesktopClient.Notifications;
+public class ShowUserInterfaceNotification
 {
 }

@@ -1,53 +1,37 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UexCorpDataRunner.DesktopClient.Core;
-using UexCorpDataRunner.DesktopClient.Models;
+using UexCorpDataRunner.DesktopClient.Notifications;
 
 namespace UexCorpDataRunner.DesktopClient.ViewModels;
 
-public class MainViewModel : ViewModelBase, IMainVewModel
+public class MainViewModel : ViewModelBase
 {
-    public event HideUserInterfaceClickedEventHandler? HideUserInterfaceClicked;
+    public readonly IMessenger _Messenger;
 
-    public readonly ViewModelMessenger _ViewModelMessenger;
-
-    public string TestValue { get; set; } = "Test Value";
-
-    private bool _IsMinimizedEnabled = false;
-    public bool IsMinimizedEnabled 
-    { 
-        get => _IsMinimizedEnabled;
-        set => SetProperty(ref _IsMinimizedEnabled, value);
-    }
-
-    public MainViewModel(ViewModelMessenger viewModelMessenger)
+    public MainViewModel(IMessenger messenger)
     {
-        _ViewModelMessenger = viewModelMessenger;
-        _ViewModelMessenger.Register<ShowUserInterfaceClickedModel>(this, (o) => { IsMinimizedEnabled = false; });
+        IsEnabled = true;
+        _Messenger = messenger;
+        _Messenger.Register<ShowUserInterfaceNotification>(this, ShowUserInterfaceNotified);
     }
-
 
     public ICommand HideUserInterfaceCommand => new RelayCommand(HideUserInterfaceCommandExecute);
     private void HideUserInterfaceCommandExecute()
     {
-        IsMinimizedEnabled = true;
-        OnHideUserInterfaceClicked(new EventArgs());
+        IsEnabled = false;
+        _Messenger.Send(new HideUserInterfaceNotification());
     }
 
-    protected virtual void OnHideUserInterfaceClicked(EventArgs e)
+    public void ShowUserInterfaceNotified(ShowUserInterfaceNotification notification)
     {
-        if (HideUserInterfaceClicked is null)
-        {
-            return;
-        }
-
-        HideUserInterfaceClickedEventHandler handler = HideUserInterfaceClicked;
-        handler?.Invoke(this, e);
+        IsEnabled = true;
     }
-
 }

@@ -5,11 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UexCorpDataRunner.DesktopClient"
              local:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:Converters="clr-namespace:UexCorpDataRunner.DesktopClient.Core"
              mc:Ignorable="d" 
              Background="Black"
              Height="700" 
              Width="350"
-             DataContextChanged="UserControl_DataContextChanged">
+             DataContextChanged="UserControl_DataContextChanged"
+             IsEnabled="{Binding IsEnabled}">
+    <UserControl.Resources>
+        <Converters:BoolToVisibleOrCollapsedConverter x:Key="boolToVisibilityConverter" />
+    </UserControl.Resources>
+    <UserControl.Visibility>
+        <Binding
+            RelativeSource="{RelativeSource Self}" 
+            Path="IsEnabled"
+            Converter="{StaticResource boolToVisibilityConverter}" />
+    </UserControl.Visibility>
     <DockPanel>
         <DockPanel
             DockPanel.Dock="Top">
@@ -29,6 +40,21 @@
                 </Button.RenderTransform>
             </Button>
             <DockPanel />
+            <DockPanel
+                DockPanel.Dock="Top">
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Foreground="GhostWhite"
+                    Text ="IsEnabled:"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" />
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Foreground="GhostWhite"
+                    Text ="{Binding IsEnabled}"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" />
+            </DockPanel>
         </DockPanel>
         <DockPanel />
     </DockPanel>

@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.DesktopClient.Core;
 public abstract class ViewModelBase : INotifyPropertyChanged
 {
+    protected bool _IsEnabled = false;
+    public bool IsEnabled
+    {
+        get => _IsEnabled;
+        set => SetProperty(ref _IsEnabled, value);
+    }
+
+    #region     INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string? propertyName)
@@ -30,4 +38,5 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         OnPropertyChanged(propertyName);
         return true;
     }
+    #endregion  INotifyPropertyChanged
 }

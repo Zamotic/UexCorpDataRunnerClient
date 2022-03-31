@@ -13,42 +13,35 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.DesktopClient.Notifications;
+using System.Threading;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace UexCorpDataRunner.DesktopClient.Views;
 
 /// <summary>
 /// Interaction logic for MinimizedView.xaml
 /// </summary>
-public partial class MinimizedView : UserControl
+public partial class MinimizedView : UserControl//, INotificationHandler<HideUserInterfaceClickedNotification>
 {
     public MinimizedView()
     {
         InitializeComponent();
     }
 
-    private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    public void HideUserInterfaceNotified(HideUserInterfaceNotification notification)
     {
-        if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this) == true)
-        {
-            return;
-        }
-
-        var viewModel = e.NewValue as IMinimizedVewModel;
-        if(viewModel is null)
-        {
-            return;
-        }
-
-        viewModel.ShowUserInterfaceClicked += ViewModel_ShowUserInterfaceClicked;
+        Window window = Application.Current.MainWindow;
+        window.WindowStyle = WindowStyle.None;
+        window.Width = 38;
+        window.Height = 78;
+        window.ResizeMode = ResizeMode.NoResize;
+        window.Topmost = true;
     }
 
-    private void ViewModel_ShowUserInterfaceClicked(object sender, EventArgs e)
+    private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        Window window = Window.GetWindow(this);
-        window.WindowStyle = WindowStyle.SingleBorderWindow;
-        window.Width = 350;
-        window.Height = 700;
-        window.ResizeMode = ResizeMode.CanResize;
-        window.Topmost = true;
+        IMessenger? messenger = App.ServiceProvider?.GetService<IMessenger>();
+        messenger?.Register<HideUserInterfaceNotification>(this, HideUserInterfaceNotified);
     }
 }
