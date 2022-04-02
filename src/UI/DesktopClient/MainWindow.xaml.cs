@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.DesktopClient.Notifications;
 using UexCorpDataRunner.DesktopClient.ViewModels;
 
 namespace UexCorpDataRunner.DesktopClient;
@@ -21,8 +23,16 @@ namespace UexCorpDataRunner.DesktopClient;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
+    IMessenger _Messenger;
+
+    public MainWindow(IMessenger messenger)
     {
+        _Messenger = messenger;
         InitializeComponent();
+    }
+
+    private void Window_LocationChanged(object sender, EventArgs e)
+    {
+        _Messenger.Send(new WindowMovedNotification());
     }
 }

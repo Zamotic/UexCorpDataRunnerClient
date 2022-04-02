@@ -27,6 +27,8 @@ public class SettingsViewModel : ViewModelBase
 
     public List<string> CollapseLocationList { get; } = new List<string>() { "TopLeft", "TopCenter", "TopRight", "CenterLeft", "CenterRight", "BottomLeft", "BottomCenter", "BottomRight" };
 
+    public List<string> CollapseOrientationList { get; } = new List<string>() { "Horizontal", "Vertical" };
+
     public SettingsViewModel(IMessenger messenger, ISettingsService settingsService)
     {
         _Messenger = messenger;

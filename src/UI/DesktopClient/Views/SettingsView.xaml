@@ -14,7 +14,7 @@
              IsEnabled="{Binding IsEnabled}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        <System:Double x:Key="labelWidth">110</System:Double>
+        <System:Double x:Key="labelWidth">125</System:Double>
         <Thickness x:Key="propertyMargin">2,2</Thickness>
     </UserControl.Resources>
     <UserControl.Visibility>
@@ -129,6 +129,21 @@
                     ItemsSource="{Binding CollapseLocationList}"
                     SelectedValue="{Binding BindableSettings.CollapseLocation}"
                     DefaultOverlayString="(Select Collapse Location)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
+                    Text="Collapse Orientation:" 
+                    VerticalAlignment="Center"/>
+                <UI:DefaultOverlayComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding CollapseOrientationList}"
+                    SelectedValue="{Binding BindableSettings.CollapseOrientation}"
+                    DefaultOverlayString="(Select Collapse Orientation)" />
             </DockPanel>
         </DockPanel>
         <DockPanel />

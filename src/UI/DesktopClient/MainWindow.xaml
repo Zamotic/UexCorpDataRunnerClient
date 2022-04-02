@@ -9,7 +9,8 @@
         Title="UEX Corp DataRunner Client" 
         Height="700" Width="350"
         WindowStartupLocation="CenterScreen"
-        Topmost="True">
+        Topmost="True"
+        LocationChanged="Window_LocationChanged">
     <Grid>
         <Views:MainView />
         <Views:MinimizedView />

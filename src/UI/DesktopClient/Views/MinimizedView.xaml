@@ -8,8 +8,8 @@
              xmlns:Converters="clr-namespace:UexCorpDataRunner.DesktopClient.Core"
              mc:Ignorable="d" 
              Background="Black"
-             Height="700" 
-             Width="350"
+             Height="80" 
+             Width="80"
              DataContextChanged="UserControl_DataContextChanged"
              IsEnabled="{Binding IsEnabled}">
     <UserControl.Resources>
@@ -21,41 +21,20 @@
             Path="IsEnabled"
             Converter="{StaticResource boolToVisibilityConverter}" />
     </UserControl.Visibility>
-    <DockPanel>
-        <DockPanel
-            DockPanel.Dock="Top">
-            <Button
-                DockPanel.Dock="Left"
-                Command="{Binding ShowUserInterfaceCommand}"
-                Height="40"
-                Width="80"
-                Padding="0"
-                Margin="-21,19"
-                Content="Show"
-                Foreground="GhostWhite"
-                Background="Black"
-                RenderTransformOrigin="0.5, 0.5">
-                <Button.RenderTransform>
-                    <RotateTransform Angle="90"/>
-                </Button.RenderTransform>
-            </Button>
-            <DockPanel />
-            <DockPanel
-                DockPanel.Dock="Top">
-                <TextBlock
-                    DockPanel.Dock="Top"
-                    Foreground="GhostWhite"
-                    Text ="IsEnabled:"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center" />
-                <TextBlock
-                    DockPanel.Dock="Top"
-                    Foreground="GhostWhite"
-                    Text ="{Binding IsEnabled}"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center" />
-            </DockPanel>
-        </DockPanel>
-        <DockPanel />
-    </DockPanel>
+    <Canvas>
+        <Button
+            Canvas.Top="{Binding Top, FallbackValue=20}"
+            Canvas.Left="{Binding Left, FallbackValue=-20}"
+            Command="{Binding ShowUserInterfaceCommand}"
+            Height="40"
+            Width="80"
+            Content="Show"
+            Foreground="GhostWhite"
+            Background="Black"
+            RenderTransformOrigin=".5, .5">
+            <Button.RenderTransform>
+                <RotateTransform Angle="{Binding TransformAngle, FallbackValue=90}"/>
+            </Button.RenderTransform>
+        </Button>
+    </Canvas>
 </UserControl>
