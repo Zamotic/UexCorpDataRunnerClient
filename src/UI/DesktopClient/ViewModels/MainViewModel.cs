@@ -21,6 +21,7 @@ public class MainViewModel : ViewModelBase
         IsEnabled = true;
         _Messenger = messenger;
         _Messenger.Register<ShowUserInterfaceNotification>(this, ShowUserInterfaceNotified);
+        _Messenger.Register<CloseSettingsInterfaceNotification>(this, CloseSettingsInterfaceNotified);
     }
 
     public ICommand HideUserInterfaceCommand => new RelayCommand(HideUserInterfaceCommandExecute);
@@ -30,7 +31,19 @@ public class MainViewModel : ViewModelBase
         _Messenger.Send(new HideUserInterfaceNotification());
     }
 
+    public ICommand ShowSettingsInterfaceCommand => new RelayCommand(ShowSettingsInterfaceCommandExecute);
+    private void ShowSettingsInterfaceCommandExecute()
+    {
+        IsEnabled = false;
+        _Messenger.Send(new ShowSettingsInterfaceNotification());
+    }
+
     public void ShowUserInterfaceNotified(ShowUserInterfaceNotification notification)
+    {
+        IsEnabled = true;
+    }
+
+    public void CloseSettingsInterfaceNotified(CloseSettingsInterfaceNotification notification)
     {
         IsEnabled = true;
     }

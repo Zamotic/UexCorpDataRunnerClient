@@ -68,18 +68,18 @@ public class Messenger : IMessenger
     /// <param name="context"></param>
     public void Register<T>(object recipient, Action<T> action, object? context)
     {
-        var key = new MessengerKey(recipient, context);
+        var key = new MessengerKey(recipient, typeof(T), context);
         Dictionary.TryAdd(key, action);
-    }
+     }
 
     /// <summary>
     /// Unregisters a messenger recipient completely. After this method is executed, the recipient will
     /// no longer receive any messages.
     /// </summary>
     /// <param name="recipient"></param>
-    public void Unregister(object recipient)
+    public void Unregister<T>(object recipient)
     {
-        Unregister(recipient, null);
+        Unregister<T>(recipient, null);
     }
 
     /// <summary>
@@ -88,10 +88,10 @@ public class Messenger : IMessenger
     /// </summary>
     /// <param name="recipient"></param>
     /// <param name="context"></param>
-    public void Unregister(object recipient, object? context)
+    public void Unregister<T>(object recipient, object? context)
     {
         object? action;
-        var key = new MessengerKey(recipient, context);
+        var key = new MessengerKey(recipient, typeof(T), context);
         Dictionary.TryRemove(key, out action);
     }
 
@@ -138,16 +138,19 @@ public class Messenger : IMessenger
     protected class MessengerKey
     {
         public object Recipient { get; private set; }
+        public Type Type { get; private set; }
         public object? Context { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the MessengerKey class.
         /// </summary>
         /// <param name="recipient"></param>
+        /// <param name="type"></param>
         /// <param name="context"></param>
-        public MessengerKey(object recipient, object? context)
+        public MessengerKey(object recipient, Type type, object? context)
         {
             Recipient = recipient;
+            Type = type;
             Context = context;
         }
 
@@ -158,7 +161,7 @@ public class Messenger : IMessenger
         /// <returns></returns>
         protected bool Equals(MessengerKey other)
         {
-            return Equals(Recipient, other.Recipient) && Equals(Context, other.Context);
+            return Equals(Recipient, other.Recipient) && Equals(Type, other.Type) && Equals(Context, other.Context);
         }
 
         /// <summary>
@@ -183,7 +186,7 @@ public class Messenger : IMessenger
         {
             unchecked
             {
-                return ((Recipient != null ? Recipient.GetHashCode() : 0) * 397) ^ (Context != null ? Context.GetHashCode() : 0);
+                return ((Recipient != null ? Recipient.GetHashCode() : 0) * 397) ^ (Type != null ? Type.GetHashCode() : 0) ^ (Context != null ? Context.GetHashCode() : 0);
             }
         }
     }

@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\settings-128-black.png" />
+    <None Remove="Images\x-mark-128-white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\settings-128-black.png" />
+    <Resource Include="Images\x-mark-128-white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Services\" />
   </ItemGroup>
@@ -18,6 +28,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>

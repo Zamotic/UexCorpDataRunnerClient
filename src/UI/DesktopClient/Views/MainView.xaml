@@ -18,8 +18,23 @@
                 DockPanel.Dock="Top"
                 Padding="14,10"
                 Command="{Binding HideUserInterfaceCommand}"
+                FontWeight="Bold"
                 Content="Hide"/>
-        </DockPanel>        
+        </DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <Button
+                DockPanel.Dock="Right"
+                Command="{Binding ShowSettingsInterfaceCommand}">
+                <Image
+                    Source="/Images/settings-128-black.png"
+                    Margin="-2"
+                    Height="30"
+                    Width="30"/>
+            </Button>
+            <TextBlock
+                Text="Text" />
+        </DockPanel>
         <DockPanel
             DockPanel.Dock="Top">
             <TextBlock

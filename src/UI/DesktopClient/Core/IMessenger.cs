@@ -31,7 +31,7 @@ public interface IMessenger
     /// no longer receive any messages.
     /// </summary>
     /// <param name="recipient"></param>
-    void Unregister(object recipient);
+    void Unregister<T>(object recipient);
 
     /// <summary>
     /// Unregisters a messenger recipient with a matching context completely. After this method is executed, the recipient will
@@ -39,7 +39,7 @@ public interface IMessenger
     /// </summary>
     /// <param name="recipient"></param>
     /// <param name="context"></param>
-    void Unregister(object recipient, object? context);
+    void Unregister<T>(object recipient, object? context);
 
     /// <summary>
     /// Sends a message to registered recipients. The message will reach all recipients that are

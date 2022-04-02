@@ -13,6 +13,6 @@
     <Grid>
         <Views:MainView />
         <Views:MinimizedView />
-        <!--<Views:SettingsView />-->
+        <Views:SettingsView />
     </Grid>
 </Window>

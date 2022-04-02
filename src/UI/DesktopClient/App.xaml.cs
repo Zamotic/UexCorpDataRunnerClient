@@ -11,6 +11,7 @@ using UexCorpDataRunner.DesktopClient.Core;
 using UexCorpDataRunner.DesktopClient.ViewModels;
 using UexCorpDataRunner.DesktopClient.Views;
 using UexCorpDataRunner.DesktopClient.Notifications;
+using UexCorpDataRunner.DesktopClient.Settings;
 
 namespace UexCorpDataRunner.DesktopClient;
 
@@ -44,6 +45,8 @@ public partial class App : Application
 
         services.AddSingleton(Configuration);
 
+        services.AddSingleton<ISettingsService, SettingsService>();
+
         services.AddSingleton<IMessenger, Messenger>();
 
         services.AddSingleton<MainWindow>();
@@ -61,6 +64,12 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        var settingsService = ServiceProvider?.GetRequiredService<ISettingsService>();
+        if(settingsService is not null)
+        {
+            settingsService.LoadSettings();
+        }
 
         var mainWindow = ServiceProvider?.GetRequiredService<MainWindow>();
 

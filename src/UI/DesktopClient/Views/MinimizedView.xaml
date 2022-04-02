@@ -13,7 +13,7 @@
              DataContextChanged="UserControl_DataContextChanged"
              IsEnabled="{Binding IsEnabled}">
     <UserControl.Resources>
-        <Converters:BoolToVisibleOrCollapsedConverter x:Key="boolToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
     </UserControl.Resources>
     <UserControl.Visibility>
         <Binding
