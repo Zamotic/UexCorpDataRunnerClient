@@ -2,8 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-        <!--<ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        </ResourceDictionary>-->
+        <ResourceDictionary>
+            <FontFamily x:Key="Nanito">./Fonts/#Nunito</FontFamily>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
+            </Style>
+            <!--<BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />-->
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

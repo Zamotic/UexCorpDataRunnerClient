@@ -10,11 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\settings-128-black.png" />
-    <None Remove="Images\x-mark-128-white.png" />
+    <None Remove="Images\pin-8-128-AAAAE3.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\Nunito-Bold.ttf" />
+    <Resource Include="Fonts\Nunito-ExtraBold.ttf" />
+    <Resource Include="Fonts\Nunito-ExtraLight.ttf" />
+    <Resource Include="Fonts\Nunito-Italic.ttf" />
+    <Resource Include="Fonts\Nunito-Light.ttf" />
+    <Resource Include="Fonts\Nunito-Medium.ttf" />
+    <Resource Include="Fonts\Nunito-Regular.ttf" />
+    <Resource Include="Fonts\Nunito-SemiBold.ttf" />
+    <Resource Include="Images\pin-8-128-AAAAE3.png" />
     <Resource Include="Images\settings-128-black.png" />
     <Resource Include="Images\x-mark-128-white.png" />
   </ItemGroup>

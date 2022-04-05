@@ -7,7 +7,7 @@
         xmlns:ViewModels="clr-namespace:UexCorpDataRunner.DesktopClient.ViewModels"
         mc:Ignorable="d"
         Title="UEX Corp DataRunner Client" 
-        Height="700" Width="350"
+        Height="700" Width="425"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         LocationChanged="Window_LocationChanged">
