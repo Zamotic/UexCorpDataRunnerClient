@@ -1,0 +1,52 @@
+﻿{
+  "Locations": [
+    {
+      "Name": "Wide Forest Station (ARC-L1)",
+      "PlanetaryBody": "Stanton"
+    },
+    {
+      "Name": "Baijini Point",
+      "Planet": "ArcCorp"
+    },
+    {
+      "Name": "Humboldt Mines",
+      "Planet": "Lyria"
+    },
+    {
+      "Name": "Loveridge",
+      "Planet": "Lyria"
+    },
+    {
+      "Name": "Shubin SAL-2",
+      "Planet": "Lyria"
+    },
+    {
+      "Name": "Shubin SAL-2",
+      "System": "Lyria"
+    },
+    {
+      "Name": "ArcCorp 045",
+      "System": "Wala"
+    },
+    {
+      "Name": "ArcCorp 048",
+      "System": "Wala"
+    },
+    {
+      "Name": "ArcCorp 056",
+      "System": "Wala"
+    },
+    {
+      "Name": "ArcCorp 061",
+      "System": "Wala"
+    },
+    {
+      "Name": "IO North",
+      "System": "Area 18"
+    },
+    {
+      "Name": "TDD",
+      "System": "Area 18"
+    }
+  ]
+}

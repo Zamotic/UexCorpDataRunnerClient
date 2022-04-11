@@ -1,0 +1,20 @@
+﻿{
+  "Planets": [
+    {
+      "Name": "ArcCorp",
+      "System": "Stanton"
+    },
+    {
+      "Name": "Crusader",
+      "System": "Stanton"
+    },
+    {
+      "Name": "Hurston",
+      "System": "Stanton"
+    },
+    {
+      "Name": "Microtech",
+      "System": "Stanton"
+    }
+  ]
+}

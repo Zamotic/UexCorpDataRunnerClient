@@ -1,0 +1,52 @@
+﻿{
+  "Moons": [
+    {
+      "Name": "Lyria",
+      "Planet": "ArcCorp"
+    },
+    {
+      "Name": "Wala",
+      "Planet": "ArcCorp"
+    },
+    {
+      "Name": "Cellin",
+      "Planet": "Crusader"
+    },
+    {
+      "Name": "Daymar",
+      "Planet": "Crusader"
+    },
+    {
+      "Name": "Yela",
+      "Planet": "Crusader"
+    },
+    {
+      "Name": "Aberdeen",
+      "System": "Hurston"
+    },
+    {
+      "Name": "Arial",
+      "System": "Hurston"
+    },
+    {
+      "Name": "Ita",
+      "System": "Hurston"
+    },
+    {
+      "Name": "Magda",
+      "System": "Hurston"
+    },
+    {
+      "Name": "Calliope",
+      "System": "Microtech"
+    },
+    {
+      "Name": "Clio",
+      "System": "Microtech"
+    },
+    {
+      "Name": "Euterpe",
+      "System": "Microtech"
+    }
+  ]
+}
