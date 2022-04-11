@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Images\pin-8-128-AAAAE3.png" />
+    <None Remove="Images\triangle-128-LightGray.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <Resource Include="Fonts\Nunito-SemiBold.ttf" />
     <Resource Include="Images\pin-8-128-AAAAE3.png" />
     <Resource Include="Images\settings-128-black.png" />
+    <Resource Include="Images\triangle-128-LightGray.png" />
     <Resource Include="Images\x-mark-128-white.png" />
   </ItemGroup>
 
@@ -43,6 +45,10 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
 </Project>
