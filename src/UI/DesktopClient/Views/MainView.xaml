@@ -5,10 +5,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:views="clr-namespace:UexCorpDataRunner.DesktopClient.Views"
+      xmlns:designData="clr-namespace:UexCorpDataRunner.DesktopClient.DesignData"
       xmlns:local="clr-namespace:UexCorpDataRunner.DesktopClient"
       local:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="425"
+      d:DataContext="{d:DesignInstance Type=designData:MainViewModelData, IsDesignTimeCreatable=True}"
       DataContextChanged="UserControl_DataContextChanged"
       IsEnabled="{Binding IsEnabled}">
     <UserControl.Resources>
@@ -23,7 +25,8 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Border>
-                                <UniformGrid x:Name="HeaderPanel" IsItemsHost="True" Rows="1" />
+                                <UniformGrid
+                                    x:Name="HeaderPanel" IsItemsHost="True" Rows="1" />
                             </Border>
                             <Border x:Name="Border" Grid.Row="1" 
                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -73,10 +76,41 @@
         <TabControl
             DockPanel.Dock="Top"
             Style="{StaticResource Style-TabControl-Main}">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Foreground" Value="GhostWhite" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" Background="Transparent">
+                                    <Grid Name="Panel">
+                                        <ContentPresenter x:Name="ContentSite"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            ContentSource="Header"
+                                            Margin="10,2"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Panel" Property="Background" Value="#3a3a39" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Panel" Property="Background" Value="Gray" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="White" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
             <TabItem
                 Header="Buy Price">
                 <DockPanel
-                    Background="#2d2d2d">
+                    Background="#3a3a39">
                     <UniformGrid
                         Margin="7,0"
                         DockPanel.Dock="Top"
@@ -87,11 +121,10 @@
                             Padding="2"
                             BorderThickness=".25"
                             BorderBrush="Gray">
-                            <TextBox
+                            <TextBlock
                                 Text="New"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                BorderBrush="Transparent"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
                                 Background="Transparent"
                                 Foreground="Gray" />
                         </Border>
@@ -99,11 +132,10 @@
                             Padding="2"
                             BorderThickness=".25"
                             BorderBrush="Gray">
-                            <TextBox
+                            <TextBlock
                                 Text="Supply"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                BorderBrush="Transparent"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
                                 Background="Transparent"
                                 Foreground="Gray" />
                         </Border>
@@ -111,11 +143,10 @@
                             Padding="5"
                             BorderThickness=".25"
                             BorderBrush="Gray">
-                            <TextBox
+                            <TextBlock
                                 Text="Min"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                BorderBrush="Transparent"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
                                 Background="Transparent"
                                 Foreground="Gray" />
                         </Border>
@@ -123,11 +154,10 @@
                             Padding="5"
                             BorderThickness=".25"
                             BorderBrush="Gray">
-                            <TextBox
+                            <TextBlock
                                 Text="Max"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                BorderBrush="Transparent"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
                                 Background="Transparent"
                                 Foreground="Gray" />
                         </Border>
@@ -135,17 +165,139 @@
                             Padding="5"
                             BorderThickness=".25"
                             BorderBrush="Gray">
-                            <TextBox
+                            <TextBlock
                                 Text="Best"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                BorderBrush="Transparent"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
                                 Background="Transparent"
                                 Foreground="Gray" />
                         </Border>
                     </UniformGrid>
-                    <ListBox
-                        Background="#2d2d2d">
+                    <ItemsControl
+                        DockPanel.Dock="Top"
+                        ItemsSource="{Binding BindableCommodityPrices}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock
+                                        DockPanel.Dock="Top"
+                                        Text="{Binding Name}"
+                                        FontWeight="Bold"
+                                        Foreground="GhostWhite"/>
+                                    <UniformGrid
+                                        DockPanel.Dock="Top"
+                                        Rows="1"
+                                        Columns="5"
+                                        Height="40">
+                                        <Border
+                                            Padding="7"
+                                            BorderThickness=".25"
+                                            BorderBrush="Gray">
+                                            <Grid>
+                                                <Rectangle
+                                                    Margin="0,0,0,-2"
+                                                    StrokeThickness="0,0,0,0"
+                                                    Stroke="Black"
+                                                    Fill="Black" />
+                                                <TextBox
+                                                    Text="{Binding NewPrice}"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    BorderBrush="ForestGreen"
+                                                    Background="ForestGreen"
+                                                    Foreground="LightGray" />
+                                            </Grid>
+                                        </Border>
+                                        <Border
+                                            Padding="7"
+                                            BorderThickness=".25"
+                                            BorderBrush="Gray">
+                                            <Grid>
+                                                <Rectangle
+                                                    Margin="0,0,0,-2"
+                                                    StrokeThickness="0,0,0,0"
+                                                    Stroke="Black"
+                                                    Fill="Black" />
+                                                <TextBox
+                                                    Text="{Binding AvailableSupply, FallbackValue=SCU}"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    BorderBrush="Red"
+                                                    Background="Red"
+                                                    Foreground="LightGray" />
+                                            </Grid>
+                                        </Border>
+                                        <Border
+                                            Padding="5"
+                                            BorderThickness=".25"
+                                            BorderBrush="Gray">
+                                            <Grid>
+                                                <TextBlock
+                                                    DockPanel.Dock="Right"
+                                                    Text="{Binding MinPrice, FallbackValue=0.0}"
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Background="Transparent"
+                                                    Foreground="LightGray" />
+                                                <Image
+                                                    Source="/Images/triangle-128-LightGray.png"
+                                                    Margin="-40,0,0,0"
+                                                    Height="12"
+                                                    Width="12"
+                                                    RenderTransformOrigin=".5, .5">
+                                                    <Image.RenderTransform>
+                                                        <RotateTransform Angle="180" />
+                                                    </Image.RenderTransform>
+                                                </Image>
+                                            </Grid>
+                                        </Border>
+                                        <Border
+                                            Padding="5"
+                                            BorderThickness=".25"
+                                            BorderBrush="Gray">
+                                            <Grid>
+                                                <TextBlock
+                                                    Text="{Binding MaxPrice, FallbackValue=0.0}"
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Background="Transparent"
+                                                    Foreground="LightGray" />
+                                                <Image
+                                                    Source="/Images/triangle-128-LightGray.png"
+                                                    Margin="-40,0,0,0"
+                                                    Height="12"
+                                                    Width="12"/>
+                                            </Grid>
+                                        </Border>
+                                        <Border
+                                            Padding="5"
+                                            BorderThickness=".25"
+                                            BorderBrush="Gray">
+                                            <Grid>
+                                                <TextBlock
+                                                    Text="{Binding BestPrice, FallbackValue=0.0}"
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Background="Transparent"
+                                                    Foreground="LightGray" />
+                                                <Image
+                                                    Source="/Images/pin-8-128-AAAAE3.png"
+                                                    ToolTip="{Binding BestLocation, FallbackValue='Unknown'}"
+                                                    Margin="-40,0,0,0"
+                                                    Height="14"
+                                                    Width="14"/>
+                                            </Grid>
+                                        </Border>
+                                    </UniformGrid>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>                    
+                    <!--<ListBox
+                        Background="#3a3a39">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -206,13 +358,12 @@
                                         BorderThickness=".25"
                                         BorderBrush="Gray">
                                         <Grid>
-                                            <TextBox
+                                            <TextBlock
                                                 DockPanel.Dock="Right"
                                                 Text="{Binding CurrentPrice, FallbackValue=1.11}"
                                                 Margin="15,0,0,0"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                BorderBrush="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
                                                 Background="Transparent"
                                                 Foreground="LightGray" />
                                             <Image
@@ -232,12 +383,11 @@
                                         BorderThickness=".25"
                                         BorderBrush="Gray">
                                         <Grid>
-                                            <TextBox
+                                            <TextBlock
                                                 Text="{Binding CurrentPrice, FallbackValue=1.11}"
                                                 Margin="15,0,0,0"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                BorderBrush="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
                                                 Background="Transparent"
                                                 Foreground="LightGray" />
                                             <Image
@@ -252,12 +402,11 @@
                                         BorderThickness=".25"
                                         BorderBrush="Gray">
                                         <Grid>
-                                            <TextBox
+                                            <TextBlock
                                                 Text="{Binding CurrentPrice, FallbackValue=1.11}"
                                                 Margin="15,0,0,0"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                BorderBrush="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
                                                 Background="Transparent"
                                                 Foreground="LightGray" />
                                             <Image
@@ -270,7 +419,7 @@
                                 </UniformGrid>
                             </DockPanel>
                         </ListBoxItem>
-                    </ListBox>
+                    </ListBox>-->
                 </DockPanel>
             </TabItem>
             <TabItem
