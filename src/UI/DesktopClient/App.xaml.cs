@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using System;
+using System.Windows;
 using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.DesktopClient.Settings;
 using UexCorpDataRunner.DesktopClient.ViewModels;
 using UexCorpDataRunner.DesktopClient.Views;
-using UexCorpDataRunner.DesktopClient.Notifications;
-using UexCorpDataRunner.DesktopClient.Settings;
-using Serilog;
 
 namespace UexCorpDataRunner.DesktopClient;
 
@@ -23,7 +17,7 @@ public partial class App : Application
 {
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static IConfiguration? Configuration { get; private set; }
-    public static Serilog.ILogger? Logger { get; private set; }
+    public static Serilog.ILogger Logger { get; private set; }
 
     public App()
     {
