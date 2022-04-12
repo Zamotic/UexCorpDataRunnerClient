@@ -12,6 +12,7 @@ using UexCorpDataRunner.DesktopClient.ViewModels;
 using UexCorpDataRunner.DesktopClient.Views;
 using UexCorpDataRunner.DesktopClient.Notifications;
 using UexCorpDataRunner.DesktopClient.Settings;
+using Serilog;
 
 namespace UexCorpDataRunner.DesktopClient;
 
@@ -22,6 +23,7 @@ public partial class App : Application
 {
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static IConfiguration? Configuration { get; private set; }
+    public static Serilog.ILogger? Logger { get; private set; }
 
     public App()
     {
@@ -31,6 +33,8 @@ public partial class App : Application
 
         ServiceCollection services = new ServiceCollection();
 
+        Logger = new LoggerConfiguration().ReadFrom.Configuration(Configuration).CreateLogger();
+
         ConfigureServices(services);
 
         ServiceProvider = services.BuildServiceProvider();
@@ -38,10 +42,16 @@ public partial class App : Application
 
     private void ConfigureServices(IServiceCollection services)
     {
-        if(Configuration is null)
+        Logger.Information("Configuring Services");
+
+        if (Configuration is null)
         {
             throw new Exception($"{nameof(Configuration)} cannot be null.");
         }
+
+        services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+
+        services.AddSingleton<Core.ILogger, Logger>();
 
         services.AddSingleton(Configuration);
 
@@ -63,21 +73,34 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        base.OnStartup(e);
-
-        var settingsService = ServiceProvider?.GetRequiredService<ISettingsService>();
-        if(settingsService is not null)
+        try
         {
-            settingsService.LoadSettings();
+            Logger.Information("Starting up");
+            base.OnStartup(e);
+
+            var settingsService = ServiceProvider?.GetRequiredService<ISettingsService>();
+            if (settingsService is not null)
+            {
+                settingsService.LoadSettings();
+            }
+
+            var mainWindow = ServiceProvider?.GetRequiredService<MainWindow>();
+
+            if (mainWindow is null)
+            {
+                throw new Exception($"Main Window could not be resolved!");
+            }
+
+            mainWindow.Show();
         }
-
-        var mainWindow = ServiceProvider?.GetRequiredService<MainWindow>();
-
-        if(mainWindow is null)
+        catch (Exception ex)
         {
-            throw new Exception($"Main Window could not be resolved!");
+            Log.Fatal(ex, "Unhandled exception");
         }
-
-        mainWindow.Show();
+        finally
+        {
+            Log.Information("Shut down complete");
+            Log.CloseAndFlush();
+        }
     }
 }
