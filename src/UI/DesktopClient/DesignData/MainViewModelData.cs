@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using UexCorpDataRunner.DesktopClient.Core;
-using UexCorpDataRunner.DesktopClient.Model;
-using UexCorpDataRunner.DesktopClient.ViewModels;
+using UexCorpDataRunner.Application.Common;
+using UexCorpDataRunner.Application.ViewModels;
+using UexCorpDataRunner.Application.ViewModels.Bindables;
+using UexCorpDataRunner.Domain.Models;
 
 namespace UexCorpDataRunner.DesktopClient.DesignData;
 public class MainViewModelData: MainViewModel
@@ -20,26 +18,27 @@ public class MainViewModelData: MainViewModel
     {
         if (DesignerProperties.GetIsInDesignMode(new DependencyObject()) == false)
         {
-            base.BindableCommodityPrices = new List<BindableCommodityPrice>()
+            base.BindableCommodities = new List<BindableCommodity>()
             {
-                new BindableCommodityPrice(new CommodityPrice()
+                new BindableCommodity(new Commodity()
                 {
                     Name = "Aluminum",
-                    OldPrice = 1.11m,
-                    MinPrice = 1.10m,
-                    MaxPrice = 1.20m,
-                    BestPrice = 1.10m,
-                    BestLocation = "HDMS-Perlman, Magda"
+                    Code = "ALUM",
+                    BuyPrice = 1.11m,
+                    SellPrice = 0m,
+                    Kind = "Metals",
+                    DateModified = DateTime.Now,
                 }),
-            new BindableCommodityPrice(new CommodityPrice()
-            {
-                Name = "Diamond",
-                OldPrice = 5.85m,
-                MinPrice = 5.85m,
-                MaxPrice = 6.27m,
-                BestPrice = 5.85m,
-                BestLocation = "HDMS-Hahn, Magda"
-            })
+                new BindableCommodity(new Commodity()
+                {
+                    Name = "Diamond",
+                    Code = "DIAM",
+                    BuyPrice = 5.85m,
+                    SellPrice = 0m,
+                    Kind = "Metals",
+                    DateAdded = DateTime.MinValue,
+                    DateModified = DateTime.Now,
+                })
             };
         }
     }

@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.Business.Common;
 
 namespace UexCorpDataRunner.DesktopClient.WebClient;
 public class UexCorpWebApiConfiguration : IUexCorpWebApiConfiguration
@@ -45,7 +45,7 @@ public class UexCorpWebApiConfiguration : IUexCorpWebApiConfiguration
 
     static string DecryptValue(string encryptedValue)
     {
-        string decryptedValue = StringCipher.Decrypt(encryptedValue, Globals.GeneralCipherSalt);
+        string decryptedValue = StringCipher.Decrypt(encryptedValue, Business.Globals.GeneralCipherSalt);
         return decryptedValue;
     }
 

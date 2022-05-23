@@ -9,6 +9,17 @@ public static class ViewModelLocator
     public static DependencyProperty AutoWireViewModelProperty = DependencyProperty.RegisterAttached("AutoWireViewModel", typeof(bool),
         typeof(ViewModelLocator), new PropertyMetadata(false, AutoWireViewModelChanged));
 
+    public static System.Reflection.Assembly? ApplicationAssembly { get; }
+
+    static ViewModelLocator()
+    {
+        ApplicationAssembly = System.Reflection.Assembly.GetAssembly(typeof(UexCorpDataRunner.Application.DependencyInjection));
+        if(ApplicationAssembly is null)
+        {
+            throw new Exception("Application Assembly could not be found");
+        }
+    }
+
     public static bool GetAutoWireViewModel(UIElement element)
     {
         return (bool)element.GetValue(AutoWireViewModelProperty);
@@ -50,7 +61,7 @@ public static class ViewModelLocator
             throw new Exception($"View model for {frameworkElement.Name} could not be found.");
         }
 
-        frameworkElement.DataContext = App.ServiceProvider.GetService(viewModelType);
+        frameworkElement.DataContext = App.ServiceProvider?.GetService(viewModelType);
     }
 
     private static Type? FindViewModel(Type viewType)
@@ -69,11 +80,14 @@ public static class ViewModelLocator
 
         if (viewName.EndsWith("View")) {
             viewName = viewType.FullName
+                .Replace("DesktopClient","Application")
                 .Replace("View", "ViewModel")
                 .Replace("Views", "ViewModels");
         }
 
-        Type? viewModelType = Type.GetType(viewName);
+        Type? viewModelType = ApplicationAssembly?.GetType(viewName);
+
+            //Type.GetType(viewName);
         return viewModelType;
     }
 }

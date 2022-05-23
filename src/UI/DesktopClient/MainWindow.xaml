@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Views="clr-namespace:UexCorpDataRunner.DesktopClient.Views"
-        xmlns:ViewModels="clr-namespace:UexCorpDataRunner.DesktopClient.ViewModels"
         mc:Ignorable="d"
         Title="UEX Corp DataRunner Client" 
         Height="700" Width="425"

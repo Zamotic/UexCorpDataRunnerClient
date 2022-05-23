@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.DesktopClient;
 public static class Globals
 {
-    public static string GeneralCipherSalt = "By Traders, For Traders";
-
     public static string WebApiConfigSectionName = "UEX Web Api Config";
 
     public static string WebApiApiKeyHeaderName = "ApiKey";

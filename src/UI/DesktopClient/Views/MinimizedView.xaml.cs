@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UexCorpDataRunner.DesktopClient.Core;
-using UexCorpDataRunner.DesktopClient.Notifications;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
-using UexCorpDataRunner.DesktopClient.Settings;
+using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Application.Common;
+using UexCorpDataRunner.Business.Settings;
 
 namespace UexCorpDataRunner.DesktopClient.Views;
 
@@ -35,9 +35,9 @@ public partial class MinimizedView : UserControl//, INotificationHandler<HideUse
         InitializeComponent();
     }
 
-    private void HideUserInterfaceNotified(HideUserInterfaceNotification notification)
+    private void HideUserInterfaceNotified(HideUserInterfaceMessage notification)
     {
-        Window window = Application.Current.MainWindow;
+        Window window = System.Windows.Application.Current.MainWindow;
         window.Visibility = Visibility.Hidden;
         window.WindowStyle = WindowStyle.None;
         window.ResizeMode = ResizeMode.NoResize;
@@ -68,7 +68,7 @@ public partial class MinimizedView : UserControl//, INotificationHandler<HideUse
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         IMessenger? messenger = App.ServiceProvider?.GetService<IMessenger>();
-        messenger?.Register<HideUserInterfaceNotification>(this, HideUserInterfaceNotified);
+        messenger?.Register<HideUserInterfaceMessage>(this, HideUserInterfaceNotified);
 
         _SettingsService = App.ServiceProvider?.GetService<ISettingsService>();
     }

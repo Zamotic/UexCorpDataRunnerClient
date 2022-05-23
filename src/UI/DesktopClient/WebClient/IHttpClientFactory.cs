@@ -1,5 +1,5 @@
 ﻿using System.Net.Http;
-using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.Business.Common;
 
 namespace UexCorpDataRunner.DesktopClient.WebClient;
 

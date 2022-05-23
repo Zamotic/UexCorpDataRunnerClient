@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using UexCorpDataRunner.DesktopClient.Core;
-using UexCorpDataRunner.DesktopClient.Notifications;
-using UexCorpDataRunner.DesktopClient.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using UexCorpDataRunner.Application.Common;
+using UexCorpDataRunner.Application.MessengerMessages;
 
 namespace UexCorpDataRunner.DesktopClient.Views;
 
@@ -21,12 +20,12 @@ public partial class MainView : UserControl
         InitializeComponent();
     }
 
-    public void ShowUserInterfaceNotified(ShowUserInterfaceNotification notification)
+    public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)
     {
         double x = _Location.X;
         double y = _Location.Y;
 
-        Window window = Application.Current.MainWindow;
+        Window window = System.Windows.Application.Current.MainWindow;
         window.Visibility = Visibility.Hidden;
         window.WindowStyle = WindowStyle.SingleBorderWindow;
         window.Width = 350;
@@ -38,7 +37,7 @@ public partial class MainView : UserControl
         window.Visibility = Visibility.Visible;
     }
 
-    public void WindowMovedNotified(WindowMovedNotification notification)
+    public void WindowMovedNotified(WindowMovedMessage notification)
     {
         SaveWindowLocation();
     }
@@ -46,14 +45,14 @@ public partial class MainView : UserControl
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         IMessenger? messenger = App.ServiceProvider?.GetService<IMessenger>();
-        messenger?.Register<ShowUserInterfaceNotification>(this, ShowUserInterfaceNotified);
-        messenger?.Register<WindowMovedNotification>(this, WindowMovedNotified);
+        messenger?.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceNotified);
+        messenger?.Register<WindowMovedMessage>(this, WindowMovedNotified);
         SaveWindowLocation();
     }
 
     public void SaveWindowLocation()
     {
-        Window window = Application.Current.MainWindow;
+        Window window = System.Windows.Application.Current.MainWindow;
         if (window.WindowStyle == WindowStyle.SingleBorderWindow)
         {
             _Location = new Point(window.Left, window.Top);

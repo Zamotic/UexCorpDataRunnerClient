@@ -13,8 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UexCorpDataRunner.DesktopClient.Core;
-using UexCorpDataRunner.DesktopClient.Notifications;
+using UexCorpDataRunner.Application.Common;
+using UexCorpDataRunner.Application.MessengerMessages;
 
 namespace UexCorpDataRunner.DesktopClient.Views;
 
@@ -28,9 +28,9 @@ public partial class SettingsView : UserControl
         InitializeComponent();
     }
 
-    public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceNotification notification)
+    public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
     {
-        Window window = Application.Current.MainWindow;
+        Window window = System.Windows.Application.Current.MainWindow;
         window.WindowStyle = WindowStyle.SingleBorderWindow;
         window.Width = 350;
         window.Height = 700;
@@ -41,6 +41,6 @@ public partial class SettingsView : UserControl
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         IMessenger? messenger = App.ServiceProvider?.GetService<IMessenger>();
-        messenger?.Register<ShowSettingsInterfaceNotification>(this, ShowSettingsInterfaceNotified);
+        messenger?.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceNotified);
     }
 }

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using UexCorpDataRunner.DesktopClient.Core;
+using UexCorpDataRunner.Application.Common;
+using UexCorpDataRunner.Business.Common;
 
 namespace UexCorpDataRunner.DesktopClient.WebClient;
 public sealed class HttpClientFactory : IHttpClientFactory

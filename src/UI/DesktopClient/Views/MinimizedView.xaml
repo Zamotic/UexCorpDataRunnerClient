@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UexCorpDataRunner.DesktopClient"
              local:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:Converters="clr-namespace:UexCorpDataRunner.DesktopClient.Core"
+             xmlns:Converters="clr-namespace:UexCorpDataRunner.DesktopClient.Converters"
              mc:Ignorable="d" 
              Background="Black"
              Height="80" 
