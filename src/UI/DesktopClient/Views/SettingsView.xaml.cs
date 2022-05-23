@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Application.MessengerMessages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace UexCorpDataRunner.DesktopClient.Views;
 
@@ -28,11 +29,12 @@ public partial class SettingsView : UserControl
         InitializeComponent();
     }
 
-    public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
+    //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
+    public void ShowSettingsInterfaceMessageHandler(object sender, ShowSettingsInterfaceMessage notification)
     {
         Window window = System.Windows.Application.Current.MainWindow;
         window.WindowStyle = WindowStyle.SingleBorderWindow;
-        window.Width = 350;
+        window.Width = 425;
         window.Height = 700;
         window.ResizeMode = ResizeMode.CanResize;
         window.Topmost = true;
@@ -41,6 +43,6 @@ public partial class SettingsView : UserControl
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         IMessenger? messenger = App.ServiceProvider?.GetService<IMessenger>();
-        messenger?.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceNotified);
+        messenger?.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
     }
 }

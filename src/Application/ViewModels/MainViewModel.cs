@@ -10,6 +10,8 @@ using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Application.ViewModels.Bindables;
 using UexCorpDataRunner.Application.MessengerMessages;
 using UexCorpDataRunner.Domain.Models;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace UexCorpDataRunner.Application.ViewModels;
 
@@ -28,8 +30,8 @@ public class MainViewModel : ViewModelBase
     {
         IsEnabled = true;
         _Messenger = messenger;
-        _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceNotified);
-        _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceNotified);
+        _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);
+        _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
         BindableCommodities = new List<BindableCommodity>()
         {
             new BindableCommodity(new Commodity()
@@ -68,12 +70,14 @@ public class MainViewModel : ViewModelBase
         _Messenger.Send(new ShowSettingsInterfaceMessage());
     }
 
-    public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)
+    //public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)
+    public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
         IsEnabled = true;
     }
 
-    public void CloseSettingsInterfaceNotified(CloseSettingsInterfaceMessage notification)
+    //public void CloseSettingsInterfaceNotified(CloseSettingsInterfaceMessage notification)
+    public void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
     {
         IsEnabled = true;
     }

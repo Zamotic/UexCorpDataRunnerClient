@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -37,7 +39,7 @@ public class MinimizedViewModel : ViewModelBase
     public MinimizedViewModel(IMessenger messenger, ISettingsService settingsService)
     {
         _Messenger = messenger;
-        _Messenger.Register<HideUserInterfaceMessage>(this, HideUserInterfaceNotified);
+        _Messenger.Register<HideUserInterfaceMessage>(this, HideUserInterfaceMessageHandler);
         _SettingsService = settingsService;
     }
 
@@ -48,7 +50,8 @@ public class MinimizedViewModel : ViewModelBase
         _Messenger.Send(new ShowUserInterfaceMessage());
     }
 
-    private void HideUserInterfaceNotified(HideUserInterfaceMessage notification)
+    //private void HideUserInterfaceNotified(HideUserInterfaceMessage notification)
+    private void HideUserInterfaceMessageHandler(object sender, HideUserInterfaceMessage message)
     {
         IsEnabled = true;
 

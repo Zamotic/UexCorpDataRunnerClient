@@ -6,6 +6,7 @@ using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Application.ViewModels;
 using UexCorpDataRunner.Application.ViewModels.Bindables;
 using UexCorpDataRunner.Domain.Models;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace UexCorpDataRunner.DesktopClient.DesignData;
 public class MainViewModelData: MainViewModel
@@ -14,7 +15,7 @@ public class MainViewModelData: MainViewModel
     /// <summary>
     /// Initializes a new instance of the MainViewModel class.
     /// </summary>
-    public MainViewModelData() : base(new Messenger())
+    public MainViewModelData() : base(new WeakReferenceMessenger())
     {
         if (DesignerProperties.GetIsInDesignMode(new DependencyObject()) == false)
         {

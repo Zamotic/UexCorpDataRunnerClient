@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using UexCorpDataRunner.Application.MessengerMessages;
 using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Business.Settings;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace UexCorpDataRunner.DesktopClient.Views;
 
@@ -35,7 +36,8 @@ public partial class MinimizedView : UserControl//, INotificationHandler<HideUse
         InitializeComponent();
     }
 
-    private void HideUserInterfaceNotified(HideUserInterfaceMessage notification)
+    //private void HideUserInterfaceNotified(HideUserInterfaceMessage notification)
+    private void HideUserInterfaceMessageHandler(object sender, HideUserInterfaceMessage notification)
     {
         Window window = System.Windows.Application.Current.MainWindow;
         window.Visibility = Visibility.Hidden;
@@ -68,7 +70,7 @@ public partial class MinimizedView : UserControl//, INotificationHandler<HideUse
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         IMessenger? messenger = App.ServiceProvider?.GetService<IMessenger>();
-        messenger?.Register<HideUserInterfaceMessage>(this, HideUserInterfaceNotified);
+        messenger?.Register<HideUserInterfaceMessage>(this, HideUserInterfaceMessageHandler);
 
         _SettingsService = App.ServiceProvider?.GetService<ISettingsService>();
     }

@@ -38,7 +38,7 @@ public partial class App : System.Windows.Application
         Logger = new Logger(SerilogLogger);
         services.AddSingleton<Business.Common.ILogger>(Logger);
 
-        Logger.Information("Configuring Services");
+        Logger?.Information("Configuring Services");
 
         if (Configuration is null)
         {
@@ -63,7 +63,7 @@ public partial class App : System.Windows.Application
     {
         try
         {
-            Logger.Information("Starting up");
+            Logger?.Information("Starting up");
             base.OnStartup(e);
 
             var settingsService = ServiceProvider?.GetRequiredService<ISettingsService>();

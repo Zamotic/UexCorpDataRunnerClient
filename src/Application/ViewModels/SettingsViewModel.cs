@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +34,7 @@ public class SettingsViewModel : ViewModelBase
     public SettingsViewModel(IMessenger messenger, ISettingsService settingsService)
     {
         _Messenger = messenger;
-        _Messenger.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceNotified);
+        _Messenger.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
 
         _SettingsService = settingsService;
     }
@@ -45,7 +47,8 @@ public class SettingsViewModel : ViewModelBase
         _Messenger.Send(new CloseSettingsInterfaceMessage());
     }
 
-    public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
+    //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
+    public void ShowSettingsInterfaceMessageHandler(object sender, ShowSettingsInterfaceMessage notification)
     {
         IsEnabled = true;
         if(_SettingsService is null)
