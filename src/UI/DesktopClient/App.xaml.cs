@@ -5,7 +5,9 @@ using System;
 using System.Windows;
 using UexCorpDataRunner.Business.Settings;
 using UexCorpDataRunner.DesktopClient.Common;
+using UexCorpDataRunner.DesktopClient.Services;
 using UexCorpDataRunner.DesktopClient.Views;
+using UexCorpDataRunner.Domain.Services;
 
 namespace UexCorpDataRunner.DesktopClient;
 
@@ -57,6 +59,8 @@ public partial class App : System.Windows.Application
         services.AddSingleton<MinimizedView>();
 
         services.AddSingleton<SettingsView>();
+
+        services.AddSingleton<IUexDataService, UexDataService>();
     }
 
     protected override void OnStartup(StartupEventArgs e)

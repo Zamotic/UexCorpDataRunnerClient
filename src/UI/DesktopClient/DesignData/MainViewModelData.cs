@@ -15,7 +15,7 @@ public class MainViewModelData: MainViewModel
     /// <summary>
     /// Initializes a new instance of the MainViewModel class.
     /// </summary>
-    public MainViewModelData() : base(new WeakReferenceMessenger())
+    public MainViewModelData() : base(new WeakReferenceMessenger(), new Services.UexDataService())
     {
         if (DesignerProperties.GetIsInDesignMode(new DependencyObject()) == false)
         {

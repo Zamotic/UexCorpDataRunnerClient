@@ -7,6 +7,7 @@
       xmlns:views="clr-namespace:UexCorpDataRunner.DesktopClient.Views"
       xmlns:designData="clr-namespace:UexCorpDataRunner.DesktopClient.DesignData"
       xmlns:local="clr-namespace:UexCorpDataRunner.DesktopClient"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
       local:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="425"
@@ -54,6 +55,9 @@
         </Style>-->
     </UserControl.Resources>
     <DockPanel>
+        <DockPanel.Resources>
+            <system:Double x:Key="labelWidth">60</system:Double>
+        </DockPanel.Resources>
         <DockPanel
             DockPanel.Dock="Top">
             <Button
@@ -72,6 +76,58 @@
                 Padding="0,10"
                 FontWeight="Bold"
                 Content="Hide"/>
+        </DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <TextBlock
+                DockPanel.Dock="Left"
+                Width="{StaticResource labelWidth}"
+                Text="System:"
+                VerticalAlignment="Center"/>
+            <ComboBox
+                DockPanel.Dock="Left"
+                ItemsSource="{Binding SystemList}"
+                SelectedItem="{Binding SelectedSystem}"
+                DisplayMemberPath="Name" />
+        </DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <TextBlock
+                DockPanel.Dock="Left"
+                Width="{StaticResource labelWidth}"
+                Text="Planet:"
+                VerticalAlignment="Center"/>
+            <ComboBox
+                DockPanel.Dock="Left"
+                ItemsSource="{Binding PlanetList}"
+                SelectedItem="{Binding SelectedSystem}"
+                DisplayMemberPath="Name" />
+        </DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <TextBlock
+                DockPanel.Dock="Left"
+                Width="{StaticResource labelWidth}"
+                Text="Satellite:"
+                VerticalAlignment="Center"/>
+            <ComboBox
+                DockPanel.Dock="Left"
+                ItemsSource="{Binding SatelliteList}"
+                SelectedItem="{Binding SelectedSystem}"
+                DisplayMemberPath="Name" />
+        </DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <TextBlock
+                DockPanel.Dock="Left"
+                Width="{StaticResource labelWidth}"
+                Text="Tradeport:"
+                VerticalAlignment="Center"/>
+            <ComboBox
+                DockPanel.Dock="Left"
+                ItemsSource="{Binding TradeportList}"
+                SelectedItem="{Binding SelectedSystem}"
+                DisplayMemberPath="Name" />
         </DockPanel>
         <TabControl
             DockPanel.Dock="Top"
@@ -175,7 +231,7 @@
                     </UniformGrid>
                     <ItemsControl
                         DockPanel.Dock="Top"
-                        ItemsSource="{Binding BindableCommodityPrices}">
+                        ItemsSource="{Binding BindableCommodities}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel>

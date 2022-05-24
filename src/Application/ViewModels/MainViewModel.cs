@@ -10,14 +10,73 @@ using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Application.ViewModels.Bindables;
 using UexCorpDataRunner.Application.MessengerMessages;
 using UexCorpDataRunner.Domain.Models;
+using UexCorpDataRunner.Domain.Services;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.ObjectModel;
 
 namespace UexCorpDataRunner.Application.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
     public readonly IMessenger _Messenger;
+    public readonly IUexDataService _DataService;
+
+    private IList<Domain.Models.System> _SystemList = new List<Domain.Models.System>();
+    public IList<Domain.Models.System> SystemList
+    {
+        get => _SystemList;
+        set => SetProperty(ref _SystemList, value);
+    }
+
+    private Domain.Models.System? _SelectedSystem = null;
+    public Domain.Models.System? SelectedSystem
+    {
+        get => _SelectedSystem;
+        set => SetProperty(ref _SelectedSystem, value);
+    }
+
+    private IList<Planet> _PlanetList = new List<Planet>();
+    public IList<Planet> PlanetList
+    {
+        get => _PlanetList;
+        set => SetProperty(ref _PlanetList, value);
+    }
+
+    private Planet? _SelectedPlanet = null;
+    public Planet? SelectedPlanet
+    {
+        get => _SelectedPlanet;
+        set => SetProperty(ref _SelectedPlanet, value);
+    }
+
+    private IList<Satellite> _SatelliteList = new List<Satellite>();
+    public IList<Satellite> SatelliteList
+    {
+        get => _SatelliteList;
+        set => SetProperty(ref _SatelliteList, value);
+    }
+
+    private Satellite? _SelectedSatellite = null;
+    public Satellite? SelectedSatellite
+    {
+        get => _SelectedSatellite;
+        set => SetProperty(ref _SelectedSatellite, value);
+    }
+
+    private IList<Tradeport> _TradeportList = new List<Tradeport>();
+    public IList<Tradeport> TradeportList
+    {
+        get => _TradeportList;
+        set => SetProperty(ref _TradeportList, value);
+    }    
+
+    private Tradeport? _SelectedTradeport = null;
+    public Tradeport? SelectedTradeport
+    {
+        get => _SelectedTradeport;
+        set => SetProperty(ref _SelectedTradeport, value);
+    }
 
     private IList<BindableCommodity>? _BindableCommodities;
     public IList<BindableCommodity>? BindableCommodities
@@ -26,10 +85,12 @@ public class MainViewModel : ViewModelBase
         set => SetProperty(ref _BindableCommodities, value);
     }
 
-    public MainViewModel(IMessenger messenger)
+    public MainViewModel(IMessenger messenger, IUexDataService dataService)
     {
         IsEnabled = true;
         _Messenger = messenger;
+        _DataService = dataService;
+
         _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);
         _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
         BindableCommodities = new List<BindableCommodity>()
