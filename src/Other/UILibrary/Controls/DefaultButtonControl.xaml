@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="UexCorpDataRunner.UILibrary.Controls.DefaultButtonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:Converter="clr-namespace:UexCorpDataRunner.UILibrary.Converters"
+			 xmlns:System="clr-namespace:System;assembly=mscorlib"
+             x:Name="dBC">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisibleOrCollapsedConverter" />
+        <System:Double x:Key="defaultButtonWidth">75</System:Double>
+        <Thickness x:Key="defaultButtonMargin">0,0</Thickness>
+    </UserControl.Resources>
+    <DockPanel
+        LastChildFill="False"
+        x:Name="LayoutRoot">
+        <Button
+            DockPanel.Dock="Right"
+            Width="{Binding Path=ButtonWidth, ElementName=dBC, FallbackValue={StaticResource defaultButtonWidth}, TargetNullValue={StaticResource defaultButtonWidth}}"
+            Margin="{Binding Path=ButtonMargin, ElementName=dBC, FallbackValue={StaticResource defaultButtonMargin}, TargetNullValue={StaticResource defaultButtonMargin}}"
+            Content="{Binding Path=SaveButtonText, ElementName=dBC, FallbackValue=Save, TargetNullValue=Save}"
+            Command="{Binding Path=SaveButtonCommand, ElementName=dBC}"/>
+        <Button
+            DockPanel.Dock="Right"
+            Width="{Binding Path=ButtonWidth, ElementName=dBC, FallbackValue={StaticResource defaultButtonWidth}, TargetNullValue={StaticResource defaultButtonWidth}}"
+            Margin="{Binding Path=ButtonMargin, ElementName=dBC, FallbackValue={StaticResource defaultButtonMargin}, TargetNullValue={StaticResource defaultButtonMargin}}"
+            IsTabStop="False"
+            Content="{Binding Path=CancelButtonText, ElementName=dBC, FallbackValue=Cancel, TargetNullValue=Cancel}"
+            Command="{Binding Path=CancelButtonCommand, ElementName=dBC}"
+            Visibility="{Binding Path=CancelButtonIsVisible, ElementName=dBC, Converter={StaticResource boolToVisibleOrCollapsedConverter}, FallbackValue=Collapsed}"/>
+        <Button 
+            DockPanel.Dock="Right"
+            Width="{Binding Path=ButtonWidth, ElementName=dBC, FallbackValue={StaticResource defaultButtonWidth}, TargetNullValue={StaticResource defaultButtonWidth}}"
+            Margin="{Binding Path=ButtonMargin, ElementName=dBC, FallbackValue={StaticResource defaultButtonMargin}, TargetNullValue={StaticResource defaultButtonMargin}}"
+            IsTabStop="False"
+            Content="{Binding Path=ThirdButtonText, ElementName=dBC, FallbackValue=Default, TargetNullValue=Default}"
+            Command="{Binding Path=ThirdButtonCommand, ElementName=dBC}"
+            Visibility="{Binding Path=ThirdButtonIsVisible, ElementName=dBC, Converter={StaticResource boolToVisibleOrCollapsedConverter}, FallbackValue=Collapsed}"/>
+    </DockPanel>
+</UserControl>
+
