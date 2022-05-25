@@ -32,8 +32,7 @@
                 Padding="5"
                 Width="35"
                 Height="25"
-                Background="Black"
-                >
+                Background="Black">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Template">
@@ -144,6 +143,19 @@
                     ItemsSource="{Binding CollapseOrientationList}"
                     SelectedValue="{Binding BindableSettings.CollapseOrientation}"
                     DefaultOverlayString="(Select Collapse Orientation)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
+                    Text="User ApiKey:" 
+                    VerticalAlignment="Center"/>
+                <TextBox
+                    DockPanel.Dock="Right"
+                    Text="{Binding BindableSettings.UserApiKey}"/>
             </DockPanel>
         </DockPanel>
         <DockPanel />

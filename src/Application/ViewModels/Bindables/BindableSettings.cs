@@ -21,6 +21,11 @@ public class BindableSettings : BindableBase
         get => _Settings.CollapseOrientation;
         set => SetProperty((value) => { _Settings.CollapseOrientation = value; }, value);
     }
+    public string UserApiKey
+    {
+        get => _Settings.UserApiKey;
+        set => SetProperty((value) => { _Settings.UserApiKey = value; }, value);
+    }
 
     private BindableSettings() { _Settings = new SettingsValues(); }
     public BindableSettings(SettingsValues settings)
