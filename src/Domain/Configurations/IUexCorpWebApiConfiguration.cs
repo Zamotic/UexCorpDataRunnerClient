@@ -1,8 +1,7 @@
-﻿namespace UexCorpDataRunner.DesktopClient.WebClient;
+﻿namespace UexCorpDataRunner.Domain.Configurations;
 
 public interface IUexCorpWebApiConfiguration
 {
-    string? ApiKey { get; }
     string? DataRunnerEndpointPath { get; }
     string? WebApiEndPointUrl { get; }
 }

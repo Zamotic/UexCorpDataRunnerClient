@@ -3,10 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
 using System.Windows;
+using UexCorpDataRunner.Application;
+using UexCorpDataRunner.Application.WebClient;
+using UexCorpDataRunner.Business;
+using UexCorpDataRunner.Business.Common;
 using UexCorpDataRunner.Business.Settings;
 using UexCorpDataRunner.DesktopClient.Common;
-using UexCorpDataRunner.DesktopClient.Services;
 using UexCorpDataRunner.DesktopClient.Views;
+using UexCorpDataRunner.DesktopClient.WebClient;
+using UexCorpDataRunner.Domain.Configurations;
 using UexCorpDataRunner.Domain.Services;
 
 namespace UexCorpDataRunner.DesktopClient;
@@ -23,7 +28,7 @@ public partial class App : System.Windows.Application
     public App()
     {
         Configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
         ServiceCollection services = new ServiceCollection();
@@ -35,6 +40,13 @@ public partial class App : System.Windows.Application
 
     private void ConfigureServices(IServiceCollection services)
     {
+        if (Configuration is null)
+        {
+            throw new Exception($"{nameof(Configuration)} cannot be null.");
+        }
+
+        services.AddSingleton(Configuration);
+
         services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
         var SerilogLogger = new LoggerConfiguration().ReadFrom.Configuration(Configuration).CreateLogger();
         Logger = new Logger(SerilogLogger);
@@ -42,15 +54,8 @@ public partial class App : System.Windows.Application
 
         Logger?.Information("Configuring Services");
 
-        if (Configuration is null)
-        {
-            throw new Exception($"{nameof(Configuration)} cannot be null.");
-        }
-
-        UexCorpDataRunner.Business.DependencyInjection.RegisterDependencyInjectionTypes(services);
-        UexCorpDataRunner.Application.DependencyInjection.RegisterDependencyInjectionTypes(services);
-
-        services.AddSingleton(Configuration);
+        services.AddApplication()
+                .AddBusiness();
 
         services.AddSingleton<MainWindow>();
 
@@ -60,7 +65,11 @@ public partial class App : System.Windows.Application
 
         services.AddSingleton<SettingsView>();
 
-        services.AddSingleton<IUexDataService, UexDataService>();
+        services.AddSingleton<IUexCorpWebApiConfiguration>(Configuration.GetSection(UexCorpWebApiConfiguration.ConfigurationSectionName).Get<UexCorpWebApiConfiguration>());
+
+        services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
+        
+        services.AddSingleton<IUexCorpWebApiClient, UexCorpWebApiClient>();
     }
 
     protected override void OnStartup(StartupEventArgs e)

@@ -8,4 +8,5 @@ namespace UexCorpDataRunner.Domain.Models;
 public class Satellite : AvailableGeneralModel
 {
     public System? System { get; set; }
+    public Planet? Planet { get; set; }
 }

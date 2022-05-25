@@ -6,14 +6,26 @@ using System.Text;
 using System.Threading.Tasks;
 using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Business.Common;
+using UexCorpDataRunner.Business.Settings;
+using UexCorpDataRunner.Domain.Configurations;
 
 namespace UexCorpDataRunner.DesktopClient.WebClient;
 public sealed class HttpClientFactory : IHttpClientFactory
 {
     static object _lock = new object();
-    static HttpClient _HttpClient;
+    HttpClient? _HttpClient;
+    IUexCorpWebApiConfiguration _WebConfiguration;
+    ISettingsService _SettingsService;
+    ILogger? _Logger;
 
-    public HttpClient GetHttpClient(ILogger? logger = null)
+    public HttpClientFactory(IUexCorpWebApiConfiguration webConfiguration, ISettingsService settingsService, ILogger? logger = null)
+    {
+        _WebConfiguration = webConfiguration ?? throw new ArgumentNullException(nameof(webConfiguration));
+        _SettingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
+        _Logger = logger;
+    }
+
+    public HttpClient GetHttpClient()
     {
         lock (_lock)
         {
@@ -22,19 +34,17 @@ public sealed class HttpClientFactory : IHttpClientFactory
                 return _HttpClient;
             }
 
-            _HttpClient = InitializeHttpClient(logger);
+            _HttpClient = InitializeHttpClient(_Logger);
         }
 
         return _HttpClient;
     }
 
-    static HttpClient InitializeHttpClient(ILogger? logger = null)
+    private HttpClient InitializeHttpClient(ILogger? logger = null)
     {
-        var configuration = UexCorpWebApiConfiguration.GetConfig();
-
-        if (configuration is null)
+        if (_WebConfiguration is null)
         {
-            throw new Exception($"{nameof(configuration)} cannot be null.");
+            throw new Exception($"{nameof(_WebConfiguration)} cannot be null.");
         }
 
         HttpClient? httpClient = null;
@@ -50,9 +60,9 @@ public sealed class HttpClientFactory : IHttpClientFactory
             httpClient = new HttpClient(loggingClientHandler);
         }
 
-        if (configuration.WebApiEndPointUrl is null)
+        if (_WebConfiguration.WebApiEndPointUrl is null)
         {
-            throw new Exception($"{nameof(configuration.WebApiEndPointUrl)} cannot be null.");
+            throw new Exception($"{nameof(_WebConfiguration.WebApiEndPointUrl)} cannot be null.");
         }
 
         if (httpClient is null)
@@ -60,9 +70,9 @@ public sealed class HttpClientFactory : IHttpClientFactory
             throw new Exception($"{nameof(httpClient)} cannot be null.");
         }
 
-        httpClient.BaseAddress = new Uri(configuration.WebApiEndPointUrl);
+        httpClient.BaseAddress = new Uri(_WebConfiguration.WebApiEndPointUrl);
 
-        httpClient.DefaultRequestHeaders.Add(Globals.WebApiApiKeyHeaderName, configuration.ApiKey);
+        httpClient.DefaultRequestHeaders.Add("api_key", _SettingsService.Settings?.UserApiKey);
 
         return httpClient;
     }

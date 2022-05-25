@@ -1,9 +1,9 @@
 ﻿using System.Net.Http;
 using UexCorpDataRunner.Business.Common;
 
-namespace UexCorpDataRunner.DesktopClient.WebClient;
+namespace UexCorpDataRunner.Business.Common;
 
 public interface IHttpClientFactory
 {
-    HttpClient GetHttpClient(ILogger? logger = null);
+    HttpClient GetHttpClient();
 }

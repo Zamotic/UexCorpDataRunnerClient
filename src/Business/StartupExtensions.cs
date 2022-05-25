@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using UexCorpDataRunner.Business.Settings;
 
 namespace UexCorpDataRunner.Business;
-public static class DependencyInjection
+public static class StartupExtensions
 {
-    public static void RegisterDependencyInjectionTypes(IServiceCollection services)
+    public static IServiceCollection AddBusiness(this IServiceCollection services)
     {
         services.AddSingleton<ISettingsService, SettingsService>();
-
+        
+        return services;
     }
 }

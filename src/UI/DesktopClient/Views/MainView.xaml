@@ -8,12 +8,19 @@
       xmlns:designData="clr-namespace:UexCorpDataRunner.DesktopClient.DesignData"
       xmlns:local="clr-namespace:UexCorpDataRunner.DesktopClient"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
+      xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
+      xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
       local:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="425"
       d:DataContext="{d:DesignInstance Type=designData:MainViewModelData, IsDesignTimeCreatable=True}"
       DataContextChanged="UserControl_DataContextChanged"
       IsEnabled="{Binding IsEnabled}">
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="Loaded">
+            <Behaviors:InvokeCommandAction Command="{Binding ViewModelLoadedCommand}"/>
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
         <Style x:Key="Style-TabControl-Main" TargetType="{x:Type TabControl}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -67,13 +74,13 @@
                 <Image
                     Source="/Images/settings-128-black.png"
                     Margin="-2"
-                    Height="30"
-                    Width="30"/>
+                    Height="25"
+                    Width="25"/>
             </Button>
             <Button
                 DockPanel.Dock="Left"
                 Command="{Binding HideUserInterfaceCommand}"
-                Padding="0,10"
+                Padding="0,7"
                 FontWeight="Bold"
                 Content="Hide"/>
         </DockPanel>
@@ -84,11 +91,12 @@
                 Width="{StaticResource labelWidth}"
                 Text="System:"
                 VerticalAlignment="Center"/>
-            <ComboBox
+            <uiLibraryControls:DefaultOverlayComboBox
                 DockPanel.Dock="Left"
                 ItemsSource="{Binding SystemList}"
                 SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name" />
+                DisplayMemberPath="Name"
+                DefaultOverlayString="(Select System)"/>
         </DockPanel>
         <DockPanel
             DockPanel.Dock="Top">
@@ -97,11 +105,12 @@
                 Width="{StaticResource labelWidth}"
                 Text="Planet:"
                 VerticalAlignment="Center"/>
-            <ComboBox
+            <uiLibraryControls:DefaultOverlayComboBox
                 DockPanel.Dock="Left"
                 ItemsSource="{Binding PlanetList}"
                 SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name" />
+                DisplayMemberPath="Name" 
+                DefaultOverlayString="(Select Planet)"/>
         </DockPanel>
         <DockPanel
             DockPanel.Dock="Top">
@@ -110,11 +119,12 @@
                 Width="{StaticResource labelWidth}"
                 Text="Satellite:"
                 VerticalAlignment="Center"/>
-            <ComboBox
+            <uiLibraryControls:DefaultOverlayComboBox
                 DockPanel.Dock="Left"
                 ItemsSource="{Binding SatelliteList}"
                 SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name" />
+                DisplayMemberPath="Name"
+                DefaultOverlayString="(Select Satellite)"/>
         </DockPanel>
         <DockPanel
             DockPanel.Dock="Top">
@@ -123,11 +133,12 @@
                 Width="{StaticResource labelWidth}"
                 Text="Tradeport:"
                 VerticalAlignment="Center"/>
-            <ComboBox
+            <uiLibraryControls:DefaultOverlayComboBox
                 DockPanel.Dock="Left"
                 ItemsSource="{Binding TradeportList}"
                 SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name" />
+                DisplayMemberPath="Name" 
+                DefaultOverlayString="(Select Tradeport)"/>
         </DockPanel>
         <TabControl
             DockPanel.Dock="Top"

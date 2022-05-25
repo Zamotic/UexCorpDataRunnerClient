@@ -13,7 +13,7 @@ public static class ViewModelLocator
 
     static ViewModelLocator()
     {
-        ApplicationAssembly = System.Reflection.Assembly.GetAssembly(typeof(UexCorpDataRunner.Application.DependencyInjection));
+        ApplicationAssembly = System.Reflection.Assembly.GetAssembly(typeof(UexCorpDataRunner.Application.StartupExtensions));
         if(ApplicationAssembly is null)
         {
             throw new Exception("Application Assembly could not be found");

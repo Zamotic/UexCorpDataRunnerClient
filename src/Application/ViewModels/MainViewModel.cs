@@ -22,8 +22,8 @@ public class MainViewModel : ViewModelBase
     public readonly IMessenger _Messenger;
     public readonly IUexDataService _DataService;
 
-    private IList<Domain.Models.System> _SystemList = new List<Domain.Models.System>();
-    public IList<Domain.Models.System> SystemList
+    private IReadOnlyList<Domain.Models.System> _SystemList = new List<Domain.Models.System>();
+    public IReadOnlyList<Domain.Models.System> SystemList
     {
         get => _SystemList;
         set => SetProperty(ref _SystemList, value);
@@ -115,6 +115,13 @@ public class MainViewModel : ViewModelBase
                 DateModified = DateTime.Now,
             })
         };
+
+    }
+
+    public ICommand ViewModelLoadedCommand => new RelayCommand<object>(async (object? sender) => await ViewModelLoadedCommandExecuteAsync(sender));
+    public async Task ViewModelLoadedCommandExecuteAsync(object? sender)
+    {
+        SystemList = await _DataService.GetAllSystemsAsync();
     }
 
     public ICommand HideUserInterfaceCommand => new RelayCommand(HideUserInterfaceCommandExecute);

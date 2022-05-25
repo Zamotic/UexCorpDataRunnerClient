@@ -4,54 +4,66 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using UexCorpDataRunner.Domain.Configurations;
+using UexCorpDataRunner.Business.Common;
+using UexCorpDataRunner.Application.DataTransferObjects;
+using AutoMapper;
+using UexCorpDataRunner.Application.WebClient;
 
 namespace UexCorpDataRunner.DesktopClient.WebClient;
-public class UexCorpWebApiClient
+public class UexCorpWebApiClient : IUexCorpWebApiClient
 {
     readonly IUexCorpWebApiConfiguration _WebApiConfiguration;
     readonly HttpClient _HttpClient;
+    readonly IMapper _Mapper;
 
     public UexCorpWebApiClient(IUexCorpWebApiConfiguration webApiConfiguration,
-                                IHttpClientFactory httpClientFactory)
+                                IHttpClientFactory httpClientFactory,
+                                IMapper mapper)
     {
         _WebApiConfiguration = webApiConfiguration;
         _HttpClient = httpClientFactory.GetHttpClient();
+        _Mapper = mapper;
     }
 
-    ///// <summary>
-    ///// Returns a TrackingDetailDto object based on the passed in tracking number
-    ///// </summary>
-    ///// <param name="trackingNumber">A tracking number to get the tracking details for</param>
-    ///// <returns>TrackingDetailDto containing a list of details and events returned from the API</returns>
-    //public async Task<TrackingDetailDto> GetTrackingDetail(string trackingNumber)
-    //{
-    //    // Set the full request URI
-    //    string absolutePath = $"{_TrackingConfiguration.TrackingDetailEndpointPath}?trackingNumberVendor={trackingNumber}";
+    /// <summary>
+    /// Returns a IList<System> objects
+    /// </summary>
+    /// <returns>TrackingDetailDto containing a list of details and events returned from the API</returns>
+    public async Task<IList<Domain.Models.System>> GetSystems()
+    {
+        // Set the full request URI
+        string absolutePath = $"{_WebApiConfiguration.DataRunnerEndpointPath}systems/";
 
-    //    string responseJson = string.Empty;
-    //    using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
-    //    {
-    //        if (response.IsSuccessStatusCode)
-    //        {
-    //            // Parse the response body.
-    //            responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-    //        }
-    //        else
-    //        {
-    //            response.EnsureSuccessStatusCode();
-    //        }
-    //    }
+        string responseJson = string.Empty;
+        using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body.
+                responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
 
-    //    TrackingDetailResponse responseObject = TrackingDetailResponse.FromJson(responseJson);
+        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<SystemDto>>(responseJson);
 
-    //    if (responseObject.ResponseStatus.StatusCode.Equals(200) == true)
-    //    {
-    //        return responseObject.TrackingDetails.First();
-    //    }
+        if (responseObject is null)
+        {
+            return new List<Domain.Models.System>();
+        }
 
-    //    return null;
-    //}
+        if (responseObject.Code.Equals(200) == true)
+        {
+            var systems = _Mapper.Map<List<Domain.Models.System>>(responseObject.Data);
+            return systems;
+        }
+
+        return new List<Domain.Models.System>();
+    }
 
     ///// <summary>
     ///// Returns a collection of TrackingDetailDto objects based on the passed in collection of tracking numbers

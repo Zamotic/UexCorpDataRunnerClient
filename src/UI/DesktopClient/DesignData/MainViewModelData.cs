@@ -9,17 +9,28 @@ using UexCorpDataRunner.Domain.Models;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace UexCorpDataRunner.DesktopClient.DesignData;
-public class MainViewModelData: MainViewModel
-{
 #if DEBUG
+public class MainViewModelData
+{
+    public IReadOnlyList<Domain.Models.System> SystemList { get; } = new List<Domain.Models.System>();
+    public Domain.Models.System? SelectedSystem { get; }
+    public IList<Planet> PlanetList { get; } =new List<Planet>();
+    public Planet? SelectedPlanet { get; }
+    public IList<Satellite> SatelliteList { get; } = new List<Satellite>();
+    public Satellite? SelectedSatellite { get; }
+    public IList<Tradeport> TradeportList { get; } = new List<Tradeport>();
+    public Tradeport? SelectedTradeport { get; }
+
+    public IList<BindableCommodity>? BindableCommodities { get; }
+
     /// <summary>
     /// Initializes a new instance of the MainViewModel class.
     /// </summary>
-    public MainViewModelData() : base(new WeakReferenceMessenger(), new Services.UexDataService())
+    public MainViewModelData()
     {
         if (DesignerProperties.GetIsInDesignMode(new DependencyObject()) == false)
         {
-            base.BindableCommodities = new List<BindableCommodity>()
+            BindableCommodities = new List<BindableCommodity>()
             {
                 new BindableCommodity(new Commodity()
                 {
@@ -43,7 +54,6 @@ public class MainViewModelData: MainViewModel
             };
         }
     }
-#endif
-
 
 }
+#endif
