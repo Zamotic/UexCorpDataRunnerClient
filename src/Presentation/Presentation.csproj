@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	<RootNamespace>UexCorpDataRunner.Presentation</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\Nunito-Bold.ttf" />
+    <None Remove="Fonts\Nunito-ExtraBold.ttf" />
+    <None Remove="Fonts\Nunito-ExtraLight.ttf" />
+    <None Remove="Fonts\Nunito-Italic.ttf" />
+    <None Remove="Fonts\Nunito-Light.ttf" />
+    <None Remove="Fonts\Nunito-Medium.ttf" />
+    <None Remove="Fonts\Nunito-Regular.ttf" />
+    <None Remove="Fonts\Nunito-SemiBold.ttf" />
+    <None Remove="Images\pin-8-128-AAAAE3.png" />
+    <None Remove="Images\settings-128-black.png" />
+    <None Remove="Images\triangle-128-LightGray.png" />
+    <None Remove="Images\x-mark-128-white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Interface\Interface.csproj" />
+    <ProjectReference Include="..\Other\UILibrary\UILibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Nunito-Bold.ttf" />
+    <Resource Include="Fonts\Nunito-ExtraBold.ttf" />
+    <Resource Include="Fonts\Nunito-ExtraLight.ttf" />
+    <Resource Include="Fonts\Nunito-Italic.ttf" />
+    <Resource Include="Fonts\Nunito-Light.ttf" />
+    <Resource Include="Fonts\Nunito-Medium.ttf" />
+    <Resource Include="Fonts\Nunito-Regular.ttf" />
+    <Resource Include="Fonts\Nunito-SemiBold.ttf" />
+    <Resource Include="Images\pin-8-128-AAAAE3.png" />
+    <Resource Include="Images\settings-128-black.png" />
+    <Resource Include="Images\triangle-128-LightGray.png" />
+    <Resource Include="Images\x-mark-128-white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="DataRunner\DataRunnerView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Minimized\MinimizedView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Settings\SettingsView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>

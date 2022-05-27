@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="UexCorpDataRunner.Presentation.Minimized.MinimizedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
+             presentation:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:Converters="clr-namespace:UexCorpDataRunner.UILibrary.Converters;assembly=UILibrary"
+             mc:Ignorable="d" 
+             Background="Black"
+             Height="80" 
+             Width="80"
+             DataContextChanged="UserControl_DataContextChanged"
+             IsEnabled="{Binding IsEnabled}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+    </UserControl.Resources>
+    <UserControl.Visibility>
+        <Binding
+            RelativeSource="{RelativeSource Self}" 
+            Path="IsEnabled"
+            Converter="{StaticResource boolToVisibilityConverter}" />
+    </UserControl.Visibility>
+    <Canvas>
+        <Button
+            Canvas.Top="{Binding Top, FallbackValue=20}"
+            Canvas.Left="{Binding Left, FallbackValue=-20}"
+            Command="{Binding ShowUserInterfaceCommand}"
+            Height="40"
+            Width="80"
+            Content="Show"
+            Foreground="GhostWhite"
+            Background="Black"
+            RenderTransformOrigin=".5, .5">
+            <Button.RenderTransform>
+                <RotateTransform Angle="{Binding TransformAngle, FallbackValue=90}"/>
+            </Button.RenderTransform>
+        </Button>
+    </Canvas>
+</UserControl>

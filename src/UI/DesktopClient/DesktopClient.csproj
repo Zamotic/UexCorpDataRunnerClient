@@ -10,40 +10,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\pin-8-128-AAAAE3.png" />
-    <None Remove="Images\triangle-128-LightGray.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Fonts\Nunito-Bold.ttf" />
-    <Resource Include="Fonts\Nunito-ExtraBold.ttf" />
-    <Resource Include="Fonts\Nunito-ExtraLight.ttf" />
-    <Resource Include="Fonts\Nunito-Italic.ttf" />
-    <Resource Include="Fonts\Nunito-Light.ttf" />
-    <Resource Include="Fonts\Nunito-Medium.ttf" />
-    <Resource Include="Fonts\Nunito-Regular.ttf" />
-    <Resource Include="Fonts\Nunito-SemiBold.ttf" />
-    <Resource Include="Images\pin-8-128-AAAAE3.png" />
-    <Resource Include="Images\settings-128-black.png" />
-    <Resource Include="Images\triangle-128-LightGray.png" />
-    <Resource Include="Images\x-mark-128-white.png" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="System.Text.Json" Version="6.0.2" />
+    <PackageReference Include="System.Text.Json" Version="6.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Application.csproj" />
-    <ProjectReference Include="..\..\Other\UILibrary\UILibrary.csproj" />
+    <ProjectReference Include="..\..\Common\Common.csproj" />
+    <ProjectReference Include="..\..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\Interface\Interface.csproj" />
+    <ProjectReference Include="..\..\Persistence\Api\Persistence.Api.csproj" />
+    <ProjectReference Include="..\..\Presentation\Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,10 +34,6 @@
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

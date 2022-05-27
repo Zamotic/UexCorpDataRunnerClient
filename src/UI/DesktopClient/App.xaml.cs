@@ -1,18 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
 using System;
 using System.Windows;
 using UexCorpDataRunner.Application;
-using UexCorpDataRunner.Application.WebClient;
-using UexCorpDataRunner.Business;
-using UexCorpDataRunner.Business.Common;
-using UexCorpDataRunner.Business.Settings;
-using UexCorpDataRunner.DesktopClient.Common;
-using UexCorpDataRunner.DesktopClient.Views;
-using UexCorpDataRunner.DesktopClient.WebClient;
-using UexCorpDataRunner.Domain.Configurations;
+using UexCorpDataRunner.Common;
+using UexCorpDataRunner.Common.Logging;
 using UexCorpDataRunner.Domain.Services;
+using UexCorpDataRunner.Interface;
+using UexCorpDataRunner.Persistence.Api;
+using UexCorpDataRunner.Presentation;
 
 namespace UexCorpDataRunner.DesktopClient;
 
@@ -23,7 +20,7 @@ public partial class App : System.Windows.Application
 {
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static IConfiguration? Configuration { get; private set; }
-    public static Business.Common.ILogger? Logger { get; private set; }
+    public static ILogger? Logger { get; private set; }
 
     public App()
     {
@@ -45,31 +42,18 @@ public partial class App : System.Windows.Application
             throw new Exception($"{nameof(Configuration)} cannot be null.");
         }
 
-        services.AddSingleton(Configuration);
-
-        services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
-        var SerilogLogger = new LoggerConfiguration().ReadFrom.Configuration(Configuration).CreateLogger();
-        Logger = new Logger(SerilogLogger);
-        services.AddSingleton<Business.Common.ILogger>(Logger);
+        services.AddSingleton<IConfiguration>(Configuration);
+        services.AddSingleton<IMessenger>(new WeakReferenceMessenger());
 
         Logger?.Information("Configuring Services");
 
-        services.AddApplication()
-                .AddBusiness();
+        services.AddCommon()
+                .AddPersistenceApi()
+                .AddPresentation()
+                .AddInterface()
+                .AddApplication();
 
         services.AddSingleton<MainWindow>();
-
-        services.AddSingleton<MainView>();
-
-        services.AddSingleton<MinimizedView>();
-
-        services.AddSingleton<SettingsView>();
-
-        services.AddSingleton<IUexCorpWebApiConfiguration>(Configuration.GetSection(UexCorpWebApiConfiguration.ConfigurationSectionName).Get<UexCorpWebApiConfiguration>());
-
-        services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
-        
-        services.AddSingleton<IUexCorpWebApiClient, UexCorpWebApiClient>();
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -78,14 +62,26 @@ public partial class App : System.Windows.Application
         {
             Logger?.Information("Starting up");
             base.OnStartup(e);
+            if (ServiceProvider is null)
+            {
+                throw new Exception("ServiceProvider was not properly loaded");
+            }
 
-            var settingsService = ServiceProvider?.GetRequiredService<ISettingsService>();
+            var messenger = ServiceProvider.GetRequiredService<IMessenger>();
+            if (messenger is null)
+            {
+                throw new Exception("IMessenger service was not properly loaded");
+            }
+
+            messenger.Send(new Interface.MessengerMessages.ServiceProviderBuiltMessage(ServiceProvider));
+
+            var settingsService = ServiceProvider.GetRequiredService<ISettingsService>();
             if (settingsService is not null)
             {
                 settingsService.LoadSettings();
             }
 
-            var mainWindow = ServiceProvider?.GetRequiredService<MainWindow>();
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 
             if (mainWindow is null)
             {
@@ -96,12 +92,11 @@ public partial class App : System.Windows.Application
         }
         catch (Exception ex)
         {
-            Log.Fatal(ex, "Unhandled exception");
+            Logger?.Fatal(ex, "Unhandled exception");
         }
         finally
         {
-            Log.Information("Shut down complete");
-            Log.CloseAndFlush();
+            Logger?.Information("Shut down complete");
         }
     }
 }

@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="UexCorpDataRunner.Presentation.Settings.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
+             xmlns:UI="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             presentation:ViewModelLocator.AutoWireViewModel="True"
+             Background="White"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="350"
+             DataContextChanged="UserControl_DataContextChanged"
+             IsEnabled="{Binding IsEnabled}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <System:Double x:Key="labelWidth">125</System:Double>
+        <Thickness x:Key="propertyMargin">2,2</Thickness>
+    </UserControl.Resources>
+    <UserControl.Visibility>
+        <Binding
+            RelativeSource="{RelativeSource Self}" 
+            Path="IsEnabled"
+            Converter="{StaticResource boolToVisibilityConverter}" />
+    </UserControl.Visibility>
+    <DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <Button
+                DockPanel.Dock="Right"
+                Command="{Binding CloseSettingsInterfaceCommand}"
+                Padding="5"
+                Width="35"
+                Height="25"
+                Background="Black">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}" >
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="Button.PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ParallelTimeline  >
+
+                                            <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#FF8080" Duration="0:0:0.1" />
+                                        </ParallelTimeline>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="Red" Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ParallelTimeline  >
+                                            <ColorAnimation Storyboard.TargetProperty="Background.Color" To="Black" Duration="0:0:0.1" />
+                                        </ParallelTimeline>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Image
+                        Source="../Images/x-mark-128-white.png"
+                        Margin="-2"
+                        Height="17"
+                        Width="17"/>
+                </Button.Content>
+            </Button>
+            <Border
+                DockPanel.Dock="Top"
+                Margin="5,0"
+                BorderThickness="0,0,0,1"
+                BorderBrush="Black">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    FontWeight="Bold"
+                    FontSize="20"
+                    Text="Settings"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+            </Border>
+        </DockPanel>
+        <DockPanel
+            Margin="3"
+            DockPanel.Dock="Top">
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
+                    Text="Theme:"
+                    VerticalAlignment="Center" />
+                <UI:DefaultOverlayComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding ThemeList}"
+                    SelectedValue="{Binding BindableSettings.Theme}"
+                    DefaultOverlayString="(Select Theme)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
+                    Text="Collapse Location:" 
+                    VerticalAlignment="Center"/>
+                <UI:DefaultOverlayComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding CollapseLocationList}"
+                    SelectedValue="{Binding BindableSettings.CollapseLocation}"
+                    DefaultOverlayString="(Select Collapse Location)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
+                    Text="Collapse Orientation:" 
+                    VerticalAlignment="Center"/>
+                <UI:DefaultOverlayComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding CollapseOrientationList}"
+                    SelectedValue="{Binding BindableSettings.CollapseOrientation}"
+                    DefaultOverlayString="(Select Collapse Orientation)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
+                    Text="User ApiKey:" 
+                    VerticalAlignment="Center"/>
+                <TextBox
+                    DockPanel.Dock="Right"
+                    Text="{Binding BindableSettings.UserApiKey}"/>
+            </DockPanel>
+        </DockPanel>
+        <DockPanel />
+    </DockPanel>
+</UserControl>
