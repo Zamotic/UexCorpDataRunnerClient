@@ -18,8 +18,8 @@ public class SettingsViewModel : ViewModelBase
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
 
-    private BindableSettings? _BindableSettings;
-    public BindableSettings? BindableSettings
+    private ObservableSettings? _BindableSettings;
+    public ObservableSettings? BindableSettings
     {
         get => _BindableSettings;
         private set => SetProperty(ref _BindableSettings, value);
@@ -61,6 +61,6 @@ public class SettingsViewModel : ViewModelBase
             return;
         }
 
-        BindableSettings = new BindableSettings(_SettingsService.Settings);
+        BindableSettings = new ObservableSettings(_SettingsService.Settings);
     }
 }

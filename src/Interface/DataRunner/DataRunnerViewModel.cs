@@ -78,8 +78,8 @@ public class DataRunnerViewModel : ViewModelBase
         set => SetProperty(ref _SelectedTradeport, value);
     }
 
-    private IList<BindableCommodity>? _BindableCommodities;
-    public IList<BindableCommodity>? BindableCommodities
+    private IList<ObservableCommodity>? _BindableCommodities;
+    public IList<ObservableCommodity>? BindableCommodities
     {
         get => _BindableCommodities;
         set => SetProperty(ref _BindableCommodities, value);
@@ -93,9 +93,9 @@ public class DataRunnerViewModel : ViewModelBase
 
         _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);
         _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
-        BindableCommodities = new List<BindableCommodity>()
+        BindableCommodities = new List<ObservableCommodity>()
         {
-            new BindableCommodity(new Commodity()
+            new ObservableCommodity(new Commodity()
             {
                 Name = "Aluminum",
                 Code = "ALUM",
@@ -104,7 +104,7 @@ public class DataRunnerViewModel : ViewModelBase
                 Kind = "Metals",
                 DateModified = DateTime.Now,
             }),
-            new BindableCommodity(new Commodity()
+            new ObservableCommodity(new Commodity()
             {
                 Name = "Diamond",
                 Code = "DIAM",
