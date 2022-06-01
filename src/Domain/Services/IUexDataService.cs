@@ -8,10 +8,10 @@ using UexCorpDataRunner.Domain.DataRunner;
 namespace UexCorpDataRunner.Domain.Services;
 public interface IUexDataService
 {
-    Task<IReadOnlyList<DataRunner.System>> GetAllSystemsAsync();
-    Task<IReadOnlyList<Planet>> GetAllPlanetsAsync(string systemCode);
-    Task<IReadOnlyList<Satellite>> GetAllSatellitesAsync(string systemCode);
-    Task<IReadOnlyList<City>> GetAllCitiesAsync(string systemCode);
-    Task<IReadOnlyList<Tradeport>> GetAllTradeportsAsync(string systemCode);
-    Task<IReadOnlyList<Commodity>> GetAllCommoditiesAsync();
+    Task<IReadOnlyCollection<DataRunner.System>> GetAllSystemsAsync();
+    Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode);
+    Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode);
+    Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode);
+    Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode);
+    Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync();
 }

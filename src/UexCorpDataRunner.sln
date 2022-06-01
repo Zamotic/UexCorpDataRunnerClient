@@ -32,6 +32,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.Api", "Persiste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{1958FE1B-9E2B-4DDE-B8C9-1C7437FC2A9D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mocks", "Mocks", "{63E5AAEB-DDD6-4F31-9BE1-A8E6EF23B59F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.Api.Mock", "Mocks\Persistence.Api.Mock\Persistence.Api.Mock.csproj", "{40A4840C-1AA3-47B1-99BB-C8D496E5F2AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +78,10 @@ Global
 		{1958FE1B-9E2B-4DDE-B8C9-1C7437FC2A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1958FE1B-9E2B-4DDE-B8C9-1C7437FC2A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1958FE1B-9E2B-4DDE-B8C9-1C7437FC2A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40A4840C-1AA3-47B1-99BB-C8D496E5F2AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40A4840C-1AA3-47B1-99BB-C8D496E5F2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40A4840C-1AA3-47B1-99BB-C8D496E5F2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40A4840C-1AA3-47B1-99BB-C8D496E5F2AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +96,7 @@ Global
 		{C6481ECF-0BA4-4C52-9465-36914C5A98C9} = {C0AD778E-0ACE-4CBE-A910-2551C63FBB5A}
 		{E5F5F905-07D3-4CE3-A64D-5EE49AD1FCE0} = {C0AD778E-0ACE-4CBE-A910-2551C63FBB5A}
 		{1958FE1B-9E2B-4DDE-B8C9-1C7437FC2A9D} = {C0AD778E-0ACE-4CBE-A910-2551C63FBB5A}
+		{40A4840C-1AA3-47B1-99BB-C8D496E5F2AA} = {63E5AAEB-DDD6-4F31-9BE1-A8E6EF23B59F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27773AA4-1E87-4785-A22A-9AA3728DDF97}

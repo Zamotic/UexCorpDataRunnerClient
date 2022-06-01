@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 namespace UexCorpDataRunner.Application.WebClient;
-public interface IUexCorpWebApiClient
+public interface IUexCorpWebApiClientAdapter
 {
     Task<IList<Domain.DataRunner.System>> GetSystems();
 }

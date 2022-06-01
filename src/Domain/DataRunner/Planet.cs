@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.Domain.DataRunner;
 public class Planet : AvailableNameableBaseModel
 {
-    public System? System { get; set; }
+    public string? System { get; set; } = string.Empty;
 }

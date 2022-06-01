@@ -22,22 +22,29 @@ public class DataRunnerViewModel : ViewModelBase
     public readonly IMessenger _Messenger;
     public readonly IUexDataService _DataService;
 
-    private IReadOnlyList<Domain.DataRunner.System> _SystemList = new List<Domain.DataRunner.System>();
-    public IReadOnlyList<Domain.DataRunner.System> SystemList
+    private IReadOnlyCollection<Domain.DataRunner.System> _SystemList = new List<Domain.DataRunner.System>();
+    public IReadOnlyCollection<Domain.DataRunner.System> SystemList
     {
         get => _SystemList;
-        set => SetProperty(ref _SystemList, value);
+        set => SetProperty(ref _SystemList, value); 
     }
 
     private Domain.DataRunner.System? _SelectedSystem = null;
     public Domain.DataRunner.System? SelectedSystem
     {
         get => _SelectedSystem;
-        set => SetProperty(ref _SelectedSystem, value);
+        set
+        {
+            SetProperty(ref _SelectedSystem, value);
+            if(_SelectedSystem != null)
+            {
+                _ = UpdatePlanetListAsync(_SelectedSystem.Code);
+            }
+        }
     }
 
-    private IList<Planet> _PlanetList = new List<Planet>();
-    public IList<Planet> PlanetList
+    private IReadOnlyCollection<Planet> _PlanetList = new List<Planet>();
+    public IReadOnlyCollection<Planet> PlanetList
     {
         get => _PlanetList;
         set => SetProperty(ref _PlanetList, value);
@@ -148,5 +155,10 @@ public class DataRunnerViewModel : ViewModelBase
     public void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
     {
         IsEnabled = true;
+    }
+
+    public async Task UpdatePlanetListAsync(string systemCode)
+    {
+        PlanetList = await _DataService.GetAllPlanetsAsync(systemCode);
     }
 }

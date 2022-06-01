@@ -13,9 +13,13 @@ public static class StartupExtensions
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddUexCorpWebApiConfiguration()
+                .AddSingleton<IUexCorpWebApiClientAdapter, UexCorpWebApiClientAdapter>()
                 .AddSingleton<IUexDataService, UexDataService>()
                 .AddSingleton<IHttpClientFactory, UexHttpClientFactory>()
+#if DEBUG
+#else
                 .AddSingleton<IUexCorpWebApiClient, UexCorpWebApiClient>()
+#endif
                 ;
 
         return services;

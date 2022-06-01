@@ -48,6 +48,7 @@ public partial class App : System.Windows.Application
         Logger?.Information("Configuring Services");
 
         services.AddCommon()
+                .AddPersistenceApiMock()
                 .AddPersistenceApi()
                 .AddPresentation()
                 .AddInterface()

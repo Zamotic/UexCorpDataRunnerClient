@@ -6,41 +6,46 @@ using UexCorpDataRunner.Persistence.Api.Uex;
 namespace UexCorpDataRunner.Application.Services;
 public class UexDataService : IUexDataService
 {
-    readonly IUexCorpWebApiClient _WebClient;
+    readonly IUexCorpWebApiClientAdapter _WebClientAdapter;
 
-    public UexDataService(IUexCorpWebApiClient webClient)
+    public UexDataService(IUexCorpWebApiClientAdapter webClientAdapter)
     {
-        _WebClient = webClient;
+        _WebClientAdapter = webClientAdapter;
     }
 
-    public Task<IReadOnlyList<City>> GetAllCitiesAsync(string systemCode)
+    public async Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode)
     {
+        await Task.Delay(1);
         throw new NotImplementedException();
     }
 
-    public Task<IReadOnlyList<Commodity>> GetAllCommoditiesAsync()
+    public async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
     {
+        await Task.Delay(1);
         throw new NotImplementedException();
     }
 
-    public Task<IReadOnlyList<Planet>> GetAllPlanetsAsync(string systemCode)
+    public async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode)
     {
+        var collection = await _WebClientAdapter.GetPlanetsAsync(systemCode);
+        return collection;
+    }
+
+    public async Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode)
+    {
+        await Task.Delay(1);
         throw new NotImplementedException();
     }
 
-    public Task<IReadOnlyList<Satellite>> GetAllSatellitesAsync(string systemCode)
+    public async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetAllSystemsAsync()
     {
-        throw new NotImplementedException();
+        var collection = await _WebClientAdapter.GetSystemsAsync();
+        return collection;
     }
 
-    public async Task<IReadOnlyList<Domain.DataRunner.System>> GetAllSystemsAsync()
+    public async Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode)
     {
-        var collection = await _WebClient.GetSystems();
-        return new ReadOnlyCollection<Domain.DataRunner.System>(collection);
-    }
-
-    public Task<IReadOnlyList<Tradeport>> GetAllTradeportsAsync(string systemCode)
-    {
+        await Task.Delay(1);
         throw new NotImplementedException();
     }
 }
