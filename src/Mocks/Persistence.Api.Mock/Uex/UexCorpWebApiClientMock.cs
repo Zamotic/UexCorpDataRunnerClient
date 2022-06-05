@@ -55,6 +55,26 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
             };
         this.Setup(s => s.GetTradeportsAsync(It.Is((string s) => s.Equals("ST")))).Returns(Task.FromResult(tradeportDtoList));
 
+        TradeportDto tradeportDto = new TradeportDto() { System = "ST", Planet = "ARC", Satellite = "WALA", City = null, Name = "ArcCorp Mining Area 056", NameShort = "ArcCorp 056", Code = "AM056", IsVisible = true, IsArmisticeZone = true, HasTrade = true, WelcomesOutlaws = false, HasRefinery = false, HasShops = false, IsRestrictedArea = false, HasMinables = false, DateAdded = dateAdded, DateModified = dateAdded,
+                    Prices = new Dictionary<string, TradeListingDto>() 
+                    { 
+                        { "PRFO", new TradeListingDto() { Name = "Processed Food", Kind = "Food", Operation = "sell", PriceBuy = 0m, PriceSell = 1.5m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "STIM", new TradeListingDto() { Name = "Stims", Kind = "Vice", Operation = "sell", PriceBuy = 0m, PriceSell = 3.8m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "DISP", new TradeListingDto() { Name = "Distilled Spirits", Kind = "Vice", Operation = "sell", PriceBuy = 0m, PriceSell = 5.56m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "MEDS", new TradeListingDto() { Name = "Medical Supplies", Kind = "Medical", Operation = "sell", PriceBuy = 0m, PriceSell = 19.25m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "DOLI", new TradeListingDto() { Name = "Dolivine", Kind = "Mineral", Operation = "sell", PriceBuy = 0m, PriceSell = 130m, DateUpdate = dateModified, IsUpdated = false } },
+                        { "APHO", new TradeListingDto() { Name = "Aphorite", Kind = "Mineral", Operation = "sell", PriceBuy = 0m, PriceSell = 152.5m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "HADA", new TradeListingDto() { Name = "Hadanite", Kind = "Mineral", Operation = "sell", PriceBuy = 0m, PriceSell = 275m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "IODI", new TradeListingDto() { Name = "Iodine", Kind = "Halogen", Operation = "buy", PriceBuy = 0.35m, PriceSell = 0m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "ALUM", new TradeListingDto() { Name = "Aluminum", Kind = "Metal", Operation = "buy", PriceBuy = 1.11m, PriceSell = 0m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "TUNG", new TradeListingDto() { Name = "Tungsten", Kind = "Metal", Operation = "buy", PriceBuy = 3.55m, PriceSell = 0m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "DIAM", new TradeListingDto() { Name = "Diamond", Kind = "Metal", Operation = "buy", PriceBuy = 6.28m, PriceSell = 0m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "ASTA", new TradeListingDto() { Name = "Astatine", Kind = "Halogen", Operation = "buy", PriceBuy = 7.52m, PriceSell = 0m, DateUpdate = dateModified, IsUpdated = true } },
+                        { "LARA", new TradeListingDto() { Name = "Laranite", Kind = "Metal", Operation = "buy", PriceBuy = 27.74m, PriceSell = 0m, DateUpdate = dateModified, IsUpdated = true } }
+                    }
+            };
+        this.Setup(s => s.GetTradeportAsync(It.Is((string s) => s.Equals("AM056")))).Returns(Task.FromResult(tradeportDto));
+
         ICollection<CommodityDto> commodityDtoList = new List<CommodityDto>()
             {
                 new CommodityDto() { Name = "Agricultural Supplies", Code = "ACSU", Kind = "Agricultural", BuyPrice = 1.01m, SellPrice = 1.21m, DateAdded = dateAdded, DateModified = dateModified },
@@ -90,6 +110,11 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
     public async Task<ICollection<TradeportDto>> GetTradeportsAsync(string systemCode)
     {
         return await this.Object.GetTradeportsAsync(systemCode);
+    }
+
+    public async Task<TradeportDto> GetTradeportAsync(string tradeportCode)
+    {
+        return await this.Object.GetTradeportAsync(tradeportCode);
     }
 
     public async Task<ICollection<CommodityDto>> GetCommoditiesAsync()

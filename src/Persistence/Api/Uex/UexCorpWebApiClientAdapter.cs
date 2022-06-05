@@ -21,7 +21,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
     public async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetSystemsAsync()
     {
-        var systemDtos = await _WebClient.GetSystemsAsync();
+        ICollection<SystemDto> systemDtos = await _WebClient.GetSystemsAsync();
 
         var systems = _Mapper.Map<List<Domain.DataRunner.System>>(systemDtos);
         return systems;
@@ -29,7 +29,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
     public async Task<IReadOnlyCollection<Domain.DataRunner.Planet>> GetPlanetsAsync(string systemCode)
     {
-        var planetDtos = await _WebClient.GetPlanetsAsync(systemCode);
+        ICollection<PlanetDto> planetDtos = await _WebClient.GetPlanetsAsync(systemCode);
 
         var planets = _Mapper.Map<List<Domain.DataRunner.Planet>>(planetDtos);
         return planets;
@@ -37,7 +37,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
     public async Task<IReadOnlyCollection<Domain.DataRunner.Satellite>> GetSatellitesAsync(string systemCode)
     {
-        var satelliteDtos = await _WebClient.GetSatellitesAsync(systemCode);
+        ICollection<SatelliteDto> satelliteDtos = await _WebClient.GetSatellitesAsync(systemCode);
 
         var satellites = _Mapper.Map<List<Domain.DataRunner.Satellite>>(satelliteDtos);
         return satellites;
@@ -45,7 +45,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
     public async Task<IReadOnlyCollection<Domain.DataRunner.City>> GetCitiesAsync(string systemCode)
     {
-        var citiesDtos = await _WebClient.GetCitiesAsync(systemCode);
+        ICollection<CityDto> citiesDtos = await _WebClient.GetCitiesAsync(systemCode);
 
         var cities = _Mapper.Map<List<Domain.DataRunner.City>>(citiesDtos);
         return cities;
@@ -53,15 +53,23 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
     public async Task<IReadOnlyCollection<Domain.DataRunner.Tradeport>> GetTradeportsAsync(string systemCode)
     {
-        var tradeportsDtos = await _WebClient.GetTradeportsAsync(systemCode);
+        ICollection<TradeportDto> tradeportsDtos = await _WebClient.GetTradeportsAsync(systemCode);
 
         var tradeports = _Mapper.Map<List<Domain.DataRunner.Tradeport>>(tradeportsDtos);
         return tradeports;
     }
 
+    public async Task<Domain.DataRunner.Tradeport> GetTradeportAsync(string tradeportCode)
+    {
+        TradeportDto tradeportDto = await _WebClient.GetTradeportAsync(tradeportCode);
+
+        var tradeport = _Mapper.Map<Domain.DataRunner.Tradeport>(tradeportDto);
+        return tradeport;
+    }
+
     public async Task<IReadOnlyCollection<Domain.DataRunner.Commodity>> GetCommoditiesAsync()
     {
-        var commoditiesDtos = await _WebClient.GetCommoditiesAsync();
+        ICollection<CommodityDto> commoditiesDtos = await _WebClient.GetCommoditiesAsync();
 
         var commodities = _Mapper.Map<List<Domain.DataRunner.Commodity>>(commoditiesDtos);
         return commodities;

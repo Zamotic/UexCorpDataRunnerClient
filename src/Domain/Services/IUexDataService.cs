@@ -13,5 +13,6 @@ public interface IUexDataService
     Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode);
     Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode);
     Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode);
+    Task<Tradeport> GetTradeportAsync(string tradeportCode);
     Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync();
 }

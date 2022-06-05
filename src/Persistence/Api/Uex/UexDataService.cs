@@ -39,13 +39,19 @@ public class UexDataService : IUexDataService
 
     public async Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode)
     {
-        await Task.Delay(1);
-        throw new NotImplementedException();
+        var collection = await _WebClientAdapter.GetTradeportsAsync(systemCode);
+        return collection;
+    }
+
+    public async Task<Tradeport> GetTradeportAsync(string tradeportCode)
+    {
+        Tradeport tradeport = await _WebClientAdapter.GetTradeportAsync(tradeportCode);
+        return tradeport;
     }
 
     public async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
     {
-        await Task.Delay(1);
-        throw new NotImplementedException();
+        var collection = await _WebClientAdapter.GetCommoditiesAsync();
+        return collection;
     }
 }

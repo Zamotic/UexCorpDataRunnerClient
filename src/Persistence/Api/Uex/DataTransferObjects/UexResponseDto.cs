@@ -8,5 +8,5 @@ public class UexResponseDto<T> where T : class
     [JsonPropertyName("code")]
     public int Code { get; set; }
     [JsonPropertyName("data")]
-    public IList<T>? Data { get; set; }
+    public T? Data { get; set; }
 }

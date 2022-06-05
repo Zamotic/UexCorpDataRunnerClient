@@ -22,7 +22,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     {
         string endPointValue = "systems";
 
-        return await GenericGetAsync<SystemDto>(endPointValue);
+        return await GenericGetCollectionAsync<SystemDto>(endPointValue);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     {
         string endPointValue = $"planets/{systemCode}";
 
-        return await GenericGetAsync<PlanetDto>(endPointValue);
+        return await GenericGetCollectionAsync<PlanetDto>(endPointValue);
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     {
         string endPointValue = $"satellites/{systemCode}";
 
-        return await GenericGetAsync<SatelliteDto>(endPointValue);
+        return await GenericGetCollectionAsync<SatelliteDto>(endPointValue);
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     {
         string endPointValue = $"cities/{systemCode}";
 
-        return await GenericGetAsync<CityDto>(endPointValue);
+        return await GenericGetCollectionAsync<CityDto>(endPointValue);
     }
 
     /// <summary>
@@ -70,7 +70,19 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     {
         string endPointValue = $"tradeports/{systemCode}";
 
-        return await GenericGetAsync<TradeportDto>(endPointValue);
+        return await GenericGetCollectionAsync<TradeportDto>(endPointValue);
+    }
+
+    /// <summary>
+    /// Returns a TradeportDto object
+    /// </summary>
+    /// <paramref name="tradeportCode">A string code representing the tradeport to return a specific TradeportDto object for</paramref>
+    /// <returns>A TradeportDto record returned from the API</returns>
+    public async Task<TradeportDto> GetTradeportAsync(string tradeportCode)
+    {
+        string endPointValue = $"tradeport/code/{tradeportCode}";
+
+        return await GenericGetSingleAsync<TradeportDto>(endPointValue);
     }
 
     /// <summary>
@@ -81,10 +93,10 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     {
         string endPointValue = $"commodities/";
 
-        return await GenericGetAsync<CommodityDto>(endPointValue);
+        return await GenericGetCollectionAsync<CommodityDto>(endPointValue);
     }
 
-    protected async Task<ICollection<T>> GenericGetAsync<T>(string endPointValue) where T : class
+    protected async Task<ICollection<T>> GenericGetCollectionAsync<T>(string endPointValue) where T : class
     {
         // Set the full request URI
         string absolutePath = $"{_WebApiConfiguration.DataRunnerEndpointPath}{endPointValue}";
@@ -107,7 +119,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             }
         }
 
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<T>>(responseJson);
+        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<T>>>(responseJson);
 
         if (responseObject is null)
         {
@@ -125,6 +137,49 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         }
 
         return new List<T>();
+    }
+
+    protected async Task<T> GenericGetSingleAsync<T>(string endPointValue) where T : class, new()
+    {
+        // Set the full request URI
+        string absolutePath = $"{_WebApiConfiguration.DataRunnerEndpointPath}{endPointValue}";
+        if (absolutePath.EndsWith("/") == false)
+        {
+            absolutePath += "/";
+        }
+
+        string responseJson = string.Empty;
+        using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body.
+                responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<T>>(responseJson);
+
+        if (responseObject is null)
+        {
+            return new T();
+        }
+
+        if (responseObject.Data is null)
+        {
+            return new T();
+        }
+
+        if (responseObject.Code.Equals(200) == true)
+        {
+            return responseObject.Data;
+        }
+
+        return new T();
     }
 
 }

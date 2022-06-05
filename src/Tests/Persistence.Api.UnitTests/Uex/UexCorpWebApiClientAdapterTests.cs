@@ -249,6 +249,55 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
+    public async Task GetTradeportAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    {
+        // Assemble
+        var expectedTradeport = new UexCorpDataRunner.Domain.DataRunner.Tradeport()
+        {
+            System = "ST",
+            Planet = "ARC",
+            Satellite = "WALA",
+            City = null,
+            Name = "ArcCorp Mining Area 056",
+            NameShort = "ArcCorp 056",
+            Code = "AM056",
+            IsVisible = true,
+            IsArmisticeZone = true,
+            HasTrade = true,
+            WelcomesOutlaws = false,
+            HasRefinery = false,
+            HasShops = false,
+            IsRestrictedArea = false,
+            HasMinables = false,
+            DateAdded = DateTimeOffset.Parse("12/25/2020, 11:25:15 PM +03:00"),
+            DateModified = DateTimeOffset.Parse("12/25/2020, 11:25:15 PM +03:00"),
+            Prices = new Dictionary<string, TradeListing>()
+            {
+                { "PRFO", new TradeListing() { Name = "Processed Food", Kind = "Food", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 1.5m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "STIM", new TradeListing() { Name = "Stims", Kind = "Vice", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 3.8m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "DISP", new TradeListing() { Name = "Distilled Spirits", Kind = "Vice", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 5.56m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "MEDS", new TradeListing() { Name = "Medical Supplies", Kind = "Medical", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 19.25m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "DOLI", new TradeListing() { Name = "Dolivine", Kind = "Mineral", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 130m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = false } },
+                { "APHO", new TradeListing() { Name = "Aphorite", Kind = "Mineral", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 152.5m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "HADA", new TradeListing() { Name = "Hadanite", Kind = "Mineral", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 275m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "IODI", new TradeListing() { Name = "Iodine", Kind = "Halogen", Operation = OperationType.Buy, PriceBuy = 0.35m, PriceSell = 0m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "ALUM", new TradeListing() { Name = "Aluminum", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 1.11m, PriceSell = 0m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "TUNG", new TradeListing() { Name = "Tungsten", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 3.55m, PriceSell = 0m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "DIAM", new TradeListing() { Name = "Diamond", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 6.28m, PriceSell = 0m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "ASTA", new TradeListing() { Name = "Astatine", Kind = "Halogen", Operation = OperationType.Buy, PriceBuy = 7.52m, PriceSell = 0m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } },
+                { "LARA", new TradeListing() { Name = "Laranite", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 27.74m, PriceSell = 0m, DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"), IsUpdated = true } }
+            }
+        };
+        const string TradeportCode = "AM056";
+
+        // Act
+        Tradeport actual = await _adapter.GetTradeportAsync(TradeportCode);
+
+        // Assert
+        actual.Should().BeEquivalentTo(expectedTradeport);
+    }
+
+    [Fact]
     public async Task GetCommoditiesAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
     {
         // Assemble
