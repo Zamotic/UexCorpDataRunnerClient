@@ -32,7 +32,8 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
                 new SatelliteDto() { System = "ST", Planet = "HUR", Name = "Aberdeen", Code = "ABER", IsAvailable = true, DateAdded = dateAdded, DateModified = DateTime.MinValue },
                 new SatelliteDto() { System = "ST", Planet = "HUR", Name = "Arial", Code = "ARIA", IsAvailable = true, DateAdded = dateAdded, DateModified = DateTime.MinValue },
                 new SatelliteDto() { System = "ST", Planet = "MIC", Name = "Calliope", Code = "CALL", IsAvailable = true, DateAdded = dateAdded, DateModified = DateTime.MinValue },
-                new SatelliteDto() { System = "ST", Planet = "CRU", Name = "Cellin", Code = "CELL", IsAvailable = true, DateAdded = dateAdded, DateModified = DateTime.MinValue }
+                new SatelliteDto() { System = "ST", Planet = "CRU", Name = "Cellin", Code = "CELL", IsAvailable = true, DateAdded = dateAdded, DateModified = DateTime.MinValue },
+                new SatelliteDto() { System = "ST", Planet = "ARC", Name = "Wala", Code = "WALA", IsAvailable = true, DateAdded = dateAdded, DateModified = DateTime.MinValue }
             };
         this.Setup(s => s.GetSatellitesAsync(It.Is((string s) => s.Equals("ST")))).Returns(Task.FromResult(satelliteDtoList));
 

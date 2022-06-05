@@ -1,14 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
+	<UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
 	<RootNamespace>UexCorpDataRunner.Presentation</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\Nunito-Bold.ttf" />
+    <!--<None Remove="Fonts\Nunito-Bold.ttf" />-->
     <None Remove="Fonts\Nunito-ExtraBold.ttf" />
     <None Remove="Fonts\Nunito-ExtraLight.ttf" />
     <None Remove="Fonts\Nunito-Italic.ttf" />

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UexCorpDataRunner.Application.WebClient;
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex;

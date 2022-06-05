@@ -111,7 +111,7 @@
                 <UI:DefaultOverlayComboBox
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding ThemeList}"
-                    SelectedValue="{Binding BindableSettings.Theme}"
+                    SelectedValue="{Binding SettingsValues.Theme}"
                     DefaultOverlayString="(Select Theme)" />
             </DockPanel>
             <DockPanel
@@ -126,7 +126,7 @@
                 <UI:DefaultOverlayComboBox
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding CollapseLocationList}"
-                    SelectedValue="{Binding BindableSettings.CollapseLocation}"
+                    SelectedValue="{Binding SettingsValues.CollapseLocation}"
                     DefaultOverlayString="(Select Collapse Location)" />
             </DockPanel>
             <DockPanel
@@ -141,7 +141,7 @@
                 <UI:DefaultOverlayComboBox
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding CollapseOrientationList}"
-                    SelectedValue="{Binding BindableSettings.CollapseOrientation}"
+                    SelectedValue="{Binding SettingsValues.CollapseOrientation}"
                     DefaultOverlayString="(Select Collapse Orientation)" />
             </DockPanel>
             <DockPanel
@@ -155,7 +155,7 @@
                     VerticalAlignment="Center"/>
                 <TextBox
                     DockPanel.Dock="Right"
-                    Text="{Binding BindableSettings.UserApiKey}"/>
+                    Text="{Binding SettingsValues.UserApiKey}"/>
             </DockPanel>
         </DockPanel>
         <DockPanel />

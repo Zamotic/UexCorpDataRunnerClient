@@ -115,7 +115,7 @@ public class UexCorpWebApiClientAdapterTests
     public async Task GetSatellitesAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
     {
         // Assemble
-        const int ExpectedCount = 4;
+        const int ExpectedCount = 5;
         const string SystemCode = "ST";
 
         // Act

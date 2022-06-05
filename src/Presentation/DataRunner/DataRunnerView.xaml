@@ -63,6 +63,7 @@
     <DockPanel>
         <DockPanel.Resources>
             <system:Double x:Key="labelWidth">60</system:Double>
+            <Thickness x:Key="innerMargin">2,0</Thickness>
         </DockPanel.Resources>
         <DockPanel
             DockPanel.Dock="Top">
@@ -83,417 +84,563 @@
                 FontWeight="Bold"
                 Content="Hide"/>
         </DockPanel>
-        <DockPanel
-            DockPanel.Dock="Top">
-            <TextBlock
-                DockPanel.Dock="Left"
-                Width="{StaticResource labelWidth}"
-                Text="System:"
-                VerticalAlignment="Center"/>
-            <uiLibraryControls:DefaultOverlayComboBox
-                DockPanel.Dock="Left"
-                ItemsSource="{Binding SystemList, Mode=OneWay}"
-                SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name"
-                DefaultOverlayString="(Select System)"/>
-        </DockPanel>
-        <DockPanel
-            DockPanel.Dock="Top">
-            <TextBlock
-                DockPanel.Dock="Left"
-                Width="{StaticResource labelWidth}"
-                Text="Planet:"
-                VerticalAlignment="Center"/>
-            <uiLibraryControls:DefaultOverlayComboBox
-                DockPanel.Dock="Left"
-                ItemsSource="{Binding PlanetList, Mode=OneWay}"
-                SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name" 
-                DefaultOverlayString="(Select Planet)"/>
-        </DockPanel>
-        <DockPanel
-            DockPanel.Dock="Top">
-            <TextBlock
-                DockPanel.Dock="Left"
-                Width="{StaticResource labelWidth}"
-                Text="Satellite:"
-                VerticalAlignment="Center"/>
-            <uiLibraryControls:DefaultOverlayComboBox
-                DockPanel.Dock="Left"
-                ItemsSource="{Binding SatelliteList, Mode=OneWay}"
-                SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name"
-                DefaultOverlayString="(Select Satellite)"/>
-        </DockPanel>
-        <DockPanel
-            DockPanel.Dock="Top">
-            <TextBlock
-                DockPanel.Dock="Left"
-                Width="{StaticResource labelWidth}"
-                Text="Tradeport:"
-                VerticalAlignment="Center"/>
-            <uiLibraryControls:DefaultOverlayComboBox
-                DockPanel.Dock="Left"
-                ItemsSource="{Binding TradeportList, Mode=OneWay}"
-                SelectedItem="{Binding SelectedSystem}"
-                DisplayMemberPath="Name" 
-                DefaultOverlayString="(Select Tradeport)"/>
-        </DockPanel>
-        <TabControl
-            DockPanel.Dock="Top"
-            Style="{StaticResource Style-TabControl-Main}">
-            <TabControl.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="Foreground" Value="GhostWhite" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border" Background="Transparent">
-                                    <Grid Name="Panel">
-                                        <ContentPresenter x:Name="ContentSite"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            ContentSource="Header"
-                                            Margin="10,2"/>
-                                    </Grid>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Panel" Property="Background" Value="#3a3a39" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Panel" Property="Background" Value="Gray" />
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="Border" Property="BorderBrush" Value="White" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.Resources>
-            <TabItem
-                Header="Buy Price">
-                <DockPanel
-                    Background="#3a3a39">
-                    <UniformGrid
-                        Margin="7,0"
-                        DockPanel.Dock="Top"
-                        Rows="1"
-                        Columns="5"
-                        Height="25">
-                        <Border
-                            Padding="2"
-                            BorderThickness=".25"
-                            BorderBrush="Gray">
-                            <TextBlock
-                                Text="New"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="Gray" />
-                        </Border>
-                        <Border
-                            Padding="2"
-                            BorderThickness=".25"
-                            BorderBrush="Gray">
-                            <TextBlock
-                                Text="Supply"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="Gray" />
-                        </Border>
-                        <Border
-                            Padding="5"
-                            BorderThickness=".25"
-                            BorderBrush="Gray">
-                            <TextBlock
-                                Text="Min"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="Gray" />
-                        </Border>
-                        <Border
-                            Padding="5"
-                            BorderThickness=".25"
-                            BorderBrush="Gray">
-                            <TextBlock
-                                Text="Max"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="Gray" />
-                        </Border>
-                        <Border
-                            Padding="5"
-                            BorderThickness=".25"
-                            BorderBrush="Gray">
-                            <TextBlock
-                                Text="Best"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                Foreground="Gray" />
-                        </Border>
-                    </UniformGrid>
-                    <ItemsControl
-                        DockPanel.Dock="Top"
-                        ItemsSource="{Binding BindableCommodities}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <TextBlock
-                                        DockPanel.Dock="Top"
-                                        Text="{Binding Name}"
-                                        FontWeight="Bold"
-                                        Foreground="GhostWhite"/>
-                                    <UniformGrid
-                                        DockPanel.Dock="Top"
-                                        Rows="1"
-                                        Columns="5"
-                                        Height="40">
-                                        <Border
-                                            Padding="7"
-                                            BorderThickness=".25"
-                                            BorderBrush="Gray">
-                                            <Grid>
-                                                <Rectangle
-                                                    Margin="0,0,0,-2"
-                                                    StrokeThickness="0,0,0,0"
-                                                    Stroke="Black"
-                                                    Fill="Black" />
-                                                <TextBox
-                                                    Text="{Binding NewPrice}"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Center"
-                                                    BorderBrush="ForestGreen"
-                                                    Background="ForestGreen"
-                                                    Foreground="LightGray" />
-                                            </Grid>
-                                        </Border>
-                                        <Border
-                                            Padding="7"
-                                            BorderThickness=".25"
-                                            BorderBrush="Gray">
-                                            <Grid>
-                                                <Rectangle
-                                                    Margin="0,0,0,-2"
-                                                    StrokeThickness="0,0,0,0"
-                                                    Stroke="Black"
-                                                    Fill="Black" />
-                                                <TextBox
-                                                    Text="{Binding AvailableSupply, FallbackValue=SCU}"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Center"
-                                                    BorderBrush="Red"
-                                                    Background="Red"
-                                                    Foreground="LightGray" />
-                                            </Grid>
-                                        </Border>
-                                        <Border
-                                            Padding="5"
-                                            BorderThickness=".25"
-                                            BorderBrush="Gray">
-                                            <Grid>
-                                                <TextBlock
-                                                    DockPanel.Dock="Right"
-                                                    Text="{Binding MinPrice, FallbackValue=0.0}"
-                                                    Margin="15,0,0,0"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Background="Transparent"
-                                                    Foreground="LightGray" />
-                                                <Image
-                                                    Source="../Images/triangle-128-LightGray.png"
-                                                    Margin="-40,0,0,0"
-                                                    Height="12"
-                                                    Width="12"
-                                                    RenderTransformOrigin=".5, .5">
-                                                    <Image.RenderTransform>
-                                                        <RotateTransform Angle="180" />
-                                                    </Image.RenderTransform>
-                                                </Image>
-                                            </Grid>
-                                        </Border>
-                                        <Border
-                                            Padding="5"
-                                            BorderThickness=".25"
-                                            BorderBrush="Gray">
-                                            <Grid>
-                                                <TextBlock
-                                                    Text="{Binding MaxPrice, FallbackValue=0.0}"
-                                                    Margin="15,0,0,0"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Background="Transparent"
-                                                    Foreground="LightGray" />
-                                                <Image
-                                                    Source="../Images/triangle-128-LightGray.png"
-                                                    Margin="-40,0,0,0"
-                                                    Height="12"
-                                                    Width="12"/>
-                                            </Grid>
-                                        </Border>
-                                        <Border
-                                            Padding="5"
-                                            BorderThickness=".25"
-                                            BorderBrush="Gray">
-                                            <Grid>
-                                                <TextBlock
-                                                    Text="{Binding BestPrice, FallbackValue=0.0}"
-                                                    Margin="15,0,0,0"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Background="Transparent"
-                                                    Foreground="LightGray" />
-                                                <Image
-                                                    Source="../Images/pin-8-128-AAAAE3.png"
-                                                    ToolTip="{Binding BestLocation, FallbackValue='Unknown'}"
-                                                    Margin="-40,0,0,0"
-                                                    Height="14"
-                                                    Width="14"/>
-                                            </Grid>
-                                        </Border>
-                                    </UniformGrid>
-                                </DockPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>                    
-                    <!--<ListBox
+        <DockPanel>
+            <DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="System:"
+                    VerticalAlignment="Center"/>
+                <uiLibraryControls:DefaultOverlayComboBox
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding SystemListCVS, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedSystem}"
+                    DisplayMemberPath="Name"
+                    DefaultOverlayString="(Select System)"/>
+            </DockPanel>
+            <DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedSystem}"
+                                Value="{x:Null}">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Planet:"
+                    VerticalAlignment="Center"/>
+                <uiLibraryControls:DefaultOverlayComboBox
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding PlanetListCVS, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedPlanet}"
+                    DisplayMemberPath="Name" 
+                    DefaultOverlayString="(Select Planet)" />
+            </DockPanel>
+            <DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedPlanet}"
+                                Value="{x:Null}">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Satellite:"
+                    VerticalAlignment="Center"/>
+                <uiLibraryControls:DefaultOverlayComboBox
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding SatelliteListCVS, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedSatellite}"
+                    DisplayMemberPath="Name"
+                    DefaultOverlayString="(Select Satellite)"/>
+            </DockPanel>
+            <DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedSatellite}"
+                                Value="{x:Null}">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Tradeport:"
+                    VerticalAlignment="Center"/>
+                <uiLibraryControls:DefaultOverlayComboBox
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding TradeportListCVS, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedTradeport}"
+                    DisplayMemberPath="Name" 
+                    DefaultOverlayString="(Select Tradeport)"/>
+            </DockPanel>
+            <TabControl
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top"
+                Style="{StaticResource Style-TabControl-Main}">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Foreground" Value="GhostWhite" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Border Name="Border" Background="Transparent">
+                                        <Grid Name="Panel">
+                                            <ContentPresenter x:Name="ContentSite"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                ContentSource="Header"
+                                                Margin="10,2"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Panel" Property="Background" Value="#3a3a39" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Panel" Property="Background" Value="Gray" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="White" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem
+                    Header="Buy Price"
+                    IsTabStop="False">
+                    <DockPanel
                         Background="#3a3a39">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBoxItem>
-                            <DockPanel>
+                        <UniformGrid
+                            Margin="0,0,16,0"
+                            DockPanel.Dock="Top"
+                            Rows="1"
+                            Columns="5"
+                            Height="25">
+                            <Border
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
                                 <TextBlock
-                                    DockPanel.Dock="Top"
-                                    Text="Aluminum"
-                                    FontWeight="Bold"
-                                    Foreground="GhostWhite"/>
-                                <UniformGrid
-                                    DockPanel.Dock="Top"
-                                    Rows="1"
-                                    Columns="5"
-                                    Height="40">
-                                    <Border
-                                        Padding="7"
-                                        BorderThickness=".25"
-                                        BorderBrush="Gray">
-                                        <Grid>
-                                            <Rectangle
-                                                Margin="0,0,0,-2"
-                                                StrokeThickness="0,0,0,0"
-                                                Stroke="Black"
-                                                Fill="Black" />
-                                            <TextBox
-                                                Text="{Binding CurrentPrice, FallbackValue=1.11}"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                BorderBrush="ForestGreen"
-                                                Background="ForestGreen"
-                                                Foreground="LightGray" />
-                                        </Grid>
-                                    </Border>
-                                    <Border
-                                        Padding="7"
-                                        BorderThickness=".25"
-                                        BorderBrush="Gray">
-                                        <Grid>
-                                            <Rectangle
-                                                Margin="0,0,0,-2"
-                                                StrokeThickness="0,0,0,0"
-                                                Stroke="Black"
-                                                Fill="Black" />
-                                            <TextBox
-                                                Text="{Binding CurrentAvailability, FallbackValue=SCU}"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                BorderBrush="Red"
-                                                Background="Red"
-                                                Foreground="LightGray" />
-                                        </Grid>
-                                    </Border>
-                                    <Border
-                                        Padding="5"
-                                        BorderThickness=".25"
-                                        BorderBrush="Gray">
-                                        <Grid>
+                                    Text="New"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Supply"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Min"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Max"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Best"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                        </UniformGrid>
+                        <ScrollViewer
+                            DockPanel.Dock="Top">
+                            <ItemsControl
+                                ItemsSource="{Binding CurrentTradeportBuyListCVS}">
+                                <ItemsControl.Style>
+                                    <Style TargetType="ItemsControl">
+                                        <Setter Property="IsEnabled" Value="True" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding CurrentTradeport}"
+                                                Value="{x:Null}">
+                                                <Setter
+                                                    Property="IsEnabled"
+                                                    Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ItemsControl.Style>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel
+                                            DataContext="{Binding Value}">
                                             <TextBlock
-                                                DockPanel.Dock="Right"
-                                                Text="{Binding CurrentPrice, FallbackValue=1.11}"
-                                                Margin="15,0,0,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Background="Transparent"
-                                                Foreground="LightGray" />
-                                            <Image
-                                                Source="/Images/triangle-128-LightGray.png"
-                                                Margin="-40,0,0,0"
-                                                Height="7"
-                                                Width="7"
-                                                RenderTransformOrigin=".5, .5">
-                                                <Image.RenderTransform>
-                                                    <RotateTransform Angle="180" />
-                                                </Image.RenderTransform>
-                                            </Image>
-                                        </Grid>
-                                    </Border>
-                                    <Border
-                                        Padding="5"
-                                        BorderThickness=".25"
-                                        BorderBrush="Gray">
-                                        <Grid>
+                                                DockPanel.Dock="Top"
+                                                Text="{Binding Name}"
+                                                FontWeight="Bold"
+                                                Foreground="GhostWhite"/>
+                                            <UniformGrid
+                                                DockPanel.Dock="Top"
+                                                Rows="1"
+                                                Columns="5"
+                                                Height="40">
+                                                <Border
+                                                    Padding="7"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <Rectangle
+                                                            Margin="0,0,0,-2"
+                                                            StrokeThickness="0,0,0,0"
+                                                            Stroke="Black"
+                                                            Fill="Black" />
+                                                        <TextBox
+                                                            Text="{Binding PriceBuy}"
+                                                            HorizontalContentAlignment="Center"
+                                                            VerticalContentAlignment="Center"
+                                                            BorderBrush="ForestGreen"
+                                                            Background="ForestGreen"
+                                                            Foreground="LightGray" />
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="7"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <Rectangle
+                                                            Margin="0,0,0,-2"
+                                                            StrokeThickness="0,0,0,0"
+                                                            Stroke="Black"
+                                                            Fill="Black" />
+                                                        <TextBox
+                                                            Text="{Binding AvailableSupply, FallbackValue=SCU}"
+                                                            HorizontalContentAlignment="Center"
+                                                            VerticalContentAlignment="Center"
+                                                            BorderBrush="Red"
+                                                            Background="Red"
+                                                            Foreground="LightGray" />
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="5"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <TextBlock
+                                                            DockPanel.Dock="Right"
+                                                            Text="{Binding MinPrice, FallbackValue=0.0}"
+                                                            Margin="15,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="Transparent"
+                                                            Foreground="LightGray" />
+                                                        <Image
+                                                            Source="../Images/triangle-128-LightGray.png"
+                                                            Margin="-40,0,0,0"
+                                                            Height="12"
+                                                            Width="12"
+                                                            RenderTransformOrigin=".5, .5">
+                                                            <Image.RenderTransform>
+                                                                <RotateTransform Angle="180" />
+                                                            </Image.RenderTransform>
+                                                        </Image>
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="5"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <TextBlock
+                                                            Text="{Binding MaxPrice, FallbackValue=0.0}"
+                                                            Margin="15,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="Transparent"
+                                                            Foreground="LightGray" />
+                                                        <Image
+                                                            Source="../Images/triangle-128-LightGray.png"
+                                                            Margin="-40,0,0,0"
+                                                            Height="12"
+                                                            Width="12"/>
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="5"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <TextBlock
+                                                            Text="{Binding BestPrice, FallbackValue=0.0}"
+                                                            Margin="15,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="Transparent"
+                                                            Foreground="LightGray" />
+                                                        <Image
+                                                            Source="../Images/pin-8-128-AAAAE3.png"
+                                                            ToolTip="{Binding BestLocation, FallbackValue='Unknown'}"
+                                                            Margin="-40,0,0,0"
+                                                            Height="14"
+                                                            Width="14"/>
+                                                    </Grid>
+                                                </Border>
+                                            </UniformGrid>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </TabItem>
+                <TabItem
+                    Header="Sell Price"
+                    IsTabStop="False">
+                    <DockPanel
+                        Background="#3a3a39">
+                        <UniformGrid
+                            Margin="0,0,16,0"
+                            DockPanel.Dock="Top"
+                            Rows="1"
+                            Columns="5"
+                            Height="25">
+                            <Border
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="New"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Supply"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Min"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Max"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                            <Border
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="Gray">
+                                <TextBlock
+                                    Text="Best"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="Gray" />
+                            </Border>
+                        </UniformGrid>
+                        <ScrollViewer
+                            DockPanel.Dock="Top">
+                            <ItemsControl
+                                ItemsSource="{Binding CurrentTradeportSellListCVS}">
+                                <ItemsControl.Style>
+                                    <Style TargetType="ItemsControl">
+                                        <Setter Property="IsEnabled" Value="True" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding CurrentTradeport}"
+                                                Value="{x:Null}">
+                                                <Setter
+                                                    Property="IsEnabled"
+                                                    Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ItemsControl.Style>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel
+                                            DataContext="{Binding Value}">
                                             <TextBlock
-                                                Text="{Binding CurrentPrice, FallbackValue=1.11}"
-                                                Margin="15,0,0,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Background="Transparent"
-                                                Foreground="LightGray" />
-                                            <Image
-                                                Source="/Images/triangle-128-LightGray.png"
-                                                Margin="-40,0,0,0"
-                                                Height="7"
-                                                Width="7"/>
-                                        </Grid>
-                                    </Border>
-                                    <Border
-                                        Padding="5"
-                                        BorderThickness=".25"
-                                        BorderBrush="Gray">
-                                        <Grid>
-                                            <TextBlock
-                                                Text="{Binding CurrentPrice, FallbackValue=1.11}"
-                                                Margin="15,0,0,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Background="Transparent"
-                                                Foreground="LightGray" />
-                                            <Image
-                                                Source="/Images/pin-8-128-AAAAE3.png"
-                                                Margin="-40,0,0,0"
-                                                Height="7"
-                                                Width="7"/>
-                                        </Grid>
-                                    </Border>
-                                </UniformGrid>
-                            </DockPanel>
-                        </ListBoxItem>
-                    </ListBox>-->
-                </DockPanel>
-            </TabItem>
-            <TabItem
-                Header="Sell Price">
-                <ListBox>
-
-                </ListBox>
-            </TabItem>
-        </TabControl>
+                                                DockPanel.Dock="Top"
+                                                Text="{Binding Name}"
+                                                FontWeight="Bold"
+                                                Foreground="GhostWhite"/>
+                                            <UniformGrid
+                                                DockPanel.Dock="Top"
+                                                Rows="1"
+                                                Columns="5"
+                                                Height="40">
+                                                <Border
+                                                    Padding="7"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <Rectangle
+                                                            Margin="0,0,0,-2"
+                                                            StrokeThickness="0,0,0,0"
+                                                            Stroke="Black"
+                                                            Fill="Black" />
+                                                        <TextBox
+                                                            Text="{Binding PriceSell}"
+                                                            HorizontalContentAlignment="Center"
+                                                            VerticalContentAlignment="Center"
+                                                            BorderBrush="ForestGreen"
+                                                            Background="ForestGreen"
+                                                            Foreground="LightGray" />
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="7"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <Rectangle
+                                                            Margin="0,0,0,-2"
+                                                            StrokeThickness="0,0,0,0"
+                                                            Stroke="Black"
+                                                            Fill="Black" />
+                                                        <TextBox
+                                                            Text="{Binding AvailableSupply, FallbackValue=SCU}"
+                                                            HorizontalContentAlignment="Center"
+                                                            VerticalContentAlignment="Center"
+                                                            BorderBrush="Red"
+                                                            Background="Red"
+                                                            Foreground="LightGray" />
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="5"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <TextBlock
+                                                            DockPanel.Dock="Right"
+                                                            Text="{Binding MinPrice, FallbackValue=0.0}"
+                                                            Margin="15,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="Transparent"
+                                                            Foreground="LightGray" />
+                                                        <Image
+                                                            Source="../Images/triangle-128-LightGray.png"
+                                                            Margin="-40,0,0,0"
+                                                            Height="12"
+                                                            Width="12"
+                                                            RenderTransformOrigin=".5, .5">
+                                                            <Image.RenderTransform>
+                                                                <RotateTransform Angle="180" />
+                                                            </Image.RenderTransform>
+                                                        </Image>
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="5"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <TextBlock
+                                                            Text="{Binding MaxPrice, FallbackValue=0.0}"
+                                                            Margin="15,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="Transparent"
+                                                            Foreground="LightGray" />
+                                                        <Image
+                                                            Source="../Images/triangle-128-LightGray.png"
+                                                            Margin="-40,0,0,0"
+                                                            Height="12"
+                                                            Width="12"/>
+                                                    </Grid>
+                                                </Border>
+                                                <Border
+                                                    Padding="5"
+                                                    BorderThickness=".25"
+                                                    BorderBrush="Gray">
+                                                    <Grid>
+                                                        <TextBlock
+                                                            Text="{Binding BestPrice, FallbackValue=0.0}"
+                                                            Margin="15,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="Transparent"
+                                                            Foreground="LightGray" />
+                                                        <Image
+                                                            Source="../Images/pin-8-128-AAAAE3.png"
+                                                            ToolTip="{Binding BestLocation, FallbackValue='Unknown'}"
+                                                            Margin="-40,0,0,0"
+                                                            Height="14"
+                                                            Width="14"/>
+                                                    </Grid>
+                                                </Border>
+                                            </UniformGrid>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
     </DockPanel>
 </UserControl>

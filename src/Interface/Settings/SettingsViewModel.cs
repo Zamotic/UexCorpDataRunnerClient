@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Application.MessengerMessages;
-using UexCorpDataRunner.Application.ViewModels.Bindables;
+using UexCorpDataRunner.Domain.Settings;
 using UexCorpDataRunner.Domain.Services;
 
 namespace UexCorpDataRunner.Interface.Settings;
@@ -18,11 +18,11 @@ public class SettingsViewModel : ViewModelBase
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
 
-    private ObservableSettings? _BindableSettings;
-    public ObservableSettings? BindableSettings
+    private SettingsValues? _SettingsValues;
+    public SettingsValues? SettingsValues
     {
-        get => _BindableSettings;
-        private set => SetProperty(ref _BindableSettings, value);
+        get => _SettingsValues;
+        private set => SetProperty(ref _SettingsValues, value);
     }
 
     public List<string> ThemeList { get; } = new List<string>() { "Light", "Dark" };
@@ -61,6 +61,6 @@ public class SettingsViewModel : ViewModelBase
             return;
         }
 
-        BindableSettings = new ObservableSettings(_SettingsService.Settings);
+        SettingsValues = _SettingsService.Settings;
     }
 }
