@@ -20,8 +20,8 @@ public class ObservableCommodity : ObservableObject
         get => _Commodity.SellPrice;
         set => SetProperty(_Commodity.SellPrice, value, _Commodity, (s, v) => s.SellPrice = v);
     }
-    public DateTime DateAdded { get => _Commodity.DateAdded; }
-    public DateTime DateModified { get => _Commodity.DateModified; }
+    public DateTimeOffset DateAdded { get => _Commodity.DateAdded; }
+    public DateTimeOffset DateModified { get => _Commodity.DateModified; }
 
     private ObservableCommodity() => _Commodity = new Commodity();
     public ObservableCommodity(Commodity commodity) => _Commodity = commodity;

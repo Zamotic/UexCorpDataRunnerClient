@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.Domain.DataRunner;
 public class Satellite : AvailableNameableBaseModel
 {
-    public System? System { get; set; }
-    public Planet? Planet { get; set; }
+    public string? System { get; set; }
+    public string? Planet { get; set; }
 }

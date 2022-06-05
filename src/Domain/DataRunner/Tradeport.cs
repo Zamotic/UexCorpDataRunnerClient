@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UexCorpDataRunner.Domain.DataRunner;
-public class Tradeport : AvailableNameableBaseModel
+public class Tradeport : NameableBaseModel
 {
-    public System System { get; set; }
-    public Planet Planet { get; set; }
-    public Satellite Satellite { get; set; }
-    public City City { get; set; }
+    public string? System { get; set; }
+    public string? Planet { get; set; }
+    public string? Satellite { get; set; }
+    public string? City { get; set; }
     public string NameShort { get; set; } = string.Empty;
     public bool IsVisible { get; set; }
     public bool IsArmisticeZone { get; set; }
@@ -21,5 +21,5 @@ public class Tradeport : AvailableNameableBaseModel
     public bool IsRestrictedArea { get; set; }
     public bool HasMinables { get; set; }
 
-    public IList<Commodity> Prices { get; set; } = new List<Commodity>();
+    //public IList<Commodity> Prices { get; set; } = new List<Commodity>();
 }

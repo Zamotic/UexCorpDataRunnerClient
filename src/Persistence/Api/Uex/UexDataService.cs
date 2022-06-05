@@ -13,16 +13,10 @@ public class UexDataService : IUexDataService
         _WebClientAdapter = webClientAdapter;
     }
 
-    public async Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode)
+    public async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetAllSystemsAsync()
     {
-        await Task.Delay(1);
-        throw new NotImplementedException();
-    }
-
-    public async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
-    {
-        await Task.Delay(1);
-        throw new NotImplementedException();
+        var collection = await _WebClientAdapter.GetSystemsAsync();
+        return collection;
     }
 
     public async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode)
@@ -33,17 +27,23 @@ public class UexDataService : IUexDataService
 
     public async Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode)
     {
-        await Task.Delay(1);
-        throw new NotImplementedException();
+        var collection = await _WebClientAdapter.GetSatellitesAsync(systemCode);
+        return collection;
     }
 
-    public async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetAllSystemsAsync()
+    public async Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode)
     {
-        var collection = await _WebClientAdapter.GetSystemsAsync();
+        var collection = await _WebClientAdapter.GetCitiesAsync(systemCode);
         return collection;
     }
 
     public async Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode)
+    {
+        await Task.Delay(1);
+        throw new NotImplementedException();
+    }
+
+    public async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
     {
         await Task.Delay(1);
         throw new NotImplementedException();

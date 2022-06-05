@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.Domain.DataRunner;
 public class BaseModel
 {
-    public DateTime DateAdded { get; set; }
-    public DateTime DateModified { get; set; }
+    public DateTimeOffset DateAdded { get; set; }
+    public DateTimeOffset DateModified { get; set; }
 }

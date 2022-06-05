@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using UexCorpDataRunner.Application.DataTransferObjects.Converters;
+﻿using System.Text.Json.Serialization;
+using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 public class PlanetDto
@@ -19,9 +14,9 @@ public class PlanetDto
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool IsAvailable { get; set; }
     [JsonPropertyName("date_added")]
-    [JsonConverter(typeof(UexDateTimeTypeJsonConverter))]
-    public DateTime DateAdded { get; set; }
+    [JsonConverter(typeof(UexDateTimeOffsetTypeJsonConverter))]
+    public DateTimeOffset DateAdded { get; set; }
     [JsonPropertyName("date_modified")]
-    [JsonConverter(typeof(UexDateTimeTypeJsonConverter))]
-    public DateTime DateModified { get; set; }
+    [JsonConverter(typeof(UexDateTimeOffsetTypeJsonConverter))]
+    public DateTimeOffset DateModified { get; set; }
 }

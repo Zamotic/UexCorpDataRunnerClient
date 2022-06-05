@@ -2,8 +2,12 @@
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
-public class SystemDto
+public class SatelliteDto
 {
+    [JsonPropertyName("system")]
+    public string? System { get; set; }
+    [JsonPropertyName("planet")]
+    public string? Planet { get; set; }
     [JsonPropertyName("name")]
     public string? Name { get; set; }
     [JsonPropertyName("code")]
@@ -11,9 +15,6 @@ public class SystemDto
     [JsonPropertyName("available")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool IsAvailable { get; set; }
-    [JsonPropertyName("default")]
-    [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
-    public bool IsDefault { get; set; }
     [JsonPropertyName("date_added")]
     [JsonConverter(typeof(UexDateTimeOffsetTypeJsonConverter))]
     public DateTimeOffset DateAdded { get; set; }
