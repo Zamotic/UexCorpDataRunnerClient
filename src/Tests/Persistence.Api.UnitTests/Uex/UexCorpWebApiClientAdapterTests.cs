@@ -41,7 +41,7 @@ public class UexCorpWebApiClientAdapterTests
         _config.AssertConfigurationIsValid();
     }
 
-    [Fact] 
+    [Fact]
     public async Task GetSystemsAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
     {
         // Assemble
@@ -221,7 +221,23 @@ public class UexCorpWebApiClientAdapterTests
             IsRestrictedArea = false,
             HasMinables = false,
             DateAdded = DateTimeOffset.Parse("12/25/2020, 11:25:15 PM +03:00"),
-            DateModified = DateTimeOffset.Parse("12/25/2020, 11:25:15 PM +03:00")
+            DateModified = DateTimeOffset.Parse("12/25/2020, 11:25:15 PM +03:00"),
+            Prices = new Dictionary<string, TradeListing>()
+            {
+                {
+                    "PRFO",
+                    new TradeListing()
+                    {
+                        Name = "Processed Food",
+                        Kind = "Food",
+                        Operation = OperationType.Sell,
+                        PriceBuy = 0m,
+                        PriceSell = 1.5m,
+                        DateUpdate = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00"),
+                        IsUpdated = true
+                    }
+                }
+            }
         };
         const string SystemCode = "ST";
 

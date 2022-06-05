@@ -48,4 +48,6 @@ public class TradeportDto
     [JsonPropertyName("date_modified")]
     [JsonConverter(typeof(UexDateTimeOffsetTypeJsonConverter))]
     public DateTimeOffset DateModified { get; set; }
+    [JsonPropertyName("prices")]
+    public Dictionary<string, TradeListingDto>? Prices { get; set; }
 }
