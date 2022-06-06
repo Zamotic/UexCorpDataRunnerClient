@@ -70,7 +70,8 @@
             <Button
                 DockPanel.Dock="Right"
                 Padding="5"
-                Command="{Binding ShowSettingsInterfaceCommand}">
+                Command="{Binding ShowSettingsInterfaceCommand}"
+                IsTabStop="False">
                 <Image
                     Source="../Images/settings-128-black.png"
                     Margin="-2"
@@ -82,7 +83,8 @@
                 Command="{Binding HideUserInterfaceCommand}"
                 Padding="0,7"
                 FontWeight="Bold"
-                Content="Hide"/>
+                Content="Hide"
+                IsTabStop="False"/>
         </DockPanel>
         <DockPanel>
             <DockPanel
@@ -98,7 +100,8 @@
                     ItemsSource="{Binding SystemListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSystem}"
                     DisplayMemberPath="Name"
-                    DefaultOverlayString="(Select System)"/>
+                    DefaultOverlayString="(Select System)"
+                    IsTabStop="False"/>
             </DockPanel>
             <DockPanel
                 Margin="{StaticResource innerMargin}"
@@ -127,7 +130,8 @@
                     ItemsSource="{Binding PlanetListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedPlanet}"
                     DisplayMemberPath="Name" 
-                    DefaultOverlayString="(Select Planet)" />
+                    DefaultOverlayString="(Select Planet)"
+                    IsTabStop="False"/>
             </DockPanel>
             <DockPanel
                 Margin="{StaticResource innerMargin}"
@@ -156,7 +160,8 @@
                     ItemsSource="{Binding SatelliteListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSatellite}"
                     DisplayMemberPath="Name"
-                    DefaultOverlayString="(Select Satellite)"/>
+                    DefaultOverlayString="(Select Satellite)"
+                    IsTabStop="False"/>
             </DockPanel>
             <DockPanel
                 Margin="{StaticResource innerMargin}"
@@ -185,12 +190,32 @@
                     ItemsSource="{Binding TradeportListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedTradeport}"
                     DisplayMemberPath="Name" 
-                    DefaultOverlayString="(Select Tradeport)"/>
+                    DefaultOverlayString="(Select Tradeport)"
+                    IsTabStop="False"/>
             </DockPanel>
+            <UniformGrid
+                DockPanel.Dock="Bottom"
+                Columns="2">
+                <Button
+                    Command="{Binding ResetCommoditiesCommand}"
+                    Padding="0,7"
+                    FontWeight="Bold"
+                    Content="Reset"
+                    IsTabStop="False"/>
+                <Button
+                    Command="{Binding SubmitCommoditiesCommand}"
+                    Padding="0,7"
+                    FontWeight="Bold"
+                    Content="Submit"
+                    TabIndex="10"/>
+            </UniformGrid>
+
             <TabControl
                 Margin="{StaticResource innerMargin}"
                 DockPanel.Dock="Top"
-                Style="{StaticResource Style-TabControl-Main}">
+                Style="{StaticResource Style-TabControl-Main}"
+                TabIndex="0"
+                KeyboardNavigation.TabNavigation="Contained">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Foreground" Value="GhostWhite" />
@@ -223,8 +248,7 @@
                     </Style>
                 </TabControl.Resources>
                 <TabItem
-                    Header="Buy Price"
-                    IsTabStop="False">
+                    Header="Buy Price">
                     <DockPanel
                         Background="#3a3a39">
                         <UniformGrid
@@ -292,7 +316,8 @@
                         <ScrollViewer
                             DockPanel.Dock="Top">
                             <ItemsControl
-                                ItemsSource="{Binding CurrentTradeportBuyListCVS}">
+                                ItemsSource="{Binding CurrentTradeportBuyListCVS}"
+                                IsTabStop="False">
                                 <ItemsControl.Style>
                                     <Style TargetType="ItemsControl">
                                         <Setter Property="IsEnabled" Value="True" />
@@ -331,7 +356,7 @@
                                                             StrokeThickness="0,0,0,0"
                                                             Stroke="Black"
                                                             Fill="Black" />
-                                                        <TextBox
+                                                        <uiLibraryControls:ClickSelectTextBox
                                                             Text="{Binding PriceBuy}"
                                                             HorizontalContentAlignment="Center"
                                                             VerticalContentAlignment="Center"
@@ -350,13 +375,14 @@
                                                             StrokeThickness="0,0,0,0"
                                                             Stroke="Black"
                                                             Fill="Black" />
-                                                        <TextBox
+                                                        <uiLibraryControls:ClickSelectTextBox
                                                             Text="{Binding AvailableSupply, FallbackValue=SCU}"
                                                             HorizontalContentAlignment="Center"
                                                             VerticalContentAlignment="Center"
                                                             BorderBrush="Red"
                                                             Background="Red"
-                                                            Foreground="LightGray" />
+                                                            Foreground="LightGray"
+                                                            IsTabStop="False"/>
                                                     </Grid>
                                                 </Border>
                                                 <Border
@@ -540,7 +566,7 @@
                                                             StrokeThickness="0,0,0,0"
                                                             Stroke="Black"
                                                             Fill="Black" />
-                                                        <TextBox
+                                                        <uiLibraryControls:ClickSelectTextBox
                                                             Text="{Binding PriceSell}"
                                                             HorizontalContentAlignment="Center"
                                                             VerticalContentAlignment="Center"
@@ -559,7 +585,7 @@
                                                             StrokeThickness="0,0,0,0"
                                                             Stroke="Black"
                                                             Fill="Black" />
-                                                        <TextBox
+                                                        <uiLibraryControls:ClickSelectTextBox
                                                             Text="{Binding AvailableSupply, FallbackValue=SCU}"
                                                             HorizontalContentAlignment="Center"
                                                             VerticalContentAlignment="Center"
