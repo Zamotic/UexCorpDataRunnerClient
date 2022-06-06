@@ -32,7 +32,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of PlanetDto records returned from the API</returns>
     public async Task<ICollection<PlanetDto>> GetPlanetsAsync(string systemCode)
     {
-        string endPointValue = $"planets/{systemCode}";
+        string endPointValue = $"planets/system/{systemCode}";
 
         return await GenericGetCollectionAsync<PlanetDto>(endPointValue);
     }
@@ -44,7 +44,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of SatelliteDto records returned from the API</returns>
     public async Task<ICollection<SatelliteDto>> GetSatellitesAsync(string systemCode)
     {
-        string endPointValue = $"satellites/{systemCode}";
+        string endPointValue = $"satellites/system/{systemCode}";
 
         return await GenericGetCollectionAsync<SatelliteDto>(endPointValue);
     }
@@ -56,7 +56,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of CityDto records returned from the API</returns>
     public async Task<ICollection<CityDto>> GetCitiesAsync(string systemCode)
     {
-        string endPointValue = $"cities/{systemCode}";
+        string endPointValue = $"cities/system/{systemCode}";
 
         return await GenericGetCollectionAsync<CityDto>(endPointValue);
     }
@@ -68,7 +68,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of TradeportDto records returned from the API</returns>
     public async Task<ICollection<TradeportDto>> GetTradeportsAsync(string systemCode)
     {
-        string endPointValue = $"tradeports/{systemCode}";
+        string endPointValue = $"tradeports/system/{systemCode}";
 
         return await GenericGetCollectionAsync<TradeportDto>(endPointValue);
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Domain.Settings;
 
-namespace UexCorpDataRunner.Business.Settings;
+namespace UexCorpDataRunner.Application.Settings;
 
 public class SettingsService : ISettingsService
 {

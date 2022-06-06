@@ -15,7 +15,7 @@ public class ClickSelectTextBox : TextBox
         AddHandler(MouseDoubleClickEvent,
           new RoutedEventHandler(SelectAllText), true);
         AddHandler(KeyDownEvent,
-          new KeyEventHandler(EnterKeyTransversal), true);
+          new KeyEventHandler(HandleKeyDown), true);
     }
 
     private static void SelectivelyIgnoreMouseButton(object sender,
@@ -46,12 +46,18 @@ public class ClickSelectTextBox : TextBox
             textBox.SelectAll();
     }
 
-    private static void EnterKeyTransversal(object sender, KeyEventArgs e)
+    private static void HandleKeyDown(object sender, KeyEventArgs e)
     {
         var textBox = e.OriginalSource as TextBox;
 
         if (textBox is null)
         {
+            return;
+        }
+
+        if(e.Key == Key.Escape)
+        {
+            textBox.Text = null;
             return;
         }
 

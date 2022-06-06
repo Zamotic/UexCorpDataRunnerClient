@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UexCorpDataRunner.Business.Settings;
+using UexCorpDataRunner.Application.Settings;
 using UexCorpDataRunner.Domain.Services;
 
 namespace UexCorpDataRunner.Application;

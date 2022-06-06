@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UexCorpDataRunner.Business.Common;
+namespace UexCorpDataRunner.Application.Common;
 public static class StringCipher
 {
     // This constant is used to determine the keysize of the encryption algorithm in bits.

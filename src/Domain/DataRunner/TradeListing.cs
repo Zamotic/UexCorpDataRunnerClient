@@ -8,6 +8,7 @@ namespace UexCorpDataRunner.Domain.DataRunner;
 public class TradeListing
 {
     public string? Name { get; set; }
+    public string? Code { get; set; }
     public string? Kind { get; set; }
     public OperationType Operation { get; set; }
     public decimal PriceBuy { get; set; }

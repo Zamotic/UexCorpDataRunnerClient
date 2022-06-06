@@ -14,6 +14,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using UexCorpDataRunner.Domain.DataRunner;
 using System.Windows.Data;
+using UexCorpDataRunner.Application.DataRunner;
+using System.Windows.Controls;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
 
@@ -21,6 +23,8 @@ public class DataRunnerViewModel : ViewModelBase
 {
     public readonly IMessenger _Messenger;
     public readonly IUexDataService _DataService;
+
+    private IReadOnlyCollection<Commodity>? _commodityList;
 
     private IReadOnlyCollection<Domain.DataRunner.System> _SystemList = new List<Domain.DataRunner.System>();
     public IReadOnlyCollection<Domain.DataRunner.System> SystemList
@@ -66,6 +70,17 @@ public class DataRunnerViewModel : ViewModelBase
                 targetCVS.SortDescriptions.Clear();
                 targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             }
+
+            targetCVS.Filter += (s, e) =>
+            {
+                Domain.DataRunner.System? system = e.Item as Domain.DataRunner.System;
+                if (system is null)
+                {
+                    e.Accepted = false;
+                    return;
+                }
+                e.Accepted = system.IsAvailable;
+            };
         }
         OnPropertyChanged(nameof(SystemListCVS));
     }
@@ -144,6 +159,11 @@ public class DataRunnerViewModel : ViewModelBase
                     e.Accepted = false;
                     return;
                 }
+                if (planet.IsAvailable is false)
+                {
+                    e.Accepted = false;
+                    return;
+                }
                 e.Accepted = planet.System.Equals(SelectedSystem.Code);
             };
 
@@ -215,6 +235,11 @@ public class DataRunnerViewModel : ViewModelBase
                     return;
                 }
                 if (satellite.Planet is null)
+                {
+                    e.Accepted = false;
+                    return;
+                }
+                if (satellite.IsAvailable is false)
                 {
                     e.Accepted = false;
                     return;
@@ -310,7 +335,8 @@ public class DataRunnerViewModel : ViewModelBase
             SetProperty(ref _SelectedTradeport, value);
             if(SelectedTradeport != null)
             {
-                _ = SetCurrentTradeportAsync(SelectedTradeport.Code);
+                //_ = SetCurrentTradeportAsync(SelectedTradeport.Code);
+                _ = UpdateCommoditiesForTradeport(SelectedTradeport.Code);
             }
         }
     }
@@ -324,114 +350,127 @@ public class DataRunnerViewModel : ViewModelBase
             SetProperty(ref _CurrentTradeport, value);
             if(CurrentTradeport != null)
             {
-                SetCurrentTradeportBuyListCVS(true);
-                SetCurrentTradeportSellListCVS(true);
+                //SetCurrentTradeportBuyListCVS(true);
+                //SetCurrentTradeportSellListCVS(true);
             }
         }
     }
 
-    private readonly CollectionViewSource _CurrentTradeportBuyListCVS = new CollectionViewSource();
-    public ICollectionView CurrentTradeportBuyListCVS
+    private ObservableCollection<CommodityWrapper> _buyableCommodities = new ObservableCollection<CommodityWrapper>();
+    public ObservableCollection<CommodityWrapper> BuyableCommodities
     {
-        get
-        {
-            return _CurrentTradeportBuyListCVS.View;
-        }
+        get => _buyableCommodities;
+        set => SetProperty(ref _buyableCommodities, value);
     }
-    private void SetCurrentTradeportBuyListCVS(bool resetSource = false)
+    private ObservableCollection<CommodityWrapper> _sellableCommodities = new ObservableCollection<CommodityWrapper>();
+    public ObservableCollection<CommodityWrapper> SellableCommodities
     {
-        var targetCVS = _CurrentTradeportBuyListCVS;
-        if (targetCVS is null)
-        {
-            return;
-        }
-
-        using (targetCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetCVS.Source = CurrentTradeport?.Prices;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
-            }
-
-            if (targetCVS.Source is null)
-            {
-                targetCVS.Source = CurrentTradeport?.Prices;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
-            }
-
-            targetCVS.Filter += (s, e) =>
-            {
-                if(e.Item is KeyValuePair<string, TradeListing> == false)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-
-                TradeListing? tradeListing = ((KeyValuePair<string, TradeListing>)e.Item).Value;
-                if (tradeListing is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = tradeListing.Operation.Equals(Domain.DataRunner.OperationType.Buy);
-            };
-        }
-        OnPropertyChanged(nameof(CurrentTradeportBuyListCVS));
+        get => _sellableCommodities;
+        set => SetProperty(ref _sellableCommodities, value);
     }
-    private readonly CollectionViewSource _CurrentTradeportSellListCVS = new CollectionViewSource();
-    public ICollectionView CurrentTradeportSellListCVS
-    {
-        get
-        {
-            return _CurrentTradeportSellListCVS.View;
-        }
-    }
-    private void SetCurrentTradeportSellListCVS(bool resetSource = false)
-    {
-        var targetCVS = _CurrentTradeportSellListCVS;
-        if (targetCVS is null)
-        {
-            return;
-        }
 
-        using (targetCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetCVS.Source = CurrentTradeport?.Prices;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
-            }
+    //private readonly CollectionViewSource _CurrentTradeportBuyListCVS = new CollectionViewSource();
+    //public ICollectionView CurrentTradeportBuyListCVS
+    //{
+    //    get
+    //    {
+    //        return _CurrentTradeportBuyListCVS.View;
+    //    }
+    //}
+    //private void SetCurrentTradeportBuyListCVS(bool resetSource = false)
+    //{
+    //    var targetCVS = _CurrentTradeportBuyListCVS;
+    //    if (targetCVS is null)
+    //    {
+    //        return;
+    //    }
 
-            if (targetCVS.Source is null)
-            {
-                targetCVS.Source = CurrentTradeport?.Prices;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
-            }
+    //    using (targetCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetCVS.Source = CurrentTradeport?.Prices;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
+    //        }
 
-            targetCVS.Filter += (s, e) =>
-            {
-                if (e.Item is KeyValuePair<string, TradeListing> == false)
-                {
-                    e.Accepted = false;
-                    return;
-                }
+    //        if (targetCVS.Source is null)
+    //        {
+    //            targetCVS.Source = CurrentTradeport?.Prices;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
+    //        }
 
-                TradeListing? tradeListing = ((KeyValuePair<string, TradeListing>)e.Item).Value;
-                if (tradeListing is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = tradeListing.Operation.Equals(Domain.DataRunner.OperationType.Sell);
-            };
-        }
-        OnPropertyChanged(nameof(CurrentTradeportSellListCVS));
-    }
+    //        targetCVS.Filter += (s, e) =>
+    //        {
+    //            if(e.Item is KeyValuePair<string, TradeListing> == false)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+
+    //            TradeListing? tradeListing = ((KeyValuePair<string, TradeListing>)e.Item).Value;
+    //            if (tradeListing is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = tradeListing.Operation.Equals(Domain.DataRunner.OperationType.Buy);
+    //        };
+    //    }
+    //    OnPropertyChanged(nameof(CurrentTradeportBuyListCVS));
+    //}
+    //private readonly CollectionViewSource _CurrentTradeportSellListCVS = new CollectionViewSource();
+    //public ICollectionView CurrentTradeportSellListCVS
+    //{
+    //    get
+    //    {
+    //        return _CurrentTradeportSellListCVS.View;
+    //    }
+    //}
+    //private void SetCurrentTradeportSellListCVS(bool resetSource = false)
+    //{
+    //    var targetCVS = _CurrentTradeportSellListCVS;
+    //    if (targetCVS is null)
+    //    {
+    //        return;
+    //    }
+
+    //    using (targetCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetCVS.Source = CurrentTradeport?.Prices;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
+    //        }
+
+    //        if (targetCVS.Source is null)
+    //        {
+    //            targetCVS.Source = CurrentTradeport?.Prices;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Key", ListSortDirection.Ascending));
+    //        }
+
+    //        targetCVS.Filter += (s, e) =>
+    //        {
+    //            if (e.Item is KeyValuePair<string, TradeListing> == false)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+
+    //            TradeListing? tradeListing = ((KeyValuePair<string, TradeListing>)e.Item).Value;
+    //            if (tradeListing is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = tradeListing.Operation.Equals(Domain.DataRunner.OperationType.Sell);
+    //        };
+    //    }
+    //    OnPropertyChanged(nameof(CurrentTradeportSellListCVS));
+    //}
 
     public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService)
     {
@@ -448,6 +487,7 @@ public class DataRunnerViewModel : ViewModelBase
     {
         SystemList = await _DataService.GetAllSystemsAsync();
         SelectedSystem = null;
+        _commodityList = await _DataService.GetAllCommoditiesAsync();
     }
 
     public ICommand HideUserInterfaceCommand => new RelayCommand(HideUserInterfaceCommandExecute);
@@ -464,6 +504,22 @@ public class DataRunnerViewModel : ViewModelBase
         _Messenger.Send(new ShowSettingsInterfaceMessage());
     }
 
+    public ICommand MouseDoubleClickBehaviorCommand => new RelayCommand<object?>(MouseDoubleClickBehaviorCommandExecute);
+    private void MouseDoubleClickBehaviorCommandExecute(object? sender)
+    {
+        if(sender is null)
+        {
+            return;
+        }
+
+        TextBox? textBox = sender as TextBox;
+        if(textBox is null)
+        {
+            return;
+        }
+    }
+
+
     //public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)
     public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
@@ -478,6 +534,11 @@ public class DataRunnerViewModel : ViewModelBase
 
     public async Task UpdatePlanetListAsync(string systemCode)
     {
+        if(string.IsNullOrEmpty(systemCode))
+        {
+            return;
+        }
+
         PlanetList = await _DataService.GetAllPlanetsAsync(systemCode);
         SetPlanetListCVS(true);
         SelectedPlanet = null;
@@ -490,5 +551,31 @@ public class DataRunnerViewModel : ViewModelBase
     {
         var newTradeport = await _DataService.GetTradeportAsync(tradeportCode);
         CurrentTradeport = newTradeport;
+    }
+
+    public async Task UpdateCommoditiesForTradeport(string tradeportCode)
+    {
+        if(_commodityList is null)
+        {
+            return;
+        }
+
+        var currentTradeport = await _DataService.GetTradeportAsync(tradeportCode);
+        foreach (var tradeListingValue in currentTradeport.Prices)
+        {
+            if(_commodityList.Any(x => x.Code.Equals(tradeListingValue.Key)) == false)
+            {
+                continue;
+            }
+            var locatedCommodity = _commodityList.First(x => x.Code.Equals(tradeListingValue.Key));
+
+            if(tradeListingValue.Value.Operation == OperationType.Buy)
+            {
+                BuyableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue.Value));
+                continue;
+            }
+
+            SellableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue.Value));
+        }
     }
 }
