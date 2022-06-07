@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using UexCorpDataRunner.Application.Services;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.Common;
 using UexCorpDataRunner.Persistence.Api.Uex;
@@ -14,7 +13,7 @@ public static class StartupExtensions
         services.AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddUexCorpWebApiConfiguration()
                 .AddSingleton<IUexCorpWebApiClientAdapter, UexCorpWebApiClientAdapter>()
-                .AddSingleton<IUexDataService, UexDataService>()
+                .AddSingleton<IUexDataService, UexCacheDataService>()
                 .AddSingleton<IHttpClientFactory, UexHttpClientFactory>()
 #if DEBUG
 #else
