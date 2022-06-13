@@ -9,6 +9,7 @@
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary"
       presentation:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="425"
@@ -234,6 +235,18 @@
                     Width="{StaticResource labelWidth}"
                     Text="System:"
                     VerticalAlignment="Center"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="15"
+                    Command="{Binding ClearSelectedSystemCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
                 <uiLibraryControls:DefaultOverlayComboBox
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding SystemListCVS, Mode=OneWay}"
@@ -264,6 +277,18 @@
                     Width="{StaticResource labelWidth}"
                     Text="Planet:"
                     VerticalAlignment="Center"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="15"
+                    Command="{Binding ClearSelectedPlanetCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
                 <uiLibraryControls:DefaultOverlayComboBox
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding PlanetListCVS, Mode=OneWay}"
@@ -294,6 +319,18 @@
                     Width="{StaticResource labelWidth}"
                     Text="Satellite:"
                     VerticalAlignment="Center"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="15"
+                    Command="{Binding ClearSelectedSatelliteCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
                 <uiLibraryControls:DefaultOverlayComboBox
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding SatelliteListCVS, Mode=OneWay}"
@@ -310,7 +347,7 @@
                         <Setter Property="IsEnabled" Value="True" />
                         <Style.Triggers>
                             <DataTrigger
-                                Binding="{Binding SelectedSatellite}"
+                                Binding="{Binding SelectedPlanet}"
                                 Value="{x:Null}">
                                 <Setter
                                     Property="IsEnabled"
@@ -324,6 +361,18 @@
                     Width="{StaticResource labelWidth}"
                     Text="Tradeport:"
                     VerticalAlignment="Center"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="15"
+                    Command="{Binding ClearSelectedTradeportCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
                 <uiLibraryControls:DefaultOverlayComboBox
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding TradeportListCVS, Mode=OneWay}"

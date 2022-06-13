@@ -19,7 +19,7 @@ using System.Windows.Controls;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
 
-public class DataRunnerViewModel : ViewModelBase
+public partial class DataRunnerViewModel : ViewModelBase
 {
     public readonly IMessenger _Messenger;
     public readonly IUexDataService _DataService;
@@ -179,6 +179,7 @@ public class DataRunnerViewModel : ViewModelBase
         {
             SetProperty(ref _SelectedPlanet, value);
             SetSatelliteListCVS();
+            SetTradeportListCVS();
         }
     }
 
@@ -223,13 +224,13 @@ public class DataRunnerViewModel : ViewModelBase
 
             targetCVS.Filter += (s, e) =>
             {
-                Satellite? satellite = e.Item as Satellite;
-                if (satellite is null)
+                if (SelectedPlanet is null)
                 {
                     e.Accepted = false;
                     return;
                 }
-                if (SelectedPlanet is null)
+                Satellite? satellite = e.Item as Satellite;
+                if (satellite is null)
                 {
                     e.Accepted = false;
                     return;
@@ -303,6 +304,11 @@ public class DataRunnerViewModel : ViewModelBase
 
             targetCVS.Filter += (s, e) =>
             {
+                if (SelectedPlanet is null)
+                {
+                    e.Accepted = false;
+                    return;
+                }
                 Tradeport? tradeport = e.Item as Tradeport;
                 if (tradeport is null)
                 {
@@ -311,7 +317,7 @@ public class DataRunnerViewModel : ViewModelBase
                 }
                 if (SelectedSatellite is null)
                 {
-                    e.Accepted = false;
+                    e.Accepted = ((tradeport.Planet?.Equals(SelectedPlanet.Code) == true) && (string.IsNullOrWhiteSpace(tradeport.Satellite) == true));
                     return;
                 }
                 if (tradeport.Satellite is null)
@@ -348,11 +354,11 @@ public class DataRunnerViewModel : ViewModelBase
         set
         {
             SetProperty(ref _CurrentTradeport, value);
-            if(CurrentTradeport != null)
-            {
-                //SetCurrentTradeportBuyListCVS(true);
-                //SetCurrentTradeportSellListCVS(true);
-            }
+            //if(CurrentTradeport != null)
+            //{
+            //    //SetCurrentTradeportBuyListCVS(true);
+            //    //SetCurrentTradeportSellListCVS(true);
+            //}
         }
     }
 
@@ -379,44 +385,7 @@ public class DataRunnerViewModel : ViewModelBase
         _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
     }
 
-    bool _isViewModelLoaded = false;
-    public ICommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
-    public async Task ViewModelLoadedCommandExecuteAsync(object? sender)
-    {
-        SystemList = await _DataService.GetAllSystemsAsync();
-        SelectedSystem = null;
-        _commodityList = await _DataService.GetAllCommoditiesAsync();
-        _isViewModelLoaded = true;
-    }
-
-    public ICommand HideUserInterfaceCommand => new RelayCommand(HideUserInterfaceCommandExecute);
-    private void HideUserInterfaceCommandExecute()
-    {
-        IsEnabled = false;
-        _Messenger.Send(new HideUserInterfaceMessage());
-    }
-
-    public ICommand ShowSettingsInterfaceCommand => new RelayCommand(ShowSettingsInterfaceCommandExecute);
-    private void ShowSettingsInterfaceCommandExecute()
-    {
-        IsEnabled = false;
-        _Messenger.Send(new ShowSettingsInterfaceMessage());
-    }
-
-    public ICommand MouseDoubleClickBehaviorCommand => new RelayCommand<object?>(MouseDoubleClickBehaviorCommandExecute);
-    private void MouseDoubleClickBehaviorCommandExecute(object? sender)
-    {
-        if(sender is null)
-        {
-            return;
-        }
-
-        TextBox? textBox = sender as TextBox;
-        if(textBox is null)
-        {
-            return;
-        }
-    }
+   
 
 
     //public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)

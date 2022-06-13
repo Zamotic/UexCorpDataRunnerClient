@@ -16,6 +16,7 @@
     <None Remove="Fonts\Nunito-Medium.ttf" />
     <None Remove="Fonts\Nunito-Regular.ttf" />
     <None Remove="Fonts\Nunito-SemiBold.ttf" />
+    <None Remove="Images\cancel-128-red.png" />
     <None Remove="Images\pin-8-128-AAAAE3.png" />
     <None Remove="Images\settings-128-black.png" />
     <None Remove="Images\triangle-128-LightGray.png" />
@@ -42,6 +43,7 @@
     <Resource Include="Fonts\Nunito-Medium.ttf" />
     <Resource Include="Fonts\Nunito-Regular.ttf" />
     <Resource Include="Fonts\Nunito-SemiBold.ttf" />
+    <Resource Include="Images\cancel-128-red.png" />
     <Resource Include="Images\pin-8-128-AAAAE3.png" />
     <Resource Include="Images\settings-128-black.png" />
     <Resource Include="Images\triangle-128-LightGray.png" />
