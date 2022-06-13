@@ -467,19 +467,19 @@ public class DataRunnerViewModel : ViewModelBase
         var currentTradeport = await _DataService.GetTradeportAsync(tradeportCode);
         foreach (var tradeListingValue in currentTradeport.Prices)
         {
-            if(_commodityList.Any(x => x.Code.Equals(tradeListingValue.Key)) == false)
+            if(_commodityList.Any(x => x.Code.Equals(tradeListingValue.Code)) == false)
             {
                 continue;
             }
-            var locatedCommodity = _commodityList.First(x => x.Code.Equals(tradeListingValue.Key));
+            var locatedCommodity = _commodityList.First(x => x.Code.Equals(tradeListingValue.Code));
 
-            if(tradeListingValue.Value.Operation == OperationType.Buy)
+            if(tradeListingValue.Operation == OperationType.Buy)
             {
-                BuyableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue.Value));
+                BuyableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue));
                 continue;
             }
 
-            SellableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue.Value));
+            SellableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue));
         }
     }
 }

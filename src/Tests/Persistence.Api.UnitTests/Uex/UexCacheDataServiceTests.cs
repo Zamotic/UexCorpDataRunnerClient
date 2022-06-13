@@ -11,32 +11,135 @@ using Xunit;
 using Moq;
 using AutoMapper;
 using UexCorpDataRunner.Persistence.Api.Uex.Maps;
+using System.Collections.ObjectModel;
+using UexCorpDataRunner.Domain.DataRunner;
 
 namespace UexCorpDataRunner.Persistence.Api.UnitTests.Uex;
 public class UexCacheDataServiceTests
 {
     IUexDataService _uexCacheDataService;
-    UexCorpWebApiClientMock _webApiClientMock;
+    Mock<IUexCorpWebApiClientAdapter> _mockWebApiClientAdapter;
 
     public UexCacheDataServiceTests()
     {
-        _webApiClientMock = new UexCorpWebApiClientMock();
-        var config = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<SystemProfile>();
-            cfg.AddProfile<PlanetProfile>();
-            cfg.AddProfile<SatelliteProfile>();
-            cfg.AddProfile<CityProfile>();
-            cfg.AddProfile<TradeportProfile>();
-            cfg.AddProfile<CommodityProfile>();
-        });
-        var mapper = config.CreateMapper();
-        IUexCorpWebApiClientAdapter webApiClientAdapter = new UexCorpWebApiClientAdapter(_webApiClientMock, mapper);
-        _uexCacheDataService = new UexCacheDataService(webApiClientAdapter);
+        _mockWebApiClientAdapter = new Mock<IUexCorpWebApiClientAdapter>();
+        InitilizeMockWebApiClientAdapter();
+
+        _uexCacheDataService = new UexCacheDataService(_mockWebApiClientAdapter.Object);
+    }
+
+    private void InitilizeMockWebApiClientAdapter()
+    {
+        DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 26, 2, 25, 15, TimeSpan.Zero);
+        DateTimeOffset _dateModified = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
+        _mockWebApiClientAdapter.Setup(s => s.GetSystemsAsync()).ReturnsAsync(
+            new ReadOnlyCollection<Domain.DataRunner.System>(new List<Domain.DataRunner.System>()
+            {
+                new Domain.DataRunner.System() { Name = "Pyro", Code = "PY", IsAvailable = false, IsDefault = false, DateAdded = _dateAdded, DateModified = _dateModified },
+                new Domain.DataRunner.System() { Name = "Stanton", Code = "ST", IsAvailable = true, IsDefault = true, DateAdded = _dateAdded, DateModified = _dateModified }
+            }));
+
+        _mockWebApiClientAdapter.Setup(s => s.GetPlanetsAsync(It.Is<string>(x => x.Equals("ST")))).ReturnsAsync(
+            new ReadOnlyCollection<Planet>(
+                new List<Planet>()
+                {
+                    new Planet() { System = "ST", Name = "ArcCorp", Code = "ARC", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Planet() { System = "ST", Name = "Crusader", Code = "CRU", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Planet() { System = "ST", Name = "Hurston", Code = "HUR", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Planet() { System = "ST", Name = "microTech", Code = "MIC", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified }
+                })
+            );
+
+        _mockWebApiClientAdapter.Setup(s => s.GetCitiesAsync(It.Is<string>(x => x.Equals("ST")))).ReturnsAsync(
+            new ReadOnlyCollection<City>(
+                new List<City>()
+                {
+                    new City() { System = "ST", Planet = "ARC", Name = "Area 18", Code = "A18", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new City() { System = "ST", Planet = "HUR", Name = "Lorville", Code = "LOR", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new City() { System = "ST", Planet = "MIC", Name = "New Babbage", Code = "NBB", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new City() { System = "ST", Planet = "CRU", Name = "Orison", Code = "ORI", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified }
+                })
+            );
+
+        _mockWebApiClientAdapter.Setup(s => s.GetSatellitesAsync(It.Is<string>(x => x.Equals("ST")))).ReturnsAsync(
+            new ReadOnlyCollection<Satellite>(
+                new List<Satellite>()
+                {
+                    new Satellite() { System = "ST", Planet = "HUR", Name = "Aberdeen", Code = "ABER", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Satellite() { System = "ST", Planet = "HUR", Name = "Arial", Code = "ARIA", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Satellite() { System = "ST", Planet = "MIC", Name = "Calliope", Code = "CALL", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Satellite() { System = "ST", Planet = "CRU", Name = "Cellin", Code = "CELL", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Satellite() { System = "ST", Planet = "ARC", Name = "Wala", Code = "WALA", IsAvailable = true, DateAdded = _dateAdded, DateModified = _dateModified }
+                })
+            );
+
+        _mockWebApiClientAdapter.Setup(s => s.GetTradeportsAsync(It.Is<string>(x => x.Equals("ST")))).ReturnsAsync(
+            new ReadOnlyCollection<Tradeport>(
+                new List<Tradeport>()
+                {
+                    new Tradeport() { System = "ST", Planet = "ARC", Satellite = "WALA", City = null, Name = "ArcCorp Mining Area 045", NameShort = "ArcCorp 045", Code = "AM045", IsVisible = true, IsArmisticeZone = true, HasTrade = true, WelcomesOutlaws = false, HasRefinery = false, HasShops = false, IsRestrictedArea = false, HasMinables = false, DateAdded = _dateAdded, DateModified = _dateAdded,
+                        Prices = new List<TradeListing>() { new TradeListing() { Code = "PRFO", Name = "Processed Food", Kind = "Food", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 1.5m, DateUpdate = _dateModified, IsUpdated = true } } }, 
+                    new Tradeport() { System = "ST", Planet = "ARC", Satellite = "WALA", City = null, Name = "ArcCorp Mining Area 048", NameShort = "ArcCorp 048", Code = "AM048", IsVisible = true, IsArmisticeZone = true, HasTrade = true, WelcomesOutlaws = false, HasRefinery = false, HasShops = false, IsRestrictedArea = false, HasMinables = false, DateAdded = _dateAdded, DateModified = _dateAdded },
+                    new Tradeport() { System = "ST", Planet = "ARC", Satellite = "WALA", City = null, Name = "ArcCorp Mining Area 056", NameShort = "ArcCorp 056", Code = "AM056", IsVisible = true, IsArmisticeZone = true, HasTrade = true, WelcomesOutlaws = false, HasRefinery = false, HasShops = false, IsRestrictedArea = false, HasMinables = false, DateAdded = _dateAdded, DateModified = _dateAdded },
+                    new Tradeport() { System = "ST", Planet = "ARC", Satellite = "WALA", City = null, Name = "ArcCorp Mining Area 061", NameShort = "ArcCorp 061", Code = "AM061", IsVisible = true, IsArmisticeZone = true, HasTrade = true, WelcomesOutlaws = false, HasRefinery = false, HasShops = false, IsRestrictedArea = false, HasMinables = false, DateAdded = _dateAdded, DateModified = _dateAdded }
+                })
+            );
+
+        _mockWebApiClientAdapter.Setup(s => s.GetCommoditiesAsync()).ReturnsAsync(
+            new ReadOnlyCollection<Commodity>(
+                new List<Commodity>()
+                {
+                    new Commodity() { Name = "Agricultural Supplies", Code = "ACSU", Kind = "Agricultural", BuyPrice = 1.01m, SellPrice = 1.21m, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Commodity() { Name = "Agricium", Code = "AGRI", Kind = "Metal", BuyPrice = 23.79m, SellPrice = 27.5m, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Commodity() { Name = "Agricium (Ore)", Code = "AGRW", Kind = "Metal", BuyPrice = 0m, SellPrice = 13.75m, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Commodity() { Name = "Altruciatoxin", Code = "ALTX", Kind = "Drug", BuyPrice = 12.12m, SellPrice = 0m, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Commodity() { Name = "Aluminum", Code = "ALUM", Kind = "Metal", BuyPrice = 1.11m, SellPrice = 1.3m, DateAdded = _dateAdded, DateModified = _dateModified },
+                    new Commodity() { Name = "Aluminum (Ore)", Code = "ALUW", Kind = "Metal", BuyPrice = 0m, SellPrice = 0.67m, DateAdded = _dateAdded, DateModified = _dateModified }
+                })
+            );
+
+        _mockWebApiClientAdapter.Setup(s => s.GetTradeportAsync(It.Is<string>(x => x.Equals("AM056")))).ReturnsAsync(
+            new Tradeport()
+            {
+                System = "ST",
+                Planet = "ARC",
+                Satellite = "WALA",
+                City = null,
+                Name = "ArcCorp Mining Area 056",
+                NameShort = "ArcCorp 056",
+                Code = "AM056",
+                IsVisible = true,
+                IsArmisticeZone = true,
+                HasTrade = true,
+                WelcomesOutlaws = false,
+                HasRefinery = false,
+                HasShops = false,
+                IsRestrictedArea = false,
+                HasMinables = false,
+                DateAdded = _dateAdded,
+                DateModified = _dateAdded,
+                Prices = new List<TradeListing>()
+                    {
+                        new TradeListing() { Code = "PRFO", Name = "Processed Food", Kind = "Food", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 1.5m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "STIM", Name = "Stims", Kind = "Vice", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 3.8m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "DISP", Name = "Distilled Spirits", Kind = "Vice", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 5.56m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "MEDS", Name = "Medical Supplies", Kind = "Medical", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 19.25m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "DOLI", Name = "Dolivine", Kind = "Mineral", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 130m, DateUpdate = _dateModified, IsUpdated = false },
+                        new TradeListing() { Code = "APHO", Name = "Aphorite", Kind = "Mineral", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 152.5m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "HADA", Name = "Hadanite", Kind = "Mineral", Operation = OperationType.Sell, PriceBuy = 0m, PriceSell = 275m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "IODI", Name = "Iodine", Kind = "Halogen", Operation = OperationType.Buy, PriceBuy = 0.35m, PriceSell = 0m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "ALUM", Name = "Aluminum", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 1.11m, PriceSell = 0m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "TUNG", Name = "Tungsten", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 3.55m, PriceSell = 0m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "DIAM", Name = "Diamond", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 6.28m, PriceSell = 0m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "ASTA", Name = "Astatine", Kind = "Halogen", Operation = OperationType.Buy, PriceBuy = 7.52m, PriceSell = 0m, DateUpdate = _dateModified, IsUpdated = true },
+                        new TradeListing() { Code = "LARA",  Name = "Laranite", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 27.74m, PriceSell = 0m, DateUpdate = _dateModified, IsUpdated = true }
+                    }
+            });
     }
 
     [Fact]
-    public async Task GetAllSystemsAsync_UexCacheDataService_ShouldCallWebApiOnce()
+    public async Task GetAllSystemsAsync_ShouldCallWebApiOnce()
     {
         // Assemble
 
@@ -46,11 +149,11 @@ public class UexCacheDataServiceTests
 
         // Assert
         actual1.Should().BeSameAs(actual2);
-        _webApiClientMock.Verify(w => w.GetSystemsAsync(), Times.Once());
+        _mockWebApiClientAdapter.Verify(v => v.GetSystemsAsync(), Times.Once());
     }
 
     [Fact]
-    public async Task GetAllPlanetsAsync_UexCacheDataService_ShouldCallWebApiOnce()
+    public async Task GetAllPlanetsAsync_ShouldCallWebApiOnce()
     {
         // Assemble
         const string SystemCode = "ST";
@@ -61,11 +164,11 @@ public class UexCacheDataServiceTests
 
         // Assert
         actual1.Should().BeSameAs(actual2);
-        _webApiClientMock.Verify(w => w.GetPlanetsAsync(SystemCode), Times.Once());
+        _mockWebApiClientAdapter.Verify(v => v.GetPlanetsAsync(SystemCode), Times.Once());
     }
 
     [Fact]
-    public async Task GetAllCitiesAsync_UexCacheDataService_ShouldCallWebApiOnce()
+    public async Task GetAllCitiesAsync_ShouldCallWebApiOnce()
     {
         // Assemble
         const string SystemCode = "ST";
@@ -76,11 +179,11 @@ public class UexCacheDataServiceTests
 
         // Assert
         actual1.Should().BeSameAs(actual2);
-        _webApiClientMock.Verify(w => w.GetCitiesAsync(SystemCode), Times.Once());
+        _mockWebApiClientAdapter.Verify(v => v.GetCitiesAsync(SystemCode), Times.Once());
     }
 
     [Fact]
-    public async Task GetAllTradeportsAsync_UexCacheDataService_ShouldCallWebApiOnce()
+    public async Task GetAllTradeportsAsync_ShouldCallWebApiOnce()
     {
         // Assemble
         const string SystemCode = "ST";
@@ -91,11 +194,11 @@ public class UexCacheDataServiceTests
 
         // Assert
         actual1.Should().BeSameAs(actual2);
-        _webApiClientMock.Verify(w => w.GetTradeportsAsync(SystemCode), Times.Once());
+        _mockWebApiClientAdapter.Verify(v => v.GetTradeportsAsync(SystemCode), Times.Once());
     }
 
     [Fact]
-    public async Task GetAllCommoditiesAsync_UexCacheDataService_ShouldCallWebApiOnce()
+    public async Task GetAllCommoditiesAsync_ShouldCallWebApiTwice()
     {
         // Assemble
 
@@ -105,11 +208,11 @@ public class UexCacheDataServiceTests
 
         // Assert
         actual1.Should().BeEquivalentTo(actual2);
-        _webApiClientMock.Verify(w => w.GetCommoditiesAsync(), Times.Exactly(2));
+        _mockWebApiClientAdapter.Verify(v => v.GetCommoditiesAsync(), Times.Exactly(2));
     }
 
     [Fact]
-    public async Task GetTradeportAsync_UexCacheDataService_ShouldCallWebApiOnce()
+    public async Task GetTradeportAsync_UexCacheDataService_ShouldCallWebApiTwice()
     {
         // Assemble
         const string TradeportCode = "AM056";
@@ -120,6 +223,6 @@ public class UexCacheDataServiceTests
 
         // Assert
         actual1.Should().BeEquivalentTo(actual2);
-        _webApiClientMock.Verify(w => w.GetTradeportAsync(TradeportCode), Times.Exactly(2));
+        _mockWebApiClientAdapter.Verify(v => v.GetTradeportAsync(TradeportCode), Times.Exactly(2));
     }
 }

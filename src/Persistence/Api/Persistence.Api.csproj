@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Uex\Maps\Resolvers\TradeListingResolver.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Uex\Maps\Resolvers\TradeListingResolver.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>

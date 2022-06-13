@@ -21,5 +21,5 @@ public class Tradeport : NameableBaseModel
     public bool IsRestrictedArea { get; set; }
     public bool HasMinables { get; set; }
 
-    public Dictionary<string, TradeListing> Prices { get; set; } = new Dictionary<string, TradeListing>();
+    public List<TradeListing> Prices { get; set; } = new List<TradeListing>();
 }

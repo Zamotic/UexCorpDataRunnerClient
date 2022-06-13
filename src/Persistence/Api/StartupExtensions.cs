@@ -14,10 +14,11 @@ public static class StartupExtensions
                 .AddUexCorpWebApiConfiguration()
                 .AddSingleton<IUexCorpWebApiClientAdapter, UexCorpWebApiClientAdapter>()
                 .AddSingleton<IUexDataService, UexCacheDataService>()
-                .AddSingleton<IHttpClientFactory, UexHttpClientFactory>()
+                .AddSingleton<IUexCorpWebApiClient, UexCorpWebApiClient>()
 #if DEBUG
 #else
-                .AddSingleton<IUexCorpWebApiClient, UexCorpWebApiClient>()
+                .AddSingleton<IHttpClientFactory, UexHttpClientFactory>()
+                //
 #endif
                 ;
 

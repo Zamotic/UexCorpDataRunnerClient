@@ -19,7 +19,7 @@ public class TradeListingDto
     public decimal PriceBuy { get; set; }
     [JsonPropertyName("price_sell")]
     public decimal PriceSell { get; set; }
-    [JsonPropertyName("date_updated")]
+    [JsonPropertyName("date_update")]
     [JsonConverter(typeof(UexDateTimeOffsetTypeJsonConverter))]
     public DateTimeOffset DateUpdate { get; set; }
     [JsonPropertyName("is_updated")]

@@ -9,6 +9,14 @@ public class TradeportProfile : Profile
     {
         CreateMap<TradeportDto, Domain.DataRunner.Tradeport>();
         CreateMap<TradeListingDto, Domain.DataRunner.TradeListing>()
-            .ForMember(t => t.Operation, opt => opt.MapFrom<OperationResolver>());
+            .ForMember(dest => dest.Code, opt => opt.Ignore());
+        CreateMap<KeyValuePair<string, TradeListingDto>, Domain.DataRunner.TradeListing>()
+            .ConstructUsing((src, context) => 
+            {
+                var tradeListing = context.Mapper.Map<TradeListingDto, Domain.DataRunner.TradeListing>(src.Value);
+                tradeListing.Code = src.Key;
+                return tradeListing;
+            })
+            .ForAllMembers(opt => opt.Ignore());
     }
 }
