@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex;
@@ -72,5 +73,16 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
         var commodities = _Mapper.Map<List<Domain.DataRunner.Commodity>>(commoditiesDtos);
         return commodities;
+    }
+
+    public async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
+    {
+        var priceReportDto = _Mapper.Map<PriceReportDto>(priceReport);
+
+        UexResponseDto<int> responseDto = await _WebClient.SubmitPriceReportAsync(priceReportDto);
+
+        var priceReportResponse = _Mapper.Map<PriceReportResponse>(responseDto);
+
+        return priceReportResponse;
     }
 }

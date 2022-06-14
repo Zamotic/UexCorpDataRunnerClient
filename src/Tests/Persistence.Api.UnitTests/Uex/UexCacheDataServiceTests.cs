@@ -136,6 +136,13 @@ public class UexCacheDataServiceTests
                         new TradeListing() { Code = "LARA",  Name = "Laranite", Kind = "Metal", Operation = OperationType.Buy, PriceBuy = 27.74m, PriceSell = 0m, DateUpdate = _dateModified, IsUpdated = true }
                     }
             });
+
+        _mockWebApiClientAdapter.Setup(s => s.SubmitPriceReportAsync(It.IsAny<PriceReport>())).ReturnsAsync(
+            new PriceReportResponse()
+            {
+                Response = true,
+                StatusMessage = "ok"
+            });
     }
 
     [Fact]
@@ -224,5 +231,28 @@ public class UexCacheDataServiceTests
         // Assert
         actual1.Should().BeEquivalentTo(actual2);
         _mockWebApiClientAdapter.Verify(v => v.GetTradeportAsync(TradeportCode), Times.Exactly(2));
+    }
+
+    [Fact]
+    public async Task SubmitPriceReportAsync_UexCacheDataService_ShouldCallWebApiTwice()
+    {
+        // Assemble
+        var priceReport = new UexCorpDataRunner.Domain.DataRunner.PriceReport()
+        {
+            CommodityCode = "PRFO",
+            TradeportCode = "AM056",
+            Operation = "sell",
+            Price = "1.5",
+            UserHash = "c5e000",
+            Confirm = false
+        };
+
+        // Act
+        var actual1 = await _uexCacheDataService.SubmitPriceReportAsync(priceReport);
+        var actual2 = await _uexCacheDataService.SubmitPriceReportAsync(priceReport);
+
+        // Assert
+        actual1.Should().BeEquivalentTo(actual2);
+        _mockWebApiClientAdapter.Verify(v => v.SubmitPriceReportAsync(priceReport), Times.Exactly(2));
     }
 }

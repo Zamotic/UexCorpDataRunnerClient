@@ -86,6 +86,15 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
                 new CommodityDto() { Name = "Aluminum (Ore)", Code = "ALUW", Kind = "Metal", BuyPrice = 0m, SellPrice = 0.67m, DateAdded = dateAdded, DateModified = dateModified }
             };
         this.Setup(s => s.GetCommoditiesAsync()).Returns(Task.FromResult(commodityDtoList));
+
+
+        UexResponseDto<int> SubmitPriceReportResponse = new UexResponseDto<int>()
+        {
+            Status = "ok",
+            Code = 200,
+            Data = 1234
+        };
+        this.Setup(s => s.SubmitPriceReportAsync(It.IsAny<PriceReportDto>())).Returns(Task.FromResult(SubmitPriceReportResponse));
     }
 
     public async Task<ICollection<SystemDto>> GetSystemsAsync()
@@ -121,5 +130,10 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
     public async Task<ICollection<CommodityDto>> GetCommoditiesAsync()
     {
         return await this.Object.GetCommoditiesAsync();
+    }
+
+    public async Task<UexResponseDto<int>> SubmitPriceReportAsync(PriceReportDto priceReport)
+    {
+        return await this.Object.SubmitPriceReportAsync(priceReport);
     }
 }

@@ -58,10 +58,8 @@ public partial class DataRunnerViewModel
     }
     private void ClearSelectedSystemCommandExecute()
     {
+        ClearSelectedPlanetCommandExecute();
         SelectedSystem = null;
-        SelectedTradeport = null;
-        SelectedSatellite = null;
-        SelectedPlanet = null;
     }
 
     public ICommand ClearSelectedPlanetCommand => new RelayCommand(ClearSelectedPlanetCommandExecute, ClearSelectedPlanetCommandCanExecute);
@@ -71,8 +69,7 @@ public partial class DataRunnerViewModel
     }
     private void ClearSelectedPlanetCommandExecute()
     {
-        SelectedTradeport = null;
-        SelectedSatellite = null;
+        ClearSelectedSatelliteCommandExecute();
         SelectedPlanet = null;
     }
 
@@ -83,7 +80,7 @@ public partial class DataRunnerViewModel
     }
     private void ClearSelectedSatelliteCommandExecute()
     {
-        SelectedTradeport = null;
+        ClearSelectedTradeportCommandExecute();
         SelectedSatellite = null;
     }
 
@@ -95,6 +92,42 @@ public partial class DataRunnerViewModel
     private void ClearSelectedTradeportCommandExecute()
     {
         SelectedTradeport = null;
+        ResetCommoditiesCommandExecute();
+    }
+
+    public ICommand ResetCommoditiesCommand => new RelayCommand(ResetCommoditiesCommandExecute);
+    private void ResetCommoditiesCommandExecute()
+    {
+        BuyableCommodities.Clear();
+        SellableCommodities.Clear();
+    }
+
+    public ICommand SubmitCommoditiesCommand => new RelayCommand(SubmitCommoditiesCommandExecute, SubmitCommoditiesCommandCanExecute);
+    private bool SubmitCommoditiesCommandCanExecute()
+    {
+        if (CurrentTradeport is null)
+        {
+            return false;
+        }
+        if (BuyableCommodities.Any() == false)
+        {
+            return false;
+        }
+        if (SellableCommodities.Any() == false)
+        {
+            return false;
+        }
+        if (BuyableCommodities.All(x => x.CurrentPrice.HasValue == false))
+        {
+            if (SellableCommodities.All(x => x.CurrentPrice.HasValue == false))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    private void SubmitCommoditiesCommandExecute()
+    {
     }
 }
 

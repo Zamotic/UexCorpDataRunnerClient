@@ -96,6 +96,49 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         return await GenericGetCollectionAsync<CommodityDto>(endPointValue);
     }
 
+    public async Task<UexResponseDto<int>> SubmitPriceReportAsync(PriceReportDto priceReport)
+    {
+        string endPointValue = $"sr/";
+
+        // Set the full request URI
+        string absolutePath = $"{_WebApiConfiguration.DataRunnerEndpointPath}{endPointValue}";
+        if (absolutePath.EndsWith("/") == false)
+        {
+            absolutePath += "/";
+        }
+
+        string contentString = System.Text.Json.JsonSerializer.Serialize(priceReport);
+
+        string responseJson = string.Empty;
+        using (var content = new StringContent(contentString))
+        using (HttpResponseMessage response = await _HttpClient.PostAsync(absolutePath, content).ConfigureAwait(false))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body.
+                responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<int>>(responseJson);
+
+        if (responseObject is null)
+        {
+            return new UexResponseDto<int>()
+            {
+                Status = "No Response Received",
+                Code = 400,
+                Data = 0
+            };
+        }
+
+        return responseObject;
+    }
+
     protected async Task<ICollection<T>> GenericGetCollectionAsync<T>(string endPointValue) where T : class
     {
         // Set the full request URI

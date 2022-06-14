@@ -32,6 +32,7 @@ public class UexCorpWebApiClientAdapterTests
                 cfg.AddProfile<CityProfile>();
                 cfg.AddProfile<TradeportProfile>();
                 cfg.AddProfile<CommodityProfile>();
+                cfg.AddProfile<PriceReportProfile>();
             });
         var mapper = _config.CreateMapper();
         _adapter = new UexCorpWebApiClientAdapter(mockWebClient.Object, mapper);
@@ -45,7 +46,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetSystemsAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
+    public async Task GetSystemsAsync_ReturnsExpectedCount()
     {
         // Assemble
         const int ExpectedCount = 2;
@@ -58,7 +59,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetSystemsAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    public async Task GetSystemsAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
         var expectedSystem = new UexCorpDataRunner.Domain.DataRunner.System()
@@ -79,7 +80,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetPlanetsAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
+    public async Task GetPlanetsAsync_ReturnsExpectedCount()
     {
         // Assemble
         const int ExpectedCount = 4;
@@ -93,7 +94,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetPlanetsAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    public async Task GetPlanetsAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
         var expectedPlanet = new UexCorpDataRunner.Domain.DataRunner.Planet()
@@ -115,7 +116,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetSatellitesAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
+    public async Task GetSatellitesAsync_ReturnsExpectedCount()
     {
         // Assemble
         const int ExpectedCount = 5;
@@ -129,7 +130,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetSatellitesAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    public async Task GetSatellitesAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
         var expectedSatellite = new UexCorpDataRunner.Domain.DataRunner.Satellite()
@@ -152,7 +153,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetCitiesAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
+    public async Task GetCitiesAsync_ReturnsExpectedCount()
     {
         // Assemble
         const int ExpectedCount = 4;
@@ -166,7 +167,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetCitiesAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    public async Task GetCitiesAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
         var expectedCity = new UexCorpDataRunner.Domain.DataRunner.City()
@@ -189,7 +190,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetTradeportsAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
+    public async Task GetTradeportsAsync_ReturnsExpectedCount()
     {
         // Assemble
         const int ExpectedCount = 4;
@@ -203,7 +204,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetTradeportsAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    public async Task GetTradeportsAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
         var expectedTradeport = new UexCorpDataRunner.Domain.DataRunner.Tradeport()
@@ -250,7 +251,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetTradeportAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    public async Task GetTradeportAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
         var expectedTradeport = new UexCorpDataRunner.Domain.DataRunner.Tradeport() 
@@ -299,7 +300,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetCommoditiesAsync_UexCorpWebApiClientAdapter_ReturnsExpectedCount()
+    public async Task GetCommoditiesAsync_ReturnsExpectedCount()
     {
         // Assemble
         const int ExpectedCount = 6;
@@ -312,7 +313,7 @@ public class UexCorpWebApiClientAdapterTests
     }
 
     [Fact]
-    public async Task GetCommoditiesAsync_UexCorpWebApiClientAdapter_FirstObjectHasExpectedValues()
+    public async Task GetCommoditiesAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
         var expectedCommodity = new UexCorpDataRunner.Domain.DataRunner.Commodity()
@@ -331,5 +332,33 @@ public class UexCorpWebApiClientAdapterTests
 
         // Assert
         actual.First().Should().BeEquivalentTo(expectedCommodity);
+    }
+
+
+
+    [Fact]
+    public async Task SubmitPriceReportAsync_ResponseHasExpectedValues()
+    {
+        // Assemble
+        var priceReport = new UexCorpDataRunner.Domain.DataRunner.PriceReport()
+        {
+            CommodityCode = "PRFO",
+            TradeportCode = "AM056",
+            Operation = "sell",
+            Price = "1.5",
+            UserHash = "c5e000",
+            Confirm = false
+        };
+        var ExpectedUexResponse = new UexCorpDataRunner.Domain.DataRunner.PriceReportResponse()
+        {
+            Response = true,
+            StatusMessage = "ok"
+        };
+
+        // Act
+        var actual = await _adapter.SubmitPriceReportAsync(priceReport);
+
+        // Assert
+        actual.Should().BeEquivalentTo(ExpectedUexResponse);
     }
 }

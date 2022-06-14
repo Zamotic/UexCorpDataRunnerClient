@@ -1330,4 +1330,68 @@ public class UexCropWebApiClientTests
         actual.Should().NotBeNull();
         actual.DateModified.Should().Be(ExpectedValue);
     }
+
+
+    private static UexResponseDto<int> _ActualSubmitPriceReportAsyncValue = new UexResponseDto<int>();
+    private async Task<UexResponseDto<int>> GetSubmitPriceReportAsyncValue()
+    {
+        if (string.IsNullOrEmpty(_ActualSubmitPriceReportAsyncValue.Status) == true)
+        {
+            PriceReportDto reportDto = new PriceReportDto()
+            {
+                CommodityCode = "PRFO",
+                TradeportCode = "AM056",
+                Operation = "sell",
+                Price = "1.5",
+                UserHash = "c5e000",
+                Confirm = false
+            };
+
+            _ActualSubmitPriceReportAsyncValue = await _webApiClient.SubmitPriceReportAsync(reportDto).ConfigureAwait(false);
+        }
+
+        return _ActualSubmitPriceReportAsyncValue;
+    }
+
+    [Fact]
+    public async Task SubmitPriceReportAsync_ShouldHaveExpectedStatus()
+    {
+        // Assemble
+        const string ExpectedValue = "ok";
+
+        // Act
+        var actual = await GetSubmitPriceReportAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        actual.Should().NotBeNull();
+        actual.Status.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task SubmitPriceReportAsync_ShouldHaveExpectedCode()
+    {
+        // Assemble
+        const int ExpectedValue = 200;
+
+        // Act
+        var actual = await GetSubmitPriceReportAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        actual.Should().NotBeNull();
+        actual.Code.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task SubmitPriceReportAsync_ShouldHaveExpectedData()
+    {
+        // Assemble
+        const int ExpectedValue = 1234;
+
+        // Act
+        var actual = await GetSubmitPriceReportAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        actual.Should().NotBeNull();
+        actual.Data.Should().Be(ExpectedValue);
+    }
 }

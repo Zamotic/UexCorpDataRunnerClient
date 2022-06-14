@@ -25,6 +25,11 @@ public class UexBooleanTypeJsonConverter : JsonConverter<bool>
 
     public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        string returnValue = "0";
+        if(value == true)
+        {
+            returnValue = "1";
+        }
+        writer.WriteStringValue(returnValue);
     }
 }

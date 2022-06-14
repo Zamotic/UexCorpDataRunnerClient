@@ -29,4 +29,8 @@
     <ProjectReference Include="..\..\Persistence\Api\Persistence.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UexCorpDataRunner\Domain\DataRunner\" />
+  </ItemGroup>
+
 </Project>

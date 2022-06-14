@@ -16,6 +16,7 @@ public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
     public MockedRequest TradeportsRequest { get; }
     public MockedRequest CommoditiesRequest { get; }
     public MockedRequest TradeportAM056Request { get; }
+    public MockedRequest PriceRequestAM056Request { get; }
 
 
     public UexWebApiMockHttpMessageHandler()
@@ -40,6 +41,11 @@ public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
 
         TradeportAM056Request = this.When("https://api.uexcorp.space/tradeport/code/AM056/")
             .Respond("application/json", GetTradeportAM056Response());
+
+        PriceRequestAM056Request = this.When("https://api.uexcorp.space/sr/")
+            //.WithContent("{'commodity':'PRFO','tradeport':'AM056','operation':'sell','price':'1.5','user_hash':'c5e000','confirm':0}")
+            .WithContent("{\"commodity\":\"PRFO\",\"tradeport\":\"AM056\",\"operation\":\"sell\",\"price\":\"1.5\",\"user_hash\":\"c5e000\",\"confirm\":\"0\"}")
+            .Respond("application/json", PriceRequestAM056Response());
 
     }
     private string GeSystemsJsonResponse()
@@ -75,5 +81,10 @@ public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
     private string GetTradeportAM056Response()
     {
         return "{\"status\":\"ok\",\"code\":200,\"data\":{\"system\":\"ST\",\"planet\":\"ARC\",\"satellite\":\"WALA\",\"city\":null,\"code\":\"AM056\",\"name\":\"ArcCorp Mining Area 056\",\"name_short\":\"ArcCorp 056\",\"visible\":\"1\",\"armistice\":\"1\",\"trade\":\"1\",\"outlaw\":\"0\",\"refinery\":\"0\",\"shops\":\"0\",\"restricted\":\"0\",\"minable\":0,\"date_added\":1608949515,\"date_modified\":1654632022,\"prices\":{\"PRFO\":{\"name\":\"Processed Food\",\"kind\":\"Food\",\"operation\":\"sell\",\"price_buy\":0,\"price_sell\":1.5,\"date_update\":1646798411,\"is_updated\":false},\"STIM\":{\"name\":\"Stims\",\"kind\":\"Vice\",\"operation\":\"sell\",\"price_buy\":0,\"price_sell\":3.8,\"date_update\":1646798411,\"is_updated\":false},\"DISP\":{\"name\":\"Distilled Spirits\",\"kind\":\"Vice\",\"operation\":\"sell\",\"price_buy\":0,\"price_sell\":5.56,\"date_update\":1646798409,\"is_updated\":false},\"MEDS\":{\"name\":\"Medical Supplies\",\"kind\":\"Medical\",\"operation\":\"sell\",\"price_buy\":0,\"price_sell\":19.25,\"date_update\":1646798410,\"is_updated\":false},\"DOLI\":{\"name\":\"Dolivine\",\"kind\":\"Mineral\",\"operation\":\"sell\",\"price_buy\":0,\"price_sell\":130,\"date_update\":1641222033,\"is_updated\":false},\"APHO\":{\"name\":\"Aphorite\",\"kind\":\"Mineral\",\"operation\":\"sell\",\"price_buy\":0,\"price_sell\":152.5,\"date_update\":1641222031,\"is_updated\":false},\"HADA\":{\"name\":\"Hadanite\",\"kind\":\"Mineral\",\"operation\":\"sell\",\"price_buy\":0,\"price_sell\":275,\"date_update\":1641222034,\"is_updated\":false},\"IODI\":{\"name\":\"Iodine\",\"kind\":\"Halogen\",\"operation\":\"buy\",\"price_buy\":0.35,\"price_sell\":0,\"date_update\":1654632020,\"is_updated\":true},\"ALUM\":{\"name\":\"Aluminum\",\"kind\":\"Metal\",\"operation\":\"buy\",\"price_buy\":1.11,\"price_sell\":0,\"date_update\":1654632018,\"is_updated\":true},\"TUNG\":{\"name\":\"Tungsten\",\"kind\":\"Metal\",\"operation\":\"buy\",\"price_buy\":3.55,\"price_sell\":0,\"date_update\":1654632022,\"is_updated\":true},\"DIAM\":{\"name\":\"Diamond\",\"kind\":\"Metal\",\"operation\":\"buy\",\"price_buy\":6.45,\"price_sell\":0,\"date_update\":1654632019,\"is_updated\":true},\"ASTA\":{\"name\":\"Astatine\",\"kind\":\"Halogen\",\"operation\":\"buy\",\"price_buy\":7.58,\"price_sell\":0,\"date_update\":1654632018,\"is_updated\":true},\"LARA\":{\"name\":\"Laranite\",\"kind\":\"Metal\",\"operation\":\"buy\",\"price_buy\":27.9,\"price_sell\":0,\"date_update\":1654632021,\"is_updated\":true}}}}";
+    }
+
+    private string PriceRequestAM056Response()
+    {
+        return "{\"status\":\"ok\",\"code\":200,\"data\":1234}";
     }
 }

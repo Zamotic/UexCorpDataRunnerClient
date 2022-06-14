@@ -10,4 +10,5 @@ public interface IUexCorpWebApiClient
     Task<ICollection<TradeportDto>> GetTradeportsAsync(string systemCode);
     Task<ICollection<CommodityDto>> GetCommoditiesAsync();
     Task<TradeportDto> GetTradeportAsync(string tradeportCode);
+    Task<UexResponseDto<int>> SubmitPriceReportAsync(PriceReportDto priceReport);
 }

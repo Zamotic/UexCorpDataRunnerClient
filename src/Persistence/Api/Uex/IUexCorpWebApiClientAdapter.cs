@@ -15,4 +15,5 @@ public interface IUexCorpWebApiClientAdapter
     Task<IReadOnlyCollection<Domain.DataRunner.Tradeport>> GetTradeportsAsync(string systemCode);
     Task<IReadOnlyCollection<Domain.DataRunner.Commodity>> GetCommoditiesAsync();
     Task<Tradeport> GetTradeportAsync(string tradeportCode);
+    Task<Domain.DataRunner.PriceReportResponse> SubmitPriceReportAsync(Domain.DataRunner.PriceReport testPriceReport);
 }

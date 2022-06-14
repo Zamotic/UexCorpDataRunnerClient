@@ -15,4 +15,5 @@ public interface IUexDataService
     Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode);
     Task<Tradeport> GetTradeportAsync(string tradeportCode);
     Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync();
+    Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport);
 }

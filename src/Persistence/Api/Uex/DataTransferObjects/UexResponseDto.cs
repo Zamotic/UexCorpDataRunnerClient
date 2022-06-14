@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
-public class UexResponseDto<T> where T : class
+public class UexResponseDto<T>
 {
     [JsonPropertyName("status")]
     public string? Status { get; set; }
