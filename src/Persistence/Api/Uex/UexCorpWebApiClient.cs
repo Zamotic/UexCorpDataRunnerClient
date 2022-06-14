@@ -110,7 +110,11 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         string contentString = System.Text.Json.JsonSerializer.Serialize(priceReport);
 
         string responseJson = string.Empty;
-        using (var content = new StringContent(contentString))
+        //using (var content = new StringContent(contentString))
+
+        var contentDictionary = GetPriceReportContent(priceReport);
+
+        using (var content = new FormUrlEncodedContent(contentDictionary))
         using (HttpResponseMessage response = await _HttpClient.PostAsync(absolutePath, content).ConfigureAwait(false))
         {
             if (response.IsSuccessStatusCode)
@@ -137,6 +141,19 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         }
 
         return responseObject;
+    }
+
+    private Dictionary<string,string> GetPriceReportContent(PriceReportDto priceReport)
+    {
+        var json = System.Text.Json.JsonSerializer.Serialize(priceReport);
+        var contentDictionary = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string,string>>(json);
+
+        if(contentDictionary is null)
+        {
+            return new Dictionary<string, string>();
+        }
+
+        return contentDictionary;
     }
 
     protected async Task<ICollection<T>> GenericGetCollectionAsync<T>(string endPointValue) where T : class

@@ -45,7 +45,8 @@ public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
             .Respond("application/json", GetTradeportAM056Response());
 
         PriceRequestAM056Request = this.When($"{uri}sr/")
-            .WithContent("{\"commodity\":\"PRFO\",\"tradeport\":\"AM056\",\"operation\":\"sell\",\"price\":\"1.5\",\"user_hash\":\"c5e000\",\"confirm\":\"0\"}")
+            //.WithContent("{\"commodity\":\"PRFO\",\"tradeport\":\"AM056\",\"operation\":\"sell\",\"price\":\"1.5\",\"user_hash\":\"c5e000\",\"confirm\":\"0\"}")
+            .WithContent("commodity=PRFO&tradeport=AM056&operation=sell&price=1.5&user_hash=c5e000&confirm=0")
             .Respond("application/json", PriceRequestAM056Response());
 
     }
