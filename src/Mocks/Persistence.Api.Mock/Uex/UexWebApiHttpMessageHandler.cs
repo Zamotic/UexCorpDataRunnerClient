@@ -21,29 +21,30 @@ public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
 
     public UexWebApiMockHttpMessageHandler()
     {
-        SystemsRequest = this.When("https://api.uexcorp.space/systems/")
+        string uri = "https://portal.uexcorp.space/api/";
+
+        SystemsRequest = this.When($"{uri}systems/")
             .Respond("application/json", GeSystemsJsonResponse());
 
-        PlanetsRequest = this.When("https://api.uexcorp.space/planets/system/ST/")
+        PlanetsRequest = this.When($"{uri}planets/system/ST/")
             .Respond("application/json", GetPlanetsStantonSystemJsonResponse());
 
-        CitiesRequest = this.When("https://api.uexcorp.space/cities/system/ST/")
+        CitiesRequest = this.When($"{uri}cities/system/ST/")
             .Respond("application/json", GetCitiesStantonSystemJsonResponse());
 
-        SatellitesRequest = this.When("https://api.uexcorp.space/satellites/system/ST/")
+        SatellitesRequest = this.When($"{uri}satellites/system/ST/")
             .Respond("application/json", GetSatellitesStantonSystemJsonResponse());
 
-        TradeportsRequest = this.When("https://api.uexcorp.space/tradeports/system/ST/")
+        TradeportsRequest = this.When($"{uri}tradeports/system/ST/")
             .Respond("application/json", GetTradeportsStantonSystemJsonResponse());
 
-        CommoditiesRequest = this.When("https://api.uexcorp.space/commodities/")
+        CommoditiesRequest = this.When($"{uri}commodities/")
             .Respond("application/json", GetCommoditiesJsonResponse());
 
-        TradeportAM056Request = this.When("https://api.uexcorp.space/tradeport/code/AM056/")
+        TradeportAM056Request = this.When($"{uri}tradeport/code/AM056/")
             .Respond("application/json", GetTradeportAM056Response());
 
-        PriceRequestAM056Request = this.When("https://api.uexcorp.space/sr/")
-            //.WithContent("{'commodity':'PRFO','tradeport':'AM056','operation':'sell','price':'1.5','user_hash':'c5e000','confirm':0}")
+        PriceRequestAM056Request = this.When($"{uri}sr/")
             .WithContent("{\"commodity\":\"PRFO\",\"tradeport\":\"AM056\",\"operation\":\"sell\",\"price\":\"1.5\",\"user_hash\":\"c5e000\",\"confirm\":\"0\"}")
             .Respond("application/json", PriceRequestAM056Response());
 

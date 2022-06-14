@@ -25,7 +25,7 @@ public class UexCropWebApiClientTests
     {
         Mock<IUexCorpWebApiConfiguration> mockWebConfiguration = new Mock<IUexCorpWebApiConfiguration>();
         mockWebConfiguration.SetupGet(g => g.DataRunnerEndpointPath).Returns(string.Empty);
-        mockWebConfiguration.SetupGet(g => g.WebApiEndPointUrl).Returns("https://api.uexcorp.space/");
+        mockWebConfiguration.SetupGet(g => g.WebApiEndPointUrl).Returns("https://portal.uexcorp.space/api/");
 
         Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         settingsService.SetupGet(g => g.Settings).Returns(new SettingsValues() { UserApiKey = "TestApiKey" });
