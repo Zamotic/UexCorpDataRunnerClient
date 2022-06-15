@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
-using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Interface.MessengerMessages;
 using UexCorpDataRunner.Application.Common;
 using CommunityToolkit.Mvvm.Messaging;
 using UexCorpDataRunner.Domain.Minimized;

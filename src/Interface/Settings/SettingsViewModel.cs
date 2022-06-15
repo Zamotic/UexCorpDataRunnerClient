@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Interface.MessengerMessages;
 using UexCorpDataRunner.Domain.Settings;
 using UexCorpDataRunner.Domain.Services;
 

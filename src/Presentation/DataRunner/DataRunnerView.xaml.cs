@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Interface.MessengerMessages;
 using CommunityToolkit.Mvvm.Messaging;
 using UexCorpDataRunner.Domain.Minimized;
 using System.Windows.Media;

@@ -15,6 +15,7 @@ public static class StartupExtensions
     {
         SubscribeToServiceProviderBuilt(services);
 
+        services.AddSingleton<TransmissionStatusView>();
         services.AddSingleton<DataRunnerView>();
         services.AddSingleton<MinimizedView>();
         services.AddSingleton<SettingsView>();

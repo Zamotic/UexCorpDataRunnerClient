@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UexCorpDataRunner.Application.MessengerMessages;
+namespace UexCorpDataRunner.Interface.MessengerMessages;
 public class CloseSettingsInterfaceMessage
 {
 }

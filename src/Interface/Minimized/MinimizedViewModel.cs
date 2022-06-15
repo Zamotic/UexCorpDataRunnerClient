@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Interface.MessengerMessages;
 using UexCorpDataRunner.Domain.Services;
 
 namespace UexCorpDataRunner.Interface.Minimized;

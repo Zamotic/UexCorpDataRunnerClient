@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Interface.MessengerMessages;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace UexCorpDataRunner.DesktopClient;

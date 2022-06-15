@@ -54,6 +54,11 @@
     <Page Update="DataRunner\DataRunnerView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+    <Page Update="DesignTimeResources.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  <SubType>Designer</SubType>
+	  <ContainsDesignTimeResources>True</ContainsDesignTimeResources>
+    </Page>
     <Page Update="Minimized\MinimizedView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

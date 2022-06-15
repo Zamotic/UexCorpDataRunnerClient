@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Interface.MessengerMessages;
 using UexCorpDataRunner.Domain.Services;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -383,20 +383,23 @@ public partial class DataRunnerViewModel : ViewModelBase
 
         _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);
         _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
-    }
+        _Messenger.Register<CloseTransmissionStatusMessage>(this, CloseTransmissionStatusMessageHandler);
+    }  
 
-   
 
-
-    //public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)
     public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
         IsEnabled = true;
     }
 
-    //public void CloseSettingsInterfaceNotified(CloseSettingsInterfaceMessage notification)
     public void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
     {
+        IsEnabled = true;
+    }
+
+    public void CloseTransmissionStatusMessageHandler(object sender, CloseTransmissionStatusMessage notification)
+    {
+        ClearSelectedTradeportCommandExecute();
         IsEnabled = true;
     }
 
@@ -432,6 +435,9 @@ public partial class DataRunnerViewModel : ViewModelBase
         {
             return;
         }
+
+        BuyableCommodities.Clear();
+        SellableCommodities.Clear();
 
         var currentTradeport = await _DataService.GetTradeportAsync(tradeportCode);
         foreach (var tradeListingValue in currentTradeport.Prices)

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UexCorpDataRunner.Interface.MessengerMessages;
-public class ShowSettingsInterfaceMessage
+namespace Application.UnitTests.DataRunner;
+public class PriceReportSubmitterTests
 {
+    // 
 }
+ 

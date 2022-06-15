@@ -389,14 +389,16 @@
                     Padding="0,7"
                     FontWeight="Bold"
                     Content="Reset"
-                    IsTabStop="False"/>
+                    IsTabStop="False"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"/>
                 <Button
                     Command="{Binding SubmitCommoditiesCommand}"
                     Padding="0,7"
                     FontWeight="Bold"
                     Content="Submit"
                     TabIndex="10"
-                    IsTabStop="False"/>
+                    IsTabStop="False"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"/>
             </UniformGrid>
             <TabControl
                 Margin="{StaticResource innerMargin}"

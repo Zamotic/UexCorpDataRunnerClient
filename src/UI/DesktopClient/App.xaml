@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Presentation;component/StyleDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="Nanito">./Fonts/#Nunito</FontFamily>
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="{StaticResource Nanito}" />

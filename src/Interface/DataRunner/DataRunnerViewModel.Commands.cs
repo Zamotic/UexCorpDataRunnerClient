@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using UexCorpDataRunner.Application.MessengerMessages;
+using UexCorpDataRunner.Interface.MessengerMessages;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
 public partial class DataRunnerViewModel
@@ -105,7 +105,7 @@ public partial class DataRunnerViewModel
     public ICommand SubmitCommoditiesCommand => new RelayCommand(SubmitCommoditiesCommandExecute, SubmitCommoditiesCommandCanExecute);
     private bool SubmitCommoditiesCommandCanExecute()
     {
-        if (CurrentTradeport is null)
+        if (SelectedTradeport is null)
         {
             return false;
         }
@@ -128,6 +128,7 @@ public partial class DataRunnerViewModel
     }
     private void SubmitCommoditiesCommandExecute()
     {
+        _Messenger.Send(new ShowTransmissionStatusMessage(BuyableCommodities, SellableCommodities));
     }
 }
 
