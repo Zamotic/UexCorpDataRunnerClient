@@ -243,7 +243,7 @@ public class UexCacheDataServiceTests
             TradeportCode = "AM056",
             Operation = "sell",
             Price = "1.5",
-            UserHash = "c5e000",
+            AccessCode = "c5e000",
             Confirm = false
         };
 

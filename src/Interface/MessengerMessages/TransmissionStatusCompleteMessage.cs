@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 using UexCorpDataRunner.Application.DataRunner;
 
 namespace UexCorpDataRunner.Interface.MessengerMessages;
-public class ShowTransmissionStatusMessage
+public class TransmissionStatusCompleteMessage
 {
-    public System.Collections.Concurrent.ConcurrentQueue<string> Queue { get; }
-
-    public ShowTransmissionStatusMessage(System.Collections.Concurrent.ConcurrentQueue<string> queue)
+    public string ResponseMessage { get; }
+    public TransmissionStatusCompleteMessage(string responseMessage)
     {
-        Queue = queue;
+        ResponseMessage = responseMessage;
     }
 }

@@ -36,10 +36,12 @@
             <Grid>
                 <Button
                     Content="Cancel"
-                    Command="{Binding CancelCurrentDataTransmissionCommand}" />
+                    Command="{Binding CancelCurrentDataTransmissionCommand}" 
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"/>
                 <Button
                     Content="Ok"
-                    Command="{Binding CloseTransmissionStatusViewCommand}">
+                    Command="{Binding CloseTransmissionStatusViewCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Visibility" Value="Hidden" />
@@ -58,6 +60,7 @@
             DockPanel.Dock="Top"
             IsTabStop="False"
             IsReadOnly="True"
+            Padding="2"
             Text="{Binding TransmissionStatusText, Mode=OneWay}"
             Extensions:TextBoxAutoScrollToEndExtension.IsEnabled="True"
             />

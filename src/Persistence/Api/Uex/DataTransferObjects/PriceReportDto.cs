@@ -17,8 +17,8 @@ public class PriceReportDto
     public string Operation { get; set; } = string.Empty;
     [JsonPropertyName("price")]
     public string Price { get; set; } = string.Empty;
-    [JsonPropertyName("user_hash")]
-    public string UserHash { get; set; } = string.Empty;
+    [JsonPropertyName("access_code")]
+    public string AccessCode { get; set; } = string.Empty;
     [JsonPropertyName("confirm")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool Confirm { get; set; } = false;

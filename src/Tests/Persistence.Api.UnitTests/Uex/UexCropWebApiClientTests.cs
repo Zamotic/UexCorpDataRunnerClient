@@ -1332,8 +1332,8 @@ public class UexCropWebApiClientTests
     }
 
 
-    private static UexResponseDto<int> _ActualSubmitPriceReportAsyncValue = new UexResponseDto<int>();
-    private async Task<UexResponseDto<int>> GetSubmitPriceReportAsyncValue()
+    private static UexResponseDto<string> _ActualSubmitPriceReportAsyncValue = new UexResponseDto<string>();
+    private async Task<UexResponseDto<string>> GetSubmitPriceReportAsyncValue()
     {
         if (string.IsNullOrEmpty(_ActualSubmitPriceReportAsyncValue.Status) == true)
         {
@@ -1343,7 +1343,7 @@ public class UexCropWebApiClientTests
                 TradeportCode = "AM056",
                 Operation = "sell",
                 Price = "1.5",
-                UserHash = "c5e000",
+                AccessCode = "c5e000",
                 Confirm = false
             };
 
@@ -1385,7 +1385,7 @@ public class UexCropWebApiClientTests
     public async Task SubmitPriceReportAsync_ShouldHaveExpectedData()
     {
         // Assemble
-        const int ExpectedValue = 1234;
+        const string ExpectedValue = "1234";
 
         // Act
         var actual = await GetSubmitPriceReportAsyncValue().ConfigureAwait(false);

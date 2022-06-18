@@ -11,4 +11,5 @@ public class SettingsValues
     public string CollapseLocation { get; set; } = "CenterRight";
     public string CollapseOrientation { get; set; } = "Vertical";
     public string UserApiKey { get; set; } = string.Empty;
+    public string UserAccessCode { get; set; } = string.Empty;
 }

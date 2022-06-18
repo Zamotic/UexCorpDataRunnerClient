@@ -80,7 +80,7 @@
                                 VerticalAlignment="Center"
                                 Foreground="LightGray" />
                             <uiLibraryControls:ClickSelectTextBox
-                                Text="{Binding CurrentPrice, StringFormat=N2}"
+                                Text="{Binding CurrentPrice, StringFormat=F2}"
                                 FontWeight="Bold"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
@@ -190,6 +190,7 @@
                             <CheckBox
                                 IsChecked="{Binding MarkedForSubmittal}"
                                 Margin="0,0,0,0"
+                                IsTabStop="false"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Background="White"
@@ -397,7 +398,6 @@
                     FontWeight="Bold"
                     Content="Submit"
                     TabIndex="10"
-                    IsTabStop="False"
                     Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"/>
             </UniformGrid>
             <TabControl
@@ -518,21 +518,21 @@
                             DockPanel.Dock="Top"
                             ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <ItemsControl
-                                ItemsSource="{Binding BuyableCommodities}"
+                                ItemsSource="{Binding BuyableCommodityListCVS}"
                                 ItemTemplate="{StaticResource itemsControlItemTemplate}">
                                 <ItemsControl.Style>
                                     <Style TargetType="ItemsControl">
                                         <Setter Property="IsEnabled" Value="True" />
                                         <Style.Triggers>
                                             <DataTrigger
-                                                Binding="{Binding BuyableCommodities}"
+                                                Binding="{Binding BuyableCommodityListCVS}"
                                                 Value="{x:Null}">
                                                 <Setter
                                                     Property="IsEnabled"
                                                     Value="False"/>
                                             </DataTrigger>
                                             <DataTrigger
-                                                Binding="{Binding BuyableCommodities.Count}"
+                                                Binding="{Binding BuyableCommodityListCVS.Count}"
                                                 Value="0">
                                                 <Setter
                                                     Property="IsEnabled"
@@ -605,21 +605,21 @@
                             DockPanel.Dock="Top"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
-                                ItemsSource="{Binding SellableCommodities}"
+                                ItemsSource="{Binding SellableCommodityListCVS}"
                                 ItemTemplate="{StaticResource itemsControlItemTemplate}">
                                 <ItemsControl.Style>
                                     <Style TargetType="ItemsControl">
                                         <Setter Property="IsEnabled" Value="True" />
                                         <Style.Triggers>
                                             <DataTrigger
-                                                Binding="{Binding SellableCommodities}"
+                                                Binding="{Binding SellableCommodityListCVS}"
                                                 Value="{x:Null}">
                                                 <Setter
                                                     Property="IsEnabled"
                                                     Value="False"/>
                                             </DataTrigger>
                                             <DataTrigger
-                                                Binding="{Binding SellableCommodities.Count}"
+                                                Binding="{Binding SellableCommodityListCVS.Count}"
                                                 Value="0">
                                                 <Setter
                                                     Property="IsEnabled"

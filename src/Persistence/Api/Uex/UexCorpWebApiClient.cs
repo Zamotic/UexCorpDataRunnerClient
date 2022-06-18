@@ -96,7 +96,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         return await GenericGetCollectionAsync<CommodityDto>(endPointValue);
     }
 
-    public async Task<UexResponseDto<int>> SubmitPriceReportAsync(PriceReportDto priceReport)
+    public async Task<UexResponseDto<string>> SubmitPriceReportAsync(PriceReportDto priceReport)
     {
         string endPointValue = $"sr/";
 
@@ -117,26 +117,26 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         using (var content = new FormUrlEncodedContent(contentDictionary))
         using (HttpResponseMessage response = await _HttpClient.PostAsync(absolutePath, content).ConfigureAwait(false))
         {
-            if (response.IsSuccessStatusCode)
-            {
+            //if (response.IsSuccessStatusCode)
+            //{
                 // Parse the response body.
                 responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
-            else
-            {
-                response.EnsureSuccessStatusCode();
-            }
+            //}
+            //else
+            //{
+            //    response.EnsureSuccessStatusCode();
+            //}
         }
 
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<int>>(responseJson);
+        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<string>>(responseJson);
 
         if (responseObject is null)
         {
-            return new UexResponseDto<int>()
+            return new UexResponseDto<string>()
             {
                 Status = "No Response Received",
                 Code = 400,
-                Data = 0
+                Data = "0"
             };
         }
 

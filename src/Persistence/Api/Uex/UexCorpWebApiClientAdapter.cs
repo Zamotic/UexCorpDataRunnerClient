@@ -79,7 +79,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
     {
         var priceReportDto = _Mapper.Map<PriceReportDto>(priceReport);
 
-        UexResponseDto<int> responseDto = await _WebClient.SubmitPriceReportAsync(priceReportDto);
+        UexResponseDto<string> responseDto = await _WebClient.SubmitPriceReportAsync(priceReportDto);
 
         var priceReportResponse = _Mapper.Map<PriceReportResponse>(responseDto);
 

@@ -98,37 +98,47 @@ public partial class DataRunnerViewModel
     public ICommand ResetCommoditiesCommand => new RelayCommand(ResetCommoditiesCommandExecute);
     private void ResetCommoditiesCommandExecute()
     {
-        BuyableCommodities.Clear();
-        SellableCommodities.Clear();
+        Commodities = new List<Application.DataRunner.CommodityWrapper>();
+        //OnPropertyChanged("Commodities");
     }
 
-    public ICommand SubmitCommoditiesCommand => new RelayCommand(SubmitCommoditiesCommandExecute, SubmitCommoditiesCommandCanExecute);
+    public ICommand SubmitCommoditiesCommand => new AsyncRelayCommand(SubmitCommoditiesCommandExecute, SubmitCommoditiesCommandCanExecute);
     private bool SubmitCommoditiesCommandCanExecute()
     {
         if (SelectedTradeport is null)
         {
             return false;
         }
-        if (BuyableCommodities.Any() == false)
+        if (Commodities.Any() == false)
         {
             return false;
         }
-        if (SellableCommodities.Any() == false)
+        if (Commodities.All(x => x.CurrentPrice.HasValue == false))
         {
             return false;
-        }
-        if (BuyableCommodities.All(x => x.CurrentPrice.HasValue == false))
-        {
-            if (SellableCommodities.All(x => x.CurrentPrice.HasValue == false))
-            {
-                return false;
-            }
         }
         return true;
     }
-    private void SubmitCommoditiesCommandExecute()
+
+    private async Task SubmitCommoditiesCommandExecute()
     {
-        _Messenger.Send(new ShowTransmissionStatusMessage(BuyableCommodities, SellableCommodities));
+        if(SelectedTradeport is null)
+        {
+            return;
+        }
+
+        var messageQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
+        _Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
+
+        await Task.Delay(500);
+        //await Task.Run(async () =>
+        //{
+            var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+            string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
+            _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage));
+
+            ClearSelectedTradeportCommandExecute();
+        //});
     }
 }
 

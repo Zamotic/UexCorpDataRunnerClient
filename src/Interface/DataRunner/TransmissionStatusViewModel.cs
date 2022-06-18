@@ -28,6 +28,7 @@ public class TransmissionStatusViewModel : ViewModelBase
     {
         _messenger = messenger;
         _messenger.Register<ShowTransmissionStatusMessage>(this, ShowTransmissionStatusMessageHandler);
+        _messenger.Register<TransmissionStatusCompleteMessage>(this, TransmissionStatusCompleteMessageHandler);
     }
 
     public ICommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
@@ -59,44 +60,47 @@ public class TransmissionStatusViewModel : ViewModelBase
     private void CancelCurrentDataTransmissionCommandExecute()
     {
         _messenger.Send(new CancelCurrentDataTransmissionMessage());
+        IsEnabled = false;
+        IsTransmissionInProgress = false;
     }
 
-#if DEBUG
-    Timer _testButtonTimer;
-    Timer _testTextTimer;
-#endif
-    Timer _readTextTimer;
-    //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
+    Timer? _readTextTimer;
     public void ShowTransmissionStatusMessageHandler(object sender, ShowTransmissionStatusMessage notification)
     {
         TransmissionStatusText = string.Empty;
-        _statusBufferQueue.Clear();
 
         IsEnabled = true;
         IsTransmissionInProgress = true;
 
-#if DEBUG
-        _testButtonTimer = new Timer((TimerCallback) => 
-        { 
-            IsTransmissionInProgress = false;
-            _testButtonTimer.Change(Timeout.Infinite, 0);
-            _testTextTimer.Change(Timeout.Infinite, 0);
-        }, null, TimeSpan.FromMilliseconds(5000), TimeSpan.FromMilliseconds(250));
+        _statusBufferQueue = notification.Queue;
 
-        _testTextTimer = new Timer((TimerCallback) =>
-        {
-            _statusBufferQueue.Enqueue("Submitting Commodity 'PRFO'...SUCCESS!\n");
-        }, null, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(100));
-#endif
         _readTextTimer = new Timer((TimerCallback) =>
         {
-            if(_statusBufferQueue.TryDequeue(out string? message) == true)
+            ReadStatusBufferQueue();
+        }, null, TimeSpan.FromMilliseconds(50), TimeSpan.FromMilliseconds(50));
+    }
+
+    public void TransmissionStatusCompleteMessageHandler(object sender, TransmissionStatusCompleteMessage notification)
+    {
+        IsTransmissionInProgress = false;
+        _readTextTimer?.Change(Timeout.Infinite, 0);
+        ReadStatusBufferQueue();
+        TransmissionStatusText += $"\n\n{notification.ResponseMessage}";
+    }
+
+    public void ReadStatusBufferQueue()
+    {
+        while(true)
+        {
+            if (_statusBufferQueue.TryDequeue(out string? message) == true)
             {
-                if(string.IsNullOrWhiteSpace(message) == false)
+                if (string.IsNullOrWhiteSpace(message) == false)
                 {
                     TransmissionStatusText += message;
                 }
+                continue;
             }
-        }, null, TimeSpan.FromMilliseconds(50), TimeSpan.FromMilliseconds(50));
+            break;
+        }
     }
 }

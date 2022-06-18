@@ -88,11 +88,11 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
         this.Setup(s => s.GetCommoditiesAsync()).Returns(Task.FromResult(commodityDtoList));
 
 
-        UexResponseDto<int> SubmitPriceReportResponse = new UexResponseDto<int>()
+        UexResponseDto<string> SubmitPriceReportResponse = new UexResponseDto<string>()
         {
             Status = "ok",
             Code = 200,
-            Data = 1234
+            Data = "1234"
         };
         this.Setup(s => s.SubmitPriceReportAsync(It.IsAny<PriceReportDto>())).Returns(Task.FromResult(SubmitPriceReportResponse));
     }
@@ -132,7 +132,7 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
         return await this.Object.GetCommoditiesAsync();
     }
 
-    public async Task<UexResponseDto<int>> SubmitPriceReportAsync(PriceReportDto priceReport)
+    public async Task<UexResponseDto<string>> SubmitPriceReportAsync(PriceReportDto priceReport)
     {
         return await this.Object.SubmitPriceReportAsync(priceReport);
     }

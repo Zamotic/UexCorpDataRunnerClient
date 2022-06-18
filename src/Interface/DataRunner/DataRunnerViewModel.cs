@@ -16,13 +16,15 @@ using UexCorpDataRunner.Domain.DataRunner;
 using System.Windows.Data;
 using UexCorpDataRunner.Application.DataRunner;
 using System.Windows.Controls;
+using UexCorpDataRunner.Application;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
 
 public partial class DataRunnerViewModel : ViewModelBase
 {
-    public readonly IMessenger _Messenger;
-    public readonly IUexDataService _DataService;
+    private readonly IMessenger _Messenger;
+    private readonly IUexDataService _DataService;
+    private readonly IPriceReportSubmitter _PriceReportSubmitter;
 
     private IReadOnlyCollection<Commodity>? _commodityList;
 
@@ -357,29 +359,127 @@ public partial class DataRunnerViewModel : ViewModelBase
             //if(CurrentTradeport != null)
             //{
             //    //SetCurrentTradeportBuyListCVS(true);
-            //    //SetCurrentTradeportSellListCVS(true);
+            //    //SetCurrentTradeportSellListCVS(trueS
             //}
         }
     }
 
-    private ObservableCollection<CommodityWrapper> _buyableCommodities = new ObservableCollection<CommodityWrapper>();
-    public ObservableCollection<CommodityWrapper> BuyableCommodities
+    private List<CommodityWrapper> _commodities = new List<CommodityWrapper>();
+    public List<CommodityWrapper> Commodities
     {
-        get => _buyableCommodities;
-        set => SetProperty(ref _buyableCommodities, value);
+        get => _commodities;
+        set
+        {
+            SetProperty(ref _commodities, value);
+            SetCommodityListsCVS(true);
+        }
     }
-    private ObservableCollection<CommodityWrapper> _sellableCommodities = new ObservableCollection<CommodityWrapper>();
-    public ObservableCollection<CommodityWrapper> SellableCommodities
+    //private ObservableCollection<CommodityWrapper> _buyableCommodities = new ObservableCollection<CommodityWrapper>();
+    //public ObservableCollection<CommodityWrapper> BuyableCommodities
+    //{
+    //    get => _buyableCommodities;
+    //    set => SetProperty(ref _buyableCommodities, value);
+    //}
+    //private ObservableCollection<CommodityWrapper> _sellableCommodities = new ObservableCollection<CommodityWrapper>();
+    //public ObservableCollection<CommodityWrapper> SellableCommodities
+    //{
+    //    get => _sellableCommodities;
+    //    set => SetProperty(ref _sellableCommodities, value);
+    //}
+    private readonly CollectionViewSource _buyableCommodityListCVS = new CollectionViewSource();
+    public ICollectionView BuyableCommodityListCVS
     {
-        get => _sellableCommodities;
-        set => SetProperty(ref _sellableCommodities, value);
+        get
+        {
+            return _buyableCommodityListCVS.View;
+        }
+    }
+    private readonly CollectionViewSource _sellableCommodityListCVS = new CollectionViewSource();
+    public ICollectionView SellableCommodityListCVS
+    {
+        get
+        {
+            return _sellableCommodityListCVS.View;
+        }
+    }
+    private void SetCommodityListsCVS(bool resetSource = false)
+    {
+        var targetBuyCVS = _buyableCommodityListCVS;
+        var targetSellCVS = _sellableCommodityListCVS;
+        if (targetBuyCVS is null)
+        {
+            return;
+        }
+        if (targetSellCVS is null)
+        {
+            return;
+        }
+
+        using (targetBuyCVS.DeferRefresh())
+        {
+            if (resetSource)
+            {
+                targetBuyCVS.Source = Commodities;
+                targetBuyCVS.SortDescriptions.Clear();
+                targetBuyCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            }
+
+            if (targetBuyCVS.Source is null)
+            {
+                targetBuyCVS.Source = TradeportList;
+                targetBuyCVS.SortDescriptions.Clear();
+                targetBuyCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            }
+
+            targetBuyCVS.Filter += (s, e) =>
+            {
+                CommodityWrapper? commodity = e.Item as CommodityWrapper;
+                if (commodity is null)
+                {
+                    e.Accepted = false;
+                    return;
+                }
+                e.Accepted = commodity.Operation == OperationType.Buy;
+            };
+        }
+
+        using (targetSellCVS.DeferRefresh())
+        {
+            if (resetSource)
+            {
+                targetSellCVS.Source = Commodities;
+                targetSellCVS.SortDescriptions.Clear();
+                targetSellCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            }
+
+            if (targetSellCVS.Source is null)
+            {
+                targetSellCVS.Source = TradeportList;
+                targetSellCVS.SortDescriptions.Clear();
+                targetSellCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            }
+
+            targetSellCVS.Filter += (s, e) =>
+            {
+                CommodityWrapper? commodity = e.Item as CommodityWrapper;
+                if (commodity is null)
+                {
+                    e.Accepted = false;
+                    return;
+                }
+                e.Accepted = commodity.Operation == OperationType.Sell;
+            };
+        }
+        OnPropertyChanged(nameof(BuyableCommodityListCVS));
+        OnPropertyChanged(nameof(SellableCommodityListCVS));
     }
 
-    public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService)
+    public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService, IPriceReportSubmitter priceReportSubmitter)
     {
         IsEnabled = true;
         _Messenger = messenger;
         _DataService = dataService;
+        _PriceReportSubmitter = priceReportSubmitter;
 
         _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);
         _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
@@ -436,10 +536,11 @@ public partial class DataRunnerViewModel : ViewModelBase
             return;
         }
 
-        BuyableCommodities.Clear();
-        SellableCommodities.Clear();
+        Commodities.Clear();
 
         var currentTradeport = await _DataService.GetTradeportAsync(tradeportCode);
+
+        List<CommodityWrapper> commodities = new List<CommodityWrapper>();
         foreach (var tradeListingValue in currentTradeport.Prices)
         {
             if(_commodityList.Any(x => x.Code.Equals(tradeListingValue.Code)) == false)
@@ -448,13 +549,9 @@ public partial class DataRunnerViewModel : ViewModelBase
             }
             var locatedCommodity = _commodityList.First(x => x.Code.Equals(tradeListingValue.Code));
 
-            if(tradeListingValue.Operation == OperationType.Buy)
-            {
-                BuyableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue));
-                continue;
-            }
-
-            SellableCommodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue));
+            commodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue));
         }
+
+        Commodities = commodities;
     }
 }

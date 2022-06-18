@@ -15,6 +15,8 @@ public class CommodityWrapper : ObservableObject
     private readonly TradeListing _tradeListing;
 
     public string Name { get => _commodity.Name; }
+    public string Code { get => _commodity.Code; }
+    public string Kind { get => _commodity.Kind; }
 
     public OperationType Operation { get => _tradeListing.Operation; }
     

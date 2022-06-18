@@ -157,6 +157,19 @@
                     DockPanel.Dock="Right"
                     Text="{Binding SettingsValues.UserApiKey}"/>
             </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
+                    Text="User Access Code:" 
+                    VerticalAlignment="Center"/>
+                <TextBox
+                    DockPanel.Dock="Right"
+                    Text="{Binding SettingsValues.UserAccessCode}"/>
+            </DockPanel>
         </DockPanel>
         <DockPanel />
     </DockPanel>

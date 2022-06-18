@@ -46,7 +46,7 @@ public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
 
         PriceRequestAM056Request = this.When($"{uri}sr/")
             //.WithContent("{\"commodity\":\"PRFO\",\"tradeport\":\"AM056\",\"operation\":\"sell\",\"price\":\"1.5\",\"user_hash\":\"c5e000\",\"confirm\":\"0\"}")
-            .WithContent("commodity=PRFO&tradeport=AM056&operation=sell&price=1.5&user_hash=c5e000&confirm=0")
+            //.WithContent("commodity=PRFO&tradeport=AM056&operation=sell&price=1.5&user_hash=c5e000&confirm=0")
             .Respond("application/json", PriceRequestAM056Response());
 
     }
@@ -87,6 +87,6 @@ public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
 
     private string PriceRequestAM056Response()
     {
-        return "{\"status\":\"ok\",\"code\":200,\"data\":1234}";
+        return "{\"status\":\"ok\",\"code\":200,\"data\":\"1234\"}";
     }
 }

@@ -14,7 +14,6 @@
             ScrollViewer.PanningMode="Both"
             Stylus.IsFlicksEnabled="False">
     <ComboBox.Resources>
-        
         <Geometry x:Key="DownArrowGeometry">M 0 0 L 3.5 4 L 7 0 Z</Geometry>
         <Style x:Key="ComboBoxReadonlyToggleButton" TargetType="{x:Type ToggleButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -251,17 +250,14 @@
                     <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
                     <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
                 </Trigger>
+                <Trigger Property="IsEditable" Value="true">
+                    <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                    <Setter Property="IsTabStop" Value="false"/>
+                    <Setter Property="Padding" Value="3"/>
+                    <!--<Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>-->
+                </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </ComboBox.Template>
-    <!--<ComboBox.Triggers>
-        <Trigger Property=""
-        <Trigger Property="IsEditable" Value="true">
-            <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
-            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-            <Setter Property="IsTabStop" Value="false"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>
-        </Trigger>
-    </ComboBox.Triggers>-->
 </ComboBox>

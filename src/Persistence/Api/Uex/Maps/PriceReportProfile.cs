@@ -12,7 +12,7 @@ public class PriceReportProfile : Profile
     public PriceReportProfile()
     {
         CreateMap<Domain.DataRunner.PriceReport, PriceReportDto>();
-        CreateMap<UexResponseDto<int>, Domain.DataRunner.PriceReportResponse>()
+        CreateMap<UexResponseDto<string>, Domain.DataRunner.PriceReportResponse>()
             .ForMember(dest => dest.Response, opt => opt.MapFrom(src => src.Code.Equals(200) ? true : false))
             .ForMember(dest => dest.StatusMessage, opt => opt.MapFrom(src => src.Status));
     }
