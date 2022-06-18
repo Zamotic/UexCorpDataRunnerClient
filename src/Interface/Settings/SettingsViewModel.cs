@@ -25,7 +25,7 @@ public class SettingsViewModel : ViewModelBase
         private set => SetProperty(ref _SettingsValues, value);
     }
 
-    public List<string> ThemeList { get; } = new List<string>() { "Light", "Dark" };
+    public List<string> ThemeList { get; } = new List<string>() { /*"Light",*/ "Dark" };
 
     public List<string> CollapseLocationList { get; } = new List<string>() { "TopLeft", "TopCenter", "TopRight", "CenterLeft", "CenterRight", "BottomLeft", "BottomCenter", "BottomRight" };
 
