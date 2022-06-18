@@ -15,7 +15,39 @@ public sealed class UexHttpClientFactory : IHttpClientFactory
     {
         _WebConfiguration = webConfiguration ?? throw new ArgumentNullException(nameof(webConfiguration));
         _SettingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
+        if(settingsService.Settings != null)
+        {
+            settingsService.Settings.PropertyChanged += Settings_PropertyChanged;
+        }
         _Logger = logger;
+    }
+
+    private void Settings_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if(e is null)
+        {
+            return;
+        }
+        if(e.PropertyName?.Equals(nameof(_SettingsService.Settings.UserApiKey)) == true)
+        {
+            UpdateHttpClientApiKeyHeader(_SettingsService?.Settings?.UserApiKey);
+        }
+    }
+
+    public void UpdateHttpClientApiKeyHeader(string? newApiKey)
+    {
+        if(string.IsNullOrWhiteSpace(newApiKey) == true)
+        {
+            return;
+        }
+
+        if(_HttpClient is null)
+        {
+            return;
+        }
+
+        _HttpClient.DefaultRequestHeaders.Clear();
+        _HttpClient.DefaultRequestHeaders.Add("api_key", _SettingsService.Settings?.UserApiKey);
     }
 
     public HttpClient GetHttpClient()
@@ -69,5 +101,7 @@ public sealed class UexHttpClientFactory : IHttpClientFactory
 
         return httpClient;
     }
+
+
 }
 

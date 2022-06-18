@@ -11,7 +11,7 @@ public static class MinimizedValues
     public const int MinimizedHeight = 78;
 
     private const int DefaultMaximizedWidth = 425;
-    private const int DefaultMaximizedHeight = 425;
+    private const int DefaultMaximizedHeight = 700;
 
     public static int _MaximizedWidth = 0;
     public static int MaximizedWidth 

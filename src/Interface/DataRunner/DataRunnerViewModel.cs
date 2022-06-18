@@ -24,6 +24,7 @@ public partial class DataRunnerViewModel : ViewModelBase
 {
     private readonly IMessenger _Messenger;
     private readonly IUexDataService _DataService;
+    private readonly ISettingsService _SettingsService;
     private readonly IPriceReportSubmitter _PriceReportSubmitter;
 
     private IReadOnlyCollection<Commodity>? _commodityList;
@@ -474,10 +475,11 @@ public partial class DataRunnerViewModel : ViewModelBase
         OnPropertyChanged(nameof(SellableCommodityListCVS));
     }
 
-    public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService, IPriceReportSubmitter priceReportSubmitter)
+    public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService, ISettingsService settingsService, IPriceReportSubmitter priceReportSubmitter)
     {
         IsEnabled = true;
         _Messenger = messenger;
+        _SettingsService = settingsService;
         _DataService = dataService;
         _PriceReportSubmitter = priceReportSubmitter;
 
@@ -492,8 +494,15 @@ public partial class DataRunnerViewModel : ViewModelBase
         IsEnabled = true;
     }
 
-    public void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
+    public async void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
     {
+        if(notification != null)
+        {
+            if(notification.ReloadData == true)
+            {
+                await ViewModelLoadedCommandExecuteAsync(sender);
+            }
+        }
         IsEnabled = true;
     }
 

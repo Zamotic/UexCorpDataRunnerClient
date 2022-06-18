@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using UexCorpDataRunner.Domain.Minimized;
 using System.Windows.Media;
 using System.Windows.Input;
+using System;
 
 namespace UexCorpDataRunner.Presentation.DataRunner;
 
@@ -33,8 +34,8 @@ public partial class DataRunnerView : UserControl
         Window window = System.Windows.Application.Current.MainWindow;
         window.Visibility = Visibility.Hidden;
         window.WindowStyle = WindowStyle.SingleBorderWindow;
-        window.Width = MinimizedValues.MinimizedWidth;
-        window.Height = MinimizedValues.MinimizedHeight;
+        window.Width = MinimizedValues.MaximizedWidth;
+        window.Height = MinimizedValues.MaximizedHeight;
         window.Left = x;
         window.Top = y;
         window.ResizeMode = ResizeMode.CanResize;
@@ -62,6 +63,8 @@ public partial class DataRunnerView : UserControl
         if (window.WindowStyle == WindowStyle.SingleBorderWindow)
         {
             _Location = new Point(window.Left, window.Top);
+            MinimizedValues.MaximizedWidth = Convert.ToInt32(window.Width);
+            MinimizedValues.MaximizedHeight = Convert.ToInt32(window.Height);
         }
     }
 

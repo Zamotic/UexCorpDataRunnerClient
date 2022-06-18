@@ -16,10 +16,28 @@ public partial class DataRunnerViewModel
     public ICommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
     public async Task ViewModelLoadedCommandExecuteAsync(object? sender)
     {
-        SystemList = await _DataService.GetAllSystemsAsync();
-        SelectedSystem = null;
-        _commodityList = await _DataService.GetAllCommoditiesAsync();
-        _isViewModelLoaded = true;
+        if(string.IsNullOrWhiteSpace(_SettingsService?.Settings?.UserApiKey) == true)
+        {
+            ShowSettingsInterfaceCommandExecute();
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(_SettingsService?.Settings?.UserAccessCode) == true)
+        {
+            ShowSettingsInterfaceCommandExecute();
+            return;
+        }
+
+        try
+        {
+            SystemList = await _DataService.GetAllSystemsAsync();
+            SelectedSystem = null;
+            _commodityList = await _DataService.GetAllCommoditiesAsync();
+            _isViewModelLoaded = true;
+        }
+        catch (Exception ex)
+        {
+            ShowSettingsInterfaceCommandExecute();
+        }
     }
 
     public ICommand HideUserInterfaceCommand => new RelayCommand(HideUserInterfaceCommandExecute);

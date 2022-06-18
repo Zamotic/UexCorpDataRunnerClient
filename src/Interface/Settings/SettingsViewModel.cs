@@ -18,11 +18,44 @@ public class SettingsViewModel : ViewModelBase
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
 
+    private bool _UserDataChanged = false;
+
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
     {
         get => _SettingsValues;
-        private set => SetProperty(ref _SettingsValues, value);
+        private set
+        {
+            if(_SettingsValues != null)
+            {
+                _SettingsValues.PropertyChanged -= _SettingsValues_PropertyChanged;
+            }
+            SetProperty(ref _SettingsValues, value);
+            if (_SettingsValues != null)
+            {
+                _SettingsValues.PropertyChanged += _SettingsValues_PropertyChanged;
+            }
+        }
+    }
+
+    private void _SettingsValues_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if(e.PropertyName is null)
+        {
+            return;
+        }
+        if(_UserDataChanged = true)
+        {
+            return;
+        }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.UserApiKey)) == true)
+        {
+            _UserDataChanged = true;
+        }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.UserAccessCode)) == true)
+        {
+            _UserDataChanged = true;
+        }
     }
 
     public List<string> ThemeList { get; } = new List<string>() { /*"Light",*/ "Dark" };
@@ -44,7 +77,7 @@ public class SettingsViewModel : ViewModelBase
     {
         _SettingsService.SaveSettings();
         IsEnabled = false;
-        _Messenger.Send(new CloseSettingsInterfaceMessage());
+        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserDataChanged));
     }
 
     //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
@@ -61,6 +94,7 @@ public class SettingsViewModel : ViewModelBase
             return;
         }
 
+        _UserDataChanged = false;
         SettingsValues = _SettingsService.Settings;
     }
 }

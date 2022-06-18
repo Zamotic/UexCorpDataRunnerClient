@@ -1,15 +1,21 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UexCorpDataRunner.Domain.Settings;
-public class SettingsValues
+public class SettingsValues : ObservableObject
 {
-    public string Theme { get; set; } = "Dark";
-    public string CollapseLocation { get; set; } = "CenterRight";
-    public string CollapseOrientation { get; set; } = "Vertical";
-    public string UserApiKey { get; set; } = string.Empty;
-    public string UserAccessCode { get; set; } = string.Empty;
+    private string theme = "Dark";
+    public string Theme { get => theme; set => SetProperty(ref theme, value); }
+    private string collapseLocation = "CenterRight";
+    public string CollapseLocation { get => collapseLocation; set => SetProperty(ref collapseLocation, value); }
+    private string collapseOrientation = "Vertical";
+    public string CollapseOrientation { get => collapseOrientation; set =>  SetProperty(ref collapseOrientation, value); }
+    private string userApiKey = string.Empty;
+    public string UserApiKey { get => userApiKey; set =>  SetProperty(ref userApiKey, value); }
+    private string userAccessCode = string.Empty;
+    public string UserAccessCode { get => userAccessCode; set =>  SetProperty(ref userAccessCode, value); }
 }
