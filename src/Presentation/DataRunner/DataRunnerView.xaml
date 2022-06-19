@@ -404,7 +404,8 @@
                 Margin="{StaticResource innerMargin}"
                 DockPanel.Dock="Top"
                 Style="{StaticResource Style-TabControl-Main}"
-                TabIndex="0">
+                TabIndex="0"
+                SelectedIndex="{Binding SelectedTabItemIndex}">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Foreground" Value="GhostWhite" />
@@ -437,8 +438,7 @@
                     </Style>
                 </TabControl.Resources>
                 <TabItem
-                    Header="Buy Price"
-                    IsTabStop="False">
+                    Header="Buy Price">
                     <DockPanel
                         Background="#3a3a39">
                         <UniformGrid
@@ -546,8 +546,7 @@
                     </DockPanel>
                 </TabItem>
                 <TabItem
-                    Header="Sell Price"
-                    IsTabStop="False">
+                    Header="Sell Price">
                     <DockPanel
                         Background="#3a3a39">
                         <UniformGrid

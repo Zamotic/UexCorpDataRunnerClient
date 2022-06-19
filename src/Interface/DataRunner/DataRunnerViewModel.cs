@@ -346,6 +346,7 @@ public partial class DataRunnerViewModel : ViewModelBase
             {
                 //_ = SetCurrentTradeportAsync(SelectedTradeport.Code);
                 _ = UpdateCommoditiesForTradeport(SelectedTradeport.Code);
+                SelectedTabItemIndex = 0;
             }
         }
     }
@@ -473,6 +474,13 @@ public partial class DataRunnerViewModel : ViewModelBase
         }
         OnPropertyChanged(nameof(BuyableCommodityListCVS));
         OnPropertyChanged(nameof(SellableCommodityListCVS));
+    }
+
+    private int _SelectedTabItemIndex = 0;
+    public int SelectedTabItemIndex
+    {
+        get => _SelectedTabItemIndex;
+        set => SetProperty(ref _SelectedTabItemIndex, value);
     }
 
     public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService, ISettingsService settingsService, IPriceReportSubmitter priceReportSubmitter)
