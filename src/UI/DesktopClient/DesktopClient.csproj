@@ -5,9 +5,25 @@
     <TargetFramework>net6.0-windows</TargetFramework>
 	<UseWPF>true</UseWPF>
 	<Nullable>enable</Nullable>
+	<AssemblyName>UexCorpDataRunner.exe</AssemblyName>
 	<RootNamespace>UexCorpDataRunner.DesktopClient</RootNamespace>
 	<StartupObject>UexCorpDataRunner.DesktopClient.App</StartupObject>
+	<Version>0.1.702.1150</Version>
+	<ApplicationIcon>Images\uexlogo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\splashscreen.png" />
+    <None Remove="Images\uexlogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\uexlogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Images\splashscreen.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
@@ -25,6 +41,10 @@
     <ProjectReference Include="..\..\Mocks\Persistence.Api.Mock\Persistence.Api.Mock.csproj" />
     <ProjectReference Include="..\..\Persistence\Api\Persistence.Api.csproj" />
     <ProjectReference Include="..\..\Presentation\Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\uexlogo.ico" />
   </ItemGroup>
 
   <ItemGroup>
