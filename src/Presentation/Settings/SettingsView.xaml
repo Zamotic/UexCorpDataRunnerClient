@@ -151,6 +151,21 @@
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
                     FontWeight="Bold"
+                    Text="Always On Top:" 
+                    VerticalAlignment="Center"/>
+                <UI:DefaultOverlayComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding AlwaysOnTopList}"
+                    SelectedValue="{Binding SettingsValues.AlwaysOnTop}"
+                    DefaultOverlayString="(Select Always On Top)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    FontWeight="Bold"
                     Text="User ApiKey:" 
                     VerticalAlignment="Center"/>
                 <TextBox

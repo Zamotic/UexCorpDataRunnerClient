@@ -36,7 +36,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Application.csproj" />
     <ProjectReference Include="..\..\Common\Common.csproj" />
-    <ProjectReference Include="..\..\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Interface\Interface.csproj" />
     <ProjectReference Include="..\..\Mocks\Persistence.Api.Mock\Persistence.Api.Mock.csproj" />
     <ProjectReference Include="..\..\Persistence\Api\Persistence.Api.csproj" />

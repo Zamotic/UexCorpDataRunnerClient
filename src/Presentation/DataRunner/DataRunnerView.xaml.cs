@@ -10,6 +10,7 @@ using UexCorpDataRunner.Domain.Minimized;
 using System.Windows.Media;
 using System.Windows.Input;
 using System;
+using UexCorpDataRunner.Domain.Services;
 
 namespace UexCorpDataRunner.Presentation.DataRunner;
 
@@ -19,6 +20,8 @@ namespace UexCorpDataRunner.Presentation.DataRunner;
 public partial class DataRunnerView : UserControl
 {
     Point _Location;
+    ISettingsService? _settingsService;
+    Window _window = System.Windows.Application.Current.MainWindow;
 
     public DataRunnerView()
     {
@@ -31,16 +34,15 @@ public partial class DataRunnerView : UserControl
         double x = _Location.X;
         double y = _Location.Y;
 
-        Window window = System.Windows.Application.Current.MainWindow;
-        window.Visibility = Visibility.Hidden;
-        window.WindowStyle = WindowStyle.SingleBorderWindow;
-        window.Width = MinimizedValues.MaximizedWidth;
-        window.Height = MinimizedValues.MaximizedHeight;
-        window.Left = x;
-        window.Top = y;
-        window.ResizeMode = ResizeMode.CanResize;
-        window.Topmost = true;
-        window.Visibility = Visibility.Visible;
+        _window.Visibility = Visibility.Hidden;
+        _window.WindowStyle = WindowStyle.SingleBorderWindow;
+        _window.Width = MinimizedValues.MaximizedWidth;
+        _window.Height = MinimizedValues.MaximizedHeight;
+        _window.Left = x;
+        _window.Top = y;
+        _window.ResizeMode = ResizeMode.CanResize;
+        _window.Visibility = Visibility.Visible;
+        SetTopMostValueFromSettings();
     }
 
     //public void WindowMovedNotified(WindowMovedMessage notification)
@@ -49,12 +51,34 @@ public partial class DataRunnerView : UserControl
         SaveWindowLocation();
     }
 
+    public void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
+    {
+        if(notification.AlwaysOnTopChanged == true)
+        {
+            SetTopMostValueFromSettings();
+        }
+    }
+
+    private void SetTopMostValueFromSettings()
+    {
+        if (_settingsService?.Settings?.AlwaysOnTop == Domain.Globals.Settings.Always)
+        {
+            _window.Topmost = true;
+            return;
+        }
+        _window.Topmost = false;
+    }
+
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         IMessenger? messenger = StartupExtensions.ServiceProvider?.GetService<IMessenger>();
+        _settingsService = StartupExtensions.ServiceProvider?.GetService<ISettingsService>();
+
         messenger?.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);
         messenger?.Register<WindowMovedMessage>(this, WindowMovedMessageHandler);
+        messenger?.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
         SaveWindowLocation();
+        SetTopMostValueFromSettings();
     }
 
     public void SaveWindowLocation()

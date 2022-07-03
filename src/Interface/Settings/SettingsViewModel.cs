@@ -18,7 +18,9 @@ public class SettingsViewModel : ViewModelBase
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
 
-    private bool _UserDataChanged = false;
+    private bool _UserApiKeyChanged = false;
+    private bool _UserAccessCodeChanged = false;
+    private bool _AlwaysOnTopChanged = false;
 
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
@@ -44,25 +46,50 @@ public class SettingsViewModel : ViewModelBase
         {
             return;
         }
-        if(_UserDataChanged = true)
-        {
-            return;
-        }
         if (e.PropertyName.Equals(nameof(_SettingsValues.UserApiKey)) == true)
         {
-            _UserDataChanged = true;
+            _UserApiKeyChanged = true;
         }
         if (e.PropertyName.Equals(nameof(_SettingsValues.UserAccessCode)) == true)
         {
-            _UserDataChanged = true;
+            _UserAccessCodeChanged = true;
+        }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.AlwaysOnTop)) == true)
+        {
+            _AlwaysOnTopChanged = true;
         }
     }
 
-    public List<string> ThemeList { get; } = new List<string>() { /*"Light",*/ "Dark" };
+    public List<string> ThemeList { get; } = new List<string>() 
+    { 
+        /*Domain.Globals.Settings.Light,*/ 
+        Domain.Globals.Settings.Dark 
+    };
 
-    public List<string> CollapseLocationList { get; } = new List<string>() { "TopLeft", "TopCenter", "TopRight", "CenterLeft", "CenterRight", "BottomLeft", "BottomCenter", "BottomRight" };
+    public List<string> CollapseLocationList { get; } = new List<string>() 
+    { 
+        Domain.Globals.Settings.TopLeft, 
+        Domain.Globals.Settings.TopCenter, 
+        Domain.Globals.Settings.TopRight, 
+        Domain.Globals.Settings.CenterLeft, 
+        Domain.Globals.Settings.CenterRight,
+        Domain.Globals.Settings.BottomLeft,
+        Domain.Globals.Settings.BottomCenter,
+        Domain.Globals.Settings.BottomRight
+    };
 
-    public List<string> CollapseOrientationList { get; } = new List<string>() { "Horizontal", "Vertical" };
+    public List<string> CollapseOrientationList { get; } = new List<string>() 
+    {
+        Domain.Globals.Settings.Horizontal, 
+        Domain.Globals.Settings.Vertical
+    };
+
+    public List<string> AlwaysOnTopList { get; } = new List<string>() 
+    { 
+        Domain.Globals.Settings.Always, 
+        Domain.Globals.Settings.Minimized, 
+        Domain.Globals.Settings.Never 
+    };
 
     public SettingsViewModel(IMessenger messenger, ISettingsService settingsService)
     {
@@ -77,7 +104,7 @@ public class SettingsViewModel : ViewModelBase
     {
         _SettingsService.SaveSettings();
         IsEnabled = false;
-        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserDataChanged));
+        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserApiKeyChanged, _UserAccessCodeChanged, _AlwaysOnTopChanged));
     }
 
     //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
@@ -94,7 +121,10 @@ public class SettingsViewModel : ViewModelBase
             return;
         }
 
-        _UserDataChanged = false;
+        _UserApiKeyChanged = false;
+        _UserAccessCodeChanged = false;
+        _AlwaysOnTopChanged = false;
+
         SettingsValues = _SettingsService.Settings;
     }
 }

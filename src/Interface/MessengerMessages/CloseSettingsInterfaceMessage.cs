@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.Interface.MessengerMessages;
 public class CloseSettingsInterfaceMessage
 {
-    public bool ReloadData { get; }
-    public CloseSettingsInterfaceMessage(bool reloadData)
+    public bool UserApiChanged { get; }
+    public bool UserAccessCodeChanged { get; }
+    public bool AlwaysOnTopChanged { get; }
+    public CloseSettingsInterfaceMessage(bool userApiChanged, bool userAccessCodeChanged = false, bool alwaysOnTopChanged = false)
     {
-        ReloadData = reloadData;
+        UserApiChanged = userApiChanged;
+        UserAccessCodeChanged = userAccessCodeChanged;
+        AlwaysOnTopChanged = alwaysOnTopChanged;
     }
 }

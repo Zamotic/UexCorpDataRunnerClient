@@ -27,6 +27,7 @@ namespace UexCorpDataRunner.Presentation.Minimized;
 /// </summary>
 public partial class MinimizedView : UserControl//, INotificationHandler<HideUserInterfaceClickedNotification>
 {
+    Window _window = System.Windows.Application.Current.MainWindow;
     ISettingsService? _SettingsService;
 
     public MinimizedView()
@@ -37,32 +38,53 @@ public partial class MinimizedView : UserControl//, INotificationHandler<HideUse
     //private void HideUserInterfaceNotified(HideUserInterfaceMessage notification)
     private void HideUserInterfaceMessageHandler(object sender, HideUserInterfaceMessage notification)
     {
-        Window window = System.Windows.Application.Current.MainWindow;
-        window.Visibility = Visibility.Hidden;
-        window.WindowStyle = WindowStyle.None;
-        window.ResizeMode = ResizeMode.NoResize;
-        window.Topmost = true;
+        _window.Visibility = Visibility.Hidden;
+        _window.WindowStyle = WindowStyle.None;
+        _window.ResizeMode = ResizeMode.NoResize;
 
         if(_SettingsService?.Settings is null)
         {
-            window.Visibility = Visibility.Visible;
+            _window.Visibility = Visibility.Visible;
             return;
         }
 
-        if (_SettingsService.Settings.CollapseOrientation == "Vertical")
+        if (_SettingsService.Settings.CollapseOrientation == Domain.Globals.Settings.Vertical)
         {
-            window.Width = MinimizedValues.MinimizedWidth;
-            window.Height = MinimizedValues.MinimizedHeight;
-            SetVerticalWindowLocation(window, _SettingsService.Settings.CollapseLocation);
+            _window.Width = MinimizedValues.MinimizedWidth;
+            _window.Height = MinimizedValues.MinimizedHeight;
+            SetVerticalWindowLocation(_window, _SettingsService.Settings.CollapseLocation);
         }
-        if (_SettingsService.Settings.CollapseOrientation == "Horizontal")
+        if (_SettingsService.Settings.CollapseOrientation == Domain.Globals.Settings.Horizontal)
         {
-            window.Width = MinimizedValues.MinimizedHeight;
-            window.Height = MinimizedValues.MinimizedWidth;
-            SetHorizontalWindowLocation(window, _SettingsService.Settings.CollapseLocation);
+            _window.Width = MinimizedValues.MinimizedHeight;
+            _window.Height = MinimizedValues.MinimizedWidth;
+            SetHorizontalWindowLocation(_window, _SettingsService.Settings.CollapseLocation);
         }
 
-        window.Visibility = Visibility.Visible;
+        _window.Visibility = Visibility.Visible;
+        SetTopMostValueFromSettings();
+    }
+    public void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
+    {
+        if (notification.AlwaysOnTopChanged == true)
+        {
+            SetTopMostValueFromSettings();
+        }
+    }
+
+    private void SetTopMostValueFromSettings()
+    {
+        if (_SettingsService?.Settings?.AlwaysOnTop == Domain.Globals.Settings.Always)
+        {
+            _window.Topmost = true;
+            return;
+        }
+        if (_SettingsService?.Settings?.AlwaysOnTop == Domain.Globals.Settings.Minimized)
+        {
+            _window.Topmost = true;
+            return;
+        }
+        _window.Topmost = false;
     }
 
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

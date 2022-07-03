@@ -506,9 +506,10 @@ public partial class DataRunnerViewModel : ViewModelBase
     {
         if(notification != null)
         {
-            if(notification.ReloadData == true)
+            if(notification.UserApiChanged == true)
             {
                 await ViewModelLoadedCommandExecuteAsync(sender);
+                return;
             }
         }
         IsEnabled = true;
@@ -565,6 +566,11 @@ public partial class DataRunnerViewModel : ViewModelBase
                 continue;
             }
             var locatedCommodity = _commodityList.First(x => x.Code.Equals(tradeListingValue.Code));
+
+            if (locatedCommodity.Available == false)
+            {
+                continue;
+            }
 
             commodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue));
         }
