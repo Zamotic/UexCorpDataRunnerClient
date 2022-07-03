@@ -323,6 +323,16 @@ public class UexCorpWebApiClientAdapterTests
             Code = "ACSU",
             BuyPrice = 1.01m,
             SellPrice = 1.21m,
+            Tradeable = true,
+            Buyable = true,
+            Sellable = true,
+            //Minable = false,
+            //Harvestable = false,
+            Temporary = false, 
+            //Restricted = false,
+            //Raw = false,
+            Illegal = false,
+            Available = true,
             DateAdded = DateTimeOffset.Parse("12/25/2020, 11:25:15 PM +03:00"),
             DateModified = DateTimeOffset.Parse("6/4/2022, 8:00:06 PM +03:00")
         };

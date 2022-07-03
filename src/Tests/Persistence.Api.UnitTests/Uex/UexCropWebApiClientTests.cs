@@ -1071,7 +1071,7 @@ public class UexCropWebApiClientTests
     public async Task GetCommoditiesAsync_ShouldHaveDateModified()
     {
         // Assemble
-        DateTimeOffset ExpectedValue = new DateTimeOffset(2022, 06, 08, 19, 00, 06, TimeSpan.Zero);
+        DateTimeOffset ExpectedValue = new DateTimeOffset(2022, 07, 02, 00, 00, 11, TimeSpan.Zero);
 
         // Act
         var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);

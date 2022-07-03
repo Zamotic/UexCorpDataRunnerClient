@@ -78,12 +78,12 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
 
         ICollection<CommodityDto> commodityDtoList = new List<CommodityDto>()
             {
-                new CommodityDto() { Name = "Agricultural Supplies", Code = "ACSU", Kind = "Agricultural", BuyPrice = 1.01m, SellPrice = 1.21m, DateAdded = dateAdded, DateModified = dateModified },
-                new CommodityDto() { Name = "Agricium", Code = "AGRI", Kind = "Metal", BuyPrice = 23.79m, SellPrice = 27.5m, DateAdded = dateAdded, DateModified = dateModified },
-                new CommodityDto() { Name = "Agricium (Ore)", Code = "AGRW", Kind = "Metal", BuyPrice = 0m, SellPrice = 13.75m, DateAdded = dateAdded, DateModified = dateModified },
-                new CommodityDto() { Name = "Altruciatoxin", Code = "ALTX", Kind = "Drug", BuyPrice = 12.12m, SellPrice = 0m, DateAdded = dateAdded, DateModified = dateModified },
-                new CommodityDto() { Name = "Aluminum", Code = "ALUM", Kind = "Metal", BuyPrice = 1.11m, SellPrice = 1.3m, DateAdded = dateAdded, DateModified = dateModified },
-                new CommodityDto() { Name = "Aluminum (Ore)", Code = "ALUW", Kind = "Metal", BuyPrice = 0m, SellPrice = 0.67m, DateAdded = dateAdded, DateModified = dateModified }
+                new CommodityDto() { Name = "Agricultural Supplies", Code = "ACSU", Kind = "Agricultural", BuyPrice = 1.01m, SellPrice = 1.21m, Tradeable = true, Buyable = true, Sellable = true, Temporary = false, Illegal = false, Available = true, DateAdded = dateAdded, DateModified = dateModified },
+                new CommodityDto() { Name = "Agricium", Code = "AGRI", Kind = "Metal", BuyPrice = 23.79m, SellPrice = 27.5m, Tradeable = true, Buyable = true, Sellable = true, Temporary = false, Illegal = false, Available = true, DateAdded = dateAdded, DateModified = dateModified },
+                new CommodityDto() { Name = "Agricium (Ore)", Code = "AGRW", Kind = "Metal", BuyPrice = 0m, SellPrice = 13.75m, Tradeable = true, Buyable = true, Sellable = true, Temporary = false, Illegal = false, Available = true, DateAdded = dateAdded, DateModified = dateModified },
+                new CommodityDto() { Name = "Altruciatoxin", Code = "ALTX", Kind = "Drug", BuyPrice = 12.12m, SellPrice = 0m, Tradeable = true, Buyable = true, Sellable = true, Temporary = false, Illegal = false, Available = true, DateAdded = dateAdded, DateModified = dateModified },
+                new CommodityDto() { Name = "Aluminum", Code = "ALUM", Kind = "Metal", BuyPrice = 1.11m, SellPrice = 1.3m, Tradeable = true, Buyable = true, Sellable = true, Temporary = false, Illegal = false, Available = true, DateAdded = dateAdded, DateModified = dateModified },
+                new CommodityDto() { Name = "Aluminum (Ore)", Code = "ALUW", Kind = "Metal", BuyPrice = 0m, SellPrice = 0.67m, Tradeable = true, Buyable = true, Sellable = true, Temporary = false, Illegal = false, Available = true, DateAdded = dateAdded, DateModified = dateModified }
             };
         this.Setup(s => s.GetCommoditiesAsync()).Returns(Task.FromResult(commodityDtoList));
 
