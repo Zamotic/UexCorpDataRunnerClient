@@ -23,24 +23,24 @@ public class CommodityDto
     [JsonPropertyName("sellable")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool Sellable { get; set; }
-    [JsonPropertyName("minable")]
-    [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
+    //[JsonPropertyName("minable")]
+    //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     //public bool Minable { get; set; }
     //[JsonPropertyName("harvestable")]
     //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     //public bool Harvestable { get; set; }
-    //[JsonPropertyName("temporary")]
-    //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
-    public bool Temporary { get; set; }
-    [JsonPropertyName("restricted")]
+    [JsonPropertyName("temporary")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
+    public bool Temporary { get; set; }
+    //[JsonPropertyName("restricted")]
+    //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     //public bool Restricted { get; set; }
     //[JsonPropertyName("raw")]
     //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     //public bool Raw { get; set; }
     //[JsonPropertyName("illegal")]
     //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
-    public bool Illegal { get; set; }
+    //public bool Illegal { get; set; }
     [JsonPropertyName("available")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool Available { get; set; }

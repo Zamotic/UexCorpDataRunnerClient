@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.Domain.Settings;
 public class SettingsValues : ObservableObject
 {
-    private string theme = "Dark";
+    private string theme = Globals.Settings.Dark;
     public string Theme { get => theme; set => SetProperty(ref theme, value); }
 
-    private string collapseLocation = "CenterRight";
+    private string collapseLocation = Globals.Settings.CenterRight;
     public string CollapseLocation { get => collapseLocation; set => SetProperty(ref collapseLocation, value); }
 
-    private string collapseOrientation = "Vertical";
+    private string collapseOrientation = Globals.Settings.Vertical;
     public string CollapseOrientation { get => collapseOrientation; set =>  SetProperty(ref collapseOrientation, value); }
 
-    private string alwaysOnTop = "Always";
+    private string alwaysOnTop = Globals.Settings.Always;
     public string AlwaysOnTop { get => alwaysOnTop; set => SetProperty(ref alwaysOnTop, value); }
+
+    private string showTemporaryCommodities = Globals.Settings.HideTemporary;
+    public string ShowTemporaryCommodities { get => showTemporaryCommodities; set => SetProperty(ref showTemporaryCommodities, value); }
 
     private string userApiKey = string.Empty;
     public string UserApiKey { get => userApiKey; set =>  SetProperty(ref userApiKey, value); }

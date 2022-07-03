@@ -17,6 +17,7 @@ using System.Windows.Data;
 using UexCorpDataRunner.Application.DataRunner;
 using System.Windows.Controls;
 using UexCorpDataRunner.Application;
+using UexCorpDataRunner.Domain;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
 
@@ -509,8 +510,11 @@ public partial class DataRunnerViewModel : ViewModelBase
             if(notification.UserApiChanged == true)
             {
                 await ViewModelLoadedCommandExecuteAsync(sender);
-                return;
             }
+            if(notification.ShowTemporaryCommoditiesChanged == true)
+            {
+                await UpdateCommoditiesForTradeport(SelectedTradeport?.Code);
+            }    
         }
         IsEnabled = true;
     }
@@ -547,8 +551,13 @@ public partial class DataRunnerViewModel : ViewModelBase
         CurrentTradeport = newTradeport;
     }
 
-    public async Task UpdateCommoditiesForTradeport(string tradeportCode)
+    public async Task UpdateCommoditiesForTradeport(string? tradeportCode)
     {
+        if (string.IsNullOrWhiteSpace(tradeportCode) == true)
+        {
+            return;
+        }
+
         if(_commodityList is null)
         {
             return;
@@ -566,6 +575,14 @@ public partial class DataRunnerViewModel : ViewModelBase
                 continue;
             }
             var locatedCommodity = _commodityList.First(x => x.Code.Equals(tradeListingValue.Code));
+
+            if (locatedCommodity.Temporary == true)
+            {
+                if(_SettingsService?.Settings?.ShowTemporaryCommodities == Globals.Settings.HideTemporary)
+                {
+                    continue;
+                }
+            }
 
             if (locatedCommodity.Available == false)
             {

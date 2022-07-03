@@ -21,6 +21,7 @@ public class SettingsViewModel : ViewModelBase
     private bool _UserApiKeyChanged = false;
     private bool _UserAccessCodeChanged = false;
     private bool _AlwaysOnTopChanged = false;
+    private bool _ShowTemporaryCommodityChanged = false;
 
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
@@ -58,6 +59,10 @@ public class SettingsViewModel : ViewModelBase
         {
             _AlwaysOnTopChanged = true;
         }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.ShowTemporaryCommodities)) == true)
+        {
+            _ShowTemporaryCommodityChanged = true;
+        }
     }
 
     public List<string> ThemeList { get; } = new List<string>() 
@@ -91,6 +96,12 @@ public class SettingsViewModel : ViewModelBase
         Domain.Globals.Settings.Never 
     };
 
+    public List<string> ShowTemporaryCommodityList { get; } = new List<string>()
+    {
+        Domain.Globals.Settings.ShowAll,
+        Domain.Globals.Settings.HideTemporary
+    };
+
     public SettingsViewModel(IMessenger messenger, ISettingsService settingsService)
     {
         _Messenger = messenger;
@@ -104,7 +115,7 @@ public class SettingsViewModel : ViewModelBase
     {
         _SettingsService.SaveSettings();
         IsEnabled = false;
-        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserApiKeyChanged, _UserAccessCodeChanged, _AlwaysOnTopChanged));
+        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserApiKeyChanged, _UserAccessCodeChanged, _AlwaysOnTopChanged, _ShowTemporaryCommodityChanged));
     }
 
     //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
@@ -124,7 +135,8 @@ public class SettingsViewModel : ViewModelBase
         _UserApiKeyChanged = false;
         _UserAccessCodeChanged = false;
         _AlwaysOnTopChanged = false;
+        _ShowTemporaryCommodityChanged = false;
 
-        SettingsValues = _SettingsService.Settings;
+    SettingsValues = _SettingsService.Settings;
     }
 }

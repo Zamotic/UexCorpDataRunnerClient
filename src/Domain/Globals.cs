@@ -27,5 +27,8 @@ public static class Globals
         public const string Always = "Always";
         public const string Minimized = "Minimized";
         public const string Never = "Never";
+
+        public const string ShowAll = "Show All";
+        public const string HideTemporary = "Hide Temporary";
     }
 }

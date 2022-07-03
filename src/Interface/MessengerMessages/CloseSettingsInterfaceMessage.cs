@@ -10,10 +10,13 @@ public class CloseSettingsInterfaceMessage
     public bool UserApiChanged { get; }
     public bool UserAccessCodeChanged { get; }
     public bool AlwaysOnTopChanged { get; }
-    public CloseSettingsInterfaceMessage(bool userApiChanged, bool userAccessCodeChanged = false, bool alwaysOnTopChanged = false)
+    public bool ShowTemporaryCommoditiesChanged { get; }
+
+    public CloseSettingsInterfaceMessage(bool userApiChanged, bool userAccessCodeChanged = false, bool alwaysOnTopChanged = false, bool showTemporaryCommoditiesChanged = false)
     {
         UserApiChanged = userApiChanged;
         UserAccessCodeChanged = userAccessCodeChanged;
         AlwaysOnTopChanged = alwaysOnTopChanged;
+        ShowTemporaryCommoditiesChanged = showTemporaryCommoditiesChanged;
     }
 }
