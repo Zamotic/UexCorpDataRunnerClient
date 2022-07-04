@@ -1,16 +1,10 @@
-﻿ using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Domain.Settings;
 using UexCorpDataRunner.Persistence.Api.Mock.Uex;
 using UexCorpDataRunner.Persistence.Api.Uex;
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
-using Xunit;
 
 namespace UexCorpDataRunner.Persistence.Api.UnitTests.Uex;
 public class UexCropWebApiClientTests
@@ -26,11 +20,9 @@ public class UexCropWebApiClientTests
         Mock<IUexCorpWebApiConfiguration> mockWebConfiguration = new Mock<IUexCorpWebApiConfiguration>();
         mockWebConfiguration.SetupGet(g => g.DataRunnerEndpointPath).Returns(string.Empty);
         mockWebConfiguration.SetupGet(g => g.WebApiEndPointUrl).Returns("https://portal.uexcorp.space/api/");
+        mockWebConfiguration.SetupGet(g => g.ApiKey).Returns("K/xTGFxZfXVaaY2Ep+4YLihaisyiwcnI7IvP5U3CNkabBxMcsMXUWDrr5T5n3Doh");
 
-        Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
-        settingsService.SetupGet(g => g.Settings).Returns(new SettingsValues() { UserApiKey = "TestApiKey" });
-
-        var httpClientFactory = new UexMockHttpClientFactory(mockWebConfiguration.Object, settingsService.Object);
+        var httpClientFactory = new UexMockHttpClientFactory(mockWebConfiguration.Object);
         _uexWebApiMockHttpMessageHandler = httpClientFactory.GetMockHttpMessageHandler();
         _webApiClient = new UexCorpWebApiClient(mockWebConfiguration.Object, httpClientFactory);
     }

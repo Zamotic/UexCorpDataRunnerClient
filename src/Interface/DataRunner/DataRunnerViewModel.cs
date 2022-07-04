@@ -507,10 +507,6 @@ public partial class DataRunnerViewModel : ViewModelBase
     {
         if(notification != null)
         {
-            if(notification.UserApiChanged == true)
-            {
-                await ViewModelLoadedCommandExecuteAsync(sender);
-            }
             if(notification.ShowTemporaryCommoditiesChanged == true)
             {
                 await UpdateCommoditiesForTradeport(SelectedTradeport?.Code);

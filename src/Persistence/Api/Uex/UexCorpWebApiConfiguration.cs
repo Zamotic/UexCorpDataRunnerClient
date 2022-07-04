@@ -5,4 +5,5 @@ public class UexCorpWebApiConfiguration : IUexCorpWebApiConfiguration
 
     public string? WebApiEndPointUrl { get; set; }
     public string? DataRunnerEndpointPath { get; set; }
+    public string? ApiKey { get; set; }
 }

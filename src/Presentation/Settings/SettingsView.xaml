@@ -181,26 +181,39 @@
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
                     FontWeight="Bold"
-                    Text="User ApiKey:" 
-                    VerticalAlignment="Center"/>
-                <TextBox
-                    DockPanel.Dock="Right"
-                    Text="{Binding SettingsValues.UserApiKey}"/>
-            </DockPanel>
-            <DockPanel
-                DockPanel.Dock="Top"
-                Margin="{StaticResource propertyMargin}">
-                <TextBlock
-                    DockPanel.Dock="Left"
-                    Width="{StaticResource labelWidth}"
-                    FontWeight="Bold"
-                    Text="User Access Code:" 
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    ToolTip="Access code can be found on the Password tab of your Personal Profile">
+                    <Hyperlink
+                        NavigateUri="https://portal.uexcorp.space/profile"
+                        Command="{Binding HyperlinkCommand}"
+                        CommandParameter="https://portal.uexcorp.space/profile">
+                        User Access Code:
+                    </Hyperlink>
+                </TextBlock>
                 <TextBox
                     DockPanel.Dock="Right"
                     Text="{Binding SettingsValues.UserAccessCode}"/>
             </DockPanel>
+            <TextBlock
+                DockPanel.Dock="Bottom"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                    <Hyperlink
+                        NavigateUri="mailto:Zamotic@gmail.com"
+                        Command="{Binding HyperlinkCommand}"
+                        CommandParameter="mailto:Zamotic@gmail.com">
+                        Contact Me
+                    </Hyperlink>
+            </TextBlock>
+            <DockPanel />
+            <TextBlock
+                DockPanel.Dock="Bottom"
+                Text="{Binding Version, FallbackValue='v0.0.0.0'}"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <DockPanel />
         </DockPanel>
-        <DockPanel />
     </DockPanel>
 </UserControl>

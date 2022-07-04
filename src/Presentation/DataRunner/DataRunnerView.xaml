@@ -23,6 +23,7 @@
     </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
         <SolidColorBrush x:Key="textBackgroundColor">#555555</SolidColorBrush>
+        <system:Double x:Key="itemsControlWidth">382</system:Double>
         <Style x:Key="Style-TabControl-Main" TargetType="{x:Type TabControl}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Template">
@@ -516,10 +517,12 @@
                         </UniformGrid>
                         <ScrollViewer
                             DockPanel.Dock="Top"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible">
+                            ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
                                 ItemsSource="{Binding BuyableCommodityListCVS}"
-                                ItemTemplate="{StaticResource itemsControlItemTemplate}">
+                                ItemTemplate="{StaticResource itemsControlItemTemplate}"
+                                HorizontalAlignment="Left"
+                                Width="{StaticResource itemsControlWidth}">
                                 <ItemsControl.Style>
                                     <Style TargetType="ItemsControl">
                                         <Setter Property="IsEnabled" Value="True" />
@@ -605,7 +608,9 @@
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
                                 ItemsSource="{Binding SellableCommodityListCVS}"
-                                ItemTemplate="{StaticResource itemsControlItemTemplate}">
+                                ItemTemplate="{StaticResource itemsControlItemTemplate}"
+                                HorizontalAlignment="Left"
+                                Width="{StaticResource itemsControlWidth}">
                                 <ItemsControl.Style>
                                     <Style TargetType="ItemsControl">
                                         <Setter Property="IsEnabled" Value="True" />

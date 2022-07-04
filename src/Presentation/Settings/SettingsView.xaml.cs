@@ -30,19 +30,19 @@ public partial class SettingsView : UserControl
     }
 
     //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
-    public void ShowSettingsInterfaceMessageHandler(object sender, ShowSettingsInterfaceMessage notification)
-    {
-        Window window = System.Windows.Application.Current.MainWindow;
-        window.WindowStyle = WindowStyle.SingleBorderWindow;
-        window.Width = 425;
-        window.Height = 700;
-        window.ResizeMode = ResizeMode.CanResize;
-        window.Topmost = true;
-    }
+    //public void ShowSettingsInterfaceMessageHandler(object sender, ShowSettingsInterfaceMessage notification)
+    //{
+    //    Window window = System.Windows.Application.Current.MainWindow;
+    //    window.WindowStyle = WindowStyle.SingleBorderWindow;
+    //    window.Width = 425;
+    //    window.Height = 700;
+    //    window.ResizeMode = ResizeMode.CanResize;
+    //    window.Topmost = true;
+    //}
 
     private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         IMessenger? messenger = StartupExtensions.ServiceProvider?.GetService<IMessenger>();
-        messenger?.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
+        //messenger?.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
     }
 }

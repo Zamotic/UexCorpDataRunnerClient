@@ -23,9 +23,6 @@ public class SettingsValues : ObservableObject
     private string showTemporaryCommodities = Globals.Settings.HideTemporary;
     public string ShowTemporaryCommodities { get => showTemporaryCommodities; set => SetProperty(ref showTemporaryCommodities, value); }
 
-    private string userApiKey = string.Empty;
-    public string UserApiKey { get => userApiKey; set =>  SetProperty(ref userApiKey, value); }
-
     private string userAccessCode = string.Empty;
     public string UserAccessCode { get => userAccessCode; set =>  SetProperty(ref userAccessCode, value); }
 }

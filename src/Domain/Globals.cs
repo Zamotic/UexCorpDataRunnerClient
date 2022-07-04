@@ -7,8 +7,17 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.Domain;
 public static class Globals
 {
+    public const string SimpleCipherKey = "UnitedExpressCorporationFoundedIn2947";
+
     public static class Settings
     {
+        static Settings()
+        {
+            var entryAssembly = System.Reflection.Assembly.GetEntryAssembly();
+            var versionInfo = entryAssembly?.GetName()?.Version;
+            Version = $"v{versionInfo?.Major}.{versionInfo?.Minor}.{versionInfo?.Build}.{versionInfo?.Revision}";
+        }
+
         public const string Light = "Light";
         public const string Dark = "Dark";
 
@@ -30,5 +39,8 @@ public static class Globals
 
         public const string ShowAll = "Show All";
         public const string HideTemporary = "Hide Temporary";
+
+        public static readonly string? Version;
+
     }
 }

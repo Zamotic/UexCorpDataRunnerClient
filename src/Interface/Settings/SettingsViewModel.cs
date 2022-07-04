@@ -18,7 +18,6 @@ public class SettingsViewModel : ViewModelBase
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
 
-    private bool _UserApiKeyChanged = false;
     private bool _UserAccessCodeChanged = false;
     private bool _AlwaysOnTopChanged = false;
     private bool _ShowTemporaryCommodityChanged = false;
@@ -46,10 +45,6 @@ public class SettingsViewModel : ViewModelBase
         if(e.PropertyName is null)
         {
             return;
-        }
-        if (e.PropertyName.Equals(nameof(_SettingsValues.UserApiKey)) == true)
-        {
-            _UserApiKeyChanged = true;
         }
         if (e.PropertyName.Equals(nameof(_SettingsValues.UserAccessCode)) == true)
         {
@@ -102,6 +97,8 @@ public class SettingsViewModel : ViewModelBase
         Domain.Globals.Settings.HideTemporary
     };
 
+    public string? Version { get => Domain.Globals.Settings.Version; }
+
     public SettingsViewModel(IMessenger messenger, ISettingsService settingsService)
     {
         _Messenger = messenger;
@@ -110,12 +107,33 @@ public class SettingsViewModel : ViewModelBase
         _SettingsService = settingsService;
     }
 
+    public ICommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);
+    private void HyperlinkCommandExecute(object? linkUrl)
+    {
+        if(linkUrl is null)
+        {
+            return;
+        }
+
+        string? url = linkUrl as string;
+        if (string.IsNullOrEmpty(url) == true)
+        {
+            return;
+        }
+        var psi = new System.Diagnostics.ProcessStartInfo
+        {
+            UseShellExecute = true,
+            FileName = url
+        };
+        System.Diagnostics.Process.Start(psi);
+    }
+
     public ICommand CloseSettingsInterfaceCommand => new RelayCommand(CloseSettingsInterfaceCommandExecute);
     private void CloseSettingsInterfaceCommandExecute()
     {
         _SettingsService.SaveSettings();
         IsEnabled = false;
-        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserApiKeyChanged, _UserAccessCodeChanged, _AlwaysOnTopChanged, _ShowTemporaryCommodityChanged));
+        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserAccessCodeChanged, _AlwaysOnTopChanged, _ShowTemporaryCommodityChanged));
     }
 
     //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)
@@ -132,7 +150,6 @@ public class SettingsViewModel : ViewModelBase
             return;
         }
 
-        _UserApiKeyChanged = false;
         _UserAccessCodeChanged = false;
         _AlwaysOnTopChanged = false;
         _ShowTemporaryCommodityChanged = false;

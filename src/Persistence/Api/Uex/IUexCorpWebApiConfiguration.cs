@@ -2,6 +2,7 @@
 
 public interface IUexCorpWebApiConfiguration
 {
-    string? DataRunnerEndpointPath { get; }
     string? WebApiEndPointUrl { get; }
+    string? DataRunnerEndpointPath { get; }
+    string? ApiKey { get; }
 }

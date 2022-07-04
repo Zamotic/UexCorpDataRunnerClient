@@ -15,7 +15,7 @@ public class SettingsService : ISettingsService
     private const string ApplicationDataLocalPath = "UEXCorpDataRunnerClient";
     private const string SettingsFileName = "settings.json";
     private readonly string SettingsFileFolderPath;
-    private readonly string SettingsFilePath;
+    private readonly string SettingsFilePath; 
 
     public SettingsValues? Settings => _Settings;
 

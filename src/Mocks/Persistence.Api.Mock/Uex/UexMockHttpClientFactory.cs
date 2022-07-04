@@ -9,13 +9,11 @@ public sealed class UexMockHttpClientFactory : IHttpClientFactory
     static object _lock = new object();
     HttpClient? _HttpClient;
     IUexCorpWebApiConfiguration _WebConfiguration;
-    ISettingsService _SettingsService;
     ILogger? _Logger;
 
-    public UexMockHttpClientFactory(IUexCorpWebApiConfiguration webConfiguration, ISettingsService settingsService, ILogger? logger = null)
+    public UexMockHttpClientFactory(IUexCorpWebApiConfiguration webConfiguration, ILogger? logger = null)
     {
         _WebConfiguration = webConfiguration ?? throw new ArgumentNullException(nameof(webConfiguration));
-        _SettingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
         _Logger = logger;
     }
 
@@ -72,9 +70,23 @@ public sealed class UexMockHttpClientFactory : IHttpClientFactory
 
         httpClient.BaseAddress = new Uri(_WebConfiguration.WebApiEndPointUrl);
 
-        httpClient.DefaultRequestHeaders.Add("api_key", _SettingsService.Settings?.UserApiKey);
+        string decryptedApiKey = DecryptApiKey();
+
+        httpClient.DefaultRequestHeaders.Clear();
+        httpClient.DefaultRequestHeaders.Add("api_key", decryptedApiKey);
 
         return httpClient;
+    }
+
+    private string DecryptApiKey()
+    {
+        if (string.IsNullOrEmpty(_WebConfiguration.ApiKey) == true)
+        {
+            throw new Exception("ApiKey cannot be empty");
+        }
+
+        string decryptedKey = UexCorpDataRunner.Common.SimpleCipher.Decrypt(_WebConfiguration.ApiKey, Domain.Globals.SimpleCipherKey);
+        return decryptedKey;
     }
 }
 
