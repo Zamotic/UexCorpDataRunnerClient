@@ -64,6 +64,7 @@
             Padding="2"
             Text="{Binding TransmissionStatusText, Mode=OneWay}"
             Extensions:TextBoxAutoScrollToEndExtension.IsEnabled="True"
+            Extensions:FocusExtension.IsFocused="{Binding IsTransmissionStatusTextBoxFocused}"
             />
     </DockPanel>
 </UserControl>

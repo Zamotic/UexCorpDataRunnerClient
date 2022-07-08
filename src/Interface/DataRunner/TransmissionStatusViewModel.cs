@@ -22,6 +22,13 @@ public class TransmissionStatusViewModel : ViewModelBase
     {
         get => _IsCloseTransmissionStatusFocused;
         set => SetProperty(ref _IsCloseTransmissionStatusFocused, value);
+    }    
+    
+    private bool _IsTransmissionStatusTextBoxFocused = false;
+    public bool IsTransmissionStatusTextBoxFocused
+    {
+        get => _IsTransmissionStatusTextBoxFocused;
+        set => SetProperty(ref _IsTransmissionStatusTextBoxFocused, value);
     }
 
     private string _transmissionStatusText = string.Empty;
@@ -38,7 +45,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _messenger.Register<TransmissionStatusCompleteMessage>(this, TransmissionStatusCompleteMessageHandler);
     }
 
-    public RelayCommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
+    public ICommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
     private bool CloseTransmissionStatusViewCommandCanExecute()
     {
         if(IsTransmissionInProgress == true)
@@ -54,7 +61,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _messenger.Send(new CloseTransmissionStatusMessage());
     }
 
-    public RelayCommand CancelCurrentDataTransmissionCommand { get => new RelayCommand(CancelCurrentDataTransmissionCommandExecute, CancelCurrentDataTransmissionCommandCanExecute); }
+    public ICommand CancelCurrentDataTransmissionCommand { get => new RelayCommand(CancelCurrentDataTransmissionCommandExecute, CancelCurrentDataTransmissionCommandCanExecute); }
     private bool CancelCurrentDataTransmissionCommandCanExecute()
     {
         if (_isTransmissionInProgress == true)
@@ -75,6 +82,12 @@ public class TransmissionStatusViewModel : ViewModelBase
     public void ShowTransmissionStatusMessageHandler(object sender, ShowTransmissionStatusMessage notification)
     {
         TransmissionStatusText = string.Empty;
+        _statusBufferQueue.Clear();
+
+        IsEnabled = true;
+        IsTransmissionInProgress = true;
+
+        TransmissionStatusText = string.Empty;
 
         IsEnabled = true;
         IsTransmissionInProgress = true;
@@ -93,7 +106,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _readTextTimer?.Change(Timeout.Infinite, 0);
         ReadStatusBufferQueue();
         TransmissionStatusText += $"\n\n{notification.ResponseMessage}";
-        CloseTransmissionStatusViewCommand.NotifyCanExecuteChanged();
+        IsTransmissionStatusTextBoxFocused = true;
         IsCloseTransmissionStatusFocused = true;
     }
 
