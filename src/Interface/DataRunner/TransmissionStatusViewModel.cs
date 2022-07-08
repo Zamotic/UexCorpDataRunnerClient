@@ -17,6 +17,13 @@ public class TransmissionStatusViewModel : ViewModelBase
     }
     private System.Collections.Concurrent.ConcurrentQueue<string> _statusBufferQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
 
+    private bool _IsCloseTransmissionStatusFocused = false;
+    public bool IsCloseTransmissionStatusFocused
+    {
+        get => _IsCloseTransmissionStatusFocused;
+        set => SetProperty(ref _IsCloseTransmissionStatusFocused, value);
+    }
+
     private string _transmissionStatusText = string.Empty;
     public string TransmissionStatusText
     {
@@ -31,7 +38,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _messenger.Register<TransmissionStatusCompleteMessage>(this, TransmissionStatusCompleteMessageHandler);
     }
 
-    public ICommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
+    public RelayCommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
     private bool CloseTransmissionStatusViewCommandCanExecute()
     {
         if(IsTransmissionInProgress == true)
@@ -47,7 +54,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _messenger.Send(new CloseTransmissionStatusMessage());
     }
 
-    public ICommand CancelCurrentDataTransmissionCommand { get => new RelayCommand(CancelCurrentDataTransmissionCommandExecute, CancelCurrentDataTransmissionCommandCanExecute); }
+    public RelayCommand CancelCurrentDataTransmissionCommand { get => new RelayCommand(CancelCurrentDataTransmissionCommandExecute, CancelCurrentDataTransmissionCommandCanExecute); }
     private bool CancelCurrentDataTransmissionCommandCanExecute()
     {
         if (_isTransmissionInProgress == true)
@@ -86,6 +93,8 @@ public class TransmissionStatusViewModel : ViewModelBase
         _readTextTimer?.Change(Timeout.Infinite, 0);
         ReadStatusBufferQueue();
         TransmissionStatusText += $"\n\n{notification.ResponseMessage}";
+        CloseTransmissionStatusViewCommand.NotifyCanExecuteChanged();
+        IsCloseTransmissionStatusFocused = true;
     }
 
     public void ReadStatusBufferQueue()

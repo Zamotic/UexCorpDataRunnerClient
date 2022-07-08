@@ -41,7 +41,8 @@
                 <Button
                     Content="Ok"
                     Command="{Binding CloseTransmissionStatusViewCommand}"
-                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"
+                    Extensions:FocusExtension.IsFocused="{Binding IsCloseTransmissionStatusFocused}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Visibility" Value="Hidden" />
