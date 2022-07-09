@@ -8,7 +8,8 @@
         Title="UEX Corp DataRunner Client" 
         Height="700" Width="425"
         WindowStartupLocation="CenterScreen"
-        LocationChanged="Window_LocationChanged">
+        LocationChanged="Window_LocationChanged"
+        SizeChanged="Window_LocationChanged">
     <Grid>
         <Presentation:MainView />
     </Grid>

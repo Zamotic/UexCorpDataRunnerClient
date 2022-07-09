@@ -28,9 +28,12 @@ public partial class DataRunnerView : UserControl
         InitializeComponent();
     }
 
+    bool _ResizingWindow = false;
     //public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)
     public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
+        _ResizingWindow = true;
+
         double x = _Location.X;
         double y = _Location.Y;
 
@@ -43,6 +46,8 @@ public partial class DataRunnerView : UserControl
         _window.ResizeMode = ResizeMode.CanResize;
         _window.Visibility = Visibility.Visible;
         SetTopMostValueFromSettings();
+
+        _ResizingWindow = false;
     }
 
     //public void WindowMovedNotified(WindowMovedMessage notification)
@@ -83,6 +88,11 @@ public partial class DataRunnerView : UserControl
 
     public void SaveWindowLocation()
     {
+        if(_ResizingWindow == true)
+        {
+            return;
+        }
+
         Window window = System.Windows.Application.Current.MainWindow;
         if (window.WindowStyle == WindowStyle.SingleBorderWindow)
         {
