@@ -76,7 +76,7 @@
                                 Stroke="Black"
                                 Fill="{StaticResource textBackgroundColor}" />
                             <TextBlock
-                                Text="{Binding ListedPrice}"
+                                Text="{Binding ListedPrice, StringFormat=F2}"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="LightGray" />
@@ -146,7 +146,7 @@
                         <Grid>
                             <TextBlock
                                 DockPanel.Dock="Right"
-                                Text="{Binding MinPrice, FallbackValue=0.0}"
+                                Text="{Binding MinPrice, StringFormat=F2, FallbackValue=0.0}"
                                 Margin="15,0,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -170,7 +170,7 @@
                         BorderBrush="Gray">
                         <Grid>
                             <TextBlock
-                                Text="{Binding MaxPrice, FallbackValue=0.0}"
+                                Text="{Binding MaxPrice, StringFormat=F2, FallbackValue=0.0}"
                                 Margin="15,0,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"

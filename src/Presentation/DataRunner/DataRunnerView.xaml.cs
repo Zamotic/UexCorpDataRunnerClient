@@ -116,6 +116,11 @@ public partial class DataRunnerView : UserControl
 
         if(context.CurrentPrice is null)
         {
+            if(context.ListedPrice % 1 == 0)
+            {
+                context.CurrentPrice = context.ListedPrice * 100;
+                return;
+            }
             context.CurrentPrice = context.ListedPrice;
             return;
         }
