@@ -27,6 +27,7 @@ public partial class DataRunnerViewModel : ViewModelBase
     private readonly IUexDataService _DataService;
     private readonly ISettingsService _SettingsService;
     private readonly IPriceReportSubmitter _PriceReportSubmitter;
+    private readonly ITradeportCommodityBuilder _TradeportCommodityBuilder;
 
     private IReadOnlyCollection<Commodity>? _commodityList;
 
@@ -367,8 +368,8 @@ public partial class DataRunnerViewModel : ViewModelBase
         }
     }
 
-    private List<CommodityWrapper> _commodities = new List<CommodityWrapper>();
-    public List<CommodityWrapper> Commodities
+    private IList<CommodityWrapper> _commodities = new List<CommodityWrapper>();
+    public IList<CommodityWrapper> Commodities
     {
         get => _commodities;
         set
@@ -484,13 +485,14 @@ public partial class DataRunnerViewModel : ViewModelBase
         set => SetProperty(ref _SelectedTabItemIndex, value);
     }
 
-    public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService, ISettingsService settingsService, IPriceReportSubmitter priceReportSubmitter)
+    public DataRunnerViewModel(IMessenger messenger, IUexDataService dataService, ISettingsService settingsService, IPriceReportSubmitter priceReportSubmitter, ITradeportCommodityBuilder tradeportCommodityBuilder)
     {
         IsEnabled = true;
         _Messenger = messenger;
         _SettingsService = settingsService;
         _DataService = dataService;
         _PriceReportSubmitter = priceReportSubmitter;
+        _TradeportCommodityBuilder = tradeportCommodityBuilder;
 
         _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);
         _Messenger.Register<CloseSettingsInterfaceMessage>(this, CloseSettingsInterfaceMessageHandler);
@@ -561,32 +563,7 @@ public partial class DataRunnerViewModel : ViewModelBase
 
         Commodities.Clear();
 
-        var currentTradeport = await _DataService.GetTradeportAsync(tradeportCode);
-
-        List<CommodityWrapper> commodities = new List<CommodityWrapper>();
-        foreach (var tradeListingValue in currentTradeport.Prices)
-        {
-            if(_commodityList.Any(x => x.Code.Equals(tradeListingValue.Code)) == false)
-            {
-                continue;
-            }
-            var locatedCommodity = _commodityList.First(x => x.Code.Equals(tradeListingValue.Code));
-
-            if (locatedCommodity.Temporary == true)
-            {
-                if(_SettingsService?.Settings?.ShowTemporaryCommodities == Globals.Settings.HideTemporary)
-                {
-                    continue;
-                }
-            }
-
-            if (locatedCommodity.Available == false)
-            {
-                continue;
-            }
-
-            commodities.Add(new CommodityWrapper(locatedCommodity, tradeListingValue));
-        }
+        IList<CommodityWrapper> commodities = await _TradeportCommodityBuilder.BuildCommodityListAsync(tradeportCode, _commodityList);
 
         Commodities = commodities;
     }

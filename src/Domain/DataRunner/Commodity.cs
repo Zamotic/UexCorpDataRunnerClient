@@ -16,8 +16,8 @@ public class Commodity : NameableBaseModel
     //public bool Minable { get; set; }
     //public bool Harvestable { get; set; }
     public bool Temporary { get; set; }
-    //public bool Restricted { get; set; }
+    public bool Restricted { get; set; }
     //public bool Raw { get; set; }
-    //public bool Illegal { get; set; }
+    public bool Illegal { get; set; }
     public bool Available { get; set; }
 }

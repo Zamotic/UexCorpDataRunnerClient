@@ -12,6 +12,7 @@ public static class StartupExtensions
         services.AddSingleton<ISettingsService, SettingsService>();
         services.AddScoped<ICommodityWrapperToPriceReportConverter, CommodityWrapperToPriceReportConverter>();
         services.AddScoped<IPriceReportSubmitter, PriceReportSubmitter>();
+        services.AddScoped<ITradeportCommodityBuilder, TradeportCommodityBuilder>();
 
         return services;
     }

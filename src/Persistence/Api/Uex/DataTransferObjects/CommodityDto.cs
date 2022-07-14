@@ -32,15 +32,15 @@ public class CommodityDto
     [JsonPropertyName("temporary")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool Temporary { get; set; }
-    //[JsonPropertyName("restricted")]
-    //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
-    //public bool Restricted { get; set; }
+    [JsonPropertyName("restricted")]
+    [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
+    public bool Restricted { get; set; }
     //[JsonPropertyName("raw")]
     //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     //public bool Raw { get; set; }
-    //[JsonPropertyName("illegal")]
-    //[JsonConverter(typeof(UexBooleanTypeJsonConverter))]
-    //public bool Illegal { get; set; }
+    [JsonPropertyName("illegal")]
+    [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
+    public bool Illegal { get; set; }
     [JsonPropertyName("available")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool Available { get; set; }
