@@ -6,12 +6,14 @@ using System.Windows;
 using UexCorpDataRunner.Application;
 using UexCorpDataRunner.Common;
 using UexCorpDataRunner.Common.Logging;
+using UexCorpDataRunner.Presentation.Styles;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface;
 using UexCorpDataRunner.Persistence.Api;
 using UexCorpDataRunner.Presentation;
 
 namespace UexCorpDataRunner.DesktopClient;
+
 
 /// <summary>
 /// Interaction logic for App.xaml
@@ -21,6 +23,8 @@ public partial class App : System.Windows.Application
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static IConfiguration? Configuration { get; private set; }
     public static ILogger? Logger { get; private set; }
+
+    public static Skin Skin { get; set; } = Skin.Dark;
 
     public App()
     {
