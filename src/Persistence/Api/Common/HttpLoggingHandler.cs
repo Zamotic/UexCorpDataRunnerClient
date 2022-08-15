@@ -13,7 +13,7 @@ public class HttpLoggingHandler : DelegatingHandler
         : base()
     {
         _Logger = logger;
-        InnerHandler = new HttpClientHandler();
+        //InnerHandler = new HttpClientHandler();
     }
 
     public HttpLoggingHandler(HttpMessageHandler innerHandler, ILogger logger)

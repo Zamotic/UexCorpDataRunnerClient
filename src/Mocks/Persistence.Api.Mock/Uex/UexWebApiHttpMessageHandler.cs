@@ -1,56 +1,84 @@
 ﻿using Moq;
-using RichardSzalay.MockHttp;
+//using RichardSzalay.MockHttp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using UexCorpDataRunner.Persistence.Api.Mock.Common;
 
 namespace UexCorpDataRunner.Persistence.Api.Mock.Uex;
-public class UexWebApiMockHttpMessageHandler : MockHttpMessageHandler
+public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
 {
-    public MockedRequest SystemsRequest { get; }
-    public MockedRequest PlanetsRequest { get; }
-    public MockedRequest CitiesRequest { get; }
-    public MockedRequest SatellitesRequest { get; }
-    public MockedRequest TradeportsRequest { get; }
-    public MockedRequest CommoditiesRequest { get; }
-    public MockedRequest TradeportAM056Request { get; }
-    public MockedRequest PriceRequestAM056Request { get; }
+    //public MockedRequest SystemsRequest { get; }
+    //public MockedRequest PlanetsRequest { get; }
+    //public MockedRequest CitiesRequest { get; }
+    //public MockedRequest SatellitesRequest { get; }
+    //public MockedRequest TradeportsRequest { get; }
+    //public MockedRequest CommoditiesRequest { get; }
+    //public MockedRequest TradeportAM056Request { get; }
+    //public MockedRequest PriceRequestAM056Request { get; }
 
+    private readonly Dictionary<Uri, HttpResponseMessage> _FakeResponses = new Dictionary<Uri, HttpResponseMessage>();
 
     public UexWebApiMockHttpMessageHandler()
     {
+        AddFakeResponses();
+    }
+
+    public UexWebApiMockHttpMessageHandler(HttpMessageHandler innerHandler)
+    : base(innerHandler)
+    {
+        AddFakeResponses();
+    }
+
+    private void AddFakeResponses()
+    {
         string uri = "https://portal.uexcorp.space/api/";
 
-        SystemsRequest = this.When($"{uri}systems/")
-            .Respond("application/json", GeSystemsJsonResponse());
+        //SystemsRequest = this.When($"{uri}systems/")
+        //    .Respond("application/json", GeSystemsJsonResponse());
+        AddFakeResponse(new Uri($"{uri}systems/"), GetResponseMessage(GetSystemsJsonResponse()));
 
-        PlanetsRequest = this.When($"{uri}planets/system/ST/")
-            .Respond("application/json", GetPlanetsStantonSystemJsonResponse());
+        //PlanetsRequest = this.When($"{uri}planets/system/ST/")
+        //    .Respond("application/json", GetPlanetsStantonSystemJsonResponse());
+        AddFakeResponse(new Uri($"{uri}planets/system/ST/"), GetResponseMessage(GetPlanetsStantonSystemJsonResponse()));
 
-        CitiesRequest = this.When($"{uri}cities/system/ST/")
-            .Respond("application/json", GetCitiesStantonSystemJsonResponse());
+        //CitiesRequest = this.When($"{uri}cities/system/ST/")
+        //    .Respond("application/json", GetCitiesStantonSystemJsonResponse());
+        AddFakeResponse(new Uri($"{uri}cities/system/ST/"), GetResponseMessage(GetCitiesStantonSystemJsonResponse()));
 
-        SatellitesRequest = this.When($"{uri}satellites/system/ST/")
-            .Respond("application/json", GetSatellitesStantonSystemJsonResponse());
+        //SatellitesRequest = this.When($"{uri}satellites/system/ST/")
+        //    .Respond("application/json", GetSatellitesStantonSystemJsonResponse());
+        AddFakeResponse(new Uri($"{uri}satellites/system/ST/"), GetResponseMessage(GetSatellitesStantonSystemJsonResponse()));
 
-        TradeportsRequest = this.When($"{uri}tradeports/system/ST/")
-            .Respond("application/json", GetTradeportsStantonSystemJsonResponse());
+        //TradeportsRequest = this.When($"{uri}tradeports/system/ST/")
+        //    .Respond("application/json", GetTradeportsStantonSystemJsonResponse());
+        AddFakeResponse(new Uri($"{uri}tradeports/system/ST/"), GetResponseMessage(GetTradeportsStantonSystemJsonResponse()));
 
-        CommoditiesRequest = this.When($"{uri}commodities/")
-            .Respond("application/json", GetCommoditiesJsonResponse());
+        //CommoditiesRequest = this.When($"{uri}commodities/")
+        //    .Respond("application/json", GetCommoditiesJsonResponse());
+        AddFakeResponse(new Uri($"{uri}commodities/"), GetResponseMessage(GetCommoditiesJsonResponse()));
 
-        TradeportAM056Request = this.When($"{uri}tradeport/code/AM056/")
-            .Respond("application/json", GetTradeportAM056Response());
+        //TradeportAM056Request = this.When($"{uri}tradeport/code/AM056/")
+        //    .Respond("application/json", GetTradeportAM056Response());
+        AddFakeResponse(new Uri($"{uri}tradeport/code/AM056/"), GetResponseMessage(GetTradeportAM056Response()));
 
-        PriceRequestAM056Request = this.When($"{uri}sr/")
-            //.WithContent("{\"commodity\":\"PRFO\",\"tradeport\":\"AM056\",\"operation\":\"sell\",\"price\":\"1.5\",\"user_hash\":\"c5e000\",\"confirm\":\"0\"}")
-            //.WithContent("commodity=PRFO&tradeport=AM056&operation=sell&price=1.5&user_hash=c5e000&confirm=0")
-            .Respond("application/json", PriceRequestAM056Response());
-
+        //PriceRequestAM056Request = this.When($"{uri}sr/")
+        //    //.WithContent("{\"commodity\":\"PRFO\",\"tradeport\":\"AM056\",\"operation\":\"sell\",\"price\":\"1.5\",\"user_hash\":\"c5e000\",\"confirm\":\"0\"}")
+        //    //.WithContent("commodity=PRFO&tradeport=AM056&operation=sell&price=1.5&user_hash=c5e000&confirm=0")
+        //    .Respond("application/json", PriceRequestAM056Response());
+        AddFakeResponse(new Uri($"{uri}sr/"), GetResponseMessage(PriceRequestAM056Response()));
     }
-    private string GeSystemsJsonResponse()
+
+    private HttpResponseMessage GetResponseMessage(string responseStringContent)
+    {
+        HttpResponseMessage responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+        responseMessage.Content = new StringContent(responseStringContent);
+        return responseMessage;
+    }
+    private string GetSystemsJsonResponse()
     {
         return "{\"status\":\"ok\",\"code\":200,\"data\":[{\"name\":\"Pyro\",\"code\":\"PY\",\"available\":0,\"default\":0,\"date_added\":1608949515,\"date_modified\":0},{\"name\":\"Stanton\",\"code\":\"ST\",\"available\":1,\"default\":1,\"date_added\":1608949515,\"date_modified\":0}]}";
     }

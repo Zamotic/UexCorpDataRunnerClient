@@ -8,10 +8,38 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     readonly HttpClient _HttpClient;
 
     public UexCorpWebApiClient(IUexCorpWebApiConfiguration webApiConfiguration,
-                                IHttpClientFactory httpClientFactory)
+                                HttpClient httpClient)
     {
         _WebApiConfiguration = webApiConfiguration;
-        _HttpClient = httpClientFactory.GetHttpClient();
+        _HttpClient = httpClient;
+
+        if (_WebApiConfiguration.WebApiEndPointUrl is null)
+        {
+            throw new Exception($"{nameof(_WebApiConfiguration.WebApiEndPointUrl)} cannot be null.");
+        }
+
+        if (httpClient is null)
+        {
+            throw new Exception($"{nameof(httpClient)} cannot be null.");
+        }
+
+        _HttpClient.BaseAddress = new Uri(_WebApiConfiguration.WebApiEndPointUrl);
+
+        string decryptedApiKey = DecryptApiKey();
+
+        _HttpClient.DefaultRequestHeaders.Clear();
+        _HttpClient.DefaultRequestHeaders.Add("api_key", decryptedApiKey);
+    }
+
+    private string DecryptApiKey()
+    {
+        if (string.IsNullOrEmpty(_WebApiConfiguration.ApiKey) == true)
+        {
+            throw new Exception("ApiKey cannot be empty");
+        }
+
+        string decryptedKey = UexCorpDataRunner.Common.SimpleCipher.Decrypt(_WebApiConfiguration.ApiKey, Domain.Globals.SimpleCipherKey);
+        return decryptedKey;
     }
 
     /// <summary>

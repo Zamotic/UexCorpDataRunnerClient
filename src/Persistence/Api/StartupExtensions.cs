@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Http;
 using System.Reflection;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.Common;
@@ -13,10 +13,20 @@ public static class StartupExtensions
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddUexCorpWebApiConfiguration()
+                .AddSingleton<HttpLoggingHandler>()
+                .ConfigureAll<HttpClientFactoryOptions>(options =>
+                {
+                    options.HttpMessageHandlerBuilderActions.Add(builder =>
+                    {
+                        builder.AdditionalHandlers.Insert(0,builder.Services.GetRequiredService<HttpLoggingHandler>());
+                        //builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<HttpLoggingHandler>());
+                    });
+                })
                 .AddSingleton<IUexCorpWebApiClientAdapter, UexCorpWebApiClientAdapter>()
                 .AddSingleton<IUexDataService, UexCacheDataService>()
-                .AddSingleton<IUexCorpWebApiClient, UexCorpWebApiClient>()
-                .TryAddSingleton<IHttpClientFactory, UexHttpClientFactory>()
+                //.TryAddSingleton<IUexCorpWebApiClient, UexCorpWebApiClient>()
+                .AddHttpClient<IUexCorpWebApiClient, UexCorpWebApiClient>()
+                //.AddHttpMessageHandler<HttpLoggingHandler>()
                 ;
 
         return services;

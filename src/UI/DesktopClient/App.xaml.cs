@@ -10,6 +10,7 @@ using UexCorpDataRunner.Presentation.Styles;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface;
 using UexCorpDataRunner.Persistence.Api;
+using UexCorpDataRunner.Persistence.Api.Mock;
 using UexCorpDataRunner.Presentation;
 
 namespace UexCorpDataRunner.DesktopClient;
@@ -53,7 +54,7 @@ public partial class App : System.Windows.Application
 
         services.AddCommon()
 #if DEBUG
-                //.AddPersistenceApiMock()
+                .AddPersistenceApiMock()
 #endif
                 .AddPersistenceApi()
                 .AddPresentation()

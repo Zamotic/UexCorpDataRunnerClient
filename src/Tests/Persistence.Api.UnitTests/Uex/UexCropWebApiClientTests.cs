@@ -22,9 +22,10 @@ public class UexCropWebApiClientTests
         mockWebConfiguration.SetupGet(g => g.WebApiEndPointUrl).Returns("https://portal.uexcorp.space/api/");
         mockWebConfiguration.SetupGet(g => g.ApiKey).Returns("K/xTGFxZfXVaaY2Ep+4YLihaisyiwcnI7IvP5U3CNkabBxMcsMXUWDrr5T5n3Doh");
 
-        var httpClientFactory = new UexMockHttpClientFactory(mockWebConfiguration.Object);
-        _uexWebApiMockHttpMessageHandler = httpClientFactory.GetMockHttpMessageHandler();
-        _webApiClient = new UexCorpWebApiClient(mockWebConfiguration.Object, httpClientFactory);
+        //var httpClientFactory = new UexMockHttpClientFactory(mockWebConfiguration.Object);
+        _uexWebApiMockHttpMessageHandler = new UexWebApiMockHttpMessageHandler(); //httpClientFactory.GetMockHttpMessageHandler();
+        HttpClient mockedHttpClient = new HttpClient(_uexWebApiMockHttpMessageHandler);
+        _webApiClient = new UexCorpWebApiClient(mockWebConfiguration.Object, mockedHttpClient);
     }
 
     [Fact]
