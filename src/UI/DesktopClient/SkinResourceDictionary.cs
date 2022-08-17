@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using UexCorpDataRunner.Presentation.Styles;
+using UexCorpDataRunner.Interface.Theme;
 
 
 namespace UexCorpDataRunner.DesktopClient;
@@ -32,10 +32,15 @@ public class SkinResourceDictionary : ResourceDictionary
         }
     }
 
-    private void UpdateSource()
+    public void UpdateSource()
     {
-        var val = App.Skin == Skin.Dark ? DarkSource : LightSource;
-        if (val != null && Source != val)
-            Source = val;
+        var sourceValue = DarkSource;
+
+        if(App.Skin.Equals(Skin.Light))
+        {
+            sourceValue = LightSource;
+        }
+
+        Source = sourceValue;
     }
 }

@@ -65,6 +65,7 @@
             Text="{Binding TransmissionStatusText, Mode=OneWay}"
             Extensions:TextBoxAutoScrollToEndExtension.IsEnabled="True"
             Extensions:FocusExtension.IsFocused="{Binding IsTransmissionStatusTextBoxFocused}"
+            Style="{DynamicResource StyledTextBox}"
             />
     </DockPanel>
 </UserControl>

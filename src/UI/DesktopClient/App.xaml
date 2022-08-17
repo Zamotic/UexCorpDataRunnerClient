@@ -5,17 +5,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <local:SkinResourceDictionary DarkSource="pack://application:,,,/Presentation;component/Styles/DarkTheme.xaml" 
-                                              LightSource="pack://application:,,,/Presentation;component/Styles/LightTheme.xaml" />
+                <local:SkinResourceDictionary 
+                    DarkSource="pack://application:,,,/Presentation;component/Styles/DarkTheme.xaml" 
+                    LightSource="pack://application:,,,/Presentation;component/Styles/LightTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="Nanito">./Fonts/#Nunito</FontFamily>
-            <Style TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
-            </Style>
-            <Style TargetType="TextBox">
-                <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
-            </Style>
-            <!--<BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

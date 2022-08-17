@@ -14,7 +14,35 @@
             ScrollViewer.PanningMode="Both"
             Stylus.IsFlicksEnabled="False">
     <ComboBox.Resources>
+        <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+        <LinearGradientBrush x:Key="LocalComboBoxBackgroundColor" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#F3F3F3" Offset="0"/>
+            <GradientStop Color="#EBEBEB" Offset="0.5"/>
+            <GradientStop Color="#DDDDDD" Offset="0.5"/>
+            <GradientStop Color="#CDCDCD" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TextBoxBorder" EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
+            <GradientStop Color="#ABADB3" Offset="0.05"/>
+            <GradientStop Color="#E2E3EA" Offset="0.07"/>
+            <GradientStop Color="#E3E9EF" Offset="1"/>
+        </LinearGradientBrush>
+
         <Geometry x:Key="DownArrowGeometry">M 0 0 L 3.5 4 L 7 0 Z</Geometry>
+
+        <Style x:Key="ComboBoxFocusVisual" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate >
+                        <Rectangle 
+                            Margin="4,4,21,4" 
+                            SnapsToDevicePixels="true" 
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
+                            StrokeThickness="1" 
+                            StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ComboBoxReadonlyToggleButton" TargetType="{x:Type ToggleButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="IsTabStop" Value="false"/>
@@ -41,11 +69,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <LinearGradientBrush x:Key="TextBoxBorder" EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
-            <GradientStop Color="#ABADB3" Offset="0.05"/>
-            <GradientStop Color="#E2E3EA" Offset="0.07"/>
-            <GradientStop Color="#E3E9EF" Offset="1"/>
-        </LinearGradientBrush>
         <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="AllowDrop" Value="true"/>
@@ -54,6 +77,7 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
             <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
@@ -87,7 +111,8 @@
             </Setter>
         </Style>
         <ControlTemplate x:Key="ComboBoxEditableTemplate" TargetType="{x:Type ComboBox}">
-            <Grid x:Name="Placement" SnapsToDevicePixels="true">
+            <Grid x:Name="Placement" SnapsToDevicePixels="true" 
+                Background="{TemplateBinding Background}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -144,7 +169,6 @@
         <Style x:Key="ComboBoxStyle1" TargetType="{x:Type ComboBox}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
             <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
@@ -155,31 +179,10 @@
             <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
         </Style>
     </ComboBox.Resources>
-    <ComboBox.FocusVisualStyle>
-        <Style>
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="4,4,21,4" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </ComboBox.FocusVisualStyle>
-    <ComboBox.Background>
-        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="#F3F3F3" Offset="0"/>
-            <GradientStop Color="#EBEBEB" Offset="0.5"/>
-            <GradientStop Color="#DDDDDD" Offset="0.5"/>
-            <GradientStop Color="#CDCDCD" Offset="1"/>
-        </LinearGradientBrush>
-    </ComboBox.Background>
-    <ComboBox.BorderBrush>
-        <SolidColorBrush Color="#FF707070"/>
-    </ComboBox.BorderBrush>
     <ComboBox.Template>
         <ControlTemplate TargetType="{x:Type ComboBox}">
-            <Grid>
+            <Grid
+                Background="{TemplateBinding Background}">
                 <Grid 
 					Grid.Row="0"
 					Grid.Column="0"
@@ -209,6 +212,7 @@
                 <TextBlock 
 					Grid.Row="0"
 					Grid.Column="0"
+                    Foreground="{TemplateBinding Foreground}"
 					Text="{Binding Path=DefaultOverlayString, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}"
 					IsHitTestVisible="False"
 					Padding="2,0"

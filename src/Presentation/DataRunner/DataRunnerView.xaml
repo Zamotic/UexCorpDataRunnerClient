@@ -22,17 +22,13 @@
         </Behaviors:EventTrigger>
     </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
-        <SolidColorBrush x:Key="textBackgroundColor">#555555</SolidColorBrush>
+        <Thickness x:Key="tabControlBorderThickness">3</Thickness>
         <system:Double x:Key="itemsControlWidth">382</system:Double>
         <Style x:Key="Style-TabControl-Main" TargetType="{x:Type TabControl}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabControl}">
-                        <ControlTemplate.Resources>
-                            <SolidColorBrush x:Key="tabControlBorderBrushColor">#3a3a39</SolidColorBrush>
-                            <Thickness x:Key="tabControlBorderThickness">3</Thickness>
-                        </ControlTemplate.Resources>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -42,9 +38,9 @@
                                 <UniformGrid x:Name="HeaderPanel" IsItemsHost="True" Rows="1" Height="30" />
                             </Border>
                             <Border x:Name="Border" Grid.Row="1" 
-                                BorderBrush="{StaticResource tabControlBorderBrushColor}"
+                                BorderBrush="{DynamicResource selectedTabBackgroundBrush}"
                                 BorderThickness="{StaticResource tabControlBorderThickness}"
-                                Background="{TemplateBinding Background}">
+                                Background="{DynamicResource selectedTabBackgroundBrush}">
                                 <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
                             </Border>
                         </Grid>
@@ -59,7 +55,7 @@
                     Text="{Binding Name}"
                     Margin="2,4,0,1"
                     FontWeight="Bold"
-                    Foreground="GhostWhite"/>
+                    Foreground="{DynamicResource textBoldForegroundBrush}"/>
                 <UniformGrid
                     DockPanel.Dock="Top"
                     Rows="1"
@@ -68,30 +64,30 @@
                     <Border
                         Padding="7"
                         BorderThickness=".25"
-                        BorderBrush="Gray">
+                        BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
                             <Rectangle
                                 Margin="0,0,0,-2"
                                 StrokeThickness="0,0,0,0"
                                 Stroke="Black"
-                                Fill="{StaticResource textBackgroundColor}" />
+                                Fill="{DynamicResource fieldBackgroundBrush}" />
                             <TextBlock
                                 Text="{Binding ListedPrice, StringFormat=F2}"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Foreground="LightGray" />
+                                Foreground="{DynamicResource textForegroundBrush}" />
                             <uiLibraryControls:ClickSelectTextBox
                                 Text="{Binding CurrentPrice, StringFormat=F2}"
                                 FontWeight="Bold"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                Foreground="LightGray"
+                                Foreground="{DynamicResource enteredForegroundBrush}"
                                 MouseDoubleClick="ClickSelectTextBox_MouseDoubleClick">
                                 <uiLibraryControls:ClickSelectTextBox.Style>
                                     <Style
                                         TargetType="uiLibraryControls:ClickSelectTextBox">
-                                        <Setter Property="BorderBrush" Value="{StaticResource textBackgroundColor}" />
-                                        <Setter Property="Background" Value="{StaticResource textBackgroundColor}" />
+                                        <Setter Property="BorderBrush" Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter Property="Background" Value="{DynamicResource fieldBackgroundBrush}" />
                                         <Style.Triggers>
                                             <DataTrigger
                                                 Binding="{Binding CurrentPrice}"
@@ -108,30 +104,30 @@
                                                 Value="True">
                                                 <Setter
                                                     Property="Background"
-                                                    Value="ForestGreen" />
+                                                    Value="{DynamicResource acceptableBackgroundBrush}" />
                                                 <Setter
                                                     Property="BorderBrush"
-                                                    Value="ForestGreen"/>
+                                                    Value="{DynamicResource acceptableBackgroundBrush}"/>
                                             </DataTrigger>
                                             <DataTrigger
                                                 Binding="{Binding IsPriceWithinTolerance}"
                                                 Value="False">
                                                 <Setter
                                                     Property="Background"
-                                                    Value="Red" />
+                                                    Value="{DynamicResource unacceptableBackgroundBrush}" />
                                                 <Setter
                                                     Property="BorderBrush"
-                                                    Value="Red"/>
+                                                    Value="{DynamicResource unacceptableBackgroundBrush}"/>
                                             </DataTrigger>
                                             <Trigger
                                                 Property="IsFocused"
                                                 Value="True">
                                                 <Setter
                                                     Property="Background"
-                                                    Value="{StaticResource textBackgroundColor}" />
+                                                    Value="{DynamicResource textBackgroundBrush}" />
                                                 <Setter
                                                     Property="BorderBrush"
-                                                    Value="{StaticResource textBackgroundColor}"/>
+                                                    Value="{DynamicResource textBackgroundBrush}"/>
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -142,7 +138,7 @@
                     <Border
                         Padding="5"
                         BorderThickness=".25"
-                        BorderBrush="Gray">
+                        BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
                             <TextBlock
                                 DockPanel.Dock="Right"
@@ -151,7 +147,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Background="Transparent"
-                                Foreground="LightGray" />
+                                Foreground="{DynamicResource textForegroundBrush}" />
                             <Image
                                 Source="../Images/triangle-128-LightGray.png"
                                 Margin="-40,0,0,0"
@@ -167,7 +163,7 @@
                     <Border
                         Padding="5"
                         BorderThickness=".25"
-                        BorderBrush="Gray">
+                        BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
                             <TextBlock
                                 Text="{Binding MaxPrice, StringFormat=F2, FallbackValue=0.0}"
@@ -175,7 +171,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Background="Transparent"
-                                Foreground="LightGray" />
+                                Foreground="{DynamicResource textForegroundBrush}" />
                             <Image
                                 Source="../Images/triangle-128-LightGray.png"
                                 Margin="-40,0,0,0"
@@ -186,7 +182,7 @@
                     <Border
                         Padding="5"
                         BorderThickness=".25"
-                        BorderBrush="Gray">
+                        BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
                             <CheckBox
                                 IsChecked="{Binding MarkedForSubmittal}"
@@ -195,17 +191,18 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Background="White"
-                                Foreground="LightGray" />
+                                Foreground="{DynamicResource textForegroundBrush}" />
                         </Grid>
                     </Border>
                 </UniformGrid>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <DockPanel>
+    <DockPanel
+        Style="{DynamicResource MainDockPanel}">
         <DockPanel.Resources>
             <system:Double x:Key="labelWidth">60</system:Double>
-            <Thickness x:Key="innerMargin">2,0</Thickness>
+            <Thickness x:Key="innerMargin">2,2</Thickness>
         </DockPanel.Resources>
         <DockPanel
             DockPanel.Dock="Top">
@@ -236,7 +233,8 @@
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
                     Text="System:"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
@@ -249,7 +247,7 @@
                         Height="15"
                         Width="15"/>
                 </Button>
-                <uiLibraryControls:DefaultOverlayComboBox
+                <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding SystemListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSystem}"
@@ -278,7 +276,8 @@
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
                     Text="Planet:"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
@@ -291,7 +290,7 @@
                         Height="15"
                         Width="15"/>
                 </Button>
-                <uiLibraryControls:DefaultOverlayComboBox
+                <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding PlanetListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedPlanet}"
@@ -320,7 +319,8 @@
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
                     Text="Satellite:"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
@@ -333,7 +333,7 @@
                         Height="15"
                         Width="15"/>
                 </Button>
-                <uiLibraryControls:DefaultOverlayComboBox
+                <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding SatelliteListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSatellite}"
@@ -362,7 +362,8 @@
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
                     Text="Tradeport:"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
@@ -375,7 +376,7 @@
                         Height="15"
                         Width="15"/>
                 </Button>
-                <uiLibraryControls:DefaultOverlayComboBox
+                <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding TradeportListCVS, Mode=OneWay}"
                     SelectedItem="{Binding SelectedTradeport}"
@@ -399,7 +400,8 @@
                     FontWeight="Bold"
                     Content="Submit"
                     TabIndex="10"
-                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"/>
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"
+                    Style="{DynamicResource SubmitButton}"/>
             </UniformGrid>
             <TabControl
                 Margin="{StaticResource innerMargin}"
@@ -407,41 +409,10 @@
                 Style="{StaticResource Style-TabControl-Main}"
                 TabIndex="0"
                 SelectedIndex="{Binding SelectedTabItemIndex}">
-                <TabControl.Resources>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Foreground" Value="GhostWhite" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="TabItem">
-                                    <Border Name="Border" Background="Transparent">
-                                        <Grid Name="Panel">
-                                            <ContentPresenter x:Name="ContentSite"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"
-                                                ContentSource="Header"
-                                                Margin="10,2"/>
-                                        </Grid>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Panel" Property="Background" Value="#3a3a39" />
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Panel" Property="Background" Value="Gray" />
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="Border" Property="BorderBrush" Value="White" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TabControl.Resources>
                 <TabItem
                     Header="Buy Price">
                     <DockPanel
-                        Background="#3a3a39">
+                        Background="{DynamicResource primaryControlBackgroundBrush}">
                         <UniformGrid
                             Margin="0,0,16,0"
                             DockPanel.Dock="Top"
@@ -451,68 +422,68 @@
                             <Border
                                 Padding="2"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="New"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <!--<Border
                                 Padding="2"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Supply"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>-->
                             <Border
                                 Padding="5"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Min"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
                                 Padding="5"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Max"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <!--<Border
                                 Padding="5"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Best"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>-->
                             <Border
                                 Padding="5"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Submit?"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                         </UniformGrid>
                         <ScrollViewer
@@ -551,7 +522,7 @@
                 <TabItem
                     Header="Sell Price">
                     <DockPanel
-                        Background="#3a3a39">
+                        Background="{DynamicResource primaryControlBackgroundBrush}">
                         <UniformGrid
                             Margin="0,0,16,0"
                             DockPanel.Dock="Top"
@@ -561,46 +532,46 @@
                             <Border
                                 Padding="2"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="New"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
                                 Padding="5"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Min"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
                                 Padding="5"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Max"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
                                 Padding="5"
                                 BorderThickness=".25"
-                                BorderBrush="Gray">
+                                BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
                                     Text="Submit?"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    Foreground="Gray" />
+                                    Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                         </UniformGrid>
                         <ScrollViewer

@@ -7,7 +7,6 @@
              xmlns:UI="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              presentation:ViewModelLocator.AutoWireViewModel="True"
-             Background="White"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="350"
              DataContextChanged="UserControl_DataContextChanged"
@@ -23,7 +22,8 @@
             Path="IsEnabled"
             Converter="{StaticResource boolToVisibilityConverter}" />
     </UserControl.Visibility>
-    <DockPanel>
+    <DockPanel
+        Style="{DynamicResource MainDockPanel}">
         <DockPanel
             DockPanel.Dock="Top">
             <Button
@@ -93,7 +93,8 @@
                     FontSize="20"
                     Text="Settings"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledHeaderTextBlock}"/>
             </Border>
         </DockPanel>
         <DockPanel
@@ -105,14 +106,15 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    FontWeight="Bold"
                     Text="Theme:"
-                    VerticalAlignment="Center" />
-                <UI:DefaultOverlayComboBox
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}" />
+                <UI:DefaultOverlayComboBox2
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding ThemeList}"
                     SelectedValue="{Binding SettingsValues.Theme}"
-                    DefaultOverlayString="(Select Theme)" />
+                    DefaultOverlayString="(Select Theme)"
+                    Style="{DynamicResource DefaultOverlayComboBoxStyle}"/>
             </DockPanel>
             <DockPanel
                 DockPanel.Dock="Top"
@@ -120,10 +122,10 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    FontWeight="Bold"
                     Text="Collapse Location:" 
-                    VerticalAlignment="Center"/>
-                <UI:DefaultOverlayComboBox
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding CollapseLocationList}"
                     SelectedValue="{Binding SettingsValues.CollapseLocation}"
@@ -135,10 +137,10 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    FontWeight="Bold"
                     Text="Collapse Orientation:" 
-                    VerticalAlignment="Center"/>
-                <UI:DefaultOverlayComboBox
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding CollapseOrientationList}"
                     SelectedValue="{Binding SettingsValues.CollapseOrientation}"
@@ -150,10 +152,10 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    FontWeight="Bold"
                     Text="Always On Top:" 
-                    VerticalAlignment="Center"/>
-                <UI:DefaultOverlayComboBox
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding AlwaysOnTopList}"
                     SelectedValue="{Binding SettingsValues.AlwaysOnTop}"
@@ -165,10 +167,10 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    FontWeight="Bold"
                     Text="Commodity Display:" 
-                    VerticalAlignment="Center"/>
-                <UI:DefaultOverlayComboBox
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding ShowTemporaryCommodityList}"
                     SelectedValue="{Binding SettingsValues.ShowTemporaryCommodities}"
@@ -180,7 +182,6 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    FontWeight="Bold"
                     VerticalAlignment="Center"
                     ToolTip="Access code can be found on the Password tab of your Personal Profile">
                     <Hyperlink
@@ -192,7 +193,8 @@
                 </TextBlock>
                 <TextBox
                     DockPanel.Dock="Right"
-                    Text="{Binding SettingsValues.UserAccessCode}"/>
+                    Text="{Binding SettingsValues.UserAccessCode}"
+                    Style="{DynamicResource StyledTextBox}"/>
             </DockPanel>
             <TextBlock
                 DockPanel.Dock="Bottom"

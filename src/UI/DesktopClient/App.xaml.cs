@@ -6,12 +6,13 @@ using System.Windows;
 using UexCorpDataRunner.Application;
 using UexCorpDataRunner.Common;
 using UexCorpDataRunner.Common.Logging;
-using UexCorpDataRunner.Presentation.Styles;
+using UexCorpDataRunner.Interface.Theme;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface;
 using UexCorpDataRunner.Persistence.Api;
 using UexCorpDataRunner.Persistence.Api.Mock;
 using UexCorpDataRunner.Presentation;
+using UexCorpDataRunner.Interface.MessengerMessages;
 
 namespace UexCorpDataRunner.DesktopClient;
 
@@ -38,6 +39,7 @@ public partial class App : System.Windows.Application
         ConfigureServices(services);
 
         ServiceProvider = services.BuildServiceProvider();
+        SetupThemeChanges();
     }
 
     private void ConfigureServices(IServiceCollection services)
@@ -105,6 +107,41 @@ public partial class App : System.Windows.Application
         finally
         {
             Logger?.Information("Shut down complete");
+        }
+    }
+
+    private void SetupThemeChanges()
+    {
+        if(ServiceProvider is null)
+        {
+            return;
+        }
+
+        var messenger = ServiceProvider.GetService<IMessenger>();
+        messenger?.Register<UexCorpDataRunner.Interface.MessengerMessages.ThemeChangedMessage>(this, ThemeChangedMessageHandler);
+    }
+
+    private void ThemeChangedMessageHandler(object sender, ThemeChangedMessage notification)
+    {
+        if(notification is null)
+        {
+            return;
+        }
+
+        ChangeSkin(notification.SelectedSkin);
+    }
+
+    public void ChangeSkin(Skin newSkin)
+    {
+        Skin = newSkin;
+
+        foreach (ResourceDictionary dict in Resources.MergedDictionaries)
+        {
+
+            if (dict is SkinResourceDictionary skinDict)
+                skinDict.UpdateSource();
+            else
+                dict.Source = dict.Source;
         }
     }
 }

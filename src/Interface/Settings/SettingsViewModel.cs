@@ -46,6 +46,10 @@ public class SettingsViewModel : ViewModelBase
         {
             return;
         }
+        if(_SettingsValues is null)
+        {
+            return;
+        }
         if (e.PropertyName.Equals(nameof(_SettingsValues.UserAccessCode)) == true)
         {
             _UserAccessCodeChanged = true;
@@ -58,11 +62,15 @@ public class SettingsViewModel : ViewModelBase
         {
             _ShowTemporaryCommodityChanged = true;
         }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.Theme)) == true)
+        {
+            _Messenger.Send(new ThemeChangedMessage(_SettingsValues.Theme));
+        }
     }
 
     public List<string> ThemeList { get; } = new List<string>() 
     { 
-        /*Domain.Globals.Settings.Light,*/ 
+        Domain.Globals.Settings.Light, 
         Domain.Globals.Settings.Dark 
     };
 
@@ -105,6 +113,11 @@ public class SettingsViewModel : ViewModelBase
         _Messenger.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
 
         _SettingsService = settingsService;
+
+        if(_SettingsService.Settings?.Theme != null)
+        {
+            _Messenger.Send(new ThemeChangedMessage(_SettingsService.Settings.Theme));
+        }
     }
 
     public ICommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);
@@ -154,6 +167,6 @@ public class SettingsViewModel : ViewModelBase
         _AlwaysOnTopChanged = false;
         _ShowTemporaryCommodityChanged = false;
 
-    SettingsValues = _SettingsService.Settings;
+        SettingsValues = _SettingsService.Settings;
     }
 }
