@@ -8,6 +8,7 @@
                 <local:SkinResourceDictionary 
                     DarkSource="pack://application:,,,/Presentation;component/Styles/DarkTheme.xaml" 
                     LightSource="pack://application:,,,/Presentation;component/Styles/LightTheme.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Presentation;component/Styles/StyleDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

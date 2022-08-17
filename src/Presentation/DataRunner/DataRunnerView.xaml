@@ -50,6 +50,10 @@
         </Style>
         <DataTemplate x:Key="itemsControlItemTemplate">
             <DockPanel>
+                <DockPanel.Resources>
+                    <Thickness x:Key="itemsControlBorderPadding">6</Thickness>
+                    <system:Double x:Key="itemsControlGridHeight">35</system:Double>
+                </DockPanel.Resources>
                 <TextBlock
                     DockPanel.Dock="Top"
                     Text="{Binding Name}"
@@ -60,9 +64,9 @@
                     DockPanel.Dock="Top"
                     Rows="1"
                     Columns="4"
-                    Height="40">
+                    Height="{StaticResource itemsControlGridHeight}">
                     <Border
-                        Padding="7"
+                        Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
@@ -81,13 +85,13 @@
                                 FontWeight="Bold"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                Foreground="{DynamicResource enteredForegroundBrush}"
                                 MouseDoubleClick="ClickSelectTextBox_MouseDoubleClick">
                                 <uiLibraryControls:ClickSelectTextBox.Style>
                                     <Style
                                         TargetType="uiLibraryControls:ClickSelectTextBox">
                                         <Setter Property="BorderBrush" Value="{DynamicResource fieldBackgroundBrush}" />
                                         <Setter Property="Background" Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter Property="Foreground" Value="{DynamicResource textBoldForegroundBrush}" />
                                         <Style.Triggers>
                                             <DataTrigger
                                                 Binding="{Binding CurrentPrice}"
@@ -108,6 +112,9 @@
                                                 <Setter
                                                     Property="BorderBrush"
                                                     Value="{DynamicResource acceptableBackgroundBrush}"/>
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource enteredForegroundBrush}" />
                                             </DataTrigger>
                                             <DataTrigger
                                                 Binding="{Binding IsPriceWithinTolerance}"
@@ -118,16 +125,22 @@
                                                 <Setter
                                                     Property="BorderBrush"
                                                     Value="{DynamicResource unacceptableBackgroundBrush}"/>
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource enteredForegroundBrush}" />
                                             </DataTrigger>
                                             <Trigger
                                                 Property="IsFocused"
                                                 Value="True">
                                                 <Setter
                                                     Property="Background"
-                                                    Value="{DynamicResource textBackgroundBrush}" />
+                                                    Value="{DynamicResource fieldBackgroundBrush}" />
                                                 <Setter
                                                     Property="BorderBrush"
-                                                    Value="{DynamicResource textBackgroundBrush}"/>
+                                                    Value="{DynamicResource fieldBackgroundBrush}" />
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource textBoldForegroundBrush}" />
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -136,7 +149,7 @@
                         </Grid>
                     </Border>
                     <Border
-                        Padding="5"
+                        Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
@@ -161,7 +174,7 @@
                         </Grid>
                     </Border>
                     <Border
-                        Padding="5"
+                        Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
@@ -180,7 +193,7 @@
                         </Grid>
                     </Border>
                     <Border
-                        Padding="5"
+                        Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
