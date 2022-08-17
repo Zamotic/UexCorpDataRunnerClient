@@ -44,7 +44,8 @@ public class HttpLoggingHandler : DelegatingHandler
             _Logger.Debug(response.ToString());
             if (response.Content != null)
             {
-                _Logger.Debug(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                _Logger.Debug(responseContent);
             }
 
             return response;

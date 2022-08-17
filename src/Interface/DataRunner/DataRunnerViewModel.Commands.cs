@@ -112,6 +112,8 @@ public partial class DataRunnerViewModel
     private void ResetCommoditiesCommandExecute()
     {
         Commodities = new List<Application.DataRunner.CommodityWrapper>();
+        _ = UpdateCommoditiesForTradeport(SelectedTradeport?.Code);
+        SelectedTabItemIndex = 0;
         //OnPropertyChanged("Commodities");
     }
 
