@@ -30,7 +30,7 @@
 
     <SolidColorBrush x:Key="textForegroundBrush" Color="{StaticResource textForegroundColor}"/>
     <SolidColorBrush x:Key="tabForegroundBrush" Color="{StaticResource tabForegroundColor}"/>
-    <SolidColorBrush x:Key="textBoldForegroundBrush" Color="{StaticResource textBoldForegroundColor}"/>
+    <SolidColorBrush x:Key=" " Color="{StaticResource textBoldForegroundColor}"/>
     <SolidColorBrush x:Key="enteredForegroundBrush" Color="{StaticResource enteredForegroundColor}"/>
 
     <SolidColorBrush x:Key="acceptableBackgroundBrush" Color="{StaticResource acceptableBackgroundColor}"/>
