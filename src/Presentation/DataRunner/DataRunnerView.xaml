@@ -424,113 +424,118 @@
                 SelectedIndex="{Binding SelectedTabItemIndex}">
                 <TabItem
                     Header="Buy Price">
-                    <DockPanel
-                        Background="{DynamicResource primaryControlBackgroundBrush}">
-                        <UniformGrid
-                            Margin="0,0,16,0"
-                            DockPanel.Dock="Top"
-                            Rows="1"
-                            Columns="4"
-                            Height="25">
-                            <Border
-                                Padding="2"
-                                BorderThickness=".25"
-                                BorderBrush="{DynamicResource gridBorderBrush}">
-                                <TextBlock
-                                    Text="New"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>
-                            <!--<Border
-                                Padding="2"
-                                BorderThickness=".25"
-                                BorderBrush="{DynamicResource gridBorderBrush}">
-                                <TextBlock
-                                    Text="Supply"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>-->
-                            <Border
-                                Padding="5"
-                                BorderThickness=".25"
-                                BorderBrush="{DynamicResource gridBorderBrush}">
-                                <TextBlock
-                                    Text="Min"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>
-                            <Border
-                                Padding="5"
-                                BorderThickness=".25"
-                                BorderBrush="{DynamicResource gridBorderBrush}">
-                                <TextBlock
-                                    Text="Max"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>
-                            <!--<Border
-                                Padding="5"
-                                BorderThickness=".25"
-                                BorderBrush="{DynamicResource gridBorderBrush}">
-                                <TextBlock
-                                    Text="Best"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>-->
-                            <Border
-                                Padding="5"
-                                BorderThickness=".25"
-                                BorderBrush="{DynamicResource gridBorderBrush}">
-                                <TextBlock
-                                    Text="Submit?"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>
-                        </UniformGrid>
-                        <ScrollViewer
-                            DockPanel.Dock="Top"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <ItemsControl
-                                ItemsSource="{Binding BuyableCommodityListCVS}"
-                                ItemTemplate="{StaticResource itemsControlItemTemplate}"
-                                HorizontalAlignment="Left"
-                                Width="{StaticResource itemsControlWidth}">
-                                <ItemsControl.Style>
-                                    <Style TargetType="ItemsControl">
-                                        <Setter Property="IsEnabled" Value="True" />
-                                        <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding BuyableCommodityListCVS}"
-                                                Value="{x:Null}">
-                                                <Setter
-                                                    Property="IsEnabled"
-                                                    Value="False"/>
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding BuyableCommodityListCVS.Count}"
-                                                Value="0">
-                                                <Setter
-                                                    Property="IsEnabled"
-                                                    Value="False"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ItemsControl.Style>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
+                    <Border
+                        BorderBrush="White"
+                        BorderThickness="1,1,1,1"
+                        Margin="-3">
+                        <DockPanel
+                            Background="{DynamicResource primaryControlBackgroundBrush}">
+                            <UniformGrid
+                                Margin="0,0,16,0"
+                                DockPanel.Dock="Top"
+                                Rows="1"
+                                Columns="4"
+                                Height="25">
+                                <Border
+                                    Padding="2"
+                                    BorderThickness=".25"
+                                    BorderBrush="{DynamicResource gridBorderBrush}">
+                                    <TextBlock
+                                        Text="New"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Foreground="{DynamicResource textForegroundBrush}" />
+                                </Border>
+                                <!--<Border
+                                    Padding="2"
+                                    BorderThickness=".25"
+                                    BorderBrush="{DynamicResource gridBorderBrush}">
+                                    <TextBlock
+                                        Text="Supply"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Foreground="{DynamicResource textForegroundBrush}" />
+                                </Border>-->
+                                <Border
+                                    Padding="5"
+                                    BorderThickness=".25"
+                                    BorderBrush="{DynamicResource gridBorderBrush}">
+                                    <TextBlock
+                                        Text="Min"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Foreground="{DynamicResource textForegroundBrush}" />
+                                </Border>
+                                <Border
+                                    Padding="5"
+                                    BorderThickness=".25"
+                                    BorderBrush="{DynamicResource gridBorderBrush}">
+                                    <TextBlock
+                                        Text="Max"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Foreground="{DynamicResource textForegroundBrush}" />
+                                </Border>
+                                <!--<Border
+                                    Padding="5"
+                                    BorderThickness=".25"
+                                    BorderBrush="{DynamicResource gridBorderBrush}">
+                                    <TextBlock
+                                        Text="Best"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Foreground="{DynamicResource textForegroundBrush}" />
+                                </Border>-->
+                                <Border
+                                    Padding="5"
+                                    BorderThickness=".25"
+                                    BorderBrush="{DynamicResource gridBorderBrush}">
+                                    <TextBlock
+                                        Text="Submit?"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        Foreground="{DynamicResource textForegroundBrush}" />
+                                </Border>
+                            </UniformGrid>
+                            <ScrollViewer
+                                DockPanel.Dock="Top"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ItemsControl
+                                    ItemsSource="{Binding BuyableCommodityListCVS}"
+                                    ItemTemplate="{StaticResource itemsControlItemTemplate}"
+                                    HorizontalAlignment="Left"
+                                    Width="{StaticResource itemsControlWidth}">
+                                    <ItemsControl.Style>
+                                        <Style TargetType="ItemsControl">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding BuyableCommodityListCVS}"
+                                                    Value="{x:Null}">
+                                                    <Setter
+                                                        Property="IsEnabled"
+                                                        Value="False"/>
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding BuyableCommodityListCVS.Count}"
+                                                    Value="0">
+                                                    <Setter
+                                                        Property="IsEnabled"
+                                                        Value="False"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ItemsControl.Style>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+                    </Border>
                 </TabItem>
                 <TabItem
                     Header="Sell Price">

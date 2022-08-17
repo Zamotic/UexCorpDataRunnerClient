@@ -189,7 +189,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
-                    <Border Name="Border" Background="Transparent">
+                    <Border Name="Border" Background="Transparent" BorderBrush="White" BorderThickness="1,1,1,0">
                         <Grid Name="Panel">
                             <ContentPresenter x:Name="ContentSite"
                                                 VerticalAlignment="Center"
