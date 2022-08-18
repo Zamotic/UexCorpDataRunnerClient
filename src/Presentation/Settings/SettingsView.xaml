@@ -49,7 +49,6 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ParallelTimeline  >
-
                                             <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#FF8080" Duration="0:0:0.1" />
                                         </ParallelTimeline>
                                     </Storyboard>

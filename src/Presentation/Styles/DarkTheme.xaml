@@ -9,7 +9,7 @@
     <Color x:Key="headerBackgroundColor">#313131</Color>
     <Color x:Key="fieldBackgroundColor">#555555</Color>
     <Color x:Key="selectedTabBackgroundColor">#393938</Color>
-    <Color x:Key="unselectedTabBackgroundColor">#313131</Color>
+    <Color x:Key="unselectedTabBackgroundColor">#555555</Color>
     <Color x:Key="gridBorderColor">#919090</Color>
 
     <Color x:Key="textForegroundColor">#919090</Color>
