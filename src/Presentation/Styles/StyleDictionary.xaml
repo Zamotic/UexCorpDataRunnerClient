@@ -40,10 +40,10 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <SolidColorBrush x:Key="Button.Static.Background" Color="{DynamicResource fieldBackgroundColor}"/>
+    <SolidColorBrush x:Key="Button.Static.Background" Color="{DynamicResource buttonBackgroundColor}"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="{DynamicResource textForegroundColor}"/>
     <SolidColorBrush x:Key="Button.Static.Foreground" Color="{DynamicResource textBoldForegroundColor}"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{DynamicResource primaryControlBackgroundColor}"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{DynamicResource buttonMouseoverBackgroundColor}"/>
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="{DynamicResource textForegroundColor}"/>
     <SolidColorBrush x:Key="Button.Pressed.Background" Color="{DynamicResource mainBackgroundColor}"/>
     <SolidColorBrush x:Key="Button.Pressed.Border" Color="{DynamicResource textForegroundColor}"/>

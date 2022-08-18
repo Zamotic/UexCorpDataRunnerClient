@@ -226,6 +226,7 @@
     <DockPanel
         Style="{DynamicResource MainDockPanel}">
         <DockPanel.Resources>
+            <system:Double x:Key="clearButtonWidth">20</system:Double>
             <system:Double x:Key="labelWidth">60</system:Double>
             <Thickness x:Key="innerMargin">2,2</Thickness>
         </DockPanel.Resources>
@@ -263,7 +264,9 @@
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
-                    Width="15"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     Command="{Binding ClearSelectedSystemCommand}"
                     Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
                     <Image
@@ -306,7 +309,9 @@
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
-                    Width="15"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     Command="{Binding ClearSelectedPlanetCommand}"
                     Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
                     <Image
@@ -349,7 +354,9 @@
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
-                    Width="15"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     Command="{Binding ClearSelectedSatelliteCommand}"
                     Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
                     <Image
@@ -392,7 +399,9 @@
                 <Button
                     DockPanel.Dock="Right"
                     IsTabStop="False"
-                    Width="15"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     Command="{Binding ClearSelectedTradeportCommand}"
                     Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
                     <Image

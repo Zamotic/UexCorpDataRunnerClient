@@ -12,6 +12,9 @@
     <Color x:Key="unselectedTabBackgroundColor">#e0e0e0</Color>
     <Color x:Key="gridBorderColor">#808080</Color>
 
+    <Color x:Key="buttonBackgroundColor">#f2f2f2</Color>
+    <Color x:Key="buttonMouseoverBackgroundColor">#fcfcfc</Color>
+
     <Color x:Key="textForegroundColor">#000000</Color>
     <Color x:Key="tabForegroundColor">#808080</Color>
     <Color x:Key="textBoldForegroundColor">#000000</Color>

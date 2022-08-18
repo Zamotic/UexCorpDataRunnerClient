@@ -12,6 +12,9 @@
     <Color x:Key="unselectedTabBackgroundColor">#555555</Color>
     <Color x:Key="gridBorderColor">#919090</Color>
 
+    <Color x:Key="buttonBackgroundColor">#3f3e3d</Color>
+    <Color x:Key="buttonMouseoverBackgroundColor">#555555</Color>
+
     <Color x:Key="textForegroundColor">#919090</Color>
     <Color x:Key="tabForegroundColor">#dddddd</Color>
     <Color x:Key="textBoldForegroundColor">#fefefe</Color>
@@ -27,6 +30,9 @@
     <SolidColorBrush x:Key="selectedTabBackgroundBrush" Color="{StaticResource selectedTabBackgroundColor}"/>
     <SolidColorBrush x:Key="unselectedTabBackgroundBrush" Color="{StaticResource unselectedTabBackgroundColor}"/>
     <SolidColorBrush x:Key="gridBorderBrush" Color="{StaticResource gridBorderColor}"/>
+
+    <SolidColorBrush x:Key="buttonBackgroundBrush" Color="{StaticResource primaryControlBackgroundColor}"/>
+    <SolidColorBrush x:Key="buttonMouseoverBackgroundBrush" Color="{StaticResource fieldBackgroundColor}"/>
 
     <SolidColorBrush x:Key="textForegroundBrush" Color="{StaticResource textForegroundColor}"/>
     <SolidColorBrush x:Key="tabForegroundBrush" Color="{StaticResource tabForegroundColor}"/>
