@@ -118,6 +118,38 @@ public class SettingsViewModel : ViewModelBase
         {
             _Messenger.Send(new ThemeChangedMessage(_SettingsService.Settings.Theme));
         }
+
+        CheckIfVersionChangedSinceLastLoad();
+    }
+
+    private void CheckIfVersionChangedSinceLastLoad()
+    {
+        if (_SettingsService?.Settings is null)
+        {
+            return;
+        }
+
+        if (Domain.Globals.Settings.Version is null)
+        {
+            return;
+        }
+
+        if (_Messenger is null)
+        {
+            return;
+        }
+
+        if (_SettingsService.Settings?.CurrentVersion.Equals(Domain.Globals.Settings.Version) == true)
+        {
+            return;
+        }
+
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+        _SettingsService.Settings.CurrentVersion = Domain.Globals.Settings.Version;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+        _SettingsService.SaveSettings();
+        _Messenger.Send(new ShowReleaseNotesMessage());
+        
     }
 
     public ICommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);

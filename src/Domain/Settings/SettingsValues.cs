@@ -25,4 +25,7 @@ public class SettingsValues : ObservableObject
 
     private string userAccessCode = string.Empty;
     public string UserAccessCode { get => userAccessCode; set =>  SetProperty(ref userAccessCode, value); }
+
+    private string currentVersion = string.Empty;
+    public string CurrentVersion { get => currentVersion; set => SetProperty(ref currentVersion, value); }
 }

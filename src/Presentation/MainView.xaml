@@ -11,6 +11,7 @@
     <Grid>
         <DataRunner:DataRunnerView />
         <DataRunner:TransmissionStatusView />
+        <DataRunner:ReleaseNotesView />
         <Minimized:MinimizedView />
         <Settings:SettingsView />
     </Grid>

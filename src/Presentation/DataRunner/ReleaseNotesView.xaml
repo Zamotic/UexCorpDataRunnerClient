@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="UexCorpDataRunner.Presentation.DataRunner.ReleaseNotesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunner"
+             xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
+             xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary"
+             presentation:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="425"
+             Tag="Release Notes"
+             IsEnabled="{Binding IsEnabled}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+    </UserControl.Resources>
+    <UserControl.Style>
+        <Style 
+            TargetType="{x:Type UserControl}"
+            BasedOn="{StaticResource PopupItemTemplate}" />
+    </UserControl.Style>
+    <UserControl.Visibility>
+        <Binding
+            RelativeSource="{RelativeSource Self}" 
+            Path="IsEnabled"
+            Converter="{StaticResource boolToVisibilityConverter}" />
+    </UserControl.Visibility>
+    <DockPanel
+        Width="375"
+        Height="400">
+        <UniformGrid
+            DockPanel.Dock="Bottom"
+            Rows="1"
+            Columns="3">
+            <Rectangle />
+            <Grid>
+                <Button
+                    Content="Ok"
+                    Command="{Binding CloseReleaseNotesViewCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True" />
+            </Grid>
+            <Rectangle />
+        </UniformGrid>
+        <TextBox
+            DockPanel.Dock="Top"
+            IsTabStop="False"
+            IsReadOnly="True"
+            Padding="2"
+            Text="{Binding ReleaseNotes}"
+            TextWrapping="Wrap" 
+            AcceptsReturn="True" 
+            VerticalScrollBarVisibility="Auto"
+            Extensions:TextBoxAutoScrollToEndExtension.IsEnabled="True"
+            Extensions:FocusExtension.IsFocused="{Binding IsTransmissionStatusTextBoxFocused}"
+            Style="{DynamicResource StyledTextBox}">
+        </TextBox>
+    </DockPanel>
+</UserControl>

@@ -56,6 +56,9 @@
     <Page Update="DataRunner\DataRunnerView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+    <Page Update="DataRunner\ReleaseNotesView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="DesignTimeResources.xaml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  <SubType>Designer</SubType>
