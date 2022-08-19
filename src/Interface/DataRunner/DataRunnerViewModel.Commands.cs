@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
@@ -105,13 +106,13 @@ public partial class DataRunnerViewModel
     private void ClearSelectedTradeportCommandExecute()
     {
         SelectedTradeport = null;
-        ResetCommoditiesCommandExecute();
+        ClearCommodities();
     }
 
     public ICommand ResetCommoditiesCommand => new RelayCommand(ResetCommoditiesCommandExecute);
     private void ResetCommoditiesCommandExecute()
     {
-        Commodities = new List<Application.DataRunner.CommodityWrapper>();
+        ClearCommodities();
         _ = UpdateCommoditiesForTradeport(SelectedTradeport?.Code);
         SelectedTabItemIndex = 0;
         //OnPropertyChanged("Commodities");
@@ -154,6 +155,20 @@ public partial class DataRunnerViewModel
 
             ClearSelectedTradeportCommandExecute();
         //});
+    }
+
+    public void ClearCommodities()
+    {
+        var dispatcher = System.Windows.Application.Current.Dispatcher;
+        if(dispatcher is null)
+        {
+            return;
+        }
+
+        dispatcher.Invoke(() =>
+        {
+            Commodities = new List<Application.DataRunner.CommodityWrapper>();
+        }, DispatcherPriority.Normal);        
     }
 }
 

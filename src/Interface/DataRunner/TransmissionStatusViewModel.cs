@@ -97,7 +97,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _readTextTimer = new Timer((TimerCallback) =>
         {
             ReadStatusBufferQueue();
-        }, null, TimeSpan.FromMilliseconds(50), TimeSpan.FromMilliseconds(50));
+        }, null, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(50));
     }
 
     public void TransmissionStatusCompleteMessageHandler(object sender, TransmissionStatusCompleteMessage notification)
