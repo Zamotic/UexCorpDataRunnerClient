@@ -1,4 +1,4 @@
-﻿Version 1.0.817
+﻿Version 1.0.818
 - Added Release Notes Popup
 - Added Theme Support (Light/Dark)
 - Changed HttpClient handling to a more standard usage
