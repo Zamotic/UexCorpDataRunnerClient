@@ -46,7 +46,7 @@
             IsTabStop="False"
             IsReadOnly="True"
             Padding="2"
-            Text="{Binding ReleaseNotes}"
+            Text="{Binding ReleaseNotes, Mode=OneWay}"
             TextWrapping="Wrap" 
             AcceptsReturn="True" 
             VerticalScrollBarVisibility="Auto"

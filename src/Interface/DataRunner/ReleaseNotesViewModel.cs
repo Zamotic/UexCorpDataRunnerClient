@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System.IO;
+using System.Reflection;
 using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Interface.MessengerMessages;
@@ -8,17 +10,11 @@ namespace UexCorpDataRunner.Interface.DataRunner;
 public class ReleaseNotesViewModel : ViewModelBase
 {
     IMessenger _messenger;
+    private const string ResourceName = "UexCorpDataRunner.Interface.ReleaseNotes.txt";
 
-    private string _ReleaseNotes = 
-    "Version 1.0.817\n" +
-        "   - Added Release Notes Popup\n" +
-        "   - Added Theme Support (Light/Dark)\n" +
-        "   - Changed HttpClient handling to a more standard usage\n" +
-        "       - (Note: This could also improve API communication performance)\n";
     public string ReleaseNotes
     {
-        get => _ReleaseNotes;
-        set => SetProperty(ref _ReleaseNotes, value);
+        get => GetReleaseNotesFromAssembly();
     }
 
     public ReleaseNotesViewModel(IMessenger messenger)
@@ -36,5 +32,28 @@ public class ReleaseNotesViewModel : ViewModelBase
     public void ShowReleaseNotesMessageHandler(object sender, ShowReleaseNotesMessage notification)
     {
         IsEnabled = true;
+    }
+
+    private string GetReleaseNotesFromAssembly()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        if (assembly is null)
+        {
+            return string.Empty;
+        }
+
+        using (Stream? stream = assembly.GetManifestResourceStream(ResourceName))
+        {
+            if(stream is null)
+            {
+                return string.Empty;
+            }
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                return result;
+            }
+        }
     }
 }
