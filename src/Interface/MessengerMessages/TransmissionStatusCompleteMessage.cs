@@ -10,8 +10,11 @@ namespace UexCorpDataRunner.Interface.MessengerMessages;
 public class TransmissionStatusCompleteMessage
 {
     public string ResponseMessage { get; }
-    public TransmissionStatusCompleteMessage(string responseMessage)
+    public bool AllResponsesSucceeded { get; }
+
+    public TransmissionStatusCompleteMessage(string responseMessage, bool allResponsesSucceeded = true)
     {
         ResponseMessage = responseMessage;
+        AllResponsesSucceeded = allResponsesSucceeded;
     }
 }

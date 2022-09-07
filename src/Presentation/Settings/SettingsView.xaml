@@ -195,6 +195,28 @@
                     Text="{Binding SettingsValues.UserAccessCode}"
                     Style="{DynamicResource StyledTextBox}"/>
             </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Auto Close Summary:" 
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <CheckBox
+                    DockPanel.Dock="Left"
+                    IsChecked="{Binding SettingsValues.AutoCloseSummaryWindow}"
+                    VerticalAlignment="Center"/>
+                <UI:DefaultOverlayComboBox2
+                    DockPanel.Dock="Right"
+                    Margin="5,0,0,0"
+                    IsEnabled="{Binding SettingsValues.AutoCloseSummaryWindow}"
+                    ItemsSource="{Binding AutoCloseDelayList}"
+                    ItemStringFormat="{}{0} seconds"
+                    SelectedValue="{Binding SettingsValues.AutoCloseSummaryTime}"
+                    DefaultOverlayString="(Select Close Delay)" />
+            </DockPanel>
             <TextBlock
                 DockPanel.Dock="Bottom"
                 FontWeight="Bold"

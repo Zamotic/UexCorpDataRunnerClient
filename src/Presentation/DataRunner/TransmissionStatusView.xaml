@@ -39,7 +39,7 @@
                     Command="{Binding CancelCurrentDataTransmissionCommand}" 
                     Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"/>
                 <Button
-                    Content="Ok"
+                    Content="{Binding CloseTransmissionStatusButtonText}"
                     Command="{Binding CloseTransmissionStatusViewCommand}"
                     Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"
                     Extensions:FocusExtension.IsFocused="{Binding IsCloseTransmissionStatusFocused}">

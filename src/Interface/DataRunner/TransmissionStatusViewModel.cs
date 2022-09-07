@@ -2,18 +2,21 @@
 using CommunityToolkit.Mvvm.Messaging;
 using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
+using UexCorpDataRunner.Application.Settings;
+using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
 public class TransmissionStatusViewModel : ViewModelBase
 {
-    IMessenger _messenger;
+    private readonly IMessenger _Messenger;
+    private readonly ISettingsService _SettingsService;
 
-    private bool _isTransmissionInProgress = false;
+    private bool _IsTransmissionInProgress = false;
     public bool IsTransmissionInProgress
     {
-        get => _isTransmissionInProgress;
-        set => SetProperty(ref _isTransmissionInProgress, value);
+        get => _IsTransmissionInProgress;
+        set => SetProperty(ref _IsTransmissionInProgress, value);
     }
     private System.Collections.Concurrent.ConcurrentQueue<string> _statusBufferQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
 
@@ -31,18 +34,26 @@ public class TransmissionStatusViewModel : ViewModelBase
         set => SetProperty(ref _IsTransmissionStatusTextBoxFocused, value);
     }
 
-    private string _transmissionStatusText = string.Empty;
+    private string _TransmissionStatusText = string.Empty;
     public string TransmissionStatusText
     {
-        get => _transmissionStatusText;
-        set => SetProperty(ref _transmissionStatusText, value);
+        get => _TransmissionStatusText;
+        set => SetProperty(ref _TransmissionStatusText, value);
     }
 
-    public TransmissionStatusViewModel(IMessenger messenger)
+    private string _CloseTransmissionStatusButtonText = "Ok";
+    public string CloseTransmissionStatusButtonText
     {
-        _messenger = messenger;
-        _messenger.Register<ShowTransmissionStatusMessage>(this, ShowTransmissionStatusMessageHandler);
-        _messenger.Register<TransmissionStatusCompleteMessage>(this, TransmissionStatusCompleteMessageHandler);
+        get => _CloseTransmissionStatusButtonText;
+        set => SetProperty(ref _CloseTransmissionStatusButtonText, value);
+    }
+
+    public TransmissionStatusViewModel(IMessenger messenger, ISettingsService settingsService)
+    {
+        _Messenger = messenger;
+        _SettingsService = settingsService;
+        _Messenger.Register<ShowTransmissionStatusMessage>(this, ShowTransmissionStatusMessageHandler);
+        _Messenger.Register<TransmissionStatusCompleteMessage>(this, TransmissionStatusCompleteMessageHandler);
     }
 
     public ICommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
@@ -58,13 +69,13 @@ public class TransmissionStatusViewModel : ViewModelBase
     private void CloseTransmissionStatusViewCommandExecute()
     {
         IsEnabled = false;
-        _messenger.Send(new CloseTransmissionStatusMessage());
+        _Messenger.Send(new CloseTransmissionStatusMessage());
     }
 
     public ICommand CancelCurrentDataTransmissionCommand { get => new RelayCommand(CancelCurrentDataTransmissionCommandExecute, CancelCurrentDataTransmissionCommandCanExecute); }
     private bool CancelCurrentDataTransmissionCommandCanExecute()
     {
-        if (_isTransmissionInProgress == true)
+        if (IsTransmissionInProgress == true)
         {
             return true;
         }
@@ -73,12 +84,12 @@ public class TransmissionStatusViewModel : ViewModelBase
     }
     private void CancelCurrentDataTransmissionCommandExecute()
     {
-        _messenger.Send(new CancelCurrentDataTransmissionMessage());
+        _Messenger.Send(new CancelCurrentDataTransmissionMessage());
         IsEnabled = false;
         IsTransmissionInProgress = false;
     }
 
-    Timer? _readTextTimer;
+    Timer? _ReadTextTimer;
     public void ShowTransmissionStatusMessageHandler(object sender, ShowTransmissionStatusMessage notification)
     {
         TransmissionStatusText = string.Empty;
@@ -94,20 +105,29 @@ public class TransmissionStatusViewModel : ViewModelBase
 
         _statusBufferQueue = notification.Queue;
 
-        _readTextTimer = new Timer((TimerCallback) =>
+        _ReadTextTimer = new Timer((TimerCallback) =>
         {
             ReadStatusBufferQueue();
         }, null, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(50));
     }
 
+    Timer? _CloseWindowTextTimer;
+
     public void TransmissionStatusCompleteMessageHandler(object sender, TransmissionStatusCompleteMessage notification)
     {
         IsTransmissionInProgress = false;
-        _readTextTimer?.Change(Timeout.Infinite, 0);
+        _ReadTextTimer?.Change(Timeout.Infinite, 0);
         ReadStatusBufferQueue();
         TransmissionStatusText += $"\n\n{notification.ResponseMessage}";
         IsTransmissionStatusTextBoxFocused = true;
         IsCloseTransmissionStatusFocused = true;
+
+        if(notification.AllResponsesSucceeded == false)
+        {
+            return;
+        }
+
+        StartCloseWindowTimer();
     }
 
     public void ReadStatusBufferQueue()
@@ -124,5 +144,33 @@ public class TransmissionStatusViewModel : ViewModelBase
             }
             break;
         }
+    }
+
+    private void StartCloseWindowTimer()
+    {
+        if (_SettingsService.Settings is null)
+        {
+            return;
+        };
+
+        if (_SettingsService.Settings.AutoCloseSummaryWindow == false)
+        {
+            return;
+        }
+
+        short countDownTimeCounter = _SettingsService.Settings.AutoCloseSummaryTime;
+
+        _CloseWindowTextTimer = new Timer((TimerCallback) =>
+        {
+            CloseTransmissionStatusButtonText = $"Ok ({countDownTimeCounter--})";
+            if (countDownTimeCounter <= -1)
+            {
+                _CloseWindowTextTimer?.Change(Timeout.Infinite, 0);
+                _CloseWindowTextTimer?.Dispose();
+                _CloseWindowTextTimer = null;
+                CloseTransmissionStatusButtonText = $"Ok";
+                CloseTransmissionStatusViewCommandExecute();
+            }
+        }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
     }
 }

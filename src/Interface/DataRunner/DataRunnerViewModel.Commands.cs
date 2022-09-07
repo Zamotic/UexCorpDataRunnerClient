@@ -150,8 +150,11 @@ public partial class DataRunnerViewModel
         //await Task.Run(async () =>
         //{
             var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+
+            bool areThereAnyFailures = responses.Any(x => x.Value == false);
+
             string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
-            _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage));
+            _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
 
             ClearSelectedTradeportCommandExecute();
         //});
