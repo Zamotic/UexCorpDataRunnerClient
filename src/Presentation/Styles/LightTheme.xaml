@@ -23,6 +23,9 @@
     <Color x:Key="acceptableBackgroundColor">#009e21</Color>
     <Color x:Key="unacceptableBackgroundColor">#bf0000</Color>
 
+    <Color x:Key="submitButtonBackgroundColor">#009e21</Color>
+    <Color x:Key="submitButtonMouseoverBackgroundColor">#21bf42</Color>
+
     <SolidColorBrush x:Key="mainBackgroundBrush" Color="{StaticResource mainBackgroundColor}"/>
     <SolidColorBrush x:Key="primaryControlBackgroundBrush" Color="{StaticResource primaryControlBackgroundColor}"/>
     <SolidColorBrush x:Key="headerBackgroundBrush" Color="{StaticResource headerBackgroundColor}"/>
@@ -38,6 +41,9 @@
 
     <SolidColorBrush x:Key="acceptableBackgroundBrush" Color="{StaticResource acceptableBackgroundColor}"/>
     <SolidColorBrush x:Key="unacceptableBackgroundBrush" Color="{StaticResource unacceptableBackgroundColor}"/>
+
+    <SolidColorBrush x:Key="submitButtonBackgroundBrush" Color="{StaticResource submitButtonBackgroundColor}"/>
+    <SolidColorBrush x:Key="submitButtonMouseoverBackgroundBrush" Color="{StaticResource submitButtonMouseoverBackgroundColor}"/>
 
     <LinearGradientBrush 
         x:Key="comboBoxDarkActiveGradientBackgroundBrush"
