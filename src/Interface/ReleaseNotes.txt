@@ -1,4 +1,9 @@
-﻿Version 1.0.818
+﻿Version 1.0.907
+- Updated to new Systems endpoint (star_systems)
+- Implemented Auto Close Window (and settings)
+- Added proper "mouseover" color to themes for submit button
+
+Version 1.0.818
 - Added Release Notes Popup
 - Added Theme Support (Light/Dark)
 - Changed HttpClient handling to a more standard usage
