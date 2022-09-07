@@ -39,7 +39,7 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
 
         //SystemsRequest = this.When($"{uri}systems/")
         //    .Respond("application/json", GeSystemsJsonResponse());
-        AddFakeResponse(new Uri($"{uri}systems/"), GetResponseMessage(GetSystemsJsonResponse()));
+        AddFakeResponse(new Uri($"{uri}star_systems/"), GetResponseMessage(GetSystemsJsonResponse()));
 
         //PlanetsRequest = this.When($"{uri}planets/system/ST/")
         //    .Respond("application/json", GetPlanetsStantonSystemJsonResponse());

@@ -48,7 +48,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of SystemDto records returned from the API</returns>
     public async Task<ICollection<SystemDto>> GetSystemsAsync()
     {
-        string endPointValue = "systems";
+        string endPointValue = "star_systems";
 
         return await GenericGetCollectionAsync<SystemDto>(endPointValue);
     }
