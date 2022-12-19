@@ -29,6 +29,22 @@ public class UexCropWebApiClientTests
     }
 
     [Fact]
+    public async Task GetVersionsAsync_ShouldHaveExpectedValues()
+    {
+        // Assemble
+        const string ExpectedLiveValue = "3.17.4";
+        const string ExpectedPtuValue = "3.18";
+
+        // Act
+        var actual = await _webApiClient.GetVersionsAsync().ConfigureAwait(false);
+
+        // Assert
+        actual.Should().NotBeNull();
+        actual.Live.Should().Be(ExpectedLiveValue);
+        actual.Ptu.Should().Be(ExpectedPtuValue);
+    }
+
+    [Fact]
     public async Task GetSystemsAsync_ShouldHaveExpectedCountOf2()
     {
         // Assemble

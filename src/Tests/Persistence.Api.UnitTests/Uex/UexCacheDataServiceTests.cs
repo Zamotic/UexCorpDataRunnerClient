@@ -33,6 +33,13 @@ public class UexCacheDataServiceTests
         DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 26, 2, 25, 15, TimeSpan.Zero);
         DateTimeOffset _dateModified = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
 
+        _mockWebApiClientAdapter.Setup(s => s.GetVersionsAsync()).ReturnsAsync(
+            new Domain.DataRunner.Version()
+            {
+                Live = "3.17.4"
+                ,Ptu = "3.18"
+            });
+
         _mockWebApiClientAdapter.Setup(s => s.GetSystemsAsync()).ReturnsAsync(
             new ReadOnlyCollection<Domain.DataRunner.System>(new List<Domain.DataRunner.System>()
             {
@@ -143,6 +150,20 @@ public class UexCacheDataServiceTests
                 Response = true,
                 StatusMessage = "ok"
             });
+    }
+
+    [Fact]
+    public async Task GetAllVersionsAsync_ShouldCallWebApiOnce()
+    {
+        // Assemble
+
+        // Act
+        var actual1 = await _uexCacheDataService.GetAllVersionsAsync();
+        var actual2 = await _uexCacheDataService.GetAllVersionsAsync();
+
+        // Assert
+        actual1.Should().BeSameAs(actual2);
+        _mockWebApiClientAdapter.Verify(v => v.GetSystemsAsync(), Times.Once());
     }
 
     [Fact]

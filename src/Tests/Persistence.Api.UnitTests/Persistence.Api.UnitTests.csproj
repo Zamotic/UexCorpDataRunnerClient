@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UexCorpDataRunner\**" />
+    <EmbeddedResource Remove="UexCorpDataRunner\**" />
+    <None Remove="UexCorpDataRunner\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
@@ -30,10 +36,6 @@
     <ProjectReference Include="..\..\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Mocks\Persistence.Api.Mock\Persistence.Api.Mock.csproj" />
     <ProjectReference Include="..\..\Persistence\Api\Persistence.Api.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UexCorpDataRunner\Domain\DataRunner\" />
   </ItemGroup>
 
 </Project>

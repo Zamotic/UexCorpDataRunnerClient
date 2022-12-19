@@ -37,6 +37,8 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
     {
         string uri = "https://portal.uexcorp.space/api/";
 
+        AddFakeResponse(new Uri($"{uri}versions/"), GetResponseMessage(GetVersionsJsonResponse()));
+
         //SystemsRequest = this.When($"{uri}systems/")
         //    .Respond("application/json", GeSystemsJsonResponse());
         AddFakeResponse(new Uri($"{uri}star_systems/"), GetResponseMessage(GetSystemsJsonResponse()));
@@ -78,6 +80,11 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
         responseMessage.Content = new StringContent(responseStringContent);
         return responseMessage;
     }
+    private string GetVersionsJsonResponse()
+    {
+        return "{\"status\":\"ok\",\"code\":200,\"data\":{\"live\":\"3.17.4\",\"ptu\": \"3.18\"}}";
+    }
+
     private string GetSystemsJsonResponse()
     {
         return "{\"status\":\"ok\",\"code\":200,\"data\":[{\"name\":\"Pyro\",\"code\":\"PY\",\"available\":0,\"default\":0,\"date_added\":1608949515,\"date_modified\":0},{\"name\":\"Stanton\",\"code\":\"ST\",\"available\":1,\"default\":1,\"date_added\":1608949515,\"date_modified\":0}]}";

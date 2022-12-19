@@ -8,6 +8,7 @@ using UexCorpDataRunner.Domain.DataRunner;
 namespace UexCorpDataRunner.Domain.Services;
 public interface IUexDataService
 {
+    Task<DataRunner.Version> GetAllVersionsAsync();
     Task<IReadOnlyCollection<DataRunner.System>> GetAllSystemsAsync();
     Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode);
     Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode);

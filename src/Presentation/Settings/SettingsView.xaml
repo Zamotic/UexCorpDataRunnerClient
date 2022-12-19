@@ -217,6 +217,21 @@
                     SelectedValue="{Binding SettingsValues.AutoCloseSummaryTime}"
                     DefaultOverlayString="(Select Close Delay)" />
             </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Game Version:" 
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding GameVersionList}"
+                    SelectedValue="{Binding SettingsValues.GameVersion}"
+                    DefaultOverlayString="(Select Game Version)" />
+            </DockPanel>
             <TextBlock
                 DockPanel.Dock="Bottom"
                 FontWeight="Bold"

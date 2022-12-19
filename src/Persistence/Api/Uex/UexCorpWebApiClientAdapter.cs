@@ -19,6 +19,14 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
         _Mapper = mapper;
     }
 
+    public async Task<Domain.DataRunner.Version> GetVersionsAsync()
+    {
+        VersionDto versionDTO = await _WebClient.GetVersionsAsync();
+
+        var version = _Mapper.Map<Domain.DataRunner.Version> (versionDTO);
+        return version;
+    }
+
     public async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetSystemsAsync()
     {
         ICollection<SystemDto> systemDtos = await _WebClient.GetSystemsAsync();

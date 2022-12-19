@@ -43,6 +43,17 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     }
 
     /// <summary>
+    /// Returns a IList<string> objects
+    /// </summary>
+    /// <returns>Collection containing a list of strings returned from the API</returns>
+    public async Task<VersionDto> GetVersionsAsync()
+    {
+        string endPointValue = "versions";
+
+        return await GenericGetSingleAsync<VersionDto>(endPointValue);
+    }
+
+    /// <summary>
     /// Returns a IList<SystemDto> objects
     /// </summary>
     /// <returns>Collection containing a list of SystemDto records returned from the API</returns>

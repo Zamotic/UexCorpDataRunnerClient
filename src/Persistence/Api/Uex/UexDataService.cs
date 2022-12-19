@@ -11,6 +11,12 @@ public class UexDataService : IUexDataService
         _WebClientAdapter = webClientAdapter;
     }
 
+    public virtual async Task<Domain.DataRunner.Version> GetAllVersionsAsync()
+    {
+        var version = await _WebClientAdapter.GetVersionsAsync();
+        return version;
+    }
+
     public virtual async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetAllSystemsAsync()
     {
         var collection = await _WebClientAdapter.GetSystemsAsync();

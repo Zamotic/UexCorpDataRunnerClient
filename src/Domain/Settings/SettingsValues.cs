@@ -34,4 +34,7 @@ public class SettingsValues : ObservableObject
 
     private short _AutoCloseSummaryTime = 5;
     public short AutoCloseSummaryTime { get => _AutoCloseSummaryTime; set => SetProperty(ref _AutoCloseSummaryTime, value); }
+
+    private string _GameVersion = "Live";
+    public string GameVersion { get => _GameVersion; set => SetProperty(ref _GameVersion, value); }
 }

@@ -21,6 +21,7 @@ public class SettingsViewModel : ViewModelBase
     private bool _UserAccessCodeChanged = false;
     private bool _AlwaysOnTopChanged = false;
     private bool _ShowTemporaryCommodityChanged = false;
+    private bool _GaveVersionChanged = false;
 
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
@@ -66,6 +67,10 @@ public class SettingsViewModel : ViewModelBase
         {
             _Messenger.Send(new ThemeChangedMessage(_SettingsValues.Theme));
         }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.GameVersion)) == true)
+        {
+            _GaveVersionChanged = true;
+        }
     }
 
     public List<string> ThemeList { get; } = new List<string>() 
@@ -108,6 +113,10 @@ public class SettingsViewModel : ViewModelBase
     public List<short> AutoCloseDelayList { get; } = new List<short>()
     {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+    };
+    public List<string> GameVersionList { get; } = new List<string>()
+    {
+        "Live", "PTU"
     };
 
     public string? Version { get => Domain.Globals.Settings.Version; }
