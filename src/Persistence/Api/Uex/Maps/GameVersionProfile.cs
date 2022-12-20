@@ -2,10 +2,10 @@
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.Maps;
-public class SystemProfile : Profile
+public class GameVersionProfile : Profile
 {
-    public SystemProfile()
+    public GameVersionProfile()
     {
-        CreateMap<SystemDto, Domain.DataRunner.System>();
+        CreateMap<GameVersionDto, Domain.DataRunner.GameVersion>();
     }
 }

@@ -2,7 +2,7 @@
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
-public class SystemDto
+public class StarSystemDto
 {
     [JsonPropertyName("name")]
     public string? Name { get; set; }

@@ -1,15 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Interface.MessengerMessages;
-using UexCorpDataRunner.Domain.Settings;
+using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Domain.Services;
+using UexCorpDataRunner.Domain.Settings;
+using UexCorpDataRunner.Interface.MessengerMessages;
 
 namespace UexCorpDataRunner.Interface.Settings;
 
@@ -17,11 +13,12 @@ public class SettingsViewModel : ViewModelBase
 {
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
+    private readonly IUexDataService _DataService;
 
     private bool _UserAccessCodeChanged = false;
     private bool _AlwaysOnTopChanged = false;
     private bool _ShowTemporaryCommodityChanged = false;
-    private bool _GaveVersionChanged = false;
+    private bool _SelectedGaveVersionChanged = false;
 
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
@@ -67,9 +64,9 @@ public class SettingsViewModel : ViewModelBase
         {
             _Messenger.Send(new ThemeChangedMessage(_SettingsValues.Theme));
         }
-        if (e.PropertyName.Equals(nameof(_SettingsValues.GameVersion)) == true)
+        if (e.PropertyName.Equals(nameof(_SettingsValues.SelectedGameVersion)) == true)
         {
-            _GaveVersionChanged = true;
+            _SelectedGaveVersionChanged = true;
         }
     }
 
@@ -116,17 +113,19 @@ public class SettingsViewModel : ViewModelBase
     };
     public List<string> GameVersionList { get; } = new List<string>()
     {
-        "Live", "PTU"
+        GameVersion.LiveValue,
+        GameVersion.PtuValue
     };
 
     public string? Version { get => Domain.Globals.Settings.Version; }
 
-    public SettingsViewModel(IMessenger messenger, ISettingsService settingsService)
+    public SettingsViewModel(IMessenger messenger, ISettingsService settingsService, IUexDataService dataService)
     {
         _Messenger = messenger;
         _Messenger.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
 
         _SettingsService = settingsService;
+        _DataService = dataService;
 
         if(_SettingsService.Settings?.Theme != null)
         {
@@ -164,6 +163,24 @@ public class SettingsViewModel : ViewModelBase
         _SettingsService.SaveSettings();
         _Messenger.Send(new ShowReleaseNotesMessage());
         
+    }
+
+    bool _IsViewModelLoaded = false;
+    public ICommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
+    public async Task ViewModelLoadedCommandExecuteAsync(object? sender)
+    {
+        if(_IsViewModelLoaded is true)
+        {
+            return;
+        }
+        if (_SettingsService.Settings is null)
+        {
+            throw new Exception("Setting Service : Settings cannot be null");
+        }
+
+        _SettingsService.Settings.LoadedGameVersion = await _DataService.GetCurrentVersionAsync();
+
+        _IsViewModelLoaded = true;
     }
 
     public ICommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);

@@ -1,4 +1,8 @@
-﻿Version 1.0.907
+﻿Version 1.0.1219.2315
+- Added a "Version" selector to the Settings screen (Default is "Live")
+- "Version" is now included in PriceReport postings
+
+Version 1.0.907
 - Updated to new Systems endpoint (star_systems)
 - Implemented Auto Close Window (and settings)
 - Added proper "mouseover" color to themes for submit button

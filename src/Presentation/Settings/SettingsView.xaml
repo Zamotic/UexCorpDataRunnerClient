@@ -6,11 +6,17 @@
              xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
              xmlns:UI="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              presentation:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="350"
              DataContextChanged="UserControl_DataContextChanged"
              IsEnabled="{Binding IsEnabled}">
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="Loaded">
+            <Behaviors:InvokeCommandAction Command="{Binding ViewModelLoadedCommand}"/>
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <System:Double x:Key="labelWidth">150</System:Double>
@@ -229,7 +235,7 @@
                 <UI:DefaultOverlayComboBox2
                     DockPanel.Dock="Right"
                     ItemsSource="{Binding GameVersionList}"
-                    SelectedValue="{Binding SettingsValues.GameVersion}"
+                    SelectedValue="{Binding SettingsValues.SelectedGameVersion}"
                     DefaultOverlayString="(Select Game Version)" />
             </DockPanel>
             <TextBlock

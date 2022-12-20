@@ -12,11 +12,13 @@ public class CommodityWrapperToPriceReportConverterTests
     CommodityWrapper _commodityWrapper;
     public CommodityWrapperToPriceReportConverterTests()
     {
-        string accessCode = "c5e000";
+        const string accessCode = "c5e000";
         Mock<ISettingsService> mockSettingsService = new Mock<ISettingsService>();
         mockSettingsService.SetupGet(g => g.Settings).Returns(new UexCorpDataRunner.Domain.Settings.SettingsValues()
         { 
-            UserAccessCode = accessCode
+            UserAccessCode = accessCode,
+            SelectedGameVersion = GameVersion.LiveValue,
+            LoadedGameVersion = new GameVersion() { Live = "3.17.4", Ptu = "3.18" }
         });
 
         _converter = new CommodityWrapperToPriceReportConverter(mockSettingsService.Object);
@@ -119,5 +121,20 @@ public class CommodityWrapperToPriceReportConverterTests
         // Assert
         actual.AccessCode.Should().NotBeNull();
         actual.AccessCode.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public void Convert_ShouldReturnPriceReportWithExpectedVersion()
+    {
+        // Assemble
+        const string TradeportCode = "AM056";
+        const string ExpectedValue = "3.17.4";
+
+        // Act
+        PriceReport actual = _converter.Convert(commodity: _commodityWrapper, tradeportCode: TradeportCode);
+
+        // Assert
+        actual.Version.Should().NotBeNull();
+        actual.Version.Should().Be(ExpectedValue);
     }
 }

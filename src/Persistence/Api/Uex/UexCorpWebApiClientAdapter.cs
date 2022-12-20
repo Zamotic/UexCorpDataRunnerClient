@@ -1,9 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 
@@ -19,19 +14,19 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
         _Mapper = mapper;
     }
 
-    public async Task<Domain.DataRunner.Version> GetVersionsAsync()
+    public async Task<GameVersion> GetCurrentVersionAsync()
     {
-        VersionDto versionDTO = await _WebClient.GetVersionsAsync();
+        GameVersionDto versionDTO = await _WebClient.GetCurrentVersionAsync();
 
-        var version = _Mapper.Map<Domain.DataRunner.Version> (versionDTO);
+        var version = _Mapper.Map<GameVersion> (versionDTO);
         return version;
     }
 
-    public async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetSystemsAsync()
+    public async Task<IReadOnlyCollection<Domain.DataRunner.StarSystem>> GetSystemsAsync()
     {
-        ICollection<SystemDto> systemDtos = await _WebClient.GetSystemsAsync();
+        ICollection<StarSystemDto> systemDtos = await _WebClient.GetSystemsAsync();
 
-        var systems = _Mapper.Map<List<Domain.DataRunner.System>>(systemDtos);
+        var systems = _Mapper.Map<List<Domain.DataRunner.StarSystem>>(systemDtos);
         return systems;
     }
 

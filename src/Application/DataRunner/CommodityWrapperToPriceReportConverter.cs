@@ -21,6 +21,7 @@ public class CommodityWrapperToPriceReportConverter : ICommodityWrapperToPriceRe
         priceReport.Price = GetCurrentPrice(commodity);
         priceReport.Operation = GetOperation(commodity);
         priceReport.AccessCode = GetUserAccessCode(_SettingsService);
+        priceReport.Version = GetVersion(_SettingsService);
 
         return priceReport;
     }
@@ -55,5 +56,22 @@ public class CommodityWrapperToPriceReportConverter : ICommodityWrapperToPriceRe
             return "xxxxxx";
         }
         return settingsService.Settings.UserAccessCode;
+    }
+
+    private string GetVersion(ISettingsService settingsService)
+    {
+        if (settingsService is null)
+        {
+            return "xxxxxx";
+        }
+        if (settingsService.Settings is null)
+        {
+            return "xxxxxx";
+        }
+        if(settingsService.Settings.SelectedGameVersion == GameVersion.PtuValue)
+        {
+            return settingsService.Settings.LoadedGameVersion!.Ptu!;
+        }
+        return settingsService.Settings.LoadedGameVersion!.Live;
     }
 }

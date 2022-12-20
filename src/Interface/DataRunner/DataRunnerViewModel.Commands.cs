@@ -13,10 +13,15 @@ using UexCorpDataRunner.Interface.MessengerMessages;
 namespace UexCorpDataRunner.Interface.DataRunner;
 public partial class DataRunnerViewModel
 {
-    bool _isViewModelLoaded = false;
+    bool _IsViewModelLoaded = false;
     public ICommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
     public async Task ViewModelLoadedCommandExecuteAsync(object? sender)
     {
+        if(_IsViewModelLoaded == true)
+        {
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(_SettingsService?.Settings?.UserAccessCode) == true)
         {
             ShowSettingsInterfaceCommandExecute();
@@ -28,7 +33,7 @@ public partial class DataRunnerViewModel
             SystemList = await _DataService.GetAllSystemsAsync();
             SelectedSystem = null;
             _commodityList = await _DataService.GetAllCommoditiesAsync();
-            _isViewModelLoaded = true;
+            _IsViewModelLoaded = true;
         }
         catch //(Exception ex)
         {

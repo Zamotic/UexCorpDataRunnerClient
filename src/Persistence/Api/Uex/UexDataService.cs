@@ -11,13 +11,13 @@ public class UexDataService : IUexDataService
         _WebClientAdapter = webClientAdapter;
     }
 
-    public virtual async Task<Domain.DataRunner.Version> GetAllVersionsAsync()
+    public virtual async Task<Domain.DataRunner.GameVersion> GetCurrentVersionAsync()
     {
-        var version = await _WebClientAdapter.GetVersionsAsync();
+        var version = await _WebClientAdapter.GetCurrentVersionAsync();
         return version;
     }
 
-    public virtual async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetAllSystemsAsync()
+    public virtual async Task<IReadOnlyCollection<Domain.DataRunner.StarSystem>> GetAllSystemsAsync()
     {
         var collection = await _WebClientAdapter.GetSystemsAsync();
         return collection;

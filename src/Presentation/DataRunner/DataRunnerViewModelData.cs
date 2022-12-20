@@ -11,8 +11,8 @@ namespace UexCorpDataRunner.Presentation.DataRunner;
 #if DEBUG
 public class DataRunnerViewModelData : ObservableObject
 {
-    public IReadOnlyList<Domain.DataRunner.System> SystemList { get; } = new List<Domain.DataRunner.System>();
-    public Domain.DataRunner.System? SelectedSystem { get; set; }
+    public IReadOnlyList<Domain.DataRunner.StarSystem> SystemList { get; } = new List<Domain.DataRunner.StarSystem>();
+    public Domain.DataRunner.StarSystem? SelectedSystem { get; set; }
     public IReadOnlyList<Planet> PlanetList { get; } =new List<Planet>();
     public Planet? SelectedPlanet { get; set; }
     public IReadOnlyList<Satellite> SatelliteList { get; } = new List<Satellite>();

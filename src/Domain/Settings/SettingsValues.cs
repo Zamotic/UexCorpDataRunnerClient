@@ -1,9 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UexCorpDataRunner.Domain.DataRunner;
 
 namespace UexCorpDataRunner.Domain.Settings;
 public class SettingsValues : ObservableObject
@@ -35,6 +31,7 @@ public class SettingsValues : ObservableObject
     private short _AutoCloseSummaryTime = 5;
     public short AutoCloseSummaryTime { get => _AutoCloseSummaryTime; set => SetProperty(ref _AutoCloseSummaryTime, value); }
 
-    private string _GameVersion = "Live";
-    public string GameVersion { get => _GameVersion; set => SetProperty(ref _GameVersion, value); }
+    private string _SelectedGameVersion = GameVersion.LiveValue;
+    public string SelectedGameVersion { get => _SelectedGameVersion; set => SetProperty(ref _SelectedGameVersion, value); }
+    public GameVersion? LoadedGameVersion { get; set; }
 }

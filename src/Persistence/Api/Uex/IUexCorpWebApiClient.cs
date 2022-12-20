@@ -3,8 +3,8 @@
 namespace UexCorpDataRunner.Persistence.Api.Uex;
 public interface IUexCorpWebApiClient
 {
-    Task<VersionDto> GetVersionsAsync();
-    Task<ICollection<SystemDto>> GetSystemsAsync();
+    Task<GameVersionDto> GetCurrentVersionAsync();
+    Task<ICollection<StarSystemDto>> GetSystemsAsync();
     Task<ICollection<PlanetDto>> GetPlanetsAsync(string systemCode);
     Task<ICollection<SatelliteDto>> GetSatellitesAsync(string systemCode);
     Task<ICollection<CityDto>> GetCitiesAsync(string systemCode);

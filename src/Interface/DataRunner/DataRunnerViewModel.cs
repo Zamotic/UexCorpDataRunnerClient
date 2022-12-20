@@ -31,8 +31,8 @@ public partial class DataRunnerViewModel : ViewModelBase
 
     private IReadOnlyCollection<Commodity>? _commodityList;
 
-    private IReadOnlyCollection<Domain.DataRunner.System> _SystemList = new List<Domain.DataRunner.System>();
-    public IReadOnlyCollection<Domain.DataRunner.System> SystemList
+    private IReadOnlyCollection<Domain.DataRunner.StarSystem> _SystemList = new List<Domain.DataRunner.StarSystem>();
+    public IReadOnlyCollection<Domain.DataRunner.StarSystem> SystemList
     {
         get => _SystemList;
         set
@@ -78,7 +78,7 @@ public partial class DataRunnerViewModel : ViewModelBase
 
             targetCVS.Filter += (s, e) =>
             {
-                Domain.DataRunner.System? system = e.Item as Domain.DataRunner.System;
+                Domain.DataRunner.StarSystem? system = e.Item as Domain.DataRunner.StarSystem;
                 if (system is null)
                 {
                     e.Accepted = false;
@@ -90,8 +90,8 @@ public partial class DataRunnerViewModel : ViewModelBase
         OnPropertyChanged(nameof(SystemListCVS));
     }
 
-    private Domain.DataRunner.System? _SelectedSystem = null;
-    public Domain.DataRunner.System? SelectedSystem
+    private Domain.DataRunner.StarSystem? _SelectedSystem = null;
+    public Domain.DataRunner.StarSystem? SelectedSystem
     {
         get => _SelectedSystem;
         set
@@ -530,7 +530,7 @@ public partial class DataRunnerViewModel : ViewModelBase
             return;
         }
 
-        if(_isViewModelLoaded == false)
+        if(_IsViewModelLoaded == false)
         {
             return;
         }

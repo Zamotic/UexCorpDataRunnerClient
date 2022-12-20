@@ -46,22 +46,22 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// Returns a IList<string> objects
     /// </summary>
     /// <returns>Collection containing a list of strings returned from the API</returns>
-    public async Task<VersionDto> GetVersionsAsync()
+    public async Task<GameVersionDto> GetCurrentVersionAsync()
     {
         string endPointValue = "versions";
 
-        return await GenericGetSingleAsync<VersionDto>(endPointValue);
+        return await GenericGetSingleAsync<GameVersionDto>(endPointValue);
     }
 
     /// <summary>
     /// Returns a IList<SystemDto> objects
     /// </summary>
     /// <returns>Collection containing a list of SystemDto records returned from the API</returns>
-    public async Task<ICollection<SystemDto>> GetSystemsAsync()
+    public async Task<ICollection<StarSystemDto>> GetSystemsAsync()
     {
         string endPointValue = "star_systems";
 
-        return await GenericGetCollectionAsync<SystemDto>(endPointValue);
+        return await GenericGetCollectionAsync<StarSystemDto>(endPointValue);
     }
 
     /// <summary>

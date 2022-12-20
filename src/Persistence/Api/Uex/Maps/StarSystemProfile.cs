@@ -2,10 +2,10 @@
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.Maps;
-public class VersionProfile : Profile
+public class StarSystemProfile : Profile
 {
-    public VersionProfile()
+    public StarSystemProfile()
     {
-        CreateMap<VersionDto, Domain.DataRunner.Version>();
+        CreateMap<StarSystemDto, Domain.DataRunner.StarSystem>();
     }
 }

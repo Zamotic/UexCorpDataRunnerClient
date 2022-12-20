@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UexCorpDataRunner.Domain.DataRunner;
-public class System : AvailableNameableBaseModel
+public class StarSystem : AvailableNameableBaseModel
 {
     public bool IsDefault { get; set; }
 }

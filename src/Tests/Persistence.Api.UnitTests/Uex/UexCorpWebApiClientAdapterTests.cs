@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-using FluentAssertions;
-using AutoMapper;
-using System.Net;
-using UexCorpDataRunner.Persistence.Api.Uex;
+﻿using AutoMapper;
 using Moq;
-using UexCorpDataRunner.Persistence.Api.Uex.Maps;
 using UexCorpDataRunner.Domain.DataRunner;
-using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.Mock.Uex;
+using UexCorpDataRunner.Persistence.Api.Uex;
+using UexCorpDataRunner.Persistence.Api.Uex.Maps;
 
 namespace UexCorpDataRunner.Persistence.Api.UnitTests.Uex;
 public class UexCorpWebApiClientAdapterTests
@@ -26,12 +17,13 @@ public class UexCorpWebApiClientAdapterTests
 
         _config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<SystemProfile>();
+                cfg.AddProfile<StarSystemProfile>();
                 cfg.AddProfile<PlanetProfile>();
                 cfg.AddProfile<SatelliteProfile>();
                 cfg.AddProfile<CityProfile>();
                 cfg.AddProfile<TradeportProfile>();
                 cfg.AddProfile<CommodityProfile>();
+                cfg.AddProfile<GameVersionProfile>();
                 cfg.AddProfile<PriceReportProfile>();
             });
         var mapper = _config.CreateMapper();
@@ -43,6 +35,19 @@ public class UexCorpWebApiClientAdapterTests
     {
         // Assert
         _config.AssertConfigurationIsValid();
+    }
+
+    [Fact]
+    public async Task GetCurrentVersionAsync_ReturnsExpectedValues()
+    {
+        // Assemble
+        var expectedGameVersion = new GameVersion() { Live = "3.17.4", Ptu = "3.18" };
+
+        // Act
+        var actual = await _adapter.GetCurrentVersionAsync();
+
+        // Assert
+        actual.Should().BeEquivalentTo(expectedGameVersion);
     }
 
     [Fact]
@@ -62,7 +67,7 @@ public class UexCorpWebApiClientAdapterTests
     public async Task GetSystemsAsync_FirstObjectHasExpectedValues()
     {
         // Assemble
-        var expectedSystem = new UexCorpDataRunner.Domain.DataRunner.System()
+        var expectedSystem = new UexCorpDataRunner.Domain.DataRunner.StarSystem()
         {
             Name = "Pyro",
             Code = "PY",

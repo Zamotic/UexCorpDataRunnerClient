@@ -2,10 +2,10 @@
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
-public class VersionDto
+public class GameVersionDto
 {
     [JsonPropertyName("live")]
-    public string? Live { get; set; }
+    public string Live { get; set; } = string.Empty;
     [JsonPropertyName("ptu")]
     public string? Ptu { get; set; }
 }

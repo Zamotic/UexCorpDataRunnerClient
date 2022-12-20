@@ -9,17 +9,44 @@ public class UexCacheDataService : UexDataService
         : base(webApiClientAdapter)
     {
     }
-
-    public override async Task<IReadOnlyCollection<Domain.DataRunner.System>> GetAllSystemsAsync()
+    
+    public override async Task<GameVersion> GetCurrentVersionAsync()
     {
-        IReadOnlyCollection<Domain.DataRunner.System> collection;
-        var type = typeof(Domain.DataRunner.System);
+        GameVersion gameVersion;
+        var type = typeof(GameVersion);
+        if (_cacheDictionary.Keys.Contains(type) == true)
+        {
+            var typeDictionary = _cacheDictionary[type];
+            if (typeDictionary.Keys.Contains(string.Empty) == true)
+            {
+                var returnObject = typeDictionary[string.Empty] as GameVersion;
+                if (returnObject is not null)
+                {
+                    return returnObject;
+                }
+            }
+
+            gameVersion = await base.GetCurrentVersionAsync();
+            typeDictionary.Add(string.Empty, gameVersion);
+        }
+
+        gameVersion = await base.GetCurrentVersionAsync();
+        var collectionDictionary = new Dictionary<string, dynamic>();
+        collectionDictionary.Add(string.Empty, gameVersion);
+        _cacheDictionary.Add(type, collectionDictionary);
+        return gameVersion;
+    }
+
+    public override async Task<IReadOnlyCollection<StarSystem>> GetAllSystemsAsync()
+    {
+        IReadOnlyCollection<StarSystem> collection;
+        var type = typeof(StarSystem);
         if (_cacheDictionary.Keys.Contains(type) == true)
         {
             var typeDictionary = _cacheDictionary[type];
             if(typeDictionary.Keys.Contains(string.Empty) == true)
             {
-                var returnCollection = typeDictionary[string.Empty] as IReadOnlyCollection<Domain.DataRunner.System>;
+                var returnCollection = typeDictionary[string.Empty] as IReadOnlyCollection<Domain.DataRunner.StarSystem>;
                 if(returnCollection is not null)
                 {
                     return returnCollection;

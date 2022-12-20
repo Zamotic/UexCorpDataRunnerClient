@@ -11,17 +11,17 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
         var dateAdded = new DateTimeOffset(2020, 12, 25, 23, 25, 15, TimeSpan.FromHours(3));
         var dateModified = new DateTimeOffset(2022, 06, 04, 20, 00, 06, TimeSpan.FromHours(3));
 
-        VersionDto versionList = new VersionDto()
+        GameVersionDto versionList = new GameVersionDto()
             {
                 Live = "3.17.4",
-                Ptu = "3.18.0"
+                Ptu = "3.18"
             };
-        this.Setup(s => s.GetVersionsAsync()).Returns(Task.FromResult(versionList));
+        this.Setup(s => s.GetCurrentVersionAsync()).Returns(Task.FromResult(versionList));
 
-        ICollection<SystemDto> systemDtoList = new List<SystemDto>()
+        ICollection<StarSystemDto> systemDtoList = new List<StarSystemDto>()
             {
-                new SystemDto() { Name = "Pyro", Code = "PY", IsAvailable = false, IsDefault = false, DateAdded = dateAdded, DateModified = DateTime.MinValue },
-                new SystemDto() { Name = "Stanton", Code = "ST", IsAvailable = true, IsDefault = true, DateAdded = dateAdded, DateModified = DateTime.MinValue }
+                new StarSystemDto() { Name = "Pyro", Code = "PY", IsAvailable = false, IsDefault = false, DateAdded = dateAdded, DateModified = DateTime.MinValue },
+                new StarSystemDto() { Name = "Stanton", Code = "ST", IsAvailable = true, IsDefault = true, DateAdded = dateAdded, DateModified = DateTime.MinValue }
             };
         this.Setup(s => s.GetSystemsAsync()).Returns(Task.FromResult(systemDtoList));
 
@@ -104,12 +104,12 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
         this.Setup(s => s.SubmitPriceReportAsync(It.IsAny<PriceReportDto>())).Returns(Task.FromResult(SubmitPriceReportResponse));
     }
 
-    public async Task<VersionDto> GetVersionsAsync()
+    public async Task<GameVersionDto> GetCurrentVersionAsync()
     {
-        return await this.Object.GetVersionsAsync();
+        return await this.Object.GetCurrentVersionAsync();
     }
 
-    public async Task<ICollection<SystemDto>> GetSystemsAsync()
+    public async Task<ICollection<StarSystemDto>> GetSystemsAsync()
     {
         return await this.Object.GetSystemsAsync();
     }

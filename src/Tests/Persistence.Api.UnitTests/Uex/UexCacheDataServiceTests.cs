@@ -33,18 +33,18 @@ public class UexCacheDataServiceTests
         DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 26, 2, 25, 15, TimeSpan.Zero);
         DateTimeOffset _dateModified = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
 
-        _mockWebApiClientAdapter.Setup(s => s.GetVersionsAsync()).ReturnsAsync(
-            new Domain.DataRunner.Version()
+        _mockWebApiClientAdapter.Setup(s => s.GetCurrentVersionAsync()).ReturnsAsync(
+            new GameVersion()
             {
                 Live = "3.17.4"
                 ,Ptu = "3.18"
             });
 
         _mockWebApiClientAdapter.Setup(s => s.GetSystemsAsync()).ReturnsAsync(
-            new ReadOnlyCollection<Domain.DataRunner.System>(new List<Domain.DataRunner.System>()
+            new ReadOnlyCollection<Domain.DataRunner.StarSystem>(new List<Domain.DataRunner.StarSystem>()
             {
-                new Domain.DataRunner.System() { Name = "Pyro", Code = "PY", IsAvailable = false, IsDefault = false, DateAdded = _dateAdded, DateModified = _dateModified },
-                new Domain.DataRunner.System() { Name = "Stanton", Code = "ST", IsAvailable = true, IsDefault = true, DateAdded = _dateAdded, DateModified = _dateModified }
+                new Domain.DataRunner.StarSystem() { Name = "Pyro", Code = "PY", IsAvailable = false, IsDefault = false, DateAdded = _dateAdded, DateModified = _dateModified },
+                new Domain.DataRunner.StarSystem() { Name = "Stanton", Code = "ST", IsAvailable = true, IsDefault = true, DateAdded = _dateAdded, DateModified = _dateModified }
             }));
 
         _mockWebApiClientAdapter.Setup(s => s.GetPlanetsAsync(It.Is<string>(x => x.Equals("ST")))).ReturnsAsync(
@@ -153,17 +153,17 @@ public class UexCacheDataServiceTests
     }
 
     [Fact]
-    public async Task GetAllVersionsAsync_ShouldCallWebApiOnce()
+    public async Task GetCurrentVersionAsync_ShouldCallWebApiOnce()
     {
         // Assemble
 
         // Act
-        var actual1 = await _uexCacheDataService.GetAllVersionsAsync();
-        var actual2 = await _uexCacheDataService.GetAllVersionsAsync();
+        var actual1 = await _uexCacheDataService.GetCurrentVersionAsync();
+        var actual2 = await _uexCacheDataService.GetCurrentVersionAsync();
 
         // Assert
         actual1.Should().BeSameAs(actual2);
-        _mockWebApiClientAdapter.Verify(v => v.GetSystemsAsync(), Times.Once());
+        _mockWebApiClientAdapter.Verify(v => v.GetCurrentVersionAsync(), Times.Once());
     }
 
     [Fact]

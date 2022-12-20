@@ -29,14 +29,14 @@ public class UexCropWebApiClientTests
     }
 
     [Fact]
-    public async Task GetVersionsAsync_ShouldHaveExpectedValues()
+    public async Task GetCurrentVersionAsync_ShouldHaveExpectedValues()
     {
         // Assemble
         const string ExpectedLiveValue = "3.17.4";
         const string ExpectedPtuValue = "3.18";
 
         // Act
-        var actual = await _webApiClient.GetVersionsAsync().ConfigureAwait(false);
+        var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);
 
         // Assert
         actual.Should().NotBeNull();
@@ -56,8 +56,8 @@ public class UexCropWebApiClientTests
         actual.Should().HaveCount(2);
     }
 
-    private static ICollection<SystemDto> _ActualGetSystemsAsyncValue = new List<SystemDto>();
-    private async Task<ICollection<SystemDto>> GetActualSystemsAsyncValue()
+    private static ICollection<StarSystemDto> _ActualGetSystemsAsyncValue = new List<StarSystemDto>();
+    private async Task<ICollection<StarSystemDto>> GetActualSystemsAsyncValue()
     {
         if (_ActualGetSystemsAsyncValue.Any() == false)
         {
