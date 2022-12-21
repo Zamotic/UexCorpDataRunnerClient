@@ -61,7 +61,10 @@ public partial class DataRunnerViewModel
         {
             NotificationPanelText = "* Reminder: You are currently loading data for the PTU. *";
             IsNotificationPanelVisible = true;
+            return;
         }
+        NotificationPanelText = string.Empty;
+        IsNotificationPanelVisible = false;
     }
 
     public ICommand HideUserInterfaceCommand => new RelayCommand(HideUserInterfaceCommandExecute);
