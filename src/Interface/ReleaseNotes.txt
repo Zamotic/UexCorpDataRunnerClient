@@ -1,6 +1,7 @@
-﻿Version 1.0.1219.2315
+﻿Version 1.0.1220.2336
 - Added a "Version" selector to the Settings screen (Default is "Live")
 - "Version" is now included in PriceReport postings
+- Added notification textblock at that top of the Data Runner View
 
 Version 1.0.907
 - Updated to new Systems endpoint (star_systems)
