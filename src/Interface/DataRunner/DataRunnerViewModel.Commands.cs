@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
@@ -34,10 +35,32 @@ public partial class DataRunnerViewModel
             SelectedSystem = null;
             _commodityList = await _DataService.GetAllCommoditiesAsync();
             _IsViewModelLoaded = true;
+
+            SetNotificationPanelText();
         }
         catch //(Exception ex)
         {
             ShowSettingsInterfaceCommandExecute();
+        }
+    }
+
+    private void SetNotificationPanelText(string? overrideText = null)
+    {
+        if(string.IsNullOrWhiteSpace(overrideText) == false)
+        {
+            NotificationPanelText = $"* {overrideText} *";
+            IsNotificationPanelVisible = true;
+        }
+
+        if (string.IsNullOrWhiteSpace(_SettingsService?.Settings?.SelectedGameVersion) == true) 
+        {
+            return;
+        }
+
+        if (_SettingsService.Settings.SelectedGameVersion.Equals(GameVersion.PtuValue))
+        {
+            NotificationPanelText = "* Reminder: You are currently loading data for the PTU. *";
+            IsNotificationPanelVisible = true;
         }
     }
 

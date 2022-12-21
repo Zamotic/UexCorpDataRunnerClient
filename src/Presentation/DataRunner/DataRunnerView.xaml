@@ -232,6 +232,31 @@
         </DockPanel.Resources>
         <DockPanel
             DockPanel.Dock="Top">
+            <DockPanel.Style>
+                <Style TargetType="DockPanel">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsNotificationPanelVisible}"
+                            Value="True">
+                            <Setter 
+                                Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
+            <TextBlock
+                DockPanel.Dock="Top"
+                Padding="5"
+                FontWeight="Bold"
+                Height="25"
+                MaxHeight="25"
+                Text="{Binding NotificationPanelText}"
+                HorizontalAlignment="Center"
+                Foreground="{DynamicResource textBoldForegroundBrush}"/>
+        </DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
             <Button
                 DockPanel.Dock="Right"
                 Padding="5"

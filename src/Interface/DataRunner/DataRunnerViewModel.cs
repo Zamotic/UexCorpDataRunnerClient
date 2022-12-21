@@ -29,6 +29,11 @@ public partial class DataRunnerViewModel : ViewModelBase
     private readonly IPriceReportSubmitter _PriceReportSubmitter;
     private readonly ITradeportCommodityBuilder _TradeportCommodityBuilder;
 
+    private bool _IsNotificationPanelVisible = false;
+    public bool IsNotificationPanelVisible { get => _IsNotificationPanelVisible; set => SetProperty(ref _IsNotificationPanelVisible, value); }
+    private string _NotificationPanelText = string.Empty;
+    public string NotificationPanelText { get => _NotificationPanelText; set => SetProperty(ref _NotificationPanelText, value); }
+
     private IReadOnlyCollection<Commodity>? _commodityList;
 
     private IReadOnlyCollection<Domain.DataRunner.StarSystem> _SystemList = new List<Domain.DataRunner.StarSystem>();
@@ -512,7 +517,9 @@ public partial class DataRunnerViewModel : ViewModelBase
             if(notification.ShowTemporaryCommoditiesChanged == true)
             {
                 await UpdateCommoditiesForTradeport(SelectedTradeport?.Code);
-            }    
+            }
+
+            SetNotificationPanelText();
         }
         IsEnabled = true;
     }
