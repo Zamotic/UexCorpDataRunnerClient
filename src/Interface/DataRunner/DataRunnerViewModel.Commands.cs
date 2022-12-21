@@ -63,7 +63,6 @@ public partial class DataRunnerViewModel
             IsNotificationPanelVisible = true;
             return;
         }
-
         NotificationPanelText = string.Empty;
         IsNotificationPanelVisible = false;
     }
