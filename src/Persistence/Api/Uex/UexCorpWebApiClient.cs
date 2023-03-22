@@ -182,6 +182,67 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         return responseObject;
     }
 
+    public async Task<ICollection<UexResponseDto<string>>> SubmitPriceReportsAsync(PriceReportDto[] priceReports)
+    {
+        string endPointValue = $"srm/";
+
+        // Set the full request URI
+        string absolutePath = $"{_WebApiConfiguration.DataRunnerEndpointPath}{endPointValue}";
+        if (absolutePath.EndsWith("/") == false)
+        {
+            absolutePath += "/";
+        }
+
+        string? responseJson = null;
+        using (var content = GetMultipartContent(priceReports))
+        using (HttpResponseMessage response = await _HttpClient.PostAsync(absolutePath, content).ConfigureAwait(false))
+        {
+            //if (response.IsSuccessStatusCode)
+            //{
+            // Parse the response body.
+            responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            //}
+            //else
+            //{
+            //    response.EnsureSuccessStatusCode();
+            //}
+        }
+
+        var responseObject = System.Text.Json.JsonSerializer.Deserialize<ICollection<UexResponseDto<string>>>(responseJson);
+
+        if (responseObject is null)
+        {
+            return new List<UexResponseDto<string>>()
+            {
+                new UexResponseDto<string>()
+                {
+                    Status = "No Response Received",
+                    Code = 400,
+                    Data = "0"
+                }
+            };
+        }
+
+        return responseObject;
+    }
+
+    private MultipartContent GetMultipartContent(PriceReportDto[] priceReports) 
+    { 
+        var multipart = new MultipartContent();
+        foreach(PriceReportDto currentPriceReportDto in priceReports)
+        {
+            var currentContent = currentPriceReportDto.ToFormUrlEncodedContent();
+
+            if(currentContent is null)
+            {
+                continue;
+            }
+
+            multipart.Add(currentContent);
+        }
+        return multipart;
+    }
+
     private Dictionary<string,string> GetPriceReportContent(PriceReportDto priceReport)
     {
         var json = System.Text.Json.JsonSerializer.Serialize(priceReport);

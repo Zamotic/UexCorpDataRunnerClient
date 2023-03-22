@@ -13,8 +13,8 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
 
         GameVersionDto versionList = new GameVersionDto()
             {
-                Live = "3.17.4",
-                Ptu = "3.18"
+                Live = "3.18.0",
+                Ptu = "3.18.1"
             };
         this.Setup(s => s.GetCurrentVersionAsync()).Returns(Task.FromResult(versionList));
 
@@ -147,5 +147,10 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
     public async Task<UexResponseDto<string>> SubmitPriceReportAsync(PriceReportDto priceReport)
     {
         return await this.Object.SubmitPriceReportAsync(priceReport);
+    }
+
+    public async Task<ICollection<UexResponseDto<string>>> SubmitPriceReportsAsync(PriceReportDto[] priceReports)
+    {
+        return await this.Object.SubmitPriceReportsAsync(priceReports);
     }
 }

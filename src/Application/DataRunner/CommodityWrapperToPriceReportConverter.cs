@@ -22,6 +22,7 @@ public class CommodityWrapperToPriceReportConverter : ICommodityWrapperToPriceRe
         priceReport.Operation = GetOperation(commodity);
         priceReport.AccessCode = GetUserAccessCode(_SettingsService);
         priceReport.Version = GetVersion(_SettingsService);
+        priceReport.Scu = GetCurrentScu(commodity);
 
         return priceReport;
     }
@@ -40,6 +41,16 @@ public class CommodityWrapperToPriceReportConverter : ICommodityWrapperToPriceRe
         if(commodity.CurrentPrice.HasValue == true)
         {
             return commodity.CurrentPrice.Value.ToString();
+        }
+
+        return 0.ToString();
+    }
+
+    private string GetCurrentScu(CommodityWrapper commodity)
+    {
+        if(commodity.CurrentScu.HasValue == true)
+        {
+            return commodity.CurrentScu.Value.ToString();
         }
 
         return 0.ToString();

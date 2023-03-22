@@ -32,8 +32,8 @@ public class UexCropWebApiClientTests
     public async Task GetCurrentVersionAsync_ShouldHaveExpectedValues()
     {
         // Assemble
-        const string ExpectedLiveValue = "3.17.4";
-        const string ExpectedPtuValue = "3.18";
+        const string ExpectedLiveValue = "3.18.0";
+        const string ExpectedPtuValue = "3.18.1";
 
         // Act
         var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);
@@ -1353,7 +1353,8 @@ public class UexCropWebApiClientTests
                 Operation = "sell",
                 Price = "1.5",
                 AccessCode = "c5e000",
-                Confirm = false
+                Confirm = false,
+                SCU = "696"
             };
 
             _ActualSubmitPriceReportAsyncValue = await _webApiClient.SubmitPriceReportAsync(reportDto).ConfigureAwait(false);

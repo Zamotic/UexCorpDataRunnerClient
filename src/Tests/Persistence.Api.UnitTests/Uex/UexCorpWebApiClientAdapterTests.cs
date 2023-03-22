@@ -41,8 +41,8 @@ public class UexCorpWebApiClientAdapterTests
     public async Task GetCurrentVersionAsync_ReturnsExpectedValues()
     {
         // Assemble
-        var expectedGameVersion = new GameVersion() { Live = "3.17.4", Ptu = "3.18" };
-
+        var expectedGameVersion = new GameVersion() { Live = "3.18.0", Ptu = "3.18.1" };
+        
         // Act
         var actual = await _adapter.GetCurrentVersionAsync();
 
@@ -362,7 +362,8 @@ public class UexCorpWebApiClientAdapterTests
             Operation = "sell",
             Price = "1.5",
             AccessCode = "c5e000",
-            Confirm = false
+            Confirm = false,
+            Scu = "696"
         };
         var ExpectedUexResponse = new UexCorpDataRunner.Domain.DataRunner.PriceReportResponse()
         {

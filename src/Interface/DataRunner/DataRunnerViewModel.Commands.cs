@@ -180,14 +180,15 @@ public partial class DataRunnerViewModel
         await Task.Delay(500);
         //await Task.Run(async () =>
         //{
-            var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+        //var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+        var responses = await _PriceReportSubmitter.SubmitAllReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
 
-            bool areThereAnyFailures = responses.Any(x => x.Value == false);
+        bool areThereAnyFailures = responses.Any(x => x.Value == false);
 
-            string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
-            _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
+        string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
+        _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
 
-            ClearSelectedTradeportCommandExecute();
+        ClearSelectedTradeportCommandExecute();
         //});
     }
 
