@@ -35,6 +35,10 @@ public partial class DataRunnerViewModel
             SelectedSystem = null;
             _commodityList = await _DataService.GetAllCommoditiesAsync();
             _IsViewModelLoaded = true;
+            if (SystemList.Where(x => x.IsAvailable).Count() == 1)
+            {
+                SelectedSystem = SystemList.Where(x => x.IsAvailable).First();
+            }
 
             SetNotificationPanelText();
         }
