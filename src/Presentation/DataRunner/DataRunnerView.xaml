@@ -188,12 +188,12 @@
                                 Stroke="Black"
                                 Fill="{DynamicResource fieldBackgroundBrush}" />
                             <TextBlock
-                                Text="{Binding CurrentScu, StringFormat='#,#.'}"
+                                Text="SCU"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource textForegroundBrush}" />
                             <uiLibraryControls:ClickSelectTextBox
-                                Text="{Binding CurrentScu, StringFormat='#,#.'}"
+                                Text="{Binding CurrentScu, StringFormat='#,0.'}"
                                 FontWeight="Bold"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center">
