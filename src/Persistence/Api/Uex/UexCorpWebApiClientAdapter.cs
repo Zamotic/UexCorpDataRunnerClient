@@ -98,7 +98,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
             return new PriceReportsResponse();
         }
 
-        ICollection<UexResponseDto<string>> responseDtos = await _WebClient.SubmitPriceReportsAsync(priceReportDtos);
+        UexResponseDto<ICollection<string>> responseDtos = await _WebClient.SubmitPriceReportsAsync(priceReportDtos);
 
         var priceReportsResponse = _Mapper.Map<PriceReportsResponse>(responseDtos);
 

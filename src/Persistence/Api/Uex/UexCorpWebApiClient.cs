@@ -1,4 +1,7 @@
-﻿using UexCorpDataRunner.Persistence.Api.Common;
+﻿using System.Text;
+using System.Text.Json;
+using UexCorpDataRunner.Domain.DataRunner;
+using UexCorpDataRunner.Persistence.Api.Common;
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex;
@@ -182,7 +185,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         return responseObject;
     }
 
-    public async Task<ICollection<UexResponseDto<string>>> SubmitPriceReportsAsync(PriceReportDto[] priceReports)
+    public async Task<UexResponseDto<ICollection<string>>> SubmitPriceReportsAsync(PriceReportDto[] priceReports)
     {
         string endPointValue = $"srm/";
 
@@ -193,8 +196,38 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             absolutePath += "/";
         }
 
+        StringBuilder sb = new StringBuilder();
+        Dictionary<string, string> contentDictionary = new();
+        
+        for (int index = 0; index < priceReports.Length; index++) 
+        {
+            contentDictionary.Add($"commodity[{index}]", priceReports[index].CommodityCode);
+            contentDictionary.Add($"tradeport[{index}]", priceReports[index].TradeportCode);
+            contentDictionary.Add($"operation[{index}]", priceReports[index].Operation);
+            contentDictionary.Add($"price[{index}]", priceReports[index].Price);
+            contentDictionary.Add($"scu[{index}]", priceReports[index].SCU);
+            contentDictionary.Add($"version[{index}]", priceReports[index].Version);
+        }
+        contentDictionary.Add("access_code", priceReports[0].AccessCode);
+        contentDictionary.Add("confirm", priceReports[0].Confirm.ToString());
+        if (priceReports[0].Production == 'Y')
+        {
+            contentDictionary.Add("production", priceReports[0].Production.ToString());
+        }
+
         string? responseJson = null;
-        using (var content = GetMultipartContent(priceReports))
+
+        if(contentDictionary is null)
+        {
+            return new UexResponseDto<ICollection<string>>()
+            {
+                Status = "No Response Received",
+                Code = 400,
+                Data = new List<string>() { "0" }
+            };
+        }
+
+        using (var content = new FormUrlEncodedContent(contentDictionary))
         using (HttpResponseMessage response = await _HttpClient.PostAsync(absolutePath, content).ConfigureAwait(false))
         {
             //if (response.IsSuccessStatusCode)
@@ -208,39 +241,43 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             //}
         }
 
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<ICollection<UexResponseDto<string>>>(responseJson);
+        UexResponseDto<ICollection<string>>? responseObject = null;
+        try
+        {
+            responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<string>>>(responseJson);
+        }
+        catch
+        {
+            try
+            {
+                var responseObjectTemp = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<string>>(responseJson);
+                if(responseObjectTemp is not null) 
+                {
+                    responseObject = new UexResponseDto<ICollection<string>>()
+                    {
+                        Status = responseObjectTemp.Status,
+                        Code = responseObjectTemp.Code,
+                        Data = new List<string>() { string.IsNullOrEmpty(responseObjectTemp.Data) ? string.Empty : responseObjectTemp.Data }
+                    };
+                }
+            }
+            finally
+            {
+
+            }
+        }
 
         if (responseObject is null)
         {
-            return new List<UexResponseDto<string>>()
-            {
-                new UexResponseDto<string>()
+            return new UexResponseDto<ICollection<string>>()
                 {
                     Status = "No Response Received",
                     Code = 400,
-                    Data = "0"
-                }
+                    Data = new List<string>() { "0" }
             };
         }
 
         return responseObject;
-    }
-
-    private MultipartContent GetMultipartContent(PriceReportDto[] priceReports) 
-    { 
-        var multipart = new MultipartContent();
-        foreach(PriceReportDto currentPriceReportDto in priceReports)
-        {
-            var currentContent = currentPriceReportDto.ToFormUrlEncodedContent();
-
-            if(currentContent is null)
-            {
-                continue;
-            }
-
-            multipart.Add(currentContent);
-        }
-        return multipart;
     }
 
     private Dictionary<string,string> GetPriceReportContent(PriceReportDto priceReport)

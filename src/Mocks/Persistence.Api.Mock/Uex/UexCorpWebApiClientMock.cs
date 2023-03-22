@@ -149,7 +149,7 @@ public class UexCorpWebApiClientMock : Mock<IUexCorpWebApiClient>, IUexCorpWebAp
         return await this.Object.SubmitPriceReportAsync(priceReport);
     }
 
-    public async Task<ICollection<UexResponseDto<string>>> SubmitPriceReportsAsync(PriceReportDto[] priceReports)
+    public async Task<UexResponseDto<ICollection<string>>> SubmitPriceReportsAsync(PriceReportDto[] priceReports)
     {
         return await this.Object.SubmitPriceReportsAsync(priceReports);
     }

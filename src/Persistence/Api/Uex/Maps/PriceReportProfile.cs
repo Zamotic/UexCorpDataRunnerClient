@@ -17,16 +17,14 @@ public class PriceReportProfile : Profile
         CreateMap<UexResponseDto<string>, Domain.DataRunner.PriceReportResponse>()
             .ForMember(dest => dest.Response, opt => opt.MapFrom(src => src.Code.Equals(200) ? true : false))
             .ForMember(dest => dest.StatusMessage, opt => opt.MapFrom(src => src.Status));
-        CreateMap<ICollection<UexResponseDto<string>>, Domain.DataRunner.PriceReportsResponse>()
+        CreateMap<UexResponseDto<ICollection<string>>, Domain.DataRunner.PriceReportsResponse>()
             .ConvertUsing((s, _, context) =>
             {
                 return new Domain.DataRunner.PriceReportsResponse()
                 {
-                    ListOfResponses = s.Select(x => new PriceReportResponse()
-                    {
-                        Response = x.Code.Equals(200) ? true : false,
-                        StatusMessage = string.IsNullOrEmpty(x.Status) ? string.Empty : x.Status
-                    }).ToList()
+                    Response = s.Code.Equals(200) ? true : false,
+                    StatusMessage = string.IsNullOrEmpty(s.Status) ? string.Empty : s.Status,
+                    ReturnedDataList = (s?.Data is null) ? new List<string>() : s.Data!.Select(x => x).ToList()
                 };
             });
     }

@@ -2,5 +2,7 @@
 
 public class PriceReportsResponse
 {
-    public List<PriceReportResponse> ListOfResponses { get; set; } = new List<PriceReportResponse>();
+    public bool Response { get; set; }
+    public string StatusMessage { get; set; } = string.Empty;
+    public List<string> ReturnedDataList { get; set; } = new List<string>();
 }

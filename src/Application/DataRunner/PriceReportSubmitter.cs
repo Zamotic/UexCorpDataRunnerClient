@@ -60,13 +60,13 @@ public class PriceReportSubmitter : IPriceReportSubmitter
 
         var commoditiesToSubmit = commodities.Where(x => x.MarkedForSubmittal).OrderBy(x => x.Operation).ThenBy(x => x.Name).ToArray();
 
-        List<PriceReport> priceReportsToSubmit = commodities.Select(x => _converter.Convert(x, tradeportCode)).ToList();
+        List<PriceReport> priceReportsToSubmit = commoditiesToSubmit.Select(x => _converter.Convert(x, tradeportCode)).ToList();
 
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"Uploading {priceReportsToSubmit.Count} the following reports:");
         foreach(CommodityWrapper commodity in commoditiesToSubmit)
         {
-            sb.AppendLine($"[{commodity.Kind}] {commodity.Name} ({commodity.Code}) at {commodity.CurrentPrice}...");
+            sb.AppendLine($"[{commodity.Operation}] {commodity.Name} ({commodity.Code}) at {commodity.CurrentPrice}...");
         }
 
         statusBufferQueue.Enqueue(sb.ToString());
@@ -80,10 +80,10 @@ public class PriceReportSubmitter : IPriceReportSubmitter
             statusBufferQueue.Enqueue("No Response Received");
             return new Dictionary<string, bool>();
         }
-        if(response.ListOfResponses.Any(x => x.Response == false) == true)
+        if(response.Response == false)
         {
             statusBufferQueue.Enqueue("Failed!\n");
-            statusBufferQueue.Enqueue(response.ListOfResponses.Where(x => x.Response == false).First().StatusMessage);
+            statusBufferQueue.Enqueue($"{response.ReturnedDataList.Count} out of {commoditiesToSubmit.Length} successfully saved.");
             return new Dictionary<string, bool>();
         }
             

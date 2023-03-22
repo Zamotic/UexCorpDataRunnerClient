@@ -25,7 +25,7 @@ public class PriceReportDto
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool Confirm { get; set; } = false;
     [JsonPropertyName("production")]
-    public char Production { get; set; } = 'N';
+    public char Production { get; set; } = 'Y';
     [JsonPropertyName("scu")]
     public string SCU { get; set; } = string.Empty;
 }
