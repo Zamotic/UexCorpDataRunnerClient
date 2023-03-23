@@ -82,7 +82,7 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
     }
     private string GetVersionsJsonResponse()
     {
-        return "{\"status\":\"ok\",\"code\":200,\"data\":{\"live\":\"3.17.4\",\"ptu\": \"3.18\"}}";
+        return "{\"status\":\"ok\",\"code\":200,\"data\":{\"live\":\"3.18.0\",\"ptu\": \"3.18.1\"}}";
     }
 
     private string GetSystemsJsonResponse()

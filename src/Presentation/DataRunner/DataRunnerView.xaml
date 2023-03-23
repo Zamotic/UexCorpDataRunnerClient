@@ -24,6 +24,11 @@
     <UserControl.Resources>
         <Thickness x:Key="tabControlBorderThickness">0</Thickness>
         <system:Double x:Key="itemsControlWidth">382</system:Double>
+        <GridLength x:Key="newPriceColumnWidth">80</GridLength>
+        <GridLength x:Key="minPriceColumnWidth">80</GridLength>
+        <GridLength x:Key="maxPriceColumnWidth">80</GridLength>
+        <GridLength x:Key="scuColumnWidth">80</GridLength>
+        <GridLength x:Key="submitColumnWidth">70</GridLength>
         <Style x:Key="Style-TabControl-Main" TargetType="{x:Type TabControl}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Template">
@@ -72,12 +77,22 @@
                     Margin="2,4,0,1"
                     FontWeight="Bold"
                     Foreground="{DynamicResource textBoldForegroundBrush}"/>
-                <UniformGrid
+                <Grid
                     DockPanel.Dock="Top"
-                    Rows="1"
-                    Columns="4"
                     Height="{StaticResource itemsControlGridHeight}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
+                        <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                        <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
+                        <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
+                        <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
+                    </Grid.ColumnDefinitions>
                     <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
                         Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
@@ -161,6 +176,92 @@
                         </Grid>
                     </Border>
                     <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Padding="{StaticResource itemsControlBorderPadding}"
+                        BorderThickness=".25"
+                        BorderBrush="{DynamicResource gridBorderBrush}">
+                        <Grid>
+                            <Rectangle
+                                Margin="0,0,0,-2"
+                                StrokeThickness="0,0,0,0"
+                                Stroke="Black"
+                                Fill="{DynamicResource fieldBackgroundBrush}" />
+                            <TextBlock
+                                Text="SCU"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource textForegroundBrush}" />
+                            <uiLibraryControls:ClickSelectTextBox
+                                Text="{Binding CurrentScu, StringFormat='#,0.'}"
+                                FontWeight="Bold"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center">
+                                <uiLibraryControls:ClickSelectTextBox.Style>
+                                    <Style
+                                        TargetType="uiLibraryControls:ClickSelectTextBox">
+                                        <Setter Property="BorderBrush" Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter Property="Background" Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter Property="Foreground" Value="{DynamicResource textBoldForegroundBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding CurrentScu}"
+                                                Value="{x:Null}">
+                                                <Setter
+                                                    Property="Background"
+                                                    Value="Transparent" />
+                                                <Setter
+                                                    Property="BorderBrush"
+                                                    Value="Transparent"/>
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding IsScuWithinTolerance}"
+                                                Value="True">
+                                                <Setter
+                                                    Property="Background"
+                                                    Value="{DynamicResource acceptableBackgroundBrush}" />
+                                                <Setter
+                                                    Property="BorderBrush"
+                                                    Value="{DynamicResource acceptableBackgroundBrush}"/>
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource enteredForegroundBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding IsScuWithinTolerance}"
+                                                Value="False">
+                                                <Setter
+                                                    Property="Background"
+                                                    Value="{DynamicResource unacceptableBackgroundBrush}" />
+                                                <Setter
+                                                    Property="BorderBrush"
+                                                    Value="{DynamicResource unacceptableBackgroundBrush}"/>
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource enteredForegroundBrush}" />
+                                            </DataTrigger>
+                                            <Trigger
+                                                Property="IsFocused"
+                                                Value="True">
+                                                <Setter
+                                                    Property="Background"
+                                                    Value="{DynamicResource fieldBackgroundBrush}" />
+                                                <Setter
+                                                    Property="BorderBrush"
+                                                    Value="{DynamicResource fieldBackgroundBrush}" />
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource textBoldForegroundBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </uiLibraryControls:ClickSelectTextBox.Style>
+                            </uiLibraryControls:ClickSelectTextBox>
+                        </Grid>
+                    </Border>
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="2"
                         Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
@@ -186,6 +287,8 @@
                         </Grid>
                     </Border>
                     <Border
+                        Grid.Row="0"
+                        Grid.Column="3"
                         Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
@@ -205,6 +308,8 @@
                         </Grid>
                     </Border>
                     <Border
+                        Grid.Row="0"
+                        Grid.Column="4"
                         Padding="{StaticResource itemsControlBorderPadding}"
                         BorderThickness=".25"
                         BorderBrush="{DynamicResource gridBorderBrush}">
@@ -219,7 +324,7 @@
                                 Foreground="{DynamicResource textForegroundBrush}" />
                         </Grid>
                     </Border>
-                </UniformGrid>
+                </Grid>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -472,13 +577,23 @@
                     Header="Buy Price">
                     <DockPanel
                         Background="{DynamicResource primaryControlBackgroundBrush}">
-                        <UniformGrid
+                        <Grid
                             Margin="0,0,16,0"
                             DockPanel.Dock="Top"
-                            Rows="1"
-                            Columns="4"
                             Height="25">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
+                            </Grid.ColumnDefinitions>
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
                                 Padding="2"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -489,7 +604,9 @@
                                     Background="Transparent"
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
-                            <!--<Border
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="1"
                                 Padding="2"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -499,8 +616,10 @@
                                     VerticalAlignment="Center"
                                     Background="Transparent"
                                     Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>-->
+                            </Border>
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="2"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -512,6 +631,8 @@
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="3"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -534,6 +655,8 @@
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>-->
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="4"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -544,7 +667,7 @@
                                     Background="Transparent"
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
-                        </UniformGrid>
+                        </Grid>
                         <ScrollViewer
                             DockPanel.Dock="Top"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -582,13 +705,23 @@
                     Header="Sell Price">
                     <DockPanel
                         Background="{DynamicResource primaryControlBackgroundBrush}">
-                        <UniformGrid
+                        <Grid
                             Margin="0,0,16,0"
                             DockPanel.Dock="Top"
-                            Rows="1"
-                            Columns="4"
                             Height="25">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
+                            </Grid.ColumnDefinitions>
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
                                 Padding="2"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -600,6 +733,21 @@
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Supply"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="2"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -611,6 +759,8 @@
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="3"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -622,6 +772,8 @@
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
                             <Border
+                                Grid.Row="0"
+                                Grid.Column="4"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -632,7 +784,7 @@
                                     Background="Transparent"
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
-                        </UniformGrid>
+                        </Grid>
                         <ScrollViewer
                             DockPanel.Dock="Top"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">

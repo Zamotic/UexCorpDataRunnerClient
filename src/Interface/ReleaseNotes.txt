@@ -1,4 +1,9 @@
-﻿Version 1.0.1220.2336
+﻿Version 1.0.2303.2221
+- Added SCU area to add the available SCU for buy or sell orders
+- Automatically selected "Stanton" when no other systems are available
+- Added a path to submit multiple price reports at a time (Disabled)
+
+Version 1.0.1220.2336
 - Added a "Version" selector to the Settings screen (Default is "Live")
 - "Version" is now included in PriceReport postings
 - Added notification textblock at that top of the Data Runner View

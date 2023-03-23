@@ -48,6 +48,18 @@ public class CommodityWrapper : ObservableObject
         }
     }
 
+    private int? _currentScu = null;
+    public int? CurrentScu
+    {
+        get => _currentScu;
+        set
+        {
+            SetProperty(ref _currentScu, value);
+            ValidateScuIsWithinTolerances();
+            SetMarkForSubmittalValue();
+        }
+    }
+
     public decimal MinPrice { get => _commodity.BuyPrice; }
     public decimal MaxPrice { get => _commodity.SellPrice; }
 
@@ -56,6 +68,13 @@ public class CommodityWrapper : ObservableObject
     {
         get => _IsPriceWithinTolerance;
         set => SetProperty(ref _IsPriceWithinTolerance, value);
+    }
+
+    public bool? _IsScuWithinTolerance = null;
+    public bool? IsScuWithinTolerance
+    {
+        get => _IsScuWithinTolerance;
+        set => SetProperty(ref _IsScuWithinTolerance, value);
     }
 
     public bool _MarkedForSubmittal = false;
@@ -101,6 +120,31 @@ public class CommodityWrapper : ObservableObject
         }
 
         IsPriceWithinTolerance = true;
+    }
+
+    private void ValidateScuIsWithinTolerances()
+    {
+        if (CurrentScu is null)
+        {
+            IsScuWithinTolerance = null;
+            return;
+        }
+
+        int minimumTolerance = 0;
+        int maximumTolerance = int.MaxValue;
+
+        if (CurrentScu.Value.IsLessThan(minimumTolerance) == true)
+        {
+            IsScuWithinTolerance = false;
+            return;
+        }
+        if (CurrentScu.Value.IsGreaterThan(maximumTolerance) == true)
+        {
+            IsScuWithinTolerance = false;
+            return;
+        }
+
+        IsScuWithinTolerance = true;
     }
     private void SetMarkForSubmittalValue()
     {

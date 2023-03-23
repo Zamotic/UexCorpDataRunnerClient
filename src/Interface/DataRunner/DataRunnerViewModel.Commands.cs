@@ -35,6 +35,10 @@ public partial class DataRunnerViewModel
             SelectedSystem = null;
             _commodityList = await _DataService.GetAllCommoditiesAsync();
             _IsViewModelLoaded = true;
+            if (SystemList.Where(x => x.IsAvailable).Count() == 1)
+            {
+                SelectedSystem = SystemList.Where(x => x.IsAvailable).First();
+            }
 
             SetNotificationPanelText();
         }
@@ -167,6 +171,7 @@ public partial class DataRunnerViewModel
         return true;
     }
 
+    bool _UseMultipleReportSubmission = false;
     private async Task SubmitCommoditiesCommandExecute()
     {
         if(SelectedTradeport is null)
@@ -178,17 +183,26 @@ public partial class DataRunnerViewModel
         _Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
 
         await Task.Delay(500);
-        //await Task.Run(async () =>
-        //{
-            var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
 
-            bool areThereAnyFailures = responses.Any(x => x.Value == false);
+        if(_UseMultipleReportSubmission)
+        {
+            var multiResponse = await _PriceReportSubmitter.SubmitAllReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+            bool multiAreThereAnyFailures = multiResponse.Any(x => x.Value == false);
 
-            string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
-            _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
+            string multiResponseMessage = $"Transmission Summary: {multiResponse.Count(x => x.Value == true)} Succeeded, {multiResponse.Count(x => x.Value == false)} Failed";
+            _Messenger.Send(new TransmissionStatusCompleteMessage(multiResponseMessage, !multiAreThereAnyFailures));
 
             ClearSelectedTradeportCommandExecute();
-        //});
+        }
+
+        var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+
+        bool areThereAnyFailures = responses.Any(x => x.Value == false);
+
+        string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
+        _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
+
+        ClearSelectedTradeportCommandExecute();
     }
 
     public void ClearCommodities()

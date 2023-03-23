@@ -63,4 +63,9 @@ public class UexDataService : IUexDataService
         var response = await _WebClientAdapter.SubmitPriceReportAsync(priceReport);
         return response;
     }
+    public virtual async Task<PriceReportsResponse> SubmitPriceReportsAsync(PriceReport[] priceReports)
+    {
+        var response = await _WebClientAdapter.SubmitPriceReportsAsync(priceReports);
+        return response;
+    }
 }

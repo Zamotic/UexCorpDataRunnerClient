@@ -9,4 +9,5 @@ public class PriceReport
     public string AccessCode { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public bool Confirm { get; set; }
+    public string Scu { get; set; } = string.Empty;
 }

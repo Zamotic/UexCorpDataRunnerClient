@@ -26,5 +26,6 @@ public class PriceReportDto
     public bool Confirm { get; set; } = false;
     [JsonPropertyName("production")]
     public char Production { get; set; } = 'Y';
-
+    [JsonPropertyName("scu")]
+    public string SCU { get; set; } = string.Empty;
 }

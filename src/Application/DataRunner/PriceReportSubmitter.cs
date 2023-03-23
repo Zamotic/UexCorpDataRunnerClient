@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Text;
 using UexCorpDataRunner.Application.DataRunner;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Domain.Services;
@@ -46,5 +47,55 @@ public class PriceReportSubmitter : IPriceReportSubmitter
         }
 
         return responses;
+    }
+
+    public async Task<Dictionary<string, bool>> SubmitAllReports(IEnumerable<CommodityWrapper> commodities, string tradeportCode, ConcurrentQueue<string> statusBufferQueue)
+    {
+        Dictionary<string, bool> responses = new Dictionary<string, bool>();
+
+        if(commodities.Any(x => x.MarkedForSubmittal) == false)
+        {
+            return new Dictionary<string, bool>();
+        }
+
+        var commoditiesToSubmit = commodities.Where(x => x.MarkedForSubmittal).OrderBy(x => x.Operation).ThenBy(x => x.Name).ToArray();
+
+        List<PriceReport> priceReportsToSubmit = commoditiesToSubmit.Select(x => _converter.Convert(x, tradeportCode)).ToList();
+
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"Uploading {priceReportsToSubmit.Count} the following reports:");
+        foreach(CommodityWrapper commodity in commoditiesToSubmit)
+        {
+            sb.AppendLine($"[{commodity.Operation}] {commodity.Name} ({commodity.Code}) at {commodity.CurrentPrice}...");
+        }
+
+        statusBufferQueue.Enqueue(sb.ToString());
+        statusBufferQueue.Enqueue("Sending...");
+
+        var response = await _uexDataService.SubmitPriceReportsAsync(priceReportsToSubmit.ToArray()).ConfigureAwait(false);
+
+        string responseLine;
+        if (response is null)
+        {
+            statusBufferQueue.Enqueue("No Response Received");
+            return new Dictionary<string, bool>();
+        }
+        if(response.Response == false)
+        {
+            statusBufferQueue.Enqueue("Failed!\n");
+            statusBufferQueue.Enqueue($"{response.ReturnedDataList.Count} out of {commoditiesToSubmit.Length} successfully saved.");
+            return new Dictionary<string, bool>();
+        }
+            
+        responseLine = $"Success!\n";
+        statusBufferQueue.Enqueue(responseLine);
+        return new Dictionary<string, bool>(commoditiesToSubmit.Select(x => new KeyValuePair<string, bool>(x.Code, true)));        
+
+        //    responseLine = $"Failed!\nReason: {response.StatusMessage.Replace("_", " ")}\n";
+        //    statusBufferQueue.Enqueue(responseLine);
+        //    responses.Add(commodity.Code, false);
+        //}
+
+        //return responses;
     }
 }
