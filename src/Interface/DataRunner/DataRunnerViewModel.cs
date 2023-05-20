@@ -430,14 +430,16 @@ public partial class DataRunnerViewModel : ViewModelBase
             {
                 targetBuyCVS.Source = Commodities;
                 targetBuyCVS.SortDescriptions.Clear();
-                targetBuyCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+                //targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Kind), ListSortDirection.Ascending));
+                targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Name), ListSortDirection.Ascending));
             }
 
             if (targetBuyCVS.Source is null)
             {
                 targetBuyCVS.Source = TradeportList;
                 targetBuyCVS.SortDescriptions.Clear();
-                targetBuyCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+                //targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Kind), ListSortDirection.Ascending));
+                targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Name), ListSortDirection.Ascending));
             }
 
             targetBuyCVS.Filter += (s, e) =>
