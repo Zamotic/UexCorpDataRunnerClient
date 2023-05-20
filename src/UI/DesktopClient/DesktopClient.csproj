@@ -8,7 +8,7 @@
 	<AssemblyName>UexCorpDataRunner</AssemblyName>
 	<RootNamespace>UexCorpDataRunner.DesktopClient</RootNamespace>
 	<StartupObject>UexCorpDataRunner.DesktopClient.App</StartupObject>
-	<Version>1.0.2303.2221</Version>
+	<Version>1.0.2305.2000</Version>
 	<ApplicationIcon>Images\uexlogo.ico</ApplicationIcon>
   </PropertyGroup>
 

@@ -1,4 +1,10 @@
-﻿Version 1.0.2303.2221
+﻿Version 1.0.2305.2000
+- Fixed numeric formating due to site change to cSCU values
+- Add thousands separator and reduced fixed point of values
+(Reminder: There is a setting to display temporary commodities
+that is useful during invictus!)
+
+Version 1.0.2303.2221
 - Added SCU area to add the available SCU for buy or sell orders
 - Automatically selected "Stanton" when no other systems are available
 - Added a path to submit multiple price reports at a time (Disabled)
