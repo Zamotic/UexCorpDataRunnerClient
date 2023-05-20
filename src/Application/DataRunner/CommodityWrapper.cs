@@ -38,10 +38,10 @@ public class CommodityWrapper : ObservableObject
         get => _currentPrice;
         set
         {
-            if(value % 1 == 0)
-            {
-                value = value / 100;
-            }
+            //if(value % 1 == 0)
+            //{
+            //    value = value;
+            //}
             SetProperty(ref _currentPrice, value);
             ValidatePriceIsWithinTolerances();
             SetMarkForSubmittalValue();
