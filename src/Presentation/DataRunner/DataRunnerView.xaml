@@ -22,6 +22,7 @@
         </Behaviors:EventTrigger>
     </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
+        <system:String x:Key="numberFormat">#,0.#</system:String>
         <Thickness x:Key="tabControlBorderThickness">0</Thickness>
         <system:Double x:Key="itemsControlWidth">382</system:Double>
         <GridLength x:Key="newPriceColumnWidth">80</GridLength>
@@ -103,12 +104,12 @@
                                 Stroke="Black"
                                 Fill="{DynamicResource fieldBackgroundBrush}" />
                             <TextBlock
-                                Text="{Binding ListedPrice, StringFormat=F2}"
+                                Text="{Binding ListedPrice, StringFormat={StaticResource numberFormat}}"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource textForegroundBrush}" />
                             <uiLibraryControls:ClickSelectTextBox
-                                Text="{Binding CurrentPrice, StringFormat=F2}"
+                                Text="{Binding CurrentPrice, StringFormat={StaticResource numberFormat}}"
                                 FontWeight="Bold"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
@@ -193,7 +194,7 @@
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource textForegroundBrush}" />
                             <uiLibraryControls:ClickSelectTextBox
-                                Text="{Binding CurrentScu, StringFormat='#,0.'}"
+                                Text="{Binding CurrentScu, StringFormat={StaticResource numberFormat}}"
                                 FontWeight="Bold"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center">
