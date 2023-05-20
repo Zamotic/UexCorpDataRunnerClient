@@ -269,7 +269,7 @@
                         <Grid>
                             <TextBlock
                                 DockPanel.Dock="Right"
-                                Text="{Binding MinPrice, StringFormat=F2, FallbackValue=0.0}"
+                                Text="{Binding MinPrice, StringFormat={StaticResource numberFormat}, FallbackValue=0.0}"
                                 Margin="15,0,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -295,7 +295,7 @@
                         BorderBrush="{DynamicResource gridBorderBrush}">
                         <Grid>
                             <TextBlock
-                                Text="{Binding MaxPrice, StringFormat=F2, FallbackValue=0.0}"
+                                Text="{Binding MaxPrice, StringFormat={StaticResource numberFormat}, FallbackValue=0.0}"
                                 Margin="15,0,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
