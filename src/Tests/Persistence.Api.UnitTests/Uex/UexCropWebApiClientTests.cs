@@ -975,7 +975,7 @@ public class UexCropWebApiClientTests
 
 
     [Fact]
-    public async Task GetCommoditiesAsync_ShouldHaveExpectedCountOf69()
+    public async Task GetCommoditiesAsync_ShouldHaveExpectedCountOf80()
     {
         // Assemble
 
@@ -983,7 +983,7 @@ public class UexCropWebApiClientTests
         var actual = await _webApiClient.GetCommoditiesAsync().ConfigureAwait(false);
 
         // Assert
-        actual.Should().HaveCount(69);
+        actual.Should().HaveCount(80);
     }
 
     [Fact]
@@ -1035,7 +1035,7 @@ public class UexCropWebApiClientTests
     public async Task GetCommoditiesAsync_ShouldHaveExpectedBuyPrice()
     {
         // Assemble
-        const decimal ExpectedValue = 1.01m;
+        const decimal ExpectedValue = 100m;
 
         // Act
         var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
@@ -1050,7 +1050,7 @@ public class UexCropWebApiClientTests
     public async Task GetCommoditiesAsync_ShouldHaveExpectedSellPrice()
     {
         // Assemble
-        const decimal ExpectedValue = 1.21m;
+        const decimal ExpectedValue = 120m;
 
         // Act
         var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
@@ -1080,7 +1080,7 @@ public class UexCropWebApiClientTests
     public async Task GetCommoditiesAsync_ShouldHaveDateModified()
     {
         // Assemble
-        DateTimeOffset ExpectedValue = new DateTimeOffset(2022, 07, 02, 00, 00, 11, TimeSpan.Zero);
+        DateTimeOffset ExpectedValue = new DateTimeOffset(2023, 05, 20, 03, 00, 27, TimeSpan.Zero);
 
         // Act
         var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
@@ -1330,7 +1330,7 @@ public class UexCropWebApiClientTests
     public async Task GetTradeportAsync_ShouldHaveExpectedDateModified()
     {
         // Assemble
-        DateTimeOffset ExpectedValue = new DateTimeOffset(2022, 6, 7, 20, 0, 22, TimeSpan.Zero);
+        DateTimeOffset ExpectedValue = new DateTimeOffset(2023, 5, 19, 19, 0, 30, TimeSpan.Zero);
 
         // Act
         var actual = await GetActualTradeportAsyncValue().ConfigureAwait(false);
