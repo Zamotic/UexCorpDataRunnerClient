@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Application.Settings;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
@@ -56,7 +54,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _Messenger.Register<TransmissionStatusCompleteMessage>(this, TransmissionStatusCompleteMessageHandler);
     }
 
-    public ICommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
+    public IRelayCommand CloseTransmissionStatusViewCommand { get => new RelayCommand(CloseTransmissionStatusViewCommandExecute, CloseTransmissionStatusViewCommandCanExecute); }
     private bool CloseTransmissionStatusViewCommandCanExecute()
     {
         if(IsTransmissionInProgress == true)
@@ -72,7 +70,7 @@ public class TransmissionStatusViewModel : ViewModelBase
         _Messenger.Send(new CloseTransmissionStatusMessage());
     }
 
-    public ICommand CancelCurrentDataTransmissionCommand { get => new RelayCommand(CancelCurrentDataTransmissionCommandExecute, CancelCurrentDataTransmissionCommandCanExecute); }
+    public IRelayCommand CancelCurrentDataTransmissionCommand { get => new RelayCommand(CancelCurrentDataTransmissionCommandExecute, CancelCurrentDataTransmissionCommandCanExecute); }
     private bool CancelCurrentDataTransmissionCommandCanExecute()
     {
         if (IsTransmissionInProgress == true)

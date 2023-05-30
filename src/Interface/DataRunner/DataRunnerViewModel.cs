@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using UexCorpDataRunner.Application.Common;
-using UexCorpDataRunner.Interface.MessengerMessages;
-using UexCorpDataRunner.Domain.Services;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
-using UexCorpDataRunner.Domain.DataRunner;
-using System.Windows.Data;
+using System.ComponentModel;
+using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Application.DataRunner;
-using System.Windows.Controls;
-using UexCorpDataRunner.Application;
-using UexCorpDataRunner.Domain;
+using UexCorpDataRunner.Domain.DataRunner;
+using UexCorpDataRunner.Domain.Services;
+using UexCorpDataRunner.Interface.MessengerMessages;
 
 namespace UexCorpDataRunner.Interface.DataRunner;
 
@@ -43,57 +31,57 @@ public partial class DataRunnerViewModel : ViewModelBase
         set
         {
             SetProperty(ref _SystemList, value);
-            SetSystemListCVS(true);
+            //SetSystemListCVS(true);
         }
     }
 
-    private readonly CollectionViewSource _SystemListCVS = new CollectionViewSource();
-    public ICollectionView SystemListCVS
-    {
-        get
-        {
-            return _SystemListCVS.View;
-        }
-    }
-    private void SetSystemListCVS(bool resetSource = false)
-    {
-        var targetCVS = _SystemListCVS;
-        if (targetCVS is null)
-        {
-            return;
-        }
+    //private readonly CollectionViewSource _SystemListCVS = new CollectionViewSource();
+    //public ICollectionView SystemListCVS
+    //{
+    //    get
+    //    {
+    //        return _SystemListCVS.View;
+    //    }
+    //}
+    //private void SetSystemListCVS(bool resetSource = false)
+    //{
+    //    var targetCVS = _SystemListCVS;
+    //    if (targetCVS is null)
+    //    {
+    //        return;
+    //    }
 
-        using (targetCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetCVS.Source = SystemList;
+    //    using (targetCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetCVS.Source = SystemList;
 
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            if (targetCVS.Source is null)
-            {
-                targetCVS.Source = SystemList;
+    //        if (targetCVS.Source is null)
+    //        {
+    //            targetCVS.Source = SystemList;
 
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            targetCVS.Filter += (s, e) =>
-            {
-                Domain.DataRunner.StarSystem? system = e.Item as Domain.DataRunner.StarSystem;
-                if (system is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = system.IsAvailable;
-            };
-        }
-        OnPropertyChanged(nameof(SystemListCVS));
-    }
+    //        targetCVS.Filter += (s, e) =>
+    //        {
+    //            Domain.DataRunner.StarSystem? system = e.Item as Domain.DataRunner.StarSystem;
+    //            if (system is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = system.IsAvailable;
+    //        };
+    //    }
+    //    OnPropertyChanged(nameof(SystemListCVS));
+    //}
 
     private Domain.DataRunner.StarSystem? _SelectedSystem = null;
     public Domain.DataRunner.StarSystem? SelectedSystem
@@ -110,7 +98,7 @@ public partial class DataRunnerViewModel : ViewModelBase
     }
 
     private IReadOnlyCollection<Planet> _PlanetList = new List<Planet>();
-    private IReadOnlyCollection<Planet> PlanetList
+    public IReadOnlyCollection<Planet> PlanetList
     {
         get => _PlanetList;
         set
@@ -119,67 +107,67 @@ public partial class DataRunnerViewModel : ViewModelBase
         }
     }
 
-    private readonly CollectionViewSource _PlanetListCVS = new CollectionViewSource();
-    public ICollectionView PlanetListCVS
-    {
-        get
-        {
-            return _PlanetListCVS.View;
-        }
-    }
-    private void SetPlanetListCVS(bool resetSource = false)
-    {
-        var targetCVS = _PlanetListCVS;
-        if (targetCVS is null)
-        {
-            return;
-        }
+    //private readonly CollectionViewSource _PlanetListCVS = new CollectionViewSource();
+    //public ICollectionView PlanetListCVS
+    //{
+    //    get
+    //    {
+    //        return _PlanetListCVS.View;
+    //    }
+    //}
+    //private void SetPlanetListCVS(bool resetSource = false)
+    //{
+    //    var targetCVS = _PlanetListCVS;
+    //    if (targetCVS is null)
+    //    {
+    //        return;
+    //    }
 
-        using (targetCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetCVS.Source = PlanetList;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //    using (targetCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetCVS.Source = PlanetList;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            if (targetCVS.Source is null)
-            {
-                targetCVS.Source = PlanetList;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //        if (targetCVS.Source is null)
+    //        {
+    //            targetCVS.Source = PlanetList;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            targetCVS.Filter += (s, e) =>
-            {
-                Planet? planet = e.Item as Planet;
-                if (planet is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                if (SelectedSystem is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                if (planet.System is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                if (planet.IsAvailable is false)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = planet.System.Equals(SelectedSystem.Code);
-            };
+    //        targetCVS.Filter += (s, e) =>
+    //        {
+    //            Planet? planet = e.Item as Planet;
+    //            if (planet is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            if (SelectedSystem is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            if (planet.System is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            if (planet.IsAvailable is false)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = planet.System.Equals(SelectedSystem.Code);
+    //        };
 
-        }
-        OnPropertyChanged(nameof(PlanetListCVS));
-    }
+    //    }
+    //    OnPropertyChanged(nameof(PlanetListCVS));
+    //}
 
     private Planet? _SelectedPlanet = null;
     public Planet? SelectedPlanet
@@ -188,79 +176,79 @@ public partial class DataRunnerViewModel : ViewModelBase
         set
         {
             SetProperty(ref _SelectedPlanet, value);
-            SetSatelliteListCVS();
-            SetTradeportListCVS();
+            //SetSatelliteListCVS();
+            //SetTradeportListCVS();
         }
     }
 
     private IReadOnlyCollection<Satellite> _SatelliteList = new List<Satellite>();
-    private IReadOnlyCollection<Satellite> SatelliteList
+    public IReadOnlyCollection<Satellite> SatelliteList
     {
         get => _SatelliteList;
         set => SetProperty(ref _SatelliteList, value);
     }
 
-    private readonly CollectionViewSource _SatelliteListCVS = new CollectionViewSource();
-    public ICollectionView SatelliteListCVS
-    {
-        get
-        {
-            return _SatelliteListCVS.View;
-        }
-    }
-    private void SetSatelliteListCVS(bool resetSource = false)
-    {
-        var targetCVS = _SatelliteListCVS;
-        if (targetCVS is null)
-        {
-            return;
-        }
+    //private readonly CollectionViewSource _SatelliteListCVS = new CollectionViewSource();
+    //public ICollectionView SatelliteListCVS
+    //{
+    //    get
+    //    {
+    //        return _SatelliteListCVS.View;
+    //    }
+    //}
+    //private void SetSatelliteListCVS(bool resetSource = false)
+    //{
+    //    var targetCVS = _SatelliteListCVS;
+    //    if (targetCVS is null)
+    //    {
+    //        return;
+    //    }
 
-        using (targetCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetCVS.Source = SatelliteList;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //    using (targetCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetCVS.Source = SatelliteList;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            if (targetCVS.Source is null)
-            {
-                targetCVS.Source = SatelliteList;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //        if (targetCVS.Source is null)
+    //        {
+    //            targetCVS.Source = SatelliteList;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            targetCVS.Filter += (s, e) =>
-            {
-                if (SelectedPlanet is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                Satellite? satellite = e.Item as Satellite;
-                if (satellite is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                if (satellite.Planet is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                if (satellite.IsAvailable is false)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = satellite.Planet.Equals(SelectedPlanet.Code);
-            };
+    //        targetCVS.Filter += (s, e) =>
+    //        {
+    //            if (SelectedPlanet is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            Satellite? satellite = e.Item as Satellite;
+    //            if (satellite is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            if (satellite.Planet is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            if (satellite.IsAvailable is false)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = satellite.Planet.Equals(SelectedPlanet.Code);
+    //        };
 
-        }
-        OnPropertyChanged(nameof(SatelliteListCVS));
-    }
+    //    }
+    //    OnPropertyChanged(nameof(SatelliteListCVS));
+    //}
 
     private Satellite? _SelectedSatellite = null;
     public Satellite? SelectedSatellite
@@ -269,78 +257,78 @@ public partial class DataRunnerViewModel : ViewModelBase
         set
         {
             SetProperty(ref _SelectedSatellite, value);
-            SetTradeportListCVS();
+            //SetTradeportListCVS();
         }
     }
 
     private IReadOnlyCollection<Tradeport> _TradeportList = new List<Tradeport>();
-    private IReadOnlyCollection<Tradeport> TradeportList
+    public IReadOnlyCollection<Tradeport> TradeportList
     {
         get => _TradeportList;
         set => SetProperty(ref _TradeportList, value);
     }
 
-    private readonly CollectionViewSource _TradeportListCVS = new CollectionViewSource();
-    public ICollectionView TradeportListCVS
-    {
-        get
-        {
-            return _TradeportListCVS.View;
-        }
-    }
-    private void SetTradeportListCVS(bool resetSource = false)
-    {
-        var targetCVS = _TradeportListCVS;
-        if (targetCVS is null)
-        {
-            return;
-        }
+    //private readonly CollectionViewSource _TradeportListCVS = new CollectionViewSource();
+    //public ICollectionView TradeportListCVS
+    //{
+    //    get
+    //    {
+    //        return _TradeportListCVS.View;
+    //    }
+    //}
+    //private void SetTradeportListCVS(bool resetSource = false)
+    //{
+    //    var targetCVS = _TradeportListCVS;
+    //    if (targetCVS is null)
+    //    {
+    //        return;
+    //    }
 
-        using (targetCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetCVS.Source = TradeportList;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //    using (targetCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetCVS.Source = TradeportList;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            if (targetCVS.Source is null)
-            {
-                targetCVS.Source = TradeportList;
-                targetCVS.SortDescriptions.Clear();
-                targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //        if (targetCVS.Source is null)
+    //        {
+    //            targetCVS.Source = TradeportList;
+    //            targetCVS.SortDescriptions.Clear();
+    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            targetCVS.Filter += (s, e) =>
-            {
-                if (SelectedPlanet is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                Tradeport? tradeport = e.Item as Tradeport;
-                if (tradeport is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                if (SelectedSatellite is null)
-                {
-                    e.Accepted = ((tradeport.Planet?.Equals(SelectedPlanet.Code) == true) && (string.IsNullOrWhiteSpace(tradeport.Satellite) == true));
-                    return;
-                }
-                if (tradeport.Satellite is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = tradeport.Satellite.Equals(SelectedSatellite.Code);
-            };
+    //        targetCVS.Filter += (s, e) =>
+    //        {
+    //            if (SelectedPlanet is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            Tradeport? tradeport = e.Item as Tradeport;
+    //            if (tradeport is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            if (SelectedSatellite is null)
+    //            {
+    //                e.Accepted = ((tradeport.Planet?.Equals(SelectedPlanet.Code) == true) && (string.IsNullOrWhiteSpace(tradeport.Satellite) == true));
+    //                return;
+    //            }
+    //            if (tradeport.Satellite is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = tradeport.Satellite.Equals(SelectedSatellite.Code);
+    //        };
 
-        }
-        OnPropertyChanged(nameof(TradeportListCVS));
-    }
+    //    }
+    //    OnPropertyChanged(nameof(TradeportListCVS));
+    //}
 
     private Tradeport? _SelectedTradeport = null;
     public Tradeport? SelectedTradeport
@@ -380,110 +368,110 @@ public partial class DataRunnerViewModel : ViewModelBase
         set
         {
             SetProperty(ref _commodities, value);
-            SetCommodityListsCVS(true);
+            //SetCommodityListsCVS(true);
         }
     }
-    //private ObservableCollection<CommodityWrapper> _buyableCommodities = new ObservableCollection<CommodityWrapper>();
-    //public ObservableCollection<CommodityWrapper> BuyableCommodities
+    private ObservableCollection<CommodityWrapper> _buyableCommodities = new ObservableCollection<CommodityWrapper>();
+    public ObservableCollection<CommodityWrapper> BuyableCommodities
+    {
+        get => _buyableCommodities;
+        set => SetProperty(ref _buyableCommodities, value);
+    }
+    private ObservableCollection<CommodityWrapper> _sellableCommodities = new ObservableCollection<CommodityWrapper>();
+    public ObservableCollection<CommodityWrapper> SellableCommodities
+    {
+        get => _sellableCommodities;
+        set => SetProperty(ref _sellableCommodities, value);
+    }
+    //private readonly CollectionViewSource _buyableCommodityListCVS = new CollectionViewSource();
+    //public ICollectionView BuyableCommodityListCVS
     //{
-    //    get => _buyableCommodities;
-    //    set => SetProperty(ref _buyableCommodities, value);
+    //    get
+    //    {
+    //        return _buyableCommodityListCVS.View;
+    //    }
     //}
-    //private ObservableCollection<CommodityWrapper> _sellableCommodities = new ObservableCollection<CommodityWrapper>();
-    //public ObservableCollection<CommodityWrapper> SellableCommodities
+    //private readonly CollectionViewSource _sellableCommodityListCVS = new CollectionViewSource();
+    //public ICollectionView SellableCommodityListCVS
     //{
-    //    get => _sellableCommodities;
-    //    set => SetProperty(ref _sellableCommodities, value);
+    //    get
+    //    {
+    //        return _sellableCommodityListCVS.View;
+    //    }
     //}
-    private readonly CollectionViewSource _buyableCommodityListCVS = new CollectionViewSource();
-    public ICollectionView BuyableCommodityListCVS
-    {
-        get
-        {
-            return _buyableCommodityListCVS.View;
-        }
-    }
-    private readonly CollectionViewSource _sellableCommodityListCVS = new CollectionViewSource();
-    public ICollectionView SellableCommodityListCVS
-    {
-        get
-        {
-            return _sellableCommodityListCVS.View;
-        }
-    }
-    private void SetCommodityListsCVS(bool resetSource = false)
-    {
-        var targetBuyCVS = _buyableCommodityListCVS;
-        var targetSellCVS = _sellableCommodityListCVS;
-        if (targetBuyCVS is null)
-        {
-            return;
-        }
-        if (targetSellCVS is null)
-        {
-            return;
-        }
+    //private void SetCommodityListsCVS(bool resetSource = false)
+    //{
+    //    var targetBuyCVS = _buyableCommodityListCVS;
+    //    var targetSellCVS = _sellableCommodityListCVS;
+    //    if (targetBuyCVS is null)
+    //    {
+    //        return;
+    //    }
+    //    if (targetSellCVS is null)
+    //    {
+    //        return;
+    //    }
 
-        using (targetBuyCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetBuyCVS.Source = Commodities;
-                targetBuyCVS.SortDescriptions.Clear();
-                //targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Kind), ListSortDirection.Ascending));
-                targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Name), ListSortDirection.Ascending));
-            }
+    //    using (targetBuyCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetBuyCVS.Source = Commodities;
+    //            targetBuyCVS.SortDescriptions.Clear();
+    //            //targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Kind), ListSortDirection.Ascending));
+    //            targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Name), ListSortDirection.Ascending));
+    //        }
 
-            if (targetBuyCVS.Source is null)
-            {
-                targetBuyCVS.Source = TradeportList;
-                targetBuyCVS.SortDescriptions.Clear();
-                //targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Kind), ListSortDirection.Ascending));
-                targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Name), ListSortDirection.Ascending));
-            }
+    //        if (targetBuyCVS.Source is null)
+    //        {
+    //            targetBuyCVS.Source = TradeportList;
+    //            targetBuyCVS.SortDescriptions.Clear();
+    //            //targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Kind), ListSortDirection.Ascending));
+    //            targetBuyCVS.SortDescriptions.Add(new SortDescription(nameof(CommodityWrapper.Name), ListSortDirection.Ascending));
+    //        }
 
-            targetBuyCVS.Filter += (s, e) =>
-            {
-                CommodityWrapper? commodity = e.Item as CommodityWrapper;
-                if (commodity is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = commodity.Operation == OperationType.Buy;
-            };
-        }
+    //        targetBuyCVS.Filter += (s, e) =>
+    //        {
+    //            CommodityWrapper? commodity = e.Item as CommodityWrapper;
+    //            if (commodity is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = commodity.Operation == OperationType.Buy;
+    //        };
+    //    }
 
-        using (targetSellCVS.DeferRefresh())
-        {
-            if (resetSource)
-            {
-                targetSellCVS.Source = Commodities;
-                targetSellCVS.SortDescriptions.Clear();
-                targetSellCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //    using (targetSellCVS.DeferRefresh())
+    //    {
+    //        if (resetSource)
+    //        {
+    //            targetSellCVS.Source = Commodities;
+    //            targetSellCVS.SortDescriptions.Clear();
+    //            targetSellCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            if (targetSellCVS.Source is null)
-            {
-                targetSellCVS.Source = TradeportList;
-                targetSellCVS.SortDescriptions.Clear();
-                targetSellCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            }
+    //        if (targetSellCVS.Source is null)
+    //        {
+    //            targetSellCVS.Source = TradeportList;
+    //            targetSellCVS.SortDescriptions.Clear();
+    //            targetSellCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+    //        }
 
-            targetSellCVS.Filter += (s, e) =>
-            {
-                CommodityWrapper? commodity = e.Item as CommodityWrapper;
-                if (commodity is null)
-                {
-                    e.Accepted = false;
-                    return;
-                }
-                e.Accepted = commodity.Operation == OperationType.Sell;
-            };
-        }
-        OnPropertyChanged(nameof(BuyableCommodityListCVS));
-        OnPropertyChanged(nameof(SellableCommodityListCVS));
-    }
+    //        targetSellCVS.Filter += (s, e) =>
+    //        {
+    //            CommodityWrapper? commodity = e.Item as CommodityWrapper;
+    //            if (commodity is null)
+    //            {
+    //                e.Accepted = false;
+    //                return;
+    //            }
+    //            e.Accepted = commodity.Operation == OperationType.Sell;
+    //        };
+    //    }
+    //    OnPropertyChanged(nameof(BuyableCommodityListCVS));
+    //    OnPropertyChanged(nameof(SellableCommodityListCVS));
+    //}
 
     private int _SelectedTabItemIndex = 0;
     public int SelectedTabItemIndex
@@ -545,12 +533,12 @@ public partial class DataRunnerViewModel : ViewModelBase
         }
 
         PlanetList = await _DataService.GetAllPlanetsAsync(systemCode);
-        SetPlanetListCVS(true);
+        //SetPlanetListCVS(true);
         SelectedPlanet = null;
         SatelliteList = await _DataService.GetAllSatellitesAsync(systemCode);
-        SetSatelliteListCVS(true);
+        //SetSatelliteListCVS(true);
         TradeportList = await _DataService.GetAllTradeportsAsync(systemCode);
-        SetTradeportListCVS(true);
+        //SetTradeportListCVS(true);
     }
     public async Task SetCurrentTradeportAsync(string tradeportCode)
     {

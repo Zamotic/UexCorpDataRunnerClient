@@ -6,6 +6,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
       xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunner"
+      xmlns:sort="clr-namespace:UexCorpDataRunner.Presentation.DataRunner.Sort"
+      xmlns:filter="clr-namespace:UexCorpDataRunner.Presentation.DataRunner.Filter"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
@@ -328,6 +330,50 @@
                 </Grid>
             </DockPanel>
         </DataTemplate>
+        <CollectionViewSource 
+            x:Key="SystemListCVS" 
+            Source="{Binding SystemList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:SystemListFilter />
+                <sort:StarSystemSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource 
+            x:Key="PlanetListCVS" 
+            Source="{Binding PlanetList}">
+            <!--IsLiveFilteringRequested="True">
+            <CollectionViewSource.LiveFilteringProperties>
+                <system:String>SelectedSystem</system:String>
+            </CollectionViewSource.LiveFilteringProperties>-->
+            <Behaviors:Interaction.Behaviors>
+                <filter:PlanetListFilter SelectedSystem="{Binding SelectedSystem}" />
+                <sort:PlanetSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="SatelliteListCVS" Source="{Binding SatelliteList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:SatelliteListFilter SelectedPlanet="{Binding SelectedPlanet}" />
+                <sort:SatelliteSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="TradeportListCVS" Source="{Binding TradeportList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:TradeportListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedSatellite="{Binding SelectedSatellite}" />
+                <sort:TradeportSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding BuyableCommodityList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:BuyableCommodityListFilter />
+                <sort:CommoditySort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="SellableCommodityListCVS" Source="{Binding SellableCommodityList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:SellableCommodityListFilter />
+                <sort:CommoditySort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
     </UserControl.Resources>
     <DockPanel
         Style="{DynamicResource MainDockPanel}">
@@ -408,7 +454,7 @@
                 </Button>
                 <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
-                    ItemsSource="{Binding SystemListCVS, Mode=OneWay}"
+                    ItemsSource="{Binding Source={StaticResource SystemListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSystem}"
                     DisplayMemberPath="Name"
                     DefaultOverlayString="(Select System)"
@@ -453,7 +499,7 @@
                 </Button>
                 <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
-                    ItemsSource="{Binding PlanetListCVS, Mode=OneWay}"
+                    ItemsSource="{Binding Source={StaticResource PlanetListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedPlanet}"
                     DisplayMemberPath="Name" 
                     DefaultOverlayString="(Select Planet)"
@@ -498,7 +544,7 @@
                 </Button>
                 <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
-                    ItemsSource="{Binding SatelliteListCVS, Mode=OneWay}"
+                    ItemsSource="{Binding Source={StaticResource SatelliteListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSatellite}"
                     DisplayMemberPath="Name"
                     DefaultOverlayString="(Select Satellite)"
@@ -543,7 +589,7 @@
                 </Button>
                 <uiLibraryControls:DefaultOverlayComboBox2
                     DockPanel.Dock="Left"
-                    ItemsSource="{Binding TradeportListCVS, Mode=OneWay}"
+                    ItemsSource="{Binding Source={StaticResource TradeportListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedTradeport}"
                     DisplayMemberPath="Name" 
                     DefaultOverlayString="(Select Tradeport)"
@@ -673,7 +719,7 @@
                             DockPanel.Dock="Top"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
-                                ItemsSource="{Binding BuyableCommodityListCVS}"
+                                ItemsSource="{Binding Source={StaticResource BuyableCommodityListCVS}}"
                                 ItemTemplate="{StaticResource itemsControlItemTemplate}"
                                 HorizontalAlignment="Left"
                                 Width="{StaticResource itemsControlWidth}">
@@ -790,7 +836,7 @@
                             DockPanel.Dock="Top"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
-                                ItemsSource="{Binding SellableCommodityListCVS}"
+                                ItemsSource="{Binding Source={StaticResource SellableCommodityListCVS}}"
                                 ItemTemplate="{StaticResource itemsControlItemTemplate}"
                                 HorizontalAlignment="Left"
                                 Width="{StaticResource itemsControlWidth}">

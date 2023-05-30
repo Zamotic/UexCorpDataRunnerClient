@@ -55,13 +55,13 @@ public partial class App : System.Windows.Application
         Logger?.Information("Configuring Services");
 
         services.AddCommon()
+                .AddApplication()
 #if DEBUG
                 .AddPersistenceApiMock()
 #endif
                 .AddPersistenceApi()
-                .AddPresentation()
                 .AddInterface()
-                .AddApplication();
+                .AddPresentation();
 
         services.AddSingleton<MainWindow>();
     }

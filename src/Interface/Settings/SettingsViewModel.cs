@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Domain.Services;
@@ -18,7 +17,7 @@ public class SettingsViewModel : ViewModelBase
     private bool _UserAccessCodeChanged = false;
     private bool _AlwaysOnTopChanged = false;
     private bool _ShowTemporaryCommodityChanged = false;
-    private bool _SelectedGaveVersionChanged = false;
+    private bool _SelectedGameVersionChanged = false;
 
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
@@ -66,7 +65,7 @@ public class SettingsViewModel : ViewModelBase
         }
         if (e.PropertyName.Equals(nameof(_SettingsValues.SelectedGameVersion)) == true)
         {
-            _SelectedGaveVersionChanged = true;
+            _SelectedGameVersionChanged = true;
         }
     }
 
@@ -166,7 +165,7 @@ public class SettingsViewModel : ViewModelBase
     }
 
     bool _IsViewModelLoaded = false;
-    public ICommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
+    public IRelayCommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
     public async Task ViewModelLoadedCommandExecuteAsync(object? sender)
     {
         if(_IsViewModelLoaded is true)
@@ -183,7 +182,7 @@ public class SettingsViewModel : ViewModelBase
         _IsViewModelLoaded = true;
     }
 
-    public ICommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);
+    public IRelayCommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);
     private void HyperlinkCommandExecute(object? linkUrl)
     {
         if(linkUrl is null)
@@ -204,7 +203,7 @@ public class SettingsViewModel : ViewModelBase
         System.Diagnostics.Process.Start(psi);
     }
 
-    public ICommand CloseSettingsInterfaceCommand => new RelayCommand(CloseSettingsInterfaceCommandExecute);
+    public IRelayCommand CloseSettingsInterfaceCommand => new RelayCommand(CloseSettingsInterfaceCommandExecute);
     private void CloseSettingsInterfaceCommandExecute()
     {
         _SettingsService.SaveSettings();
