@@ -371,18 +371,18 @@ public partial class DataRunnerViewModel : ViewModelBase
             //SetCommodityListsCVS(true);
         }
     }
-    private ObservableCollection<CommodityWrapper> _buyableCommodities = new ObservableCollection<CommodityWrapper>();
-    public ObservableCollection<CommodityWrapper> BuyableCommodities
-    {
-        get => _buyableCommodities;
-        set => SetProperty(ref _buyableCommodities, value);
-    }
-    private ObservableCollection<CommodityWrapper> _sellableCommodities = new ObservableCollection<CommodityWrapper>();
-    public ObservableCollection<CommodityWrapper> SellableCommodities
-    {
-        get => _sellableCommodities;
-        set => SetProperty(ref _sellableCommodities, value);
-    }
+    //private ObservableCollection<CommodityWrapper> _buyableCommodities = new ObservableCollection<CommodityWrapper>();
+    //public ObservableCollection<CommodityWrapper> BuyableCommodities
+    //{
+    //    get => _buyableCommodities;
+    //    set => SetProperty(ref _buyableCommodities, value);
+    //}
+    //private ObservableCollection<CommodityWrapper> _sellableCommodities = new ObservableCollection<CommodityWrapper>();
+    //public ObservableCollection<CommodityWrapper> SellableCommodities
+    //{
+    //    get => _sellableCommodities;
+    //    set => SetProperty(ref _sellableCommodities, value);
+    //}
     //private readonly CollectionViewSource _buyableCommodityListCVS = new CollectionViewSource();
     //public ICollectionView BuyableCommodityListCVS
     //{
@@ -558,7 +558,7 @@ public partial class DataRunnerViewModel : ViewModelBase
             return;
         }
 
-        Commodities.Clear();
+        ClearCommodities();
 
         IList<CommodityWrapper> commodities = await _TradeportCommodityBuilder.BuildCommodityListAsync(tradeportCode, _commodityList);
 

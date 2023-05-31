@@ -207,7 +207,7 @@ public partial class DataRunnerViewModel
 
         //dispatcher.Invoke(() =>
         //{
-            Commodities = new List<Application.DataRunner.CommodityWrapper>();
+            Commodities = new System.Collections.ObjectModel.ObservableCollection<Application.DataRunner.CommodityWrapper>();
         //}, DispatcherPriority.Normal);        
     }
 }

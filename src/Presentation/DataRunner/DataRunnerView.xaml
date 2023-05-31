@@ -330,21 +330,13 @@
                 </Grid>
             </DockPanel>
         </DataTemplate>
-        <CollectionViewSource 
-            x:Key="SystemListCVS" 
-            Source="{Binding SystemList}">
+        <CollectionViewSource x:Key="SystemListCVS" Source="{Binding SystemList}">
             <Behaviors:Interaction.Behaviors>
                 <filter:SystemListFilter />
                 <sort:StarSystemSort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
-        <CollectionViewSource 
-            x:Key="PlanetListCVS" 
-            Source="{Binding PlanetList}">
-            <!--IsLiveFilteringRequested="True">
-            <CollectionViewSource.LiveFilteringProperties>
-                <system:String>SelectedSystem</system:String>
-            </CollectionViewSource.LiveFilteringProperties>-->
+        <CollectionViewSource x:Key="PlanetListCVS" Source="{Binding PlanetList}">
             <Behaviors:Interaction.Behaviors>
                 <filter:PlanetListFilter SelectedSystem="{Binding SelectedSystem}" />
                 <sort:PlanetSort />
@@ -362,13 +354,13 @@
                 <sort:TradeportSort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
-        <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding BuyableCommodityList}">
+        <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
                 <filter:BuyableCommodityListFilter />
                 <sort:CommoditySort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
-        <CollectionViewSource x:Key="SellableCommodityListCVS" Source="{Binding SellableCommodityList}">
+        <CollectionViewSource x:Key="SellableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
                 <filter:SellableCommodityListFilter />
                 <sort:CommoditySort />
@@ -728,14 +720,14 @@
                                         <Setter Property="IsEnabled" Value="True" />
                                         <Style.Triggers>
                                             <DataTrigger
-                                                Binding="{Binding BuyableCommodityListCVS}"
+                                                Binding="{Binding Source={StaticResource BuyableCommodityListCVS}}"
                                                 Value="{x:Null}">
                                                 <Setter
                                                     Property="IsEnabled"
                                                     Value="False"/>
                                             </DataTrigger>
                                             <DataTrigger
-                                                Binding="{Binding BuyableCommodityListCVS.Count}"
+                                                Binding="{Binding Source={StaticResource BuyableCommodityListCVS}}"
                                                 Value="0">
                                                 <Setter
                                                     Property="IsEnabled"
@@ -845,14 +837,14 @@
                                         <Setter Property="IsEnabled" Value="True" />
                                         <Style.Triggers>
                                             <DataTrigger
-                                                Binding="{Binding SellableCommodityListCVS}"
+                                                Binding="{Binding Source={StaticResource SellableCommodityListCVS}}"
                                                 Value="{x:Null}">
                                                 <Setter
                                                     Property="IsEnabled"
                                                     Value="False"/>
                                             </DataTrigger>
                                             <DataTrigger
-                                                Binding="{Binding SellableCommodityListCVS.Count}"
+                                                Binding="{Binding Source={StaticResource SellableCommodityListCVS}}"
                                                 Value="0">
                                                 <Setter
                                                     Property="IsEnabled"
