@@ -302,36 +302,40 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             absolutePath += "/";
         }
 
-        string responseJson = string.Empty;
-        using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
+        try
         {
-            if (response.IsSuccessStatusCode)
+            string responseJson = string.Empty;
+            using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
             {
-                // Parse the response body.
-                responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response body.
+                    responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    response.EnsureSuccessStatusCode();
+                }
             }
-            else
+
+            var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<T>>>(responseJson);
+
+            if (responseObject is null)
             {
-                response.EnsureSuccessStatusCode();
+                return new List<T>();
+            }
+
+            if (responseObject.Data is null)
+            {
+                return new List<T>();
+            }
+
+            if (responseObject.Code.Equals(200) == true)
+            {
+                return responseObject.Data;
             }
         }
-
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<T>>>(responseJson);
-
-        if (responseObject is null)
-        {
-            return new List<T>();
-        }
-
-        if (responseObject.Data is null)
-        {
-            return new List<T>();
-        }
-
-        if (responseObject.Code.Equals(200) == true)
-        {
-            return responseObject.Data;
-        }
+        finally { }
 
         return new List<T>();
     }
@@ -345,36 +349,40 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             absolutePath += "/";
         }
 
-        string responseJson = string.Empty;
-        using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
+        try
         {
-            if (response.IsSuccessStatusCode)
+            string responseJson = string.Empty;
+            using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
             {
-                // Parse the response body.
-                responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response body.
+                    responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    response.EnsureSuccessStatusCode();
+                }
             }
-            else
+
+            var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<T>>(responseJson);
+
+            if (responseObject is null)
             {
-                response.EnsureSuccessStatusCode();
+                return new T();
+            }
+
+            if (responseObject.Data is null)
+            {
+                return new T();
+            }
+
+            if (responseObject.Code.Equals(200) == true)
+            {
+                return responseObject.Data;
             }
         }
-
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<T>>(responseJson);
-
-        if (responseObject is null)
-        {
-            return new T();
-        }
-
-        if (responseObject.Data is null)
-        {
-            return new T();
-        }
-
-        if (responseObject.Code.Equals(200) == true)
-        {
-            return responseObject.Data;
-        }
+        finally { }
 
         return new T();
     }
