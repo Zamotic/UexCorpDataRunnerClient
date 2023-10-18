@@ -1,0 +1,249 @@
+<UserControl x:Class="UexCorpDataRunner.AvaloniaClient.Settings.SettingsView"
+			 xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="350"
+			 IsEnabled="{Binding IsEnabled}">
+	<DockPanel
+        Style="{DynamicResource MainDockPanel}">
+		<DockPanel
+            DockPanel.Dock="Top">
+			<Button
+                DockPanel.Dock="Right"
+                Command="{Binding CloseSettingsInterfaceCommand}"
+                Padding="5"
+                Width="35"
+                Height="25"
+                Background="Black">
+				<Button.Style>
+					<Style TargetType="Button">
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type Button}">
+									<Border Background="{TemplateBinding Background}" >
+										<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+									</Border>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Button.PreviewMouseDown">
+								<BeginStoryboard>
+									<Storyboard>
+										<ParallelTimeline  >
+											<ColorAnimation Storyboard.TargetProperty="Background.Color" To="#FF8080" Duration="0:0:0.1" />
+										</ParallelTimeline>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+							<EventTrigger RoutedEvent="Button.MouseEnter">
+								<BeginStoryboard>
+									<Storyboard>
+										<ColorAnimation Storyboard.TargetProperty="Background.Color" To="Red" Duration="0:0:0.1" />
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+							<EventTrigger RoutedEvent="Button.MouseLeave">
+								<BeginStoryboard>
+									<Storyboard>
+										<ParallelTimeline  >
+											<ColorAnimation Storyboard.TargetProperty="Background.Color" To="Black" Duration="0:0:0.1" />
+										</ParallelTimeline>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</Button.Style>
+				<Button.Content>
+					<Image
+                        Source="../Images/x-mark-128-white.png"
+                        Margin="-2"
+                        Height="17"
+                        Width="17"/>
+				</Button.Content>
+			</Button>
+			<Border
+                DockPanel.Dock="Top"
+                Margin="5,0"
+                BorderThickness="0,0,0,1"
+                BorderBrush="Black">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    FontWeight="Bold"
+                    FontSize="20"
+                    Text="Settings"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledHeaderTextBlock}"/>
+			</Border>
+		</DockPanel>
+		<DockPanel
+            Margin="3"
+            DockPanel.Dock="Top">
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Theme:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}" />
+				<!--<Controls:DefaultOverlayComboBox2-->
+				<ComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding ThemeList}"
+                    SelectedValue="{Binding SettingsValues.Theme}"
+                    DefaultOverlayString="(Select Theme)"
+                    Style="{DynamicResource DefaultOverlayComboBoxStyle}"/>
+			</DockPanel>
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Collapse Location:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+				<!--<Controls:DefaultOverlayComboBox2-->
+				<ComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding CollapseLocationList}"
+                    SelectedValue="{Binding SettingsValues.CollapseLocation}"
+                    DefaultOverlayString="(Select Collapse Location)" />
+			</DockPanel>
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Collapse Orientation:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+				<!--<Controls:DefaultOverlayComboBox2-->
+				<ComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding CollapseOrientationList}"
+                    SelectedValue="{Binding SettingsValues.CollapseOrientation}"
+                    DefaultOverlayString="(Select Collapse Orientation)" />
+			</DockPanel>
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Always On Top:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+				<!--<Controls:DefaultOverlayComboBox2-->
+				<ComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding AlwaysOnTopList}"
+                    SelectedValue="{Binding SettingsValues.AlwaysOnTop}"
+                    DefaultOverlayString="(Select Always On Top)" />
+			</DockPanel>
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Commodity Display:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+				<!--<Controls:DefaultOverlayComboBox2-->
+				<ComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding ShowTemporaryCommodityList}"
+                    SelectedValue="{Binding SettingsValues.ShowTemporaryCommodities}"
+                    DefaultOverlayString="(Select Commodity Display)" />
+			</DockPanel>
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    VerticalAlignment="Center"
+                    ToolTip="Access code can be found on the Password tab of your Personal Profile">
+					<Hyperlink
+                        NavigateUri="https://portal.uexcorp.space/profile"
+                        Command="{Binding HyperlinkCommand}"
+                        CommandParameter="https://portal.uexcorp.space/profile">
+						User Access Code:
+					</Hyperlink>
+				</TextBlock>
+				<TextBox
+                    DockPanel.Dock="Right"
+                    Text="{Binding SettingsValues.UserAccessCode}"
+                    Style="{DynamicResource StyledTextBox}"/>
+			</DockPanel>
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Auto Close Summary:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+				<CheckBox
+                    DockPanel.Dock="Left"
+                    IsChecked="{Binding SettingsValues.AutoCloseSummaryWindow}"
+                    VerticalAlignment="Center"/>
+				<!--<Controls:DefaultOverlayComboBox2-->
+				<ComboBox
+                    DockPanel.Dock="Right"
+                    Margin="5,0,0,0"
+                    IsEnabled="{Binding SettingsValues.AutoCloseSummaryWindow}"
+                    ItemsSource="{Binding AutoCloseDelayList}"
+                    ItemStringFormat="{}{0} seconds"
+                    SelectedValue="{Binding SettingsValues.AutoCloseSummaryTime}"
+                    DefaultOverlayString="(Select Close Delay)" />
+			</DockPanel>
+			<DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+				<TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Game Version:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+				<!--<Controls:DefaultOverlayComboBox2-->
+				<ComboBox
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding GameVersionList}"
+                    SelectedValue="{Binding SettingsValues.SelectedGameVersion}"
+                    DefaultOverlayString="(Select Game Version)" />
+			</DockPanel>
+			<TextBlock
+                DockPanel.Dock="Bottom"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+				<Hyperlink
+					NavigateUri="mailto:Zamotic@gmail.com"
+					Command="{Binding HyperlinkCommand}"
+					CommandParameter="mailto:Zamotic@gmail.com">
+					Contact Me
+				</Hyperlink>
+			</TextBlock>
+			<DockPanel />
+			<TextBlock
+                DockPanel.Dock="Bottom"
+                Text="{Binding Version, FallbackValue='v0.0.0.0'}"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+			<DockPanel />
+		</DockPanel>
+	</DockPanel>
+</UserControl>
