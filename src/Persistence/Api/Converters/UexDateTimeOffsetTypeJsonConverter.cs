@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects.Converters;
+namespace UexCorpDataRunner.Persistence.Api.Converters;
 public class UexDateTimeOffsetTypeJsonConverter : JsonConverter<DateTimeOffset>
 {
     public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        if(reader.TryGetInt64(out long l))
+        if (reader.TryGetInt64(out long l))
         {
             return DateTimeOffset.FromUnixTimeSeconds(l);
         }

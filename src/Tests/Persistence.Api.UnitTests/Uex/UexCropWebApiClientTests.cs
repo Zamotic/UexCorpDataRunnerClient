@@ -9,8 +9,8 @@ using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 namespace UexCorpDataRunner.Persistence.Api.UnitTests.Uex;
 public class UexCropWebApiClientTests
 {
-    DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 26, 2, 25, 15, TimeSpan.Zero);
-    DateTimeOffset _dateModified = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
+    DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 25, 23, 25, 15, TimeSpan.FromHours(3));
+    DateTimeOffset _dateModified = new DateTimeOffset(2022, 06, 04, 20, 00, 06, TimeSpan.FromHours(3));
 
     IUexCorpWebApiClient _webApiClient;
     UexWebApiMockHttpMessageHandler _uexWebApiMockHttpMessageHandler;

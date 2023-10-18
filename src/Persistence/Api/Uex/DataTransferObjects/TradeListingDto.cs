@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects.Converters;
+using UexCorpDataRunner.Persistence.Api.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 public class TradeListingDto
