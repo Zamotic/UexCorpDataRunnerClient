@@ -2115,8 +2115,332 @@ public class UexCorpWebApiClientTests
 
     #endregion  CommodityPrice
 
+    #region     Terminal
 
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedCountOf6()
+    {
+        // Assemble
+        int starSystemId = 68;
 
+        // Act
+        var actual = await _webApiClient.GetTerminalsAsync(starSystemId).ConfigureAwait(false);
 
+        // Assert
+        actual.Should().HaveCount(6);
+    }
 
+    private static ICollection<TerminalDto> _ActualGetTerminalsAsyncValue = new List<TerminalDto>();
+    private async Task<ICollection<TerminalDto>> GetActualTerminalsAsyncValue()
+    {
+        int starSystemId = 68;
+        if (_ActualGetTerminalsAsyncValue.Any() == false)
+        {
+            _ActualGetTerminalsAsyncValue = await _webApiClient.GetTerminalsAsync(starSystemId).ConfigureAwait(false);
+        }
+
+        return _ActualGetTerminalsAsyncValue;
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedId()
+    {
+        // Assemble
+        const int ExpectedId = 1;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.Id.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedStarSystemId()
+    {
+        // Assemble
+        const int ExpectedId = 68;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.StarSystemId.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedPlanetId()
+    {
+        // Assemble
+        const int ExpectedId = 1;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.PlanetId.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedMoonId()
+    {
+        // Assemble
+        const int ExpectedId = 0;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.MoonId.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedSpaceStationId()
+    {
+        // Assemble
+        const int ExpectedId = 1;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.SpaceStationId.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedOutpostId()
+    {
+        // Assemble
+        const int ExpectedId = 0;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.OutpostId.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedCityId()
+    {
+        // Assemble
+        const int ExpectedId = 0;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.CityId.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedName()
+    {
+        // Assemble
+        const string ExpectedValue = "ARC-L1 - Admin Office";
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.Name.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedNickname()
+    {
+        // Assemble
+        const string ExpectedValue = "ARC-L1";
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.Nickname.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedCode()
+    {
+        // Assemble
+        const string ExpectedValue = "ARCL1";
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.Code.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedType()
+    {
+        // Assemble
+        const string ExpectedValue = "commodity";
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.Type.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedScreenshot()
+    {
+        // Assemble
+        const string ExpectedValue = null;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.Screenshot.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedStarSystemName()
+    {
+        // Assemble
+        const string ExpectedValue = "Stanton";
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.StarSystemName.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedPlanetName()
+    {
+        // Assemble
+        const string ExpectedValue = "ArcCorp";
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.PlanetName.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedMoonName()
+    {
+        // Assemble
+        const string ExpectedValue = null;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.MoonName.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedSpaceStationName()
+    {
+        // Assemble
+        const string ExpectedValue = "ARC-L1 Wide Forest Station";
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.SpaceStationName.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedOutpostName()
+    {
+        // Assemble
+        const string ExpectedValue = null;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.OutpostName.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedCityName()
+    {
+        // Assemble
+        const string ExpectedValue = null;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.CityName.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedDateAdded()
+    {
+        // Assemble
+        DateTimeOffset ExpectedValue = _dateAdded;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.DateAdded.Should().NotBe(DateTimeOffset.MinValue);
+    }
+
+    [Fact]
+    public async Task GetTerminalsAsync_ShouldHaveExpectedDateModified()
+    {
+        // Assemble
+        DateTimeOffset ExpectedValue = _dateModified;
+
+        // Act
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        terminals.Should().NotBeNull();
+        var actual = terminals.First();
+        actual.DateModified.Should().NotBe(DateTimeOffset.MinValue);
+    }
+
+    #endregion  Terminal
 }

@@ -94,6 +94,17 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
                 new CommodityPriceDto() { Id = 49, CommodityId = 4, StarSystemId = 68, PlanetId = 2, MoonId = 12, CityId = 0, OutpostId = 6, TerminalId = 11, PriceBuy = 732, PriceBuyMin = 732, PriceBuyMinWeek = 732, PriceBuyMinMonth = 732, PriceBuyMax = 732, PriceBuyMaxWeek = 732, PriceBuyMaxMonth = 732, PriceBuyAvg = 732, PriceBuyAvgWeek = 732, PriceBuyAvgMonth = 732, PriceSell = 0, PriceSellMin = 0, PriceSellMinWeek = 0, PriceSellMinMonth = 0, PriceSellMax = 0, PriceSellMaxWeek = 0, PriceSellMaxMonth = 0, PriceSellAvg = 0, PriceSellAvgWeek = 0, PriceSellAvgMonth = 0, ScuBuy = 375, ScuBuyMin = 375, ScuBuyMinWeek = 375, ScuBuyMinMonth = 375, ScuBuyMax = 375, ScuBuyMaxWeek = 375, ScuBuyMaxMonth = 375,ScuBuyAvg = 375, ScuBuyAvgWeek = 375, ScuBuyAvgMonth = 375, ScuSell = 0, ScuSellMin = 0, ScuSellMinWeek = 0, ScuSellMinMonth = 0, ScuSellMax = 0, ScuSellMaxWeek = 0, ScuSellMaxMonth = 0, ScuSellAvg = 0, ScuSellAvgWeek  = 0, ScuSellAvgMonth = 0, GameVersion = "3.20", CommodityName = "Astatine", StarSystemName = "Stanton", PlanetName = "Crusader", MoonName = "Yela", SpaceStationName = null, OutpostName = "ArcCorp Mining Area 157", CityName = null, DateAdded = dateAdded, DateModified = dateModified }
             };
         _SubstituteClient.GetCommodityPricesByTerminalIdAsync(Arg.Any<int>()).Returns(commodityPriceByTerminalDtoList);
+
+        ICollection<TerminalDto> terminalDtoList = new List<TerminalDto>()
+            {
+                new TerminalDto() { Id = 1, StarSystemId = 68, PlanetId = 1, MoonId = 0, SpaceStationId = 1, OutpostId = 0, CityId = 0, Name = "ARC-L1 - Admin Office", Nickname = "ARC-L1", Code = "ARCL1", Type = "commodity", Screenshot = null, StarSystemName = "Stanton", PlanetName = "ArcCorp", MoonName = null, SpaceStationName = "ARC-L1 Wide Forest Station", OutpostName = null, CityName = null, DateAdded = dateAdded, DateModified = dateModified },
+                new TerminalDto() { Id = 2, StarSystemId = 68, PlanetId = 1, MoonId = 0, SpaceStationId = 2, OutpostId = 0, CityId = 0, Name = "ARC-L2 - Admin Office", Nickname = "ARC-L2", Code = "ARCL2", Type = "commodity", Screenshot = null, StarSystemName = "Stanton", PlanetName = "ArcCorp", MoonName = null, SpaceStationName = "ARC-L2 Liveley Pathway Station", OutpostName = null, CityName = null, DateAdded = dateAdded, DateModified = dateModified },
+                new TerminalDto() { Id = 3, StarSystemId = 68, PlanetId = 1, MoonId = 0, SpaceStationId = 3, OutpostId = 0, CityId = 0, Name = "ARC-L3 - Admin Office", Nickname = "ARC-L3", Code = "ARCL3", Type = "commodity", Screenshot = @"http://s3.amazonaws.com/uexcorp.space/v2/data/trade_terminals/3/217f6956f2fac9ded07ae8495b52c76ec39ff378.jpg", StarSystemName = "Stanton", PlanetName = "ArcCorp", MoonName = null, SpaceStationName = "ARC-L3 Modern Express Station", OutpostName = null, CityName = null, DateAdded = dateAdded, DateModified = dateModified },
+                new TerminalDto() { Id = 4, StarSystemId = 68, PlanetId = 1, MoonId = 0, SpaceStationId = 4, OutpostId = 0, CityId = 0, Name = "ARC-L4 - Admin Office", Nickname = "ARC-L4", Code = "ARCL4", Type = "commodity", Screenshot = null, StarSystemName = "Stanton", PlanetName = "ArcCorp", MoonName = null, SpaceStationName = "ARC-L4 Faint Glen Station", OutpostName = null, CityName = null, DateAdded = dateAdded, DateModified = dateModified },
+                new TerminalDto() { Id = 5, StarSystemId = 68, PlanetId = 1, MoonId = 0, SpaceStationId = 5, OutpostId = 0, CityId = 0, Name = "ARC-L5 - Admin Office", Nickname = "ARC-L5", Code = "ARCL5", Type = "commodity", Screenshot = null, StarSystemName = "Stanton", PlanetName = "ArcCorp", MoonName = null, SpaceStationName = "ARC-L5 Yellow Core Station", OutpostName = null, CityName = null, DateAdded = dateAdded, DateModified = dateModified },
+                new TerminalDto() { Id = 6, StarSystemId = 68, PlanetId = 1, MoonId = 11, SpaceStationId = 0, OutpostId = 1, CityId = 0, Name = "ArcCorp Mining Area 045", Nickname = "ArcCorp 045", Code = "AM045", Type = "commodity", Screenshot = null, StarSystemName = "Stanton", PlanetName = "ArcCorp", MoonName = "Wala", SpaceStationName = null, OutpostName = "ArcCorp Mining Area 045", CityName = null, DateAdded = dateAdded, DateModified = dateModified },
+            };
+        _SubstituteClient.GetTerminalsAsync(Arg.Any<int>()).Returns(terminalDtoList);
     }
 
     public async Task<ICollection<StarSystemDto>> GetSystemsAsync()
@@ -127,5 +138,9 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
     public async Task<ICollection<CommodityPriceDto>> GetCommodityPricesByTerminalIdAsync(int terminalId)
     {
         return await _SubstituteClient.GetCommodityPricesByCommodityIdAsync(terminalId);
+    }
+    public async Task<ICollection<TerminalDto>> GetTerminalsAsync(int starSystemId)
+    {
+        return await _SubstituteClient.GetTerminalsAsync(starSystemId);
     }
 }

@@ -8,10 +8,10 @@ public interface IUexCorpWebApiClient
     Task<ICollection<MoonDto>> GetMoonsAsync(int starSystemId);
     Task<ICollection<MoonDto>> GetMoonsAsync(int starSystemId,int planetId);
     Task<ICollection<CityDto>> GetCitiesAsync(int starSystemId);
-    //Task<ICollection<TradeportDto>> GetTradeportsAsync(string systemCode);
     Task<ICollection<CommodityDto>> GetCommoditiesAsync();
     Task<ICollection<CommodityPriceDto>> GetCommodityPricesByTerminalIdAsync(int terminalId);
     Task<ICollection<CommodityPriceDto>> GetCommodityPricesByCommodityIdAsync(int commodityId);
+    Task<ICollection<TerminalDto>> GetTerminalsAsync(int starSystemId);
 
     //Task<TradeportDto> GetTradeportAsync(string tradeportCode);
     //Task<UexResponseDto<string>> SubmitPriceReportAsync(PriceReportDto priceReport);

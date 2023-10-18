@@ -223,4 +223,16 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
 
         return await GenericGetCollectionAsync<CommodityPriceDto>(endPointValue);
     }
+
+    /// <summary>
+    /// Returns a IList<TerminalDto> objects
+    /// </summary>
+    /// <paramref name="starSystemId"/>An id representing the star system id to return TerminalDto objects for</paramref>
+    /// <returns>Collection containing a list of TerminalDto records returned from the API</returns>
+    public async Task<ICollection<TerminalDto>> GetTerminalsAsync(int starSystemId)
+    {
+        string endPointValue = $"terminals/id_star_system/{starSystemId}";
+
+        return await GenericGetCollectionAsync<TerminalDto>(endPointValue);
+    }
 }
