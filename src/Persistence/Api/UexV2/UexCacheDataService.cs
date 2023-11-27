@@ -1,11 +1,11 @@
-﻿using UexCorpDataRunner.Domain.DataRunner;
+﻿using UexCorpDataRunner.Domain.DataRunnerV2;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2;
-public class UexCacheDataService : UexDataServiceV2
+public class UexCacheDataServiceV2 : UexDataServiceV2
 {
     Dictionary<Type, Dictionary<string, dynamic>> _cacheDictionary = new Dictionary<Type, Dictionary<string, dynamic>>();
 
-    public UexCacheDataService(IUexCorpWebApiClientAdapter webApiClientAdapter)
+    public UexCacheDataServiceV2(IUexCorpWebApiClientAdapter webApiClientAdapter)
         : base(webApiClientAdapter)
     {
     }
@@ -46,7 +46,7 @@ public class UexCacheDataService : UexDataServiceV2
             var typeDictionary = _cacheDictionary[type];
             if(typeDictionary.Keys.Contains(string.Empty) == true)
             {
-                var returnCollection = typeDictionary[string.Empty] as IReadOnlyCollection<Domain.DataRunner.StarSystem>;
+                var returnCollection = typeDictionary[string.Empty] as IReadOnlyCollection<StarSystem>;
                 if(returnCollection is not null)
                 {
                     return returnCollection;
@@ -64,111 +64,111 @@ public class UexCacheDataService : UexDataServiceV2
         return collection;
     }
 
-    public override async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode)
-    {
-        IReadOnlyCollection<Planet> collection;
-        var type = typeof(Planet);
-        if (_cacheDictionary.Keys.Contains(type) == true)
-        {
-            var typeDictionary = _cacheDictionary[type];
-            if (typeDictionary.Keys.Contains(systemCode) == true)
-            {
-                var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<Planet>;
-                if (returnCollection is not null)
-                {
-                    return returnCollection;
-                }
-            }
+    //public override async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode)
+    //{
+    //    IReadOnlyCollection<Planet> collection;
+    //    var type = typeof(Planet);
+    //    if (_cacheDictionary.Keys.Contains(type) == true)
+    //    {
+    //        var typeDictionary = _cacheDictionary[type];
+    //        if (typeDictionary.Keys.Contains(systemCode) == true)
+    //        {
+    //            var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<Planet>;
+    //            if (returnCollection is not null)
+    //            {
+    //                return returnCollection;
+    //            }
+    //        }
 
-            collection = await base.GetAllPlanetsAsync(systemCode);
-            typeDictionary.Add(systemCode, collection);
-        }
+    //        collection = await base.GetAllPlanetsAsync(systemCode);
+    //        typeDictionary.Add(systemCode, collection);
+    //    }
 
-        collection = await base.GetAllPlanetsAsync(systemCode);
-        var collectionDictionary = new Dictionary<string, dynamic>();
-        collectionDictionary.Add(systemCode, collection);
-        _cacheDictionary.Add(type, collectionDictionary);
-        return collection;
-    }
+    //    collection = await base.GetAllPlanetsAsync(systemCode);
+    //    var collectionDictionary = new Dictionary<string, dynamic>();
+    //    collectionDictionary.Add(systemCode, collection);
+    //    _cacheDictionary.Add(type, collectionDictionary);
+    //    return collection;
+    //}
 
-    public override async Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode)
-    {
-        IReadOnlyCollection<Satellite> collection;
-        var type = typeof(Satellite);
-        if (_cacheDictionary.Keys.Contains(type) == true)
-        {
-            var typeDictionary = _cacheDictionary[type];
-            if (typeDictionary.Keys.Contains(systemCode) == true)
-            {
-                var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<Satellite>;
-                if (returnCollection is not null)
-                {
-                    return returnCollection;
-                }
-            }
+    //public override async Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode)
+    //{
+    //    IReadOnlyCollection<Satellite> collection;
+    //    var type = typeof(Satellite);
+    //    if (_cacheDictionary.Keys.Contains(type) == true)
+    //    {
+    //        var typeDictionary = _cacheDictionary[type];
+    //        if (typeDictionary.Keys.Contains(systemCode) == true)
+    //        {
+    //            var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<Satellite>;
+    //            if (returnCollection is not null)
+    //            {
+    //                return returnCollection;
+    //            }
+    //        }
 
-            collection = await base.GetAllSatellitesAsync(systemCode);
-            typeDictionary.Add(systemCode, collection);
-        }
+    //        collection = await base.GetAllSatellitesAsync(systemCode);
+    //        typeDictionary.Add(systemCode, collection);
+    //    }
 
-        collection = await base.GetAllSatellitesAsync(systemCode);
-        var collectionDictionary = new Dictionary<string, dynamic>();
-        collectionDictionary.Add(systemCode, collection);
-        _cacheDictionary.Add(type, collectionDictionary);
-        return collection;
-    }
+    //    collection = await base.GetAllSatellitesAsync(systemCode);
+    //    var collectionDictionary = new Dictionary<string, dynamic>();
+    //    collectionDictionary.Add(systemCode, collection);
+    //    _cacheDictionary.Add(type, collectionDictionary);
+    //    return collection;
+    //}
 
-    public override async Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode)
-    {
-        IReadOnlyCollection<City> collection;
-        var type = typeof(City);
-        if (_cacheDictionary.Keys.Contains(type) == true)
-        {
-            var typeDictionary = _cacheDictionary[type];
-            if (typeDictionary.Keys.Contains(systemCode) == true)
-            {
-                var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<City>;
-                if (returnCollection is not null)
-                {
-                    return returnCollection;
-                }
-            }
+    //public override async Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode)
+    //{
+    //    IReadOnlyCollection<City> collection;
+    //    var type = typeof(City);
+    //    if (_cacheDictionary.Keys.Contains(type) == true)
+    //    {
+    //        var typeDictionary = _cacheDictionary[type];
+    //        if (typeDictionary.Keys.Contains(systemCode) == true)
+    //        {
+    //            var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<City>;
+    //            if (returnCollection is not null)
+    //            {
+    //                return returnCollection;
+    //            }
+    //        }
 
-            collection = await base.GetAllCitiesAsync(systemCode);
-            typeDictionary.Add(systemCode, collection);
-        }
+    //        collection = await base.GetAllCitiesAsync(systemCode);
+    //        typeDictionary.Add(systemCode, collection);
+    //    }
 
-        collection = await base.GetAllCitiesAsync(systemCode);
-        var collectionDictionary = new Dictionary<string, dynamic>();
-        collectionDictionary.Add(systemCode, collection);
-        _cacheDictionary.Add(type, collectionDictionary);
-        return collection;
-    }
+    //    collection = await base.GetAllCitiesAsync(systemCode);
+    //    var collectionDictionary = new Dictionary<string, dynamic>();
+    //    collectionDictionary.Add(systemCode, collection);
+    //    _cacheDictionary.Add(type, collectionDictionary);
+    //    return collection;
+    //}
 
-    public override async Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode)
-    {
-        IReadOnlyCollection<Tradeport> collection;
-        var type = typeof(Tradeport);
-        if (_cacheDictionary.Keys.Contains(type) == true)
-        {
-            var typeDictionary = _cacheDictionary[type];
-            if (typeDictionary.Keys.Contains(systemCode) == true)
-            {
-                var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<Tradeport>;
-                if (returnCollection is not null)
-                {
-                    return returnCollection;
-                }
-            }
+    //public override async Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode)
+    //{
+    //    IReadOnlyCollection<Tradeport> collection;
+    //    var type = typeof(Tradeport);
+    //    if (_cacheDictionary.Keys.Contains(type) == true)
+    //    {
+    //        var typeDictionary = _cacheDictionary[type];
+    //        if (typeDictionary.Keys.Contains(systemCode) == true)
+    //        {
+    //            var returnCollection = typeDictionary[systemCode] as IReadOnlyCollection<Tradeport>;
+    //            if (returnCollection is not null)
+    //            {
+    //                return returnCollection;
+    //            }
+    //        }
 
-            collection = await base.GetAllTradeportsAsync(systemCode);
-            typeDictionary.Add(systemCode, collection);
-        }
+    //        collection = await base.GetAllTradeportsAsync(systemCode);
+    //        typeDictionary.Add(systemCode, collection);
+    //    }
 
-        collection = await base.GetAllTradeportsAsync(systemCode);
-        var collectionDictionary = new Dictionary<string, dynamic>();
-        collectionDictionary.Add(systemCode, collection);
-        _cacheDictionary.Add(type, collectionDictionary);
-        return collection;
-    }
+    //    collection = await base.GetAllTradeportsAsync(systemCode);
+    //    var collectionDictionary = new Dictionary<string, dynamic>();
+    //    collectionDictionary.Add(systemCode, collection);
+    //    _cacheDictionary.Add(type, collectionDictionary);
+    //    return collection;
+    //}
 }

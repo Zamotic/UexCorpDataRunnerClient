@@ -11,11 +11,11 @@ public class UexDataServiceV2 : IUexDataServiceV2
         _WebClientAdapter = webClientAdapter;
     }
 
-    //public virtual async Task<Domain.DataRunner.GameVersion> GetCurrentVersionAsync()
-    //{
-    //    var version = await _WebClientAdapter.GetCurrentVersionAsync();
-    //    return version;
-    //}
+    public virtual async Task<GameVersion> GetCurrentVersionAsync()
+    {
+        var version = await _WebClientAdapter.GetCurrentVersionAsync();
+        return version;
+    }
 
     public virtual async Task<IReadOnlyCollection<StarSystem>> GetAllSystemsAsync()
     {

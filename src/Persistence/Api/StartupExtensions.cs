@@ -38,7 +38,7 @@ public static class StartupExtensions
                 .AddSingleton<Uex.IUexCorpWebApiClientAdapter, Uex.UexCorpWebApiClientAdapter>()
                 .AddSingleton<UexV2.IUexCorpWebApiClientAdapter, UexV2.UexCorpWebApiClientAdapter>()
                 .AddSingleton<IUexDataService, UexCacheDataService>()
-                .AddSingleton<IUexDataServiceV2, UexDataServiceV2>()
+                .AddSingleton<IUexDataServiceV2, UexCacheDataServiceV2>()
                 .AddSingleton<IMapperV2, V2DtoMapper>()
                 ;
 

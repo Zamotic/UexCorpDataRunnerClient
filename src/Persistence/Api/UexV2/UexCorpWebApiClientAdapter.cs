@@ -14,13 +14,13 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
         _Mapper = mapper;
     }
 
-    //public async Task<GameVersion> GetCurrentVersionAsync()
-    //{
-    //    GameVersionDto versionDTO = await _WebClient.GetCurrentVersionAsync();
+    public async Task<GameVersion> GetCurrentVersionAsync()
+    {
+        GameVersionDto gameVersionDTO = await _WebClient.GetCurrentVersionAsync();
 
-    //    var version = _Mapper.Map<GameVersion>(versionDTO);
-    //    return version;
-    //}
+        var gameVersion = _Mapper.ConvertFromDto(gameVersionDTO);
+        return gameVersion;
+    }
 
     public async Task<IReadOnlyCollection<StarSystem>> GetSystemsAsync()
     {

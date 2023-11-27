@@ -12,6 +12,13 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
         var dateAdded = new DateTimeOffset(2020, 12, 25, 23, 25, 15, TimeSpan.FromHours(3));
         var dateModified = new DateTimeOffset(2022, 06, 04, 20, 00, 06, TimeSpan.FromHours(3));
 
+        GameVersionDto gameVersionDto = new GameVersionDto()
+            { 
+                Live = "3.21.1", 
+                Ptu = "3.22" 
+            };
+        _SubstituteClient.GetCurrentVersionAsync().Returns(gameVersionDto);
+
         ICollection<StarSystemDto> systemDtoList = new List<StarSystemDto>()
             {
                 new StarSystemDto() { Id = 64, Name = "Pyro", Code = "PY", IsAvailable = false, IsDefault = false, DateAdded = dateAdded, DateModified = DateTime.MinValue },
@@ -107,6 +114,10 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
         _SubstituteClient.GetTerminalsAsync(Arg.Any<int>()).Returns(terminalDtoList);
     }
 
+    public async Task<GameVersionDto> GetCurrentVersionAsync()
+    {
+        return await _SubstituteClient.GetCurrentVersionAsync();
+    }
     public async Task<ICollection<StarSystemDto>> GetSystemsAsync()
     {
         return await _SubstituteClient.GetSystemsAsync();

@@ -16,13 +16,40 @@ public class UexCorpWebApiClientTests
     {
         IUexCorpWebApiConfiguration substituteWebConfiguration = Substitute.For<IUexCorpWebApiConfiguration>();
         substituteWebConfiguration.DataRunnerEndpointPath.Returns(string.Empty);
-        substituteWebConfiguration.WebApiEndPointUrl.Returns("https://test.uexcorp.space/api/");
-        substituteWebConfiguration.ApiKey.Returns("WW6iIbQiS0owo37WWCMWGfEjMad0tw0Y/gimKeRxGlr2cUn848oIVFci6PCvxWda4lgCljeja1CRK6MJtC1AR2VeS17asAwkZz9emP3gVNI=");
+        substituteWebConfiguration.WebApiEndPointUrl.Returns("https://ptu.uexcorp.space/api/");
+        substituteWebConfiguration.ApiKey.Returns("FoGk3H4kH1DnbSHkBRtoyyPQ/Uo/Ar0VPSXaqdVtI4RgoB4zJ25CiOH7ne5JzzbH");
 
         _uexWebApiMockHttpMessageHandler = new UexWebApiMockHttpMessageHandler();
         HttpClient mockedHttpClient = new HttpClient(_uexWebApiMockHttpMessageHandler);
         _webApiClient = new UexCorpWebApiClient(substituteWebConfiguration, mockedHttpClient);
     }
+
+    #region     GameVersion
+    [Fact]
+    public async Task GetCurrentGameVersionAsync_ShouldHaveExpectedLiveValue()
+    {
+        // Assemble
+        const string ExpectedValue = "3.21.1";
+
+        // Act
+        var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);
+
+        // Assert
+        actual.Live.Should().Be(ExpectedValue);
+    }
+    [Fact]
+    public async Task GetCurrentGameVersionAsync_ShouldHaveExpectedPtuValue()
+    {
+        // Assemble
+        const string ExpectedValue = "3.22";
+
+        // Act
+        var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);
+
+        // Assert
+        actual.Ptu.Should().Be(ExpectedValue);
+    }
+    #endregion  GameVersion
 
     #region     System
 

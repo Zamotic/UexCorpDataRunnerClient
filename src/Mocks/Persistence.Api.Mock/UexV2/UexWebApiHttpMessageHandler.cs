@@ -28,7 +28,9 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
 
     private void AddFakeResponses()
     {
-        string uri = "https://test.uexcorp.space/api/";
+        string uri = "https://ptu.uexcorp.space/api/";
+
+        AddFakeResponse(new Uri($"{uri}game_versions/"), GetResponseMessage(GetGameVersionJsonResponse()));
 
         AddFakeResponse(new Uri($"{uri}star_systems/"), GetResponseMessage(GetSystemsJsonResponse()));
 
@@ -52,6 +54,11 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
         HttpResponseMessage responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
         responseMessage.Content = new StringContent(responseStringContent);
         return responseMessage;
+    }
+
+    private string GetGameVersionJsonResponse()
+    {
+        return "{\"status\":\"ok\",\"http_code\":200,\"data\":{\"live\":\"3.21.1\",\"ptu\":\"3.22\"},\"time\":1701099054}";
     }
 
     private string GetSystemsJsonResponse()

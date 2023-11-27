@@ -1,4 +1,5 @@
-﻿using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
+﻿using UexCorpDataRunner.Common;
+using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2;
 public class UexCorpWebApiClient : IUexCorpWebApiClient
@@ -38,7 +39,8 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             throw new Exception("ApiKey cannot be empty");
         }
 
-        string decryptedKey = UexCorpDataRunner.Common.SimpleCipher.Decrypt(_WebApiConfiguration.ApiKey, Domain.Globals.SimpleCipherKey);
+        AesEncryption aesEncryption = new AesEncryption(Domain.Globals.SimpleCipherKey);
+        string decryptedKey = aesEncryption.Decrypt(_WebApiConfiguration.ApiKey);
         return decryptedKey;
     }
 
@@ -128,6 +130,17 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         return new T();
     }
     #endregion  Generic Methods
+
+    /// <summary>
+    /// Returns a IList<SystemDto> objects
+    /// </summary>
+    /// <returns>Collection containing a list of SystemDto records returned from the API</returns>
+    public async Task<GameVersionDto> GetCurrentVersionAsync()
+    {
+        string endPointValue = "game_versions";
+
+        return await GenericGetSingleAsync<GameVersionDto>(endPointValue);
+    }
 
     /// <summary>
     /// Returns a IList<SystemDto> objects

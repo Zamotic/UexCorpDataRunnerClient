@@ -9,6 +9,17 @@ using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 namespace UexCorpDataRunner.Persistence.Api.Mappers;
 public class V2DtoMapper : IMapperV2
 {
+    public GameVersion ConvertFromDto(GameVersionDto source)
+    {
+        GameVersion gameVersion = new GameVersion
+        {
+            Live = source.Live,
+            Ptu = source.Ptu
+        };
+
+        return gameVersion;
+    }
+
     public StarSystem ConvertFromDto(StarSystemDto source)
     {
         StarSystem starSystem = new StarSystem();
