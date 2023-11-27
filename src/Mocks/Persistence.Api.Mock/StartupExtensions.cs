@@ -13,11 +13,19 @@ public static class StartupExtensions
     {
         services
                 .AddSingleton<UexWebApiMockHttpMessageHandler>()
-                .ConfigureAll<HttpClientFactoryOptions>(options =>
+                .AddSingleton<UexV2.UexWebApiMockHttpMessageHandler>()
+                .Configure<HttpClientFactoryOptions>("UEX1.0", options =>
                 {
                     options.HttpMessageHandlerBuilderActions.Add(builder =>
                     {
                         builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<UexWebApiMockHttpMessageHandler>());
+                    });
+                })
+                .Configure<HttpClientFactoryOptions>("UEX2.0", options =>
+                {
+                    options.HttpMessageHandlerBuilderActions.Add(builder =>
+                    {
+                        builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<UexV2.UexWebApiMockHttpMessageHandler>());
                     });
                 })
                 //.AddSingleton<IHttpClientFactory, UexMockHttpClientFactory>()

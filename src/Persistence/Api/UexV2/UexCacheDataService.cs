@@ -1,8 +1,7 @@
 ﻿using UexCorpDataRunner.Domain.DataRunner;
-using UexCorpDataRunner.Persistence.Api.UexV2;
 
-namespace UexCorpDataRunner.Persistence.Api.Uex;
-public class UexCacheDataService : UexDataService
+namespace UexCorpDataRunner.Persistence.Api.UexV2;
+public class UexCacheDataService : UexDataServiceV2
 {
     Dictionary<Type, Dictionary<string, dynamic>> _cacheDictionary = new Dictionary<Type, Dictionary<string, dynamic>>();
 

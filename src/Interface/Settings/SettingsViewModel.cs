@@ -18,6 +18,7 @@ public class SettingsViewModel : ViewModelBase
     private bool _AlwaysOnTopChanged = false;
     private bool _ShowTemporaryCommodityChanged = false;
     private bool _SelectedGameVersionChanged = false;
+    private bool _SelectedSiteVersionChanged = false;
 
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
@@ -67,6 +68,10 @@ public class SettingsViewModel : ViewModelBase
         {
             _SelectedGameVersionChanged = true;
         }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.SelectedSiteVersion)) == true)
+        {
+            _SelectedSiteVersionChanged = true;
+        }
     }
 
     public List<string> ThemeList { get; } = new List<string>() 
@@ -114,6 +119,11 @@ public class SettingsViewModel : ViewModelBase
     {
         GameVersion.LiveValue,
         GameVersion.PtuValue
+    };
+    public List<string> SiteVersionList { get; } = new List<string>()
+    {
+        SiteVersion.Version1Value,
+        SiteVersion.Version2Value
     };
 
     public string? Version { get => Domain.Globals.Settings.Version; }

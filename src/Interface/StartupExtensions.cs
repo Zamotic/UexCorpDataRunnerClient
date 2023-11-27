@@ -13,6 +13,7 @@ public static class StartupExtensions
         services.AddSingleton<TransmissionStatusViewModel>();
         services.AddSingleton<ReleaseNotesViewModel>();
         services.AddSingleton<DataRunnerViewModel>();
+        services.AddSingleton<DataRunnerV2ViewModel>();
         services.AddSingleton<MinimizedViewModel>();
         services.AddSingleton<SettingsViewModel>();
 

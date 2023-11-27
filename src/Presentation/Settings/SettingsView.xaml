@@ -238,6 +238,21 @@
                     SelectedValue="{Binding SettingsValues.SelectedGameVersion}"
                     DefaultOverlayString="(Select Game Version)" />
             </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Site Version:" 
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding SiteVersionList}"
+                    SelectedValue="{Binding SettingsValues.SelectedSiteVersion}"
+                    DefaultOverlayString="(Select Site Version)" />
+            </DockPanel>
             <TextBlock
                 DockPanel.Dock="Bottom"
                 FontWeight="Bold"

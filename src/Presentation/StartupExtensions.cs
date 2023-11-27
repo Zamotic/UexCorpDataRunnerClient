@@ -18,6 +18,7 @@ public static class StartupExtensions
         services.AddSingleton<TransmissionStatusView>();
         services.AddSingleton<ReleaseNotesView>();
         services.AddSingleton<DataRunnerView>();
+        services.AddSingleton<DataRunnerV2View>();
         services.AddSingleton<MinimizedView>();
         services.AddSingleton<SettingsView>();
 

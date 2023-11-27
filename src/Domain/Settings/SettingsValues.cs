@@ -34,4 +34,21 @@ public class SettingsValues : ObservableObject
     private string _SelectedGameVersion = GameVersion.LiveValue;
     public string SelectedGameVersion { get => _SelectedGameVersion; set => SetProperty(ref _SelectedGameVersion, value); }
     public GameVersion? LoadedGameVersion { get; set; }
+    public bool IsGameVersionEnabled { get; set; } = true;
+
+    private string _SelectedSiteVersion = SiteVersion.Version1Value;
+    public string SelectedSiteVersion 
+    { 
+        get => _SelectedSiteVersion;
+        set
+        {
+            SetProperty(ref _SelectedSiteVersion, value);
+            if(_SelectedSiteVersion.Equals(SiteVersion.Version2Value) == true)
+            {
+
+                IsGameVersionEnabled = false;
+            }
+        }
+    }
+    public SiteVersion? LoadedSiteVersion { get; set; }
 }

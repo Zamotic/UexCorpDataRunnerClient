@@ -7,9 +7,23 @@
              xmlns:Settings="clr-namespace:UexCorpDataRunner.Presentation.Settings"
              xmlns:Minimized="clr-namespace:UexCorpDataRunner.Presentation.Minimized"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="450">
     <Grid>
-        <DataRunner:DataRunnerView />
+        <TabControl>
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabItem
+                Header="V1" >
+                <DataRunner:DataRunnerView />
+            </TabItem>
+            <TabItem
+                Header="V2">
+                <DataRunner:DataRunnerV2View />
+            </TabItem>
+        </TabControl>
         <DataRunner:TransmissionStatusView />
         <DataRunner:ReleaseNotesView />
         <Minimized:MinimizedView />

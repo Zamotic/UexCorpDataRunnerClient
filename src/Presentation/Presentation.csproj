@@ -53,6 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="DataRunner\DataRunnerV2View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="DataRunner\DataRunnerView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
