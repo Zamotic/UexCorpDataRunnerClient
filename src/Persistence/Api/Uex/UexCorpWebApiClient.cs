@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using UexCorpDataRunner.Common;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Persistence.Api.Common;
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
@@ -9,10 +10,13 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
 {
     readonly IUexCorpWebApiConfiguration _WebApiConfiguration;
     readonly HttpClient _HttpClient;
+    readonly AesEncryption _AesEncryption;
 
     public UexCorpWebApiClient(IUexCorpWebApiConfiguration webApiConfiguration,
                                 HttpClient httpClient)
     {
+        _AesEncryption = new(Domain.Globals.SimpleCipherKey);
+
         _WebApiConfiguration = webApiConfiguration;
         _HttpClient = httpClient;
 
@@ -41,7 +45,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             throw new Exception("ApiKey cannot be empty");
         }
 
-        string decryptedKey = UexCorpDataRunner.Common.SimpleCipher.Decrypt(_WebApiConfiguration.ApiKey, Domain.Globals.SimpleCipherKey);
+        string decryptedKey = _AesEncryption.Decrypt(_WebApiConfiguration.ApiKey);
         return decryptedKey;
     }
 

@@ -1,10 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UexCorpDataRunner.Common;
 
 namespace Common.UnitTests;
-public class SimpleCipherTests
+public class AesEncryptionTests
 {
     [Theory]
-    [InlineData("TestString","TestCipherKey")]
+    [InlineData("TestString", "TestCipherKey")]
     [InlineData("ThisIsASuperLongTestString", "TestCipherKey")]
     [InlineData("ThisIsAnEvenLongerSuperLongTestString", "TestCipherKey")]
     [InlineData("TestString", "ThisIsASuperLongCipherKeyString")]
@@ -15,26 +20,30 @@ public class SimpleCipherTests
     [InlineData("ThisIsAnEvenLongerSuperLongTestString", "ThisIsAnEvenLongerSuperLongCipherKeyString")]
     [InlineData("TestApiKey", "UnitedExpressCorporationFoundedIn2947")]
     [InlineData("0e80186321a7c8b7c316f31521a596795ce63462", "UnitedExpressCorporationFoundedIn2947")]
+    [InlineData("97b03f4a6a64e1ff90fca2da4ce68fbae7103d37", "UnitedExpressCorporationFoundedIn2947")]
     public void EncryptDecrypt_ShouldReturnOriginalString(string stringToEncrypt, string encryptionKeyString)
     {
         // Assemble
+        AesEncryption aesEncryption = new(encryptionKeyString);
 
         // Act
-        var encryptedString = SimpleCipher.Encrypt(stringToEncrypt, encryptionKeyString);
-        var decryptedString = SimpleCipher.Decrypt(encryptedString, encryptionKeyString);
+        var encryptedString = aesEncryption.Encrypt(stringToEncrypt);
+        var decryptedString = aesEncryption.Decrypt(encryptedString);
 
         // Assert
         decryptedString.Should().Be(stringToEncrypt);
     }
 
     [Theory]
-    [InlineData("Viz6DAUqzKgg68HzX+14myAUc66trsBTAeCLEVJLHEqB1CEtkTD0lf4UfW9+FVbyDOwVmNbax8rCbW3hctdTkdB/jhi+oSCuR/OpYB/PtRo=", "UnitedExpressCorporationFoundedIn2947", "0e80186321a7c8b7c316f31521a596795ce63462")]
+    [InlineData("+7LIrgPBb5qyCf+W5avas6RlWRkRX/K0crETuv3Z+lH9uHfR/hTeNaRSU99Xlwho", "UnitedExpressCorporationFoundedIn2947", "0e80186321a7c8b7c316f31521a596795ce63462")]
+    [InlineData("FoGk3H4kH1DnbSHkBRtoyyPQ/Uo/Ar0VPSXaqdVtI4RgoB4zJ25CiOH7ne5JzzbH", "UnitedExpressCorporationFoundedIn2947", "97b03f4a6a64e1ff90fca2da4ce68fbae7103d37")]
     public void Decrypt_ShouldReturnOriginalString(string encryptedString, string encryptionKeyString, string expectedValue)
     {
         // Assemble
+        AesEncryption aesEncryption = new(encryptionKeyString);
 
         // Act
-        var decryptedString = SimpleCipher.Decrypt(encryptedString, encryptionKeyString);
+        var decryptedString = aesEncryption.Decrypt(encryptedString);
 
         // Assert
         decryptedString.Should().Be(expectedValue);
