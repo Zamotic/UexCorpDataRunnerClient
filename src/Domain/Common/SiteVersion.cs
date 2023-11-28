@@ -1,4 +1,10 @@
-﻿namespace UexCorpDataRunner.Domain.DataRunner;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UexCorpDataRunner.Domain.Common;
 public class SiteVersion
 {
     public const string Version1Value = "UEX 1.0";
@@ -7,4 +13,3 @@ public class SiteVersion
     public string Version1 { get; set; } = string.Empty;
     public string Version2 { get; set; } = string.Empty;
 }
-

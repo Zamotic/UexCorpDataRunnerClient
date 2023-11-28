@@ -5,7 +5,5 @@ namespace UexCorpDataRunner.Persistence.Api.Mappers;
 
 public interface IMapperV2
 {
-    GameVersion ConvertFromDto(GameVersionDto source);
-    StarSystem ConvertFromDto(StarSystemDto source);
-    IReadOnlyCollection<StarSystem> ConvertFromDto(IEnumerable<StarSystemDto> sourceCollection);
+    IReadOnlyCollection<TOutput> ConvertFromDto<TInput, TOutput>(IEnumerable<IConvertibleFromDto<TInput, TOutput>> sourceCollection);
 }

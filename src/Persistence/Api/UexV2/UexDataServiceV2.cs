@@ -23,6 +23,12 @@ public class UexDataServiceV2 : IUexDataServiceV2
         return collection;
     }
 
+    public virtual async Task<IReadOnlyCollection<Terminal>> GetAllTerminalsAsync(int starSystemId)
+    {
+        var collection = await _WebClientAdapter.GetTerminalsAsync(starSystemId);
+        return collection;
+    }
+
     //public virtual async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode)
     //{
     //    var collection = await _WebClientAdapter.GetPlanetsAsync(systemCode);

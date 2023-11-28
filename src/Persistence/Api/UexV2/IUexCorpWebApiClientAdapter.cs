@@ -5,6 +5,7 @@ public interface IUexCorpWebApiClientAdapter
 {
     Task<GameVersion> GetCurrentVersionAsync();
     Task<IReadOnlyCollection<StarSystem>> GetSystemsAsync();
+    Task<IReadOnlyCollection<Terminal>> GetTerminalsAsync(int starSystemId);
     //Task<IReadOnlyCollection<Planet>> GetPlanetsAsync(string systemCode);
     //Task<IReadOnlyCollection<Satellite>> GetSatellitesAsync(string systemCode);
     //Task<IReadOnlyCollection<City>> GetCitiesAsync(string systemCode);

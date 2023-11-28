@@ -14,7 +14,8 @@ public static class StartupExtensions
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
         SubscribeToServiceProviderBuilt(services);
-
+        
+        services.AddSingleton<SettingsView>();
         services.AddSingleton<TransmissionStatusView>();
         services.AddSingleton<ReleaseNotesView>();
         services.AddSingleton<DataRunnerView>();

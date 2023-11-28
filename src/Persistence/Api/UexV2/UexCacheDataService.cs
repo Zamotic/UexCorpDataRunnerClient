@@ -64,6 +64,34 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
         return collection;
     }
 
+    public override async Task<IReadOnlyCollection<Terminal>> GetAllTerminalsAsync(int starSystemId)
+    {
+        string starSystemIdString = starSystemId.ToString();
+        IReadOnlyCollection<Terminal> collection;
+        var type = typeof(Terminal);
+        if (_cacheDictionary.Keys.Contains(type) == true)
+        {
+            var typeDictionary = _cacheDictionary[type];
+            if (typeDictionary.Keys.Contains(starSystemIdString) == true)
+            {
+                var returnCollection = typeDictionary[starSystemIdString] as IReadOnlyCollection<Terminal>;
+                if (returnCollection is not null)
+                {
+                    return returnCollection;
+                }
+            }
+
+            collection = await base.GetAllTerminalsAsync(starSystemId);
+            typeDictionary.Add(starSystemIdString, collection);
+        }
+
+        collection = await base.GetAllTerminalsAsync(starSystemId);
+        var collectionDictionary = new Dictionary<string, dynamic>();
+        collectionDictionary.Add(starSystemIdString, collection);
+        _cacheDictionary.Add(type, collectionDictionary);
+        return collection;
+    }
+
     //public override async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode)
     //{
     //    IReadOnlyCollection<Planet> collection;

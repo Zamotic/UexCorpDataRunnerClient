@@ -18,7 +18,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
     {
         GameVersionDto gameVersionDTO = await _WebClient.GetCurrentVersionAsync();
 
-        var gameVersion = _Mapper.ConvertFromDto(gameVersionDTO);
+        var gameVersion = gameVersionDTO.ConvertFromDto();
         return gameVersion;
     }
 
@@ -28,6 +28,14 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
         var systems = _Mapper.ConvertFromDto(systemDtos);
         return systems;
+    }
+
+    public async Task<IReadOnlyCollection<Terminal>> GetTerminalsAsync(int starSystemId)
+    {
+        ICollection<TerminalDto> terminalDtos = await _WebClient.GetTerminalsAsync(starSystemId);
+
+        var terminals = _Mapper.ConvertFromDto(terminalDtos);
+        return terminals;
     }
 
     //public async Task<IReadOnlyCollection<Planet>> GetPlanetsAsync(string systemCode)

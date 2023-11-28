@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
-public class TerminalDto : BaseDto
+public class TerminalDto : BaseDto, IConvertibleFromDto<TerminalDto, Domain.DataRunnerV2.Terminal>
 {
     [JsonPropertyName("id_star_system")]
     public int StarSystemId { get; set; }
@@ -54,4 +54,26 @@ public class TerminalDto : BaseDto
     [JsonPropertyName("screenshot")]
     public string? Screenshot { get; set; }
 
+    public Domain.DataRunnerV2.Terminal ConvertFromDto()
+    {
+        Domain.DataRunnerV2.Terminal terminal = new Domain.DataRunnerV2.Terminal();
+        terminal.StarSystemId = this.StarSystemId;
+        terminal.StarSystemName = this.StarSystemName;
+        terminal.PlanetId = this.PlanetId;
+        terminal.PlanetName = this.PlanetName;
+        terminal.MoonId = this.MoonId;
+        terminal.MoonName = this.MoonName;
+        terminal.SpaceStationId = this.SpaceStationId;
+        terminal.SpaceStationName = this.SpaceStationName;
+        terminal.OutpostId = this.OutpostId;
+        terminal.OutpostName = this.OutpostName;
+        terminal.CityId = this.CityId;
+        terminal.CityName = this.CityName;
+        terminal.Name = this.Name;
+        terminal.Nickname = this.Nickname;
+        terminal.Code = this.Code;
+        terminal.Type = this.Type;
+
+        return terminal;
+    }
 }

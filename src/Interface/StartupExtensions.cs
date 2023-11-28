@@ -16,6 +16,7 @@ public static class StartupExtensions
         services.AddSingleton<DataRunnerV2ViewModel>();
         services.AddSingleton<MinimizedViewModel>();
         services.AddSingleton<SettingsViewModel>();
+        services.AddSingleton<MainViewModel>();
 
         return services;
     }

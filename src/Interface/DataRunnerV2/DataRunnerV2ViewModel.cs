@@ -40,10 +40,20 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         set
         {
             SetProperty(ref _SelectedSystem, value);
-            //if(SelectedSystem != null)
-            //{
-            //    _ = UpdatePlanetListAsync(SelectedSystem.Code);
-            //}
+            if (SelectedSystem != null)
+            {
+                _ = UpdateTerminalListAsync(SelectedSystem.Id);
+            }
+        }
+    }
+
+    private IReadOnlyCollection<Terminal> _TerminalList = new List<Terminal>();
+    public IReadOnlyCollection<Terminal> TerminalList
+    {
+        get => _TerminalList;
+        set
+        {
+            SetProperty(ref _TerminalList, value);
         }
     }
 
@@ -467,6 +477,27 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
     {
         //ClearSelectedTradeportCommandExecute();
         IsEnabled = true;
+    }
+
+    public async Task UpdateTerminalListAsync(int starSystemId)
+    {
+        if (starSystemId < 1)
+        {
+            return;
+        }
+
+        if (_IsViewModelLoaded == false)
+        {
+            return;
+        }
+
+        TerminalList = await _DataService.GetAllTerminalsAsync(starSystemId);
+        //SetPlanetListCVS(true);
+        //SelectedPlanet = null;
+        //SatelliteList = await _DataService.GetAllSatellitesAsync(systemCode);
+        ////SetSatelliteListCVS(true);
+        //TradeportList = await _DataService.GetAllTradeportsAsync(systemCode);
+        //SetTradeportListCVS(true);
     }
 
     //public async Task UpdatePlanetListAsync(string systemCode)

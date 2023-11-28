@@ -6,8 +6,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
       xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunner"
-      xmlns:sort="clr-namespace:UexCorpDataRunner.Presentation.DataRunner.Sort"
-      xmlns:filter="clr-namespace:UexCorpDataRunner.Presentation.DataRunner.Filter"
+      xmlns:sort="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Sort"
+      xmlns:filter="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Filter"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
@@ -338,32 +338,32 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="PlanetListCVS" Source="{Binding PlanetList}">
             <Behaviors:Interaction.Behaviors>
-                <filter:PlanetListFilter SelectedSystem="{Binding SelectedSystem}" />
-                <sort:PlanetSort />
+                <!--<filter:PlanetListFilter SelectedSystem="{Binding SelectedSystem}" />
+                <sort:PlanetSort />-->
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
         <CollectionViewSource x:Key="SatelliteListCVS" Source="{Binding SatelliteList}">
             <Behaviors:Interaction.Behaviors>
-                <filter:SatelliteListFilter SelectedPlanet="{Binding SelectedPlanet}" />
-                <sort:SatelliteSort />
+                <!--<filter:SatelliteListFilter SelectedPlanet="{Binding SelectedPlanet}" />
+                <sort:SatelliteSort />-->
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
         <CollectionViewSource x:Key="TradeportListCVS" Source="{Binding TradeportList}">
             <Behaviors:Interaction.Behaviors>
-                <filter:TradeportListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedSatellite="{Binding SelectedSatellite}" />
-                <sort:TradeportSort />
+                <!--<filter:TradeportListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedSatellite="{Binding SelectedSatellite}" />
+                <sort:TradeportSort />-->
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
         <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
-                <filter:BuyableCommodityListFilter />
-                <sort:CommoditySort />
+                <!--<filter:BuyableCommodityListFilter />
+                <sort:CommoditySort />-->
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
         <CollectionViewSource x:Key="SellableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
-                <filter:SellableCommodityListFilter />
-                <sort:CommoditySort />
+                <!--<filter:SellableCommodityListFilter />
+                <sort:CommoditySort />-->
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
     </UserControl.Resources>
