@@ -502,7 +502,8 @@
                     DisplayMemberPath="Name" 
                     IsEditable="True" 
                     IsTextSearchEnabled="False" 
-                    StaysOpenOnEdit="True">
+                    StaysOpenOnEdit="True"
+                    Extensions:FocusExtension.IsFocused="{Binding IsSelectedTerminalFocused, Mode=TwoWay}">
                     <uiLibraryControls:FilteredComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel VirtualizationMode="Recycling" />

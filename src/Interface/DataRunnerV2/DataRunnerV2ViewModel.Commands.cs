@@ -33,6 +33,7 @@ public partial class DataRunnerV2ViewModel
             }
 
             //SetNotificationPanelText();
+            IsSelectedTerminalFocused = true;
         }
         catch //(Exception ex)
         {

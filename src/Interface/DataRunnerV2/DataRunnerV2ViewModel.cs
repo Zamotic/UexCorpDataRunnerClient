@@ -15,6 +15,13 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
     //private readonly IPriceReportSubmitter _PriceReportSubmitter;
     //private readonly ITradeportCommodityBuilder _TradeportCommodityBuilder;
 
+    private bool _IsSelectedTerminalFocused = false;
+    public bool IsSelectedTerminalFocused
+    {
+        get => _IsSelectedTerminalFocused;
+        set => SetProperty(ref _IsSelectedTerminalFocused, value);
+    }
+
     //private bool _IsNotificationPanelVisible = false;
     //public bool IsNotificationPanelVisible { get => _IsNotificationPanelVisible; set => SetProperty(ref _IsNotificationPanelVisible, value); }
     //private string _NotificationPanelText = string.Empty;

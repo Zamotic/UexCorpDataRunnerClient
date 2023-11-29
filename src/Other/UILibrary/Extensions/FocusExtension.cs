@@ -31,6 +31,7 @@ public static class FocusExtension
         element.SetValue(IsFocusedProperty, value);
     }
 
+    static bool _isFocusing = false;
     private static void IsFocusedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var fe = (FrameworkElement)d;
@@ -48,7 +49,13 @@ public static class FocusExtension
 
         if (e.NewValue != null && (bool)e.NewValue)
         {
+            if(_isFocusing == true)
+            {
+                return;
+            }
+            _isFocusing = true;
             fe.Focus();
+            _isFocusing = false;
         }
     }
 
