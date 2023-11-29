@@ -57,6 +57,16 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         }
     }
 
+    private Terminal? _SelectedTerminal = null;
+    public Terminal? SelectedTerminal
+    {
+        get => _SelectedTerminal;
+        set
+        {
+            SetProperty(ref _SelectedTerminal, value);
+        }
+    }
+
     //private IReadOnlyCollection<Planet> _PlanetList = new List<Planet>();
     //public IReadOnlyCollection<Planet> PlanetList
     //{
@@ -492,6 +502,7 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         }
 
         TerminalList = await _DataService.GetAllTerminalsAsync(starSystemId);
+        SelectedTerminal = null;
         //SetPlanetListCVS(true);
         //SelectedPlanet = null;
         //SatelliteList = await _DataService.GetAllSatellitesAsync(systemCode);

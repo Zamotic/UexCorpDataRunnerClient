@@ -103,6 +103,16 @@ public partial class DataRunnerV2ViewModel
         SelectedSystem = null;
     }
 
+    public IRelayCommand ClearSelectedTerminalCommand => new RelayCommand(ClearSelectedTerminalCommandExecute, ClearSelectedTerminalCommandCanExecute);
+    private bool ClearSelectedTerminalCommandCanExecute()
+    {
+        return SelectedTerminal is not null;
+    }
+    private void ClearSelectedTerminalCommandExecute()
+    {
+        SelectedTerminal = null;
+    }
+
     //public IRelayCommand ClearSelectedPlanetCommand => new RelayCommand(ClearSelectedPlanetCommandExecute, ClearSelectedPlanetCommandCanExecute);
     //private bool ClearSelectedPlanetCommandCanExecute()
     //{
