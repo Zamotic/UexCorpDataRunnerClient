@@ -8,8 +8,10 @@ public static class StarSystemMapper
     {
         StarSystem output = new StarSystem();
         output.Id = input.Id;
-        output.Name = input.Name!;
-        output.Code = input.Code!;
+        output.DateAdded = input.DateAdded;
+        output.DateModified = input.DateModified;
+        output.Name = input.Name;
+        output.Code = input.Code;
         output.IsAvailable = input.IsAvailable;
         output.IsVisible = input.IsVisible;
         output.IsDefault = input.IsDefault;
@@ -34,6 +36,8 @@ public static class StarSystemMapper
     {
         StarSystemDto output = new StarSystemDto();
         output.Id = input.Id;
+        output.DateAdded = input.DateAdded;
+        output.DateModified = input.DateModified;
         output.Name = input.Name;
         output.Code = input.Code;
         output.IsAvailable = input.IsAvailable;

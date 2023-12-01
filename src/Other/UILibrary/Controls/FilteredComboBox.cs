@@ -8,6 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows;
 
 namespace UexCorpDataRunner.UILibrary.Controls;
 public class FilteredComboBox : DefaultOverlayComboBox2
@@ -44,7 +45,7 @@ public class FilteredComboBox : DefaultOverlayComboBox2
             case Key.Enter:
                 var view = CollectionViewSource.GetDefaultView(ItemsSource);
                 int count = view.Cast<object>().Count();
-                if(count == 1)
+                if(count > 0)
                 {
                     SelectedIndex = 0;
                 }
@@ -130,6 +131,12 @@ public class FilteredComboBox : DefaultOverlayComboBox2
         SelectedIndex = temp;
         base.OnPreviewLostKeyboardFocus(e);
         _isLostFocusExecuting = false;
+    }
+
+    protected override void OnGotFocus(RoutedEventArgs e)
+    {
+        IsDropDownOpen = true;
+        base.OnGotFocus(e);
     }
 
     private void RefreshFilter()

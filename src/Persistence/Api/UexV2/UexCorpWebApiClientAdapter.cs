@@ -1,4 +1,5 @@
-﻿using UexCorpDataRunner.Domain.DataRunnerV2;
+﻿using EnumsNET;
+using UexCorpDataRunner.Domain.DataRunnerV2;
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 using UexCorpDataRunner.Persistence.Api.UexV2.Mappers;
 
@@ -34,8 +35,9 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
         var terminals = terminalDtos.ConvertFromDto();
 
+        var filteredTerimals = terminals.Where(x => x.Type?.Equals(TerminalType.Commodity.GetAttributes()?.Get<TerminalTypeValueAttribute>()?.TypeValue) == true).ToList();
 
-        return terminals;
+        return filteredTerimals;
     }
 
     public async Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync()
@@ -49,7 +51,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
     public async Task<IReadOnlyCollection<CommodityPrice>> GetCommodityPricesAsync(int terminalId)
     {
-        ICollection<CommodityPriceDto> commodityPriceDtos = await _WebClient.GetCommodityPricesByTerminalIdAsync(terminalId);
+        ICollection<CommodityPriceDto> commodityPriceDtos = await _WebClient.GetCommodityPricesAsync(terminalId);
 
         var commodityPrices = commodityPriceDtos.ConvertFromDto();
 
@@ -95,14 +97,6 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
     //    var tradeport = _Mapper.Map<Tradeport>(tradeportDto);
     //    return tradeport;
     //}
-
-    public async Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync()
-    {
-        ICollection<CommodityDto> commoditiesDtos = await _WebClient.GetCommoditiesAsync();
-
-        var commodities = _Mapper.ConvertFromDto(commoditiesDtos);
-        return commodities;
-    }
 
     //public async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
     //{

@@ -23,7 +23,7 @@ public class UexDataServiceV2 : IUexDataServiceV2
         return collection;
     }
 
-    public virtual async Task<IReadOnlyCollection<Terminal>> GetAllTerminalsAsync(int starSystemId)
+    public virtual async Task<IReadOnlyCollection<Terminal>> GetTerminalsAsync(int starSystemId)
     {
         var collection = await _WebClientAdapter.GetTerminalsAsync(starSystemId);
         return collection;
@@ -64,6 +64,13 @@ public class UexDataServiceV2 : IUexDataServiceV2
         var collection = await _WebClientAdapter.GetCommoditiesAsync();
         return collection;
     }
+
+    public virtual async Task<IReadOnlyCollection<CommodityPrice>> GetCommodityPricesAsync(int terminalId)
+    {
+        var collection = await _WebClientAdapter.GetCommodityPricesAsync(terminalId);
+        return collection;
+    }
+
     //public virtual async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
     //{
     //    var response = await _WebClientAdapter.SubmitPriceReportAsync(priceReport);

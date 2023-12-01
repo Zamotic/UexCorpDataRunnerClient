@@ -7,12 +7,20 @@ public static class CommodityMapper
     public static Commodity ConvertFromDto(this CommodityDto input)
     {
         Commodity output = new Commodity();
-
+        output.Id = input.Id;
+        output.Name = input.Name;
+        output.Code = input.Code;
+        output.IsAvailable = input.IsAvailable;
+        output.IsVisible = input.IsVisible;
+        output.DateAdded = input.DateAdded;
+        output.DateModified = input.DateModified;
+        output.Name = input.Name;
+        output.Code = input.Code;
         output.ParentId = input.ParentId;
         output.Slug = input.Slug;
         output.Kind = input.Kind;
-        output.PriceBuy = input.PriceBuy;
-        output.PriceSell = input.PriceSell;
+        output.BuyPrice = Convert.ToDecimal(input.BuyPrice);
+        output.SellPrice = Convert.ToDecimal(input.SellPrice);
         output.IsRaw = input.IsRaw;
         output.IsHarvestable = input.IsHarvestable;
         output.IsBuyable = input.IsBuyable;
@@ -37,12 +45,20 @@ public static class CommodityMapper
     public static CommodityDto ConvertToDto(this Commodity input)
     {
         CommodityDto output = new CommodityDto();
-
+        output.Id = input.Id;
+        output.Name = input.Name;
+        output.Code = input.Code;
+        output.IsAvailable = input.IsAvailable;
+        output.IsVisible = input.IsVisible;
+        output.DateAdded = input.DateAdded;
+        output.DateModified = input.DateModified;
+        output.Name = input.Name;
+        output.Code = input.Code;
         output.ParentId = input.ParentId;
         output.Slug = input.Slug;
         output.Kind = input.Kind;
-        output.PriceBuy = input.PriceBuy;
-        output.PriceSell = input.PriceSell;
+        output.BuyPrice = Convert.ToSingle(input.BuyPrice);
+        output.SellPrice = Convert.ToSingle(input.SellPrice);
         output.IsRaw = input.IsRaw;
         output.IsHarvestable = input.IsHarvestable;
         output.IsBuyable = input.IsBuyable;

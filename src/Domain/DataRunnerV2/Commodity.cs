@@ -14,9 +14,9 @@ public class Commodity : AvailableNameableBaseModel
 
     public string? Kind { get; set; }
 
-    public float PriceBuy { get; set; }
+    public decimal BuyPrice { get; set; }
 
-    public float PriceSell { get; set; }
+    public decimal SellPrice { get; set; }
 
     public bool IsRaw { get; set; }
 
@@ -29,4 +29,5 @@ public class Commodity : AvailableNameableBaseModel
     public bool IsTemporary { get; set; }
 
     public bool IsIllegal { get; set; }
+    public bool IsVisible { get; set; }
 }

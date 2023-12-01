@@ -1,11 +1,11 @@
 ﻿<UserControl
-      x:Class="UexCorpDataRunner.Presentation.DataRunner.DataRunnerV2View"
+      x:Class="UexCorpDataRunner.Presentation.DataRunnerV2.DataRunnerV2View"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
-      xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunner"
+      xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2"
       xmlns:sort="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Sort"
       xmlns:filter="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Filter"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
@@ -15,7 +15,7 @@
       presentation:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="425"
-      d:DataContext="{d:DesignInstance Type=local:DataRunnerViewModelData, IsDesignTimeCreatable=True}"
+      d:DataContext="{d:DesignInstance Type=local:DataRunnerV2ViewModelData, IsDesignTimeCreatable=True}"
       DataContextChanged="UserControl_DataContextChanged"
       IsEnabled="{Binding IsEnabled}">
     <Behaviors:Interaction.Triggers>
@@ -362,14 +362,14 @@
         </CollectionViewSource>-->
         <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
-                <!--<filter:BuyableCommodityListFilter />
-                <sort:CommoditySort />-->
+                <filter:BuyableCommodityListFilter />
+                <sort:CommoditySort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
         <CollectionViewSource x:Key="SellableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
-                <!--<filter:SellableCommodityListFilter />
-                <sort:CommoditySort />-->
+                <filter:SellableCommodityListFilter />
+                <sort:CommoditySort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
     </UserControl.Resources>
@@ -499,10 +499,10 @@
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding Source={StaticResource TerminalListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedTerminal}"
-                    DisplayMemberPath="Name" 
+                    DisplayMemberPath="FullName"
+                    TextSearch.TextPath="Name"
                     IsEditable="True" 
-                    IsTextSearchEnabled="False" 
-                    StaysOpenOnEdit="True"
+                    IsTextSearchEnabled="False"
                     Extensions:FocusExtension.IsFocused="{Binding IsSelectedTerminalFocused, Mode=TwoWay}">
                     <uiLibraryControls:FilteredComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -672,7 +672,8 @@
                 TabIndex="0"
                 SelectedIndex="{Binding SelectedTabItemIndex}">
                 <TabItem
-                    Header="Buy Price">
+                    Header="Buy Price"
+                    PreviewMouseLeftButtonDown="BuyTab_PreviewMouseLeftButtonDown">
                     <DockPanel
                         Background="{DynamicResource primaryControlBackgroundBrush}">
                         <Grid
@@ -768,6 +769,7 @@
                         </Grid>
                         <ScrollViewer
                             DockPanel.Dock="Top"
+                            Name="BuyTabScrollViewer"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
                                 ItemsSource="{Binding Source={StaticResource BuyableCommodityListCVS}}"
@@ -800,7 +802,8 @@
                     </DockPanel>
                 </TabItem>
                 <TabItem
-                    Header="Sell Price">
+                    Header="Sell Price"
+                    PreviewMouseLeftButtonDown="SellTab_PreviewMouseLeftButtonDown">
                     <DockPanel
                         Background="{DynamicResource primaryControlBackgroundBrush}">
                         <Grid
@@ -884,6 +887,7 @@
                             </Border>
                         </Grid>
                         <ScrollViewer
+                            Name="SellTabScrollViewer"
                             DockPanel.Dock="Top"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl

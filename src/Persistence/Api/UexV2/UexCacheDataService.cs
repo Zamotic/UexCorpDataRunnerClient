@@ -9,7 +9,7 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
         : base(webApiClientAdapter)
     {
     }
-    
+
     public override async Task<GameVersion> GetCurrentVersionAsync()
     {
         GameVersion gameVersion;
@@ -31,8 +31,7 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
         }
 
         gameVersion = await base.GetCurrentVersionAsync();
-        var collectionDictionary = new Dictionary<string, dynamic>();
-        collectionDictionary.Add(string.Empty, gameVersion);
+        var collectionDictionary = new Dictionary<string, dynamic>() { { string.Empty, gameVersion } };
         _cacheDictionary.Add(type, collectionDictionary);
         return gameVersion;
     }
@@ -58,13 +57,12 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
         }
 
         collection = await base.GetAllSystemsAsync();
-        var collectionDictionary = new Dictionary<string, dynamic>();
-        collectionDictionary.Add(string.Empty, collection);
+        var collectionDictionary = new Dictionary<string, dynamic>() { { string.Empty, collection } };
         _cacheDictionary.Add(type, collectionDictionary);
         return collection;
     }
 
-    public override async Task<IReadOnlyCollection<Terminal>> GetAllTerminalsAsync(int starSystemId)
+    public override async Task<IReadOnlyCollection<Terminal>> GetTerminalsAsync(int starSystemId)
     {
         string starSystemIdString = starSystemId.ToString();
         IReadOnlyCollection<Terminal> collection;
@@ -81,13 +79,12 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
                 }
             }
 
-            collection = await base.GetAllTerminalsAsync(starSystemId);
+            collection = await base.GetTerminalsAsync(starSystemId);
             typeDictionary.Add(starSystemIdString, collection);
         }
 
-        collection = await base.GetAllTerminalsAsync(starSystemId);
-        var collectionDictionary = new Dictionary<string, dynamic>();
-        collectionDictionary.Add(starSystemIdString, collection);
+        collection = await base.GetTerminalsAsync(starSystemId);
+        var collectionDictionary = new Dictionary<string, dynamic>() { { starSystemIdString, collection } };
         _cacheDictionary.Add(type, collectionDictionary);
         return collection;
     }
@@ -199,4 +196,30 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
     //    _cacheDictionary.Add(type, collectionDictionary);
     //    return collection;
     //}
+
+    public override async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
+    {
+        IReadOnlyCollection<Commodity> collection;
+        var type = typeof(Commodity);
+        if (_cacheDictionary.Keys.Contains(type) == true)
+        {
+            var typeDictionary = _cacheDictionary[type];
+            if (typeDictionary.Keys.Contains(string.Empty) == true)
+            {
+                var returnCollection = typeDictionary[string.Empty] as IReadOnlyCollection<Commodity>;
+                if (returnCollection is not null)
+                {
+                    return returnCollection;
+                }
+            }
+
+            collection = await base.GetAllCommoditiesAsync();
+            typeDictionary.Add(string.Empty, collection);
+        }
+
+        collection = await base.GetAllCommoditiesAsync();
+        var collectionDictionary = new Dictionary<string, dynamic>() { { string.Empty, collection } };
+        _cacheDictionary.Add(type, collectionDictionary);
+        return collection;
+    }
 }

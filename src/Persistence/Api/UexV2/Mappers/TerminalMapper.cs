@@ -7,6 +7,11 @@ public static class TerminalMapper
     public static Terminal ConvertFromDto(this TerminalDto input)
     {
         Terminal output = new Terminal();
+        output.Id = input.Id;
+        output.DateAdded = input.DateAdded;
+        output.DateModified = input.DateModified;
+        output.Name = input.Name;
+        output.Code = input.Code;
         output.StarSystemId = input.StarSystemId;
         output.StarSystemName = input.StarSystemName;
         output.PlanetId = input.PlanetId;
@@ -41,6 +46,12 @@ public static class TerminalMapper
     public static TerminalDto ConvertToDto(this Terminal input)
     {
         TerminalDto output = new TerminalDto();
+        output.Id = input.Id;
+        output.DateAdded = input.DateAdded;
+        output.DateModified = input.DateModified;
+        output.Name = input.Name;
+        output.Code = input.Code;
+        output.IsAvailable = input.IsAvailable;
         output.StarSystemId = input.StarSystemId;
         output.StarSystemName = input.StarSystemName;
         output.PlanetId = input.PlanetId;
@@ -53,9 +64,7 @@ public static class TerminalMapper
         output.OutpostName = input.OutpostName;
         output.CityId = input.CityId;
         output.CityName = input.CityName;
-        output.Name = input.Name;
         output.Nickname = input.Nickname;
-        output.Code = input.Code;
         output.Type = input.Type;
 
         return output;

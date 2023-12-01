@@ -11,6 +11,7 @@ public interface IUexCorpWebApiClientAdapter
     //Task<IReadOnlyCollection<City>> GetCitiesAsync(string systemCode);
     //Task<IReadOnlyCollection<Tradeport>> GetTradeportsAsync(string systemCode);
     Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync();
+    Task<IReadOnlyCollection<CommodityPrice>> GetCommodityPricesAsync(int terminalId);
     //Task<Tradeport> GetTradeportAsync(string tradeportCode);
     //Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport);
     //Task<PriceReportsResponse> SubmitPriceReportsAsync(PriceReport[] priceReports);

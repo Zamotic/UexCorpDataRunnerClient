@@ -27,83 +27,83 @@ public class CommodityPriceDto : BaseDto
 
     [JsonPropertyName("price_buy")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuy { get; set; }
+    public float BuyPrice { get; set; }
 
     [JsonPropertyName("price_buy_min")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyMin { get; set; }
+    public float BuyPriceMin { get; set; }
 
     [JsonPropertyName("price_buy_min_week")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyMinWeek { get; set; }
+    public float BuyPriceMinWeek { get; set; }
 
     [JsonPropertyName("price_buy_min_month")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyMinMonth { get; set; }
+    public float BuyPriceMinMonth { get; set; }
 
     [JsonPropertyName("price_buy_max")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyMax { get; set; }
+    public float BuyPriceMax { get; set; }
 
     [JsonPropertyName("price_buy_max_week")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyMaxWeek { get; set; }
+    public float BuyPriceMaxWeek { get; set; }
 
     [JsonPropertyName("price_buy_max_month")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyMaxMonth { get; set; }
+    public float BuyPriceMaxMonth { get; set; }
 
     [JsonPropertyName("price_buy_avg")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyAvg { get; set; }
+    public float BuyPriceAvg { get; set; }
 
     [JsonPropertyName("price_buy_avg_week")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyAvgWeek { get; set; }
+    public float BuyPriceAvgWeek { get; set; }
 
     [JsonPropertyName("price_buy_avg_month")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuyAvgMonth { get; set; }
+    public float BuyPriceAvgMonth { get; set; }
 
     [JsonPropertyName("price_sell")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSell { get; set; }
+    public float SellPrice { get; set; }
 
     [JsonPropertyName("price_sell_min")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellMin { get; set; }
+    public float SellPriceMin { get; set; }
 
     [JsonPropertyName("price_sell_min_week")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellMinWeek { get; set; }
+    public float SellPriceMinWeek { get; set; }
 
     [JsonPropertyName("price_sell_min_month")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellMinMonth { get; set; }
+    public float SellPriceMinMonth { get; set; }
 
     [JsonPropertyName("price_sell_max")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellMax { get; set; }
+    public float SellPriceMax { get; set; }
 
     [JsonPropertyName("price_sell_max_week")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellMaxWeek { get; set; }
+    public float SellPriceMaxWeek { get; set; }
 
     [JsonPropertyName("price_sell_max_month")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellMaxMonth { get; set; }
+    public float SellPriceMaxMonth { get; set; }
 
     [JsonPropertyName("price_sell_avg")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellAvg { get; set; }
+    public float SellPriceAvg { get; set; }
 
     [JsonPropertyName("price_sell_avg_week")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellAvgWeek { get; set; }
+    public float SellPriceAvgWeek { get; set; }
 
     [JsonPropertyName("price_sell_avg_month")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSellAvgMonth { get; set; }
+    public float SellPriceAvgMonth { get; set; }
 
     [JsonPropertyName("scu_buy")]
     public int ScuBuy { get; set; }

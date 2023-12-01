@@ -15,11 +15,11 @@ public class CommodityDto : ExtendedBaseDto
 
     [JsonPropertyName("price_buy")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceBuy { get; set; }
+    public float BuyPrice { get; set; }
 
     [JsonPropertyName("price_sell")]
     [JsonConverter(typeof(UexFloatTypeJsonConverter))]
-    public float PriceSell { get; set; }
+    public float SellPrice { get; set; }
 
     [JsonPropertyName("is_raw")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]

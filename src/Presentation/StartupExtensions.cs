@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using UexCorpDataRunner.Presentation.DataRunner;
+using UexCorpDataRunner.Presentation.DataRunnerV2;
 using UexCorpDataRunner.Presentation.Minimized;
 using UexCorpDataRunner.Presentation.Settings;
 using UexCorpDataRunner.Interface.MessengerMessages;

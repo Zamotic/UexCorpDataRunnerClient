@@ -13,6 +13,7 @@ public static class StartupExtensions
         services.AddScoped<ICommodityWrapperToPriceReportConverter, CommodityWrapperToPriceReportConverter>();
         services.AddScoped<IPriceReportSubmitter, PriceReportSubmitter>();
         services.AddScoped<ITradeportCommodityBuilder, TradeportCommodityBuilder>();
+        services.AddScoped<DataRunnerV2.ITerminalCommodityBuilder, DataRunnerV2.TerminalCommodityBuilder>();
 
         return services;
     }

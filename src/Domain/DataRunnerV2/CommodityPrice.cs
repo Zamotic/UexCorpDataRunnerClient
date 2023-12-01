@@ -22,85 +22,85 @@ public class CommodityPrice : BaseModel
 
     public int TerminalId { get; set; }
 
-    public float PriceBuy { get; set; }
+    public decimal BuyPrice { get; set; }
 
-    public float PriceBuyMin { get; set; }
+    public decimal BuyPriceMin { get; set; }
 
-    public float PriceBuyMinWeek { get; set; }
+    //public decimal BuyPriceMinWeek { get; set; }
 
-    public float PriceBuyMinMonth { get; set; }
+    //public decimal BuyPriceMinMonth { get; set; }
 
-    public float PriceBuyMax { get; set; }
+    public decimal BuyPriceMax { get; set; }
 
-    public float PriceBuyMaxWeek { get; set; }
+    //public decimal BuyPriceMaxWeek { get; set; }
 
-    public float PriceBuyMaxMonth { get; set; }
+    //public decimal BuyPriceMaxMonth { get; set; }
 
-    public float PriceBuyAvg { get; set; }
+    public decimal BuyPriceAvg { get; set; }
 
-    public float PriceBuyAvgWeek { get; set; }
+    //public decimal BuyPriceAvgWeek { get; set; }
 
-    public float PriceBuyAvgMonth { get; set; }
+    //public decimal BuyPriceAvgMonth { get; set; }
 
-    public float PriceSell { get; set; }
+    public decimal SellPrice { get; set; }
 
-    public float PriceSellMin { get; set; }
+    public decimal SellPriceMin { get; set; }
 
-    public float PriceSellMinWeek { get; set; }
+    //public decimal SellPriceMinWeek { get; set; }
 
-    public float PriceSellMinMonth { get; set; }
+    //public decimal SellPriceMinMonth { get; set; }
 
-    public float PriceSellMax { get; set; }
+    public decimal SellPriceMax { get; set; }
 
-    public float PriceSellMaxWeek { get; set; }
+    //public decimal SellPriceMaxWeek { get; set; }
 
-    public float PriceSellMaxMonth { get; set; }
+    //public decimal SellPriceMaxMonth { get; set; }
 
-    public float PriceSellAvg { get; set; }
+    public decimal SellPriceAvg { get; set; }
 
-    public float PriceSellAvgWeek { get; set; }
+    //public decimal SellPriceAvgWeek { get; set; }
 
-    public float PriceSellAvgMonth { get; set; }
+    //public decimal SellPriceAvgMonth { get; set; }
 
     public int ScuBuy { get; set; }
 
     public int ScuBuyMin { get; set; }
 
-    public int ScuBuyMinWeek { get; set; }
+    //public int ScuBuyMinWeek { get; set; }
 
-    public int ScuBuyMinMonth { get; set; }
+    //public int ScuBuyMinMonth { get; set; }
 
     public int ScuBuyMax { get; set; }
 
-    public int ScuBuyMaxWeek { get; set; }
+    //public int ScuBuyMaxWeek { get; set; }
 
-    public int ScuBuyMaxMonth { get; set; }
+    //public int ScuBuyMaxMonth { get; set; }
 
     public int ScuBuyAvg { get; set; }
 
-    public int ScuBuyAvgWeek { get; set; }
+    //public int ScuBuyAvgWeek { get; set; }
 
-    public int ScuBuyAvgMonth { get; set; }
+    //public int ScuBuyAvgMonth { get; set; }
 
     public int ScuSell { get; set; }
 
     public int ScuSellMin { get; set; }
 
-    public int ScuSellMinWeek { get; set; }
+    //public int ScuSellMinWeek { get; set; }
 
-    public int ScuSellMinMonth { get; set; }
+    //public int ScuSellMinMonth { get; set; }
 
     public int ScuSellMax { get; set; }
 
-    public int ScuSellMaxWeek { get; set; }
+    //public int ScuSellMaxWeek { get; set; }
 
-    public int ScuSellMaxMonth { get; set; }
+    //public int ScuSellMaxMonth { get; set; }
 
     public int ScuSellAvg { get; set; }
 
-    public int ScuSellAvgWeek { get; set; }
+    //public int ScuSellAvgWeek { get; set; }
 
-    public int ScuSellAvgMonth { get; set; }
+    //public int ScuSellAvgMonth { get; set; }
 
     public string? GameVersion { get; set; }
 

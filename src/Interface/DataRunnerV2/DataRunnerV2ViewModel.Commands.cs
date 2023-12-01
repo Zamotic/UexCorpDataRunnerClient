@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using UexCorpDataRunner.Domain.DataRunnerV2;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
-namespace UexCorpDataRunner.Interface.DataRunner;
+namespace UexCorpDataRunner.Interface.DataRunnerV2;
 public partial class DataRunnerV2ViewModel
 {
     bool _IsViewModelLoaded = false;
@@ -112,6 +112,7 @@ public partial class DataRunnerV2ViewModel
     private void ClearSelectedTerminalCommandExecute()
     {
         SelectedTerminal = null;
+        IsSelectedTerminalFocused = true;
     }
 
     //public IRelayCommand ClearSelectedPlanetCommand => new RelayCommand(ClearSelectedPlanetCommandExecute, ClearSelectedPlanetCommandCanExecute);
@@ -147,80 +148,74 @@ public partial class DataRunnerV2ViewModel
     //    ClearCommodities();
     //}
 
-    //public IRelayCommand ResetCommoditiesCommand => new RelayCommand(ResetCommoditiesCommandExecute);
-    //private void ResetCommoditiesCommandExecute()
-    //{
-    //    ClearCommodities();
-    //    _ = UpdateCommoditiesForTradeport(SelectedTradeport?.Code);
-    //    SelectedTabItemIndex = 0;
-    //    //OnPropertyChanged("Commodities");
-    //}
+    public IRelayCommand ResetCommoditiesCommand => new RelayCommand(ResetCommoditiesCommandExecute);
+    private void ResetCommoditiesCommandExecute()
+    {
+        ClearCommodities();
+        if(SelectedTerminal is not null)
+        {
+            _ = UpdateCommoditiesForTerminal(SelectedTerminal.Id);
+        }
+        SelectedTabItemIndex = 0;
+        //OnPropertyChanged("Commodities");
+    }
 
-    //public IRelayCommand SubmitCommoditiesCommand => new AsyncRelayCommand(SubmitCommoditiesCommandExecute, SubmitCommoditiesCommandCanExecute);
-    //private bool SubmitCommoditiesCommandCanExecute()
-    //{
-    //    if (SelectedTradeport is null)
-    //    {
-    //        return false;
-    //    }
-    //    if (Commodities.Any() == false)
-    //    {
-    //        return false;
-    //    }
-    //    if (Commodities.All(x => x.CurrentPrice.HasValue == false))
-    //    {
-    //        return false;
-    //    }
-    //    return true;
-    //}
+    public IRelayCommand SubmitCommoditiesCommand => new AsyncRelayCommand(SubmitCommoditiesCommandExecute, SubmitCommoditiesCommandCanExecute);
+    private bool SubmitCommoditiesCommandCanExecute()
+    {
+        if (SelectedTerminal is null)
+        {
+            return false;
+        }
+        if (Commodities.Any() == false)
+        {
+            return false;
+        }
+        if (Commodities.All(x => x.CurrentPrice.HasValue == false))
+        {
+            return false;
+        }
+        return true;
+    }
 
-    //bool _UseMultipleReportSubmission = false;
-    //private async Task SubmitCommoditiesCommandExecute()
-    //{
-    //    if(SelectedTradeport is null)
-    //    {
-    //        return;
-    //    }
+    bool _UseMultipleReportSubmission = false;
+    private async Task SubmitCommoditiesCommandExecute()
+    {
+        if (SelectedTerminal is null)
+        {
+            return;
+        }
 
-    //    var messageQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
-    //    _Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
+        //var messageQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
+        //_Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
 
-    //    await Task.Delay(500);
+        //await Task.Delay(500);
 
-    //    if(_UseMultipleReportSubmission)
-    //    {
-    //        var multiResponse = await _PriceReportSubmitter.SubmitAllReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
-    //        bool multiAreThereAnyFailures = multiResponse.Any(x => x.Value == false);
+        //if (_UseMultipleReportSubmission)
+        //{
+        //    var multiResponse = await _PriceReportSubmitter.SubmitAllReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+        //    bool multiAreThereAnyFailures = multiResponse.Any(x => x.Value == false);
 
-    //        string multiResponseMessage = $"Transmission Summary: {multiResponse.Count(x => x.Value == true)} Succeeded, {multiResponse.Count(x => x.Value == false)} Failed";
-    //        _Messenger.Send(new TransmissionStatusCompleteMessage(multiResponseMessage, !multiAreThereAnyFailures));
+        //    string multiResponseMessage = $"Transmission Summary: {multiResponse.Count(x => x.Value == true)} Succeeded, {multiResponse.Count(x => x.Value == false)} Failed";
+        //    _Messenger.Send(new TransmissionStatusCompleteMessage(multiResponseMessage, !multiAreThereAnyFailures));
 
-    //        ClearSelectedTradeportCommandExecute();
-    //    }
+        //    ClearSelectedTerminalCommandExecute();
+        //}
 
-    //    var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+        //var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
 
-    //    bool areThereAnyFailures = responses.Any(x => x.Value == false);
+        //bool areThereAnyFailures = responses.Any(x => x.Value == false);
 
-    //    string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
-    //    _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
+        //string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
+        //_Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
 
-    //    ClearSelectedTradeportCommandExecute();
-    //}
+        ClearSelectedTerminalCommandExecute();
+    }
 
-    //public void ClearCommodities()
-    //{
-    //    //var dispatcher = System.Windows.Application.Current.Dispatcher;
-    //    //if(dispatcher is null)
-    //    //{
-    //    //    return;
-    //    //}
-
-    //    //dispatcher.Invoke(() =>
-    //    //{
-    //        Commodities = new System.Collections.ObjectModel.ObservableCollection<Application.DataRunner.CommodityWrapper>();
-    //    //}, DispatcherPriority.Normal);        
-    //}
+    public void ClearCommodities()
+    {
+        Commodities = new System.Collections.ObjectModel.ObservableCollection<Application.DataRunnerV2.CommodityWrapper>();
+    }
 }
 
 

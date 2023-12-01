@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:DataRunner="clr-namespace:UexCorpDataRunner.Presentation.DataRunner"
+             xmlns:DataRunnerV2="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2"
              xmlns:Settings="clr-namespace:UexCorpDataRunner.Presentation.Settings"
              xmlns:Minimized="clr-namespace:UexCorpDataRunner.Presentation.Minimized"
              xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
@@ -25,7 +26,7 @@
             </TabItem>
             <TabItem
                 Header="V2">
-                <DataRunner:DataRunnerV2View />
+                <DataRunnerV2:DataRunnerV2View />
             </TabItem>
         </TabControl>
         <DataRunner:TransmissionStatusView />

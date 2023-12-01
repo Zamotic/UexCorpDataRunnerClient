@@ -7,7 +7,7 @@ using UexCorpDataRunner.Domain.Minimized;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
-namespace UexCorpDataRunner.Presentation.DataRunner;
+namespace UexCorpDataRunner.Presentation.DataRunnerV2;
 
 /// <summary>
 /// Interaction logic for MainPage.xaml
@@ -124,6 +124,15 @@ public partial class DataRunnerV2View : UserControl
         {
             context.CurrentPrice = null;
         }
+    }
+
+    private void BuyTab_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        BuyTabScrollViewer.ScrollToTop();
+    }
+    private void SellTab_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        SellTabScrollViewer.ScrollToTop();
     }
 
     //private void ItemsControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)

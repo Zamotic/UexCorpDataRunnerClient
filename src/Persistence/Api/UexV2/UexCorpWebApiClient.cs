@@ -230,7 +230,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// </summary>
     /// <paramref name="commodityId"/>An id representing the terminal to return CommodityPriceDto objects for</paramref>
     /// <returns>Collection containing a list of CommodityDto records returned from the API</returns>
-    public async Task<ICollection<CommodityPriceDto>> GetCommodityPricesByTerminalIdAsync(int terminalId)
+    public async Task<ICollection<CommodityPriceDto>> GetCommodityPricesAsync(int terminalId)
     {
         string endPointValue = $"commodities_prices/id_terminal/{terminalId}";
 
