@@ -1,17 +1,15 @@
 ﻿using UexCorpDataRunner.Domain.DataRunnerV2;
-using UexCorpDataRunner.Persistence.Api.Mappers;
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
+using UexCorpDataRunner.Persistence.Api.UexV2.Mappers;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2;
 public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 {
     private readonly IUexCorpWebApiClient _WebClient;
-    private readonly IMapperV2 _Mapper;
 
-    public UexCorpWebApiClientAdapter(IUexCorpWebApiClient webClient, IMapperV2 mapper)
+    public UexCorpWebApiClientAdapter(IUexCorpWebApiClient webClient)
     {
         _WebClient = webClient;
-        _Mapper = mapper;
     }
 
     public async Task<GameVersion> GetCurrentVersionAsync()
@@ -26,7 +24,7 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
     {
         ICollection<StarSystemDto> systemDtos = await _WebClient.GetSystemsAsync();
 
-        var systems = _Mapper.ConvertFromDto(systemDtos);
+        var systems = systemDtos.ConvertFromDto();
         return systems;
     }
 
@@ -34,8 +32,28 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
     {
         ICollection<TerminalDto> terminalDtos = await _WebClient.GetTerminalsAsync(starSystemId);
 
-        var terminals = _Mapper.ConvertFromDto(terminalDtos);
+        var terminals = terminalDtos.ConvertFromDto();
+
+
         return terminals;
+    }
+
+    public async Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync()
+    {
+        ICollection<CommodityDto> commoditiesDtos = await _WebClient.GetCommoditiesAsync();
+
+        var commodities = commoditiesDtos.ConvertFromDto();
+
+        return commodities;
+    }
+
+    public async Task<IReadOnlyCollection<CommodityPrice>> GetCommodityPricesAsync(int terminalId)
+    {
+        ICollection<CommodityPriceDto> commodityPriceDtos = await _WebClient.GetCommodityPricesByTerminalIdAsync(terminalId);
+
+        var commodityPrices = commodityPriceDtos.ConvertFromDto();
+
+        return commodityPrices;
     }
 
     //public async Task<IReadOnlyCollection<Planet>> GetPlanetsAsync(string systemCode)
@@ -76,14 +94,6 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
 
     //    var tradeport = _Mapper.Map<Tradeport>(tradeportDto);
     //    return tradeport;
-    //}
-
-    //public async Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync()
-    //{
-    //    ICollection<CommodityDto> commoditiesDtos = await _WebClient.GetCommoditiesAsync();
-
-    //    var commodities = _Mapper.Map<List<Commodity>>(commoditiesDtos);
-    //    return commodities;
     //}
 
     //public async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
