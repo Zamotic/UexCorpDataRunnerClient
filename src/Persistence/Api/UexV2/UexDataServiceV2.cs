@@ -59,11 +59,11 @@ public class UexDataServiceV2 : IUexDataServiceV2
     //    return tradeport;
     //}
 
-    //public virtual async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
-    //{
-    //    var collection = await _WebClientAdapter.GetCommoditiesAsync();
-    //    return collection;
-    //}
+    public virtual async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
+    {
+        var collection = await _WebClientAdapter.GetCommoditiesAsync();
+        return collection;
+    }
     //public virtual async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
     //{
     //    var response = await _WebClientAdapter.SubmitPriceReportAsync(priceReport);

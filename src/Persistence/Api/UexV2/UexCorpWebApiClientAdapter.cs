@@ -78,13 +78,13 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
     //    return tradeport;
     //}
 
-    //public async Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync()
-    //{
-    //    ICollection<CommodityDto> commoditiesDtos = await _WebClient.GetCommoditiesAsync();
+    public async Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync()
+    {
+        ICollection<CommodityDto> commoditiesDtos = await _WebClient.GetCommoditiesAsync();
 
-    //    var commodities = _Mapper.Map<List<Commodity>>(commoditiesDtos);
-    //    return commodities;
-    //}
+        var commodities = _Mapper.ConvertFromDto(commoditiesDtos);
+        return commodities;
+    }
 
     //public async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
     //{

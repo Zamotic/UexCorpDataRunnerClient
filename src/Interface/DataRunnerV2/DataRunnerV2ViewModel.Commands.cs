@@ -25,7 +25,7 @@ public partial class DataRunnerV2ViewModel
         {
             SystemList = await _DataService.GetAllSystemsAsync();
             SelectedSystem = null;
-            //_commodityList = await _DataService.GetAllCommoditiesAsync();
+            _commodityList = await _DataService.GetAllCommoditiesAsync();
             _IsViewModelLoaded = true;
             if (SystemList.Where(x => x.IsAvailable).Count() == 1)
             {
