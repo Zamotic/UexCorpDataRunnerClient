@@ -4,7 +4,6 @@ using Microsoft.Extensions.Http;
 using System.Reflection;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.Common;
-using UexCorpDataRunner.Persistence.Api.Mappers;
 using UexCorpDataRunner.Persistence.Api.Uex;
 using UexCorpDataRunner.Persistence.Api.UexV2;
 
@@ -39,7 +38,6 @@ public static class StartupExtensions
                 .AddSingleton<UexV2.IUexCorpWebApiClientAdapter, UexV2.UexCorpWebApiClientAdapter>()
                 .AddSingleton<IUexDataService, UexCacheDataService>()
                 .AddSingleton<IUexDataServiceV2, UexCacheDataServiceV2>()
-                .AddSingleton<IMapperV2, V2DtoMapper>()
                 ;
 
         services.AddHttpClient<Uex.IUexCorpWebApiClient, Uex.UexCorpWebApiClient>("UEX1.0");
