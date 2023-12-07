@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using UexCorpDataRunner.Domain.DataRunnerV2;
 using UexCorpDataRunner.Extensions;
 

@@ -178,6 +178,33 @@ public partial class DataRunnerV2ViewModel
         return true;
     }
 
+    public IRelayCommand MouseDoubleClickBehaviorDoubleClicked => new RelayCommand<object?>(MouseDoubleClickBehaviorDoubleClickedExecute);
+    private void MouseDoubleClickBehaviorDoubleClickedExecute(object? dataContext)
+    {
+        if(dataContext is null)
+        {
+            return;
+        }
+
+        var context = dataContext as UexCorpDataRunner.Application.DataRunnerV2.CommodityWrapper;
+        if (context is null)
+        {
+            return;
+        }
+
+        if (context.CurrentPrice is null)
+        {
+            context.CurrentPrice = context.ListedPrice;
+            return;
+        }
+
+        if (context.CurrentPrice is not null)
+        {
+            context.CurrentPrice = null;
+        }
+    }
+
+
     bool _UseMultipleReportSubmission = false;
     private async Task SubmitCommoditiesCommandExecute()
     {
