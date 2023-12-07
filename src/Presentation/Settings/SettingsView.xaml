@@ -187,26 +187,6 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    VerticalAlignment="Center"
-                    ToolTip="Access code can be found on the Password tab of your Personal Profile">
-                    <Hyperlink
-                        NavigateUri="https://portal.uexcorp.space/profile"
-                        Command="{Binding HyperlinkCommand}"
-                        CommandParameter="https://portal.uexcorp.space/profile">
-                        User Access Code:
-                    </Hyperlink>
-                </TextBlock>
-                <TextBox
-                    DockPanel.Dock="Right"
-                    Text="{Binding SettingsValues.UserAccessCode}"
-                    Style="{DynamicResource StyledTextBox}"/>
-            </DockPanel>
-            <DockPanel
-                DockPanel.Dock="Top"
-                Margin="{StaticResource propertyMargin}">
-                <TextBlock
-                    DockPanel.Dock="Left"
-                    Width="{StaticResource labelWidth}"
                     Text="Auto Close Summary:" 
                     VerticalAlignment="Center"
                     Style="{DynamicResource StyledTextBlock}"/>
@@ -229,21 +209,6 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
-                    Text="Game Version:" 
-                    VerticalAlignment="Center"
-                    Style="{DynamicResource StyledTextBlock}"/>
-                <UI:DefaultOverlayComboBox2
-                    DockPanel.Dock="Right"
-                    ItemsSource="{Binding GameVersionList}"
-                    SelectedValue="{Binding SettingsValues.SelectedGameVersion}"
-                    DefaultOverlayString="(Select Game Version)" />
-            </DockPanel>
-            <DockPanel
-                DockPanel.Dock="Top"
-                Margin="{StaticResource propertyMargin}">
-                <TextBlock
-                    DockPanel.Dock="Left"
-                    Width="{StaticResource labelWidth}"
                     Text="Site Version:" 
                     VerticalAlignment="Center"
                     Style="{DynamicResource StyledTextBlock}"/>
@@ -252,6 +217,61 @@
                     ItemsSource="{Binding SiteVersionList}"
                     SelectedValue="{Binding SettingsValues.SelectedSiteVersion}"
                     DefaultOverlayString="(Select Site Version)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="UEX 2.0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    VerticalAlignment="Center"
+                    ToolTip="Access code can be found on the Password tab of your Personal Profile">
+                    <Hyperlink
+                        NavigateUri="https://portal.uexcorp.space/profile"
+                        Command="{Binding HyperlinkCommand}"
+                        CommandParameter="https://portal.uexcorp.space/profile">
+                        User Access Code:
+                    </Hyperlink>
+                </TextBlock>
+                <TextBox
+                    DockPanel.Dock="Right"
+                    Text="{Binding SettingsValues.UserAccessCode}"
+                    Style="{DynamicResource StyledTextBox}"/>
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="UEX 2.0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Game Version:" 
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding GameVersionList}"
+                    SelectedValue="{Binding SettingsValues.SelectedGameVersion}"
+                    DefaultOverlayString="(Select Game Version)" />
             </DockPanel>
             <TextBlock
                 DockPanel.Dock="Bottom"
