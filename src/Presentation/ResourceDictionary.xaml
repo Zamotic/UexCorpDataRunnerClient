@@ -261,7 +261,7 @@
                             Background="Transparent"
                             Foreground="{DynamicResource textForegroundBrush}" />
                         <Image
-                            Source="../Images/triangle-128-LightGray.png"
+                            Source="./Images/triangle-128-LightGray.png"
                             Margin="-40,0,0,0"
                             Height="12"
                             Width="12"
@@ -287,7 +287,7 @@
                             Background="Transparent"
                             Foreground="{DynamicResource textForegroundBrush}" />
                         <Image
-                            Source="../Images/triangle-128-LightGray.png"
+                            Source="./Images/triangle-128-LightGray.png"
                             Margin="-40,0,0,0"
                             Height="12"
                             Width="12"/>

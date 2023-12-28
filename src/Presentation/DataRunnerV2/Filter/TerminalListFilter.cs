@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xaml.Behaviors;
+using System;
 using System.Windows;
 using System.Windows.Data;
 using UexCorpDataRunner.Domain.DataRunnerV2;
@@ -48,12 +49,17 @@ public class TerminalListFilter : Behavior<CollectionViewSource>
             e.Accepted = false;
             return;
         }
-        Terminal? termial = e.Item as Terminal;
-        if (termial is null)
+        Terminal? terminal = e.Item as Terminal;
+        if (terminal is null)
         {
             e.Accepted = false;
             return;
         }
-        e.Accepted = termial.StarSystemId.Equals(SelectedStarSystem.Id);
+        if(terminal.StarSystemId.Equals(SelectedStarSystem.Id) == false)
+        {
+            e.Accepted = false;
+            return;
+        }
+        e.Accepted = true;
     }
 }

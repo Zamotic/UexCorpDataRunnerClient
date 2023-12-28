@@ -190,21 +190,18 @@
                         Height="15"
                         Width="15"/>
                 </Button>
-                <uiLibraryControls:FilteredComboBox
+                <uiLibraryControls:AutoFilteredComboBox
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding Source={StaticResource TerminalListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedTerminal}"
                     DisplayMemberPath="FullName"
-                    TextSearch.TextPath="Name"
-                    IsEditable="True" 
-                    IsTextSearchEnabled="False"
                     Extensions:FocusExtension.IsFocused="{Binding IsSelectedTerminalFocused, Mode=TwoWay}">
-                    <uiLibraryControls:FilteredComboBox.ItemsPanel>
+                    <uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel VirtualizationMode="Recycling" />
                         </ItemsPanelTemplate>
-                    </uiLibraryControls:FilteredComboBox.ItemsPanel>
-                </uiLibraryControls:FilteredComboBox>
+                    </uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
+                </uiLibraryControls:AutoFilteredComboBox>
             </DockPanel>
             <!--<DockPanel
                 Margin="{StaticResource innerMargin}"
