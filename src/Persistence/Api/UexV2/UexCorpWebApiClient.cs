@@ -1,4 +1,5 @@
-﻿using UexCorpDataRunner.Common;
+﻿using System.Net.Http.Headers;
+using UexCorpDataRunner.Common;
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2;
@@ -28,7 +29,8 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         string decryptedApiKey = DecryptApiKey();
 
         _HttpClient.DefaultRequestHeaders.Clear();
-        _HttpClient.DefaultRequestHeaders.Add("api_key", decryptedApiKey);
+
+        _HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", decryptedApiKey);
     }
 
     #region     Generic Methods
