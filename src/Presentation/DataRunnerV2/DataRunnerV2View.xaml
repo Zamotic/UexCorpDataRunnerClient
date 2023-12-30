@@ -362,10 +362,10 @@
                 DockPanel.Dock="Top"
                 Style="{StaticResource Style-TabControl-Main}"
                 TabIndex="0"
-                SelectedIndex="{Binding SelectedTabItemIndex}">
+                SelectedIndex="{Binding SelectedTabItemIndex}"
+                SelectionChanged="TabControl_SelectionChanged">
                 <TabItem
-                    Header="Buy Price"
-                    PreviewMouseLeftButtonDown="BuyTab_PreviewMouseLeftButtonDown">
+                    Header="Buy Price">
                     <DockPanel
                         Background="{DynamicResource primaryControlBackgroundBrush}">
                         <Grid
@@ -494,8 +494,7 @@
                     </DockPanel>
                 </TabItem>
                 <TabItem
-                    Header="Sell Price"
-                    PreviewMouseLeftButtonDown="SellTab_PreviewMouseLeftButtonDown">
+                    Header="Sell Price">
                     <DockPanel
                         Background="{DynamicResource primaryControlBackgroundBrush}">
                         <Grid

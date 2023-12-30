@@ -126,12 +126,18 @@ public partial class DataRunnerV2View : UserControl
         }
     }
 
-    private void BuyTab_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        BuyTabScrollViewer.ScrollToTop();
-    }
-    private void SellTab_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
+        TabControl? obj = sender as TabControl;
+        if (obj is null)
+            return;
+
+        if(obj.SelectedIndex == 0)
+        {             
+            BuyTabScrollViewer.ScrollToTop();
+            return;
+        }
+
         SellTabScrollViewer.ScrollToTop();
     }
 
