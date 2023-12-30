@@ -205,7 +205,7 @@ public partial class DataRunnerV2ViewModel
     }
 
 
-    bool _UseMultipleReportSubmission = false;
+    //bool _UseMultipleReportSubmission = false;
     private async Task SubmitCommoditiesCommandExecute()
     {
         if (SelectedTerminal is null)
@@ -213,10 +213,10 @@ public partial class DataRunnerV2ViewModel
             return;
         }
 
-        //var messageQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
-        //_Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
+        var messageQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
+        _Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
 
-        //await Task.Delay(500);
+        await Task.Delay(500);
 
         //if (_UseMultipleReportSubmission)
         //{
@@ -231,10 +231,10 @@ public partial class DataRunnerV2ViewModel
 
         //var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
 
-        //bool areThereAnyFailures = responses.Any(x => x.Value == false);
+        bool areThereAnyFailures = responses.Any(x => x.Value == false);
 
-        //string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
-        //_Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
+        string responseMessage = $"Transmission Summary: {responses.Count(x => x.Value == true)} Succeeded, {responses.Count(x => x.Value == false)} Failed";
+        _Messenger.Send(new TransmissionStatusCompleteMessage(responseMessage, !areThereAnyFailures));
 
         ClearSelectedTerminalCommandExecute();
     }
