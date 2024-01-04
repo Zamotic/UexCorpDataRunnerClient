@@ -2,11 +2,11 @@
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.Mappers;
-public static class MoonMapper
+public static class CityMapper
 {
-    public static Moon ConvertFromDto(this MoonDto input)
+    public static City ConvertFromDto(this CityDto input)
     {
-        Moon output = new Moon();
+        City output = new City();
         output.Id = input.Id;
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
@@ -16,16 +16,19 @@ public static class MoonMapper
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
 
-        output.StarSystemId = input.StarSystemId;
         output.PlanetId = input.PlanetId;
-        output.NameOrigin = input.NameOrigin;
+        output.MoonId = input.MoonId;
+        output.Nickname = input.Nickname;
+
+        output.HasTradeTerminal = input.HasTradeTerminal;
+        output.HasShops = input.HasShops;
 
         return output;
     }
 
-    public static IReadOnlyCollection<Moon> ConvertFromDto(this IEnumerable<MoonDto> input)
+    public static IReadOnlyCollection<City> ConvertFromDto(this IEnumerable<CityDto> input)
     {
-        List<Moon> output = new List<Moon>();
+        List<City> output = new List<City>();
         foreach (var item in input)
         {
             output.Add(ConvertFromDto(item));
@@ -34,9 +37,9 @@ public static class MoonMapper
         return output.AsReadOnly();
     }
 
-    public static MoonDto ConvertToDto(this Moon input)
+    public static CityDto ConvertToDto(this City input)
     {
-        MoonDto output = new MoonDto();
+        CityDto output = new CityDto();
         output.Id = input.Id;
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
@@ -46,16 +49,19 @@ public static class MoonMapper
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
 
-        output.StarSystemId = input.StarSystemId;
         output.PlanetId = input.PlanetId;
-        output.NameOrigin = input.NameOrigin;
+        output.MoonId = input.MoonId;
+        output.Nickname = input.Nickname;
+
+        output.HasTradeTerminal = input.HasTradeTerminal;
+        output.HasShops = input.HasShops;
 
         return output;
     }
 
-    public static IReadOnlyCollection<MoonDto> ConvertToDto(this IEnumerable<Moon> input)
+    public static IReadOnlyCollection<CityDto> ConvertToDto(this IEnumerable<City> input)
     {
-        List<MoonDto> output = new List<MoonDto>();
+        List<CityDto> output = new List<CityDto>();
         foreach (var item in input)
         {
             output.Add(ConvertToDto(item));
