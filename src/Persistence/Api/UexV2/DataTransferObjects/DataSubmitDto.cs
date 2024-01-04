@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
-public class DataSubmit
+public class DataSubmitDto
 {
     [JsonPropertyName("id_terminal")]
     public int TerminalId { get; set; }
@@ -18,7 +18,7 @@ public class DataSubmit
     public bool IsProduction { get; set; }
 
     [JsonPropertyName("prices")]
-    public List<DataSubmitPrice> _DataSubmitPrices { get; set; } = new List<DataSubmitPrice>();
+    public List<DataSubmitPriceDto> DataSubmitPrices { get; set; } = new List<DataSubmitPriceDto>();
 
     [JsonPropertyName("faction_affinity")]
     public int FactionAffinity { get; set; }
@@ -27,6 +27,6 @@ public class DataSubmit
     public string? Details { get; set; }
 
     [JsonPropertyName("game_version")]
-    public string GameVersion { get; set; }
+    public string? GameVersion { get; set; }
 
 }

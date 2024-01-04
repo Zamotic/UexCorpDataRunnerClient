@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
-public class DataSubmitPrice
+public class DataSubmitPriceDto
 {
     [JsonPropertyName("id_commodity")]
     public int CommodityId { get; set; }
