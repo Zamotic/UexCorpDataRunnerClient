@@ -355,7 +355,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
 
         // Act
-        var actual = await _webApiClient.GetMoonsAsync(starSystemId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetMoonsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
 
         // Assert
         actual.Should().HaveCount(12);
@@ -365,11 +365,11 @@ public class UexCorpWebApiClientTests
     public async Task GetMoonsByPlanetAsync_ShouldHaveExpectedCountOf4()
     {
         // Assemble
-        const int starSystemId = 68;
+        //const int starSystemId = 68;
         const int planetId = 4;
 
         // Act
-        var actual = await _webApiClient.GetMoonsAsync(starSystemId, planetId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetMoonsByPlanetIdAsync(planetId).ConfigureAwait(false);
 
         // Assert
         actual.Should().HaveCount(4);
@@ -381,7 +381,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
         if (_ActualGetMoonsAsyncValue.Any() == false)
         {
-            _ActualGetMoonsAsyncValue = await _webApiClient.GetMoonsAsync(starSystemId).ConfigureAwait(false);
+            _ActualGetMoonsAsyncValue = await _webApiClient.GetMoonsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
         }
 
         return _ActualGetMoonsAsyncValue;
@@ -548,7 +548,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
 
         // Act
-        var actual = await _webApiClient.GetCitiesAsync(starSystemId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetCitiesByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
 
         // Assert
         actual.Should().HaveCount(4);
@@ -560,7 +560,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
         if (_ActualGetCitiesAsyncValue.Any() == false)
         {
-            _ActualGetCitiesAsyncValue = await _webApiClient.GetCitiesAsync(starSystemId).ConfigureAwait(false);
+            _ActualGetCitiesAsyncValue = await _webApiClient.GetCitiesByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
         }
 
         return _ActualGetCitiesAsyncValue;

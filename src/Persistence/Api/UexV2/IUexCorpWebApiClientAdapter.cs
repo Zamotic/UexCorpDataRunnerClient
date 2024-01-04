@@ -6,13 +6,17 @@ public interface IUexCorpWebApiClientAdapter
     Task<GameVersion> GetCurrentVersionAsync();
     Task<IReadOnlyCollection<StarSystem>> GetSystemsAsync();
     Task<IReadOnlyCollection<Terminal>> GetTerminalsAsync(int starSystemId);
-    //Task<IReadOnlyCollection<Planet>> GetPlanetsAsync(string systemCode);
-    //Task<IReadOnlyCollection<Satellite>> GetSatellitesAsync(string systemCode);
-    //Task<IReadOnlyCollection<City>> GetCitiesAsync(string systemCode);
-    //Task<IReadOnlyCollection<Tradeport>> GetTradeportsAsync(string systemCode);
+    Task<IReadOnlyCollection<Planet>> GetPlanetsAsync(int starSystemId);
+    Task<IReadOnlyCollection<Moon>> GetMoonsByStarSystemIdAsync(int starSystemId);
+    Task<IReadOnlyCollection<Moon>> GetMoonsByPlanetIdAsync(int planetId);
+    Task<IReadOnlyCollection<City>> GetCitiesByStarSystemIdAsync(int starSystemId);
+    Task<IReadOnlyCollection<City>> GetCitiesByPlanetIdAsync(int planetId);
+    Task<IReadOnlyCollection<City>> GetCitiesByMoonIdAsync(int moonId);
+    Task<IReadOnlyCollection<Outpost>> GetOutpostsByStarSystemIdAsync(int starSystemId);
+    Task<IReadOnlyCollection<Outpost>> GetOutpostsByPlanetIdAsync(int planetId);
+    Task<IReadOnlyCollection<Outpost>> GetOutpostsByMoonIdAsync(int moonId);
     Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync();
     Task<IReadOnlyCollection<CommodityPrice>> GetCommodityPricesAsync(int terminalId);
-    //Task<Tradeport> GetTradeportAsync(string tradeportCode);
     //Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport);
     //Task<PriceReportsResponse> SubmitPriceReportsAsync(PriceReport[] priceReports);
 }

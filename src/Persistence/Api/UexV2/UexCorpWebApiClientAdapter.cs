@@ -58,45 +58,77 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
         return commodityPrices;
     }
 
-    //public async Task<IReadOnlyCollection<Planet>> GetPlanetsAsync(string systemCode)
-    //{
-    //    ICollection<PlanetDto> planetDtos = await _WebClient.GetPlanetsAsync(systemCode);
+    public async Task<IReadOnlyCollection<Planet>> GetPlanetsAsync(int starSystemId)
+    {
+        ICollection<PlanetDto> planetDtos = await _WebClient.GetPlanetsAsync(starSystemId);
 
-    //    var planets = _Mapper.Map<List<Planet>>(planetDtos);
-    //    return planets;
-    //}
+        var planets = planetDtos.ConvertFromDto();
+        return planets;
+    }
 
-    //public async Task<IReadOnlyCollection<Satellite>> GetSatellitesAsync(string systemCode)
-    //{
-    //    ICollection<SatelliteDto> satelliteDtos = await _WebClient.GetSatellitesAsync(systemCode);
+    public async Task<IReadOnlyCollection<Moon>> GetMoonsByStarSystemIdAsync(int starSystemId)
+    {
+        ICollection<MoonDto> moonDtos = await _WebClient.GetMoonsByStarSystemIdAsync(starSystemId);
 
-    //    var satellites = _Mapper.Map<List<Satellite>>(satelliteDtos);
-    //    return satellites;
-    //}
+        var moons = moonDtos.ConvertFromDto();
+        return moons;
+    }
 
-    //public async Task<IReadOnlyCollection<City>> GetCitiesAsync(string systemCode)
-    //{
-    //    ICollection<CityDto> citiesDtos = await _WebClient.GetCitiesAsync(systemCode);
+    public async Task<IReadOnlyCollection<Moon>> GetMoonsByPlanetIdAsync(int planetId)
+    {
+        ICollection<MoonDto> moonDtos = await _WebClient.GetMoonsByPlanetIdAsync(planetId);
 
-    //    var cities = _Mapper.Map<List<City>>(citiesDtos);
-    //    return cities;
-    //}
+        var moons = moonDtos.ConvertFromDto();
+        return moons;
+    }
 
-    //public async Task<IReadOnlyCollection<Tradeport>> GetTradeportsAsync(string systemCode)
-    //{
-    //    ICollection<TradeportDto> tradeportsDtos = await _WebClient.GetTradeportsAsync(systemCode);
+    public async Task<IReadOnlyCollection<Outpost>> GetOutpostsByStarSystemIdAsync(int starSystemId)
+    {
+        ICollection<OutpostDto> outpostDtos = await _WebClient.GetOutpostsByStarSystemIdAsync(starSystemId);
 
-    //    var tradeports = _Mapper.Map<List<Tradeport>>(tradeportsDtos);
-    //    return tradeports;
-    //}
+        var outposts = outpostDtos.ConvertFromDto();
+        return outposts;
+    }
 
-    //public async Task<Tradeport> GetTradeportAsync(string tradeportCode)
-    //{
-    //    TradeportDto tradeportDto = await _WebClient.GetTradeportAsync(tradeportCode);
+    public async Task<IReadOnlyCollection<Outpost>> GetOutpostsByPlanetIdAsync(int planetId)
+    {
+        ICollection<OutpostDto> outpostDtos = await _WebClient.GetOutpostsByPlanetIdAsync(planetId);
 
-    //    var tradeport = _Mapper.Map<Tradeport>(tradeportDto);
-    //    return tradeport;
-    //}
+        var outposts = outpostDtos.ConvertFromDto();
+        return outposts;
+    }
+
+    public async Task<IReadOnlyCollection<Outpost>> GetOutpostsByMoonIdAsync(int moonId)
+    {
+        ICollection<OutpostDto> outpostDtos = await _WebClient.GetOutpostsByMoonIdAsync(moonId);
+
+        var outposts = outpostDtos.ConvertFromDto();
+        return outposts;
+    }
+
+    public async Task<IReadOnlyCollection<City>> GetCitiesByStarSystemIdAsync(int starSystemId)
+    {
+        ICollection<CityDto> cityDtos = await _WebClient.GetCitiesByStarSystemIdAsync(starSystemId);
+
+        var cities = cityDtos.ConvertFromDto();
+        return cities;
+    }
+
+    public async Task<IReadOnlyCollection<City>> GetCitiesByPlanetIdAsync(int planetId)
+    {
+        ICollection<CityDto> cityDtos = await _WebClient.GetCitiesByPlanetIdAsync(planetId);
+
+        var cities = cityDtos.ConvertFromDto();
+        return cities;
+    }
+
+    public async Task<IReadOnlyCollection<City>> GetCitiesByMoonIdAsync(int moonId)
+    {
+        ICollection<CityDto> cityDtos = await _WebClient.GetCitiesByMoonIdAsync(moonId);
+
+        var cities = cityDtos.ConvertFromDto();
+        return cities;
+    }
 
     //public async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
     //{

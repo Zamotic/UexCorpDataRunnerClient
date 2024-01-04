@@ -172,7 +172,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// </summary>
     /// <paramref name="starSystemId">A id representing the system to return MoonDto objects for</paramref>
     /// <returns>Collection containing a list of MoonDto records returned from the API</returns>
-    public async Task<ICollection<MoonDto>> GetMoonsAsync(int starSystemId)
+    public async Task<ICollection<MoonDto>> GetMoonsByStarSystemIdAsync(int starSystemId)
     {
         string endPointValue = $"moons/id_star_system/{starSystemId}";
 
@@ -182,12 +182,11 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <summary>
     /// Returns a IList<MoonDto> objects
     /// </summary>
-    /// <paramref name="starSystemId">A id representing the system to return MoonDto objects for</paramref>
     /// <paramref name="planetId">A id representing the planet to return MoonDto objects for</paramref>
     /// <returns>Collection containing a list of MoonDto records returned from the API</returns>
-    public async Task<ICollection<MoonDto>> GetMoonsAsync(int starSystemId, int planetId)
+    public async Task<ICollection<MoonDto>> GetMoonsByPlanetIdAsync(int planetId)
     {
-        string endPointValue = $"moons/id_star_system/{starSystemId}/id_planet/{planetId}";
+        string endPointValue = $"moons/id_planet/{planetId}";
 
         return await GenericGetCollectionAsync<MoonDto>(endPointValue);
     }
@@ -196,12 +195,72 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// Returns a IList<CityDto> objects
     /// </summary>
     /// <paramref name="starSystemId">An id representing the system to return CityDto objects for</paramref>
-    /// <returns>Collection containing a list of MoonDto records returned from the API</returns>
-    public async Task<ICollection<CityDto>> GetCitiesAsync(int starSystemId)
+    /// <returns>Collection containing a list of CityDto records returned from the API</returns>
+    public async Task<ICollection<CityDto>> GetCitiesByStarSystemIdAsync(int starSystemId)
     {
         string endPointValue = $"cities/id_star_system/{starSystemId}";
 
         return await GenericGetCollectionAsync<CityDto>(endPointValue);
+    }
+
+    /// <summary>
+    /// Returns a IList<CityDto> objects
+    /// </summary>
+    /// <paramref name="planetId">An id representing the planet to return CityDto objects for</paramref>
+    /// <returns>Collection containing a list of CityDto records returned from the API</returns>
+    public async Task<ICollection<CityDto>> GetCitiesByPlanetIdAsync(int planetId)
+    {
+        string endPointValue = $"cities/id_planet/{planetId}";
+
+        return await GenericGetCollectionAsync<CityDto>(endPointValue);
+    }
+
+    /// <summary>
+    /// Returns a IList<CityDto> objects
+    /// </summary>
+    /// <paramref name="moonId">An id representing the moon to return CityDto objects for</paramref>
+    /// <returns>Collection containing a list of CityDto records returned from the API</returns>
+    public async Task<ICollection<CityDto>> GetCitiesByMoonIdAsync(int moonId)
+    {
+        string endPointValue = $"cities/id_moon/{moonId}";
+
+        return await GenericGetCollectionAsync<CityDto>(endPointValue);
+    }
+
+    /// <summary>
+    /// Returns a IList<OutpostDto> objects
+    /// </summary>
+    /// <paramref name="starSystemId">An id representing the Star System to return OutpostDto objects for</paramref>
+    /// <returns>Collection containing a list of OutpostDto records returned from the API</returns>
+    public async Task<ICollection<OutpostDto>> GetOutpostsByStarSystemIdAsync(int starSystemId)
+    {
+        string endPointValue = $"cities/id_star_system/{starSystemId}";
+
+        return await GenericGetCollectionAsync<OutpostDto>(endPointValue);
+    }
+
+    /// <summary>
+    /// Returns a IList<OutpostDto> objects
+    /// </summary>
+    /// <paramref name="planetId">An id representing the Planet to return OutpostDto objects for</paramref>
+    /// <returns>Collection containing a list of OutpostDto records returned from the API</returns>
+    public async Task<ICollection<OutpostDto>> GetOutpostsByPlanetIdAsync(int planetId)
+    {
+        string endPointValue = $"cities/id_planet/{planetId}";
+
+        return await GenericGetCollectionAsync<OutpostDto>(endPointValue);
+    }
+
+    /// <summary>
+    /// Returns a IList<OutpostDto> objects
+    /// </summary>
+    /// <paramref name="moonId">An id representing the Moon to return OutpostDto objects for</paramref>
+    /// <returns>Collection containing a list of OutpostDto records returned from the API</returns>
+    public async Task<ICollection<OutpostDto>> GetOutpostsByMoonIdAsync(int moonId)
+    {
+        string endPointValue = $"cities/id_moon/{moonId}";
+
+        return await GenericGetCollectionAsync<OutpostDto>(endPointValue);
     }
 
     /// <summary>
