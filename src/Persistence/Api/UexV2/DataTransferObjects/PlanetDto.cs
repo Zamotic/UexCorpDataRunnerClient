@@ -11,4 +11,11 @@ public class PlanetDto : ExtendedBaseDto
 {
     [JsonPropertyName("id_star_system")]
     public int StarSystemId { get; set; }
+
+    [JsonPropertyName("name_origin")]
+    public string? NameOrigin { get; set; }
+
+    [JsonPropertyName("is_lagrange")]
+    [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
+    public bool IsLagrange { get; set; }
 }

@@ -18,7 +18,7 @@ public class DataSubmit
     public bool IsProduction { get; set; }
 
     [JsonPropertyName("prices")]
-    public DataSubmitPrice[] _DataSubmitPrices { get; set; }
+    public List<DataSubmitPrice> _DataSubmitPrices { get; set; } = new List<DataSubmitPrice>();
 
     [JsonPropertyName("faction_affinity")]
     public int FactionAffinity { get; set; }

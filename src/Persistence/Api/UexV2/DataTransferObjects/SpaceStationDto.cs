@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 namespace UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 public class SpaceStationDto : LocationBaseDto
 {
-    [JsonPropertyName("id_star_system")]
-    public int SystemId { get; set; }
-
     [JsonPropertyName("id_planet")]
     public int PlanetId { get; set; }
 
@@ -21,5 +18,5 @@ public class SpaceStationDto : LocationBaseDto
     public int CityId { get; set; }
 
     [JsonPropertyName("nickname")]
-    public int Nickname { get; set; }
+    public string? Nickname { get; set; }
 }

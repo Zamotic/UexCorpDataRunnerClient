@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using UexCorpDataRunner.Persistence.Api.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 public class TerminalDto : ExtendedBaseDto
@@ -39,6 +40,9 @@ public class TerminalDto : ExtendedBaseDto
     [JsonPropertyName("city_name")]
     public string? CityName { get; set; }
 
+    [JsonPropertyName("id_faction")]
+    public int FactionId { get; set; }
+
     [JsonPropertyName("nickname")]
     public string? Nickname { get; set; }
 
@@ -47,4 +51,12 @@ public class TerminalDto : ExtendedBaseDto
 
     [JsonPropertyName("screenshot")]
     public string? Screenshot { get; set; }
+
+    [JsonPropertyName("is_affinity_influenceable")]
+    [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
+    public bool IsAffinityInfluenceable { get; set; }
+
+    [JsonPropertyName("has_container_transfer")]
+    [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
+    public bool HasContainerTransfer { get; set; }
 }
