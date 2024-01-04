@@ -50,7 +50,7 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
                 new MoonDto() { Id = 11, StarSystemId = 68, PlanetId = 1, Name = "Wala", NameOrigin = "Stanton 3b", Code = "WAL", IsAvailable = true, IsVisible = true, IsDefault = false, DateAdded = dateAdded, DateModified = DateTime.MinValue },
                 new MoonDto() { Id = 12, StarSystemId = 68, PlanetId = 2, Name = "Yela", NameOrigin = "Stanton 2c", Code = "YEL", IsAvailable = true, IsVisible = true, IsDefault = false, DateAdded = dateAdded, DateModified = DateTime.MinValue }
             };
-        _SubstituteClient.GetMoonsAsync(Arg.Any<int>()).Returns(moonsBySystemDtoList);
+        _SubstituteClient.GetMoonsByStarSystemIdAsync(Arg.Any<int>()).Returns(moonsBySystemDtoList);
 
         ICollection<MoonDto> moonsByPlanetDtoList = new List<MoonDto>()
             {
@@ -59,7 +59,7 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
                 new MoonDto() { Id = 8, StarSystemId = 68, PlanetId = 4, Name = "Ita", NameOrigin = "Stanton 1d", Code = "ITA", IsAvailable = true, IsVisible = true, IsDefault = true, DateAdded = dateAdded, DateModified = DateTime.MinValue },
                 new MoonDto() { Id = 10, StarSystemId = 68, PlanetId = 4, Name = "Magda", NameOrigin = "Stanton 1c", Code = "MAG", IsAvailable = true, IsVisible = true, IsDefault = true, DateAdded = dateAdded, DateModified = DateTime.MinValue }
             };
-        _SubstituteClient.GetMoonsAsync(Arg.Any<int>()).Returns(moonsByPlanetDtoList);
+        _SubstituteClient.GetMoonsByPlanetIdAsync(Arg.Any<int>()).Returns(moonsByPlanetDtoList);
 
         ICollection<CityDto> citiesDtoList = new List<CityDto>()
             {
@@ -68,7 +68,7 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
                 new CityDto() { Id = 4, StarSystemId = 68, PlanetId = 5, MoonId = 0, Name = "New Babbage", Code = "NEWB", IsAvailable = false, IsVisible = true, IsDefault = false, IsMonitored = true, IsArmistice = true, IsLandable = true, IsDecomissioned = false, HasQuantumMarker = true, HasTradeTerminal = true, HasHabitation = true, HasRefinery = false, HasCargoCenter = false, HasClinic = true, HasFood = true, HasShops = true, HasRefuel = true, HasRepair = true, HasGravity = true, DateAdded = dateAdded, DateModified = DateTime.MinValue },
                 new CityDto() { Id = 5, StarSystemId = 68, PlanetId = 2, MoonId = 0, Name = "Orison", Code = "ORIS", IsAvailable = false, IsVisible = true, IsDefault = false, IsMonitored = true, IsArmistice = true, IsLandable = true, IsDecomissioned = false, HasQuantumMarker = true, HasTradeTerminal = true, HasHabitation = true, HasRefinery = false, HasCargoCenter = false, HasClinic = true, HasFood = true, HasShops = true, HasRefuel = true, HasRepair = true, HasGravity = true, DateAdded = dateAdded, DateModified = DateTime.MinValue }
             };
-        _SubstituteClient.GetCitiesAsync(Arg.Any<int>()).Returns(citiesDtoList);
+        _SubstituteClient.GetCitiesByStarSystemIdAsync(Arg.Any<int>()).Returns(citiesDtoList);
 
         ICollection<CommodityDto> commodityDtoList = new List<CommodityDto>()
             {
@@ -126,17 +126,17 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
     {
         return await _SubstituteClient.GetPlanetsAsync(starSystemId);
     }
-    public async Task<ICollection<MoonDto>> GetMoonsAsync(int starSystemId)
+    public async Task<ICollection<MoonDto>> GetMoonsByStarSystemIdAsync(int starSystemId)
     {
-        return await _SubstituteClient.GetMoonsAsync(starSystemId);
+        return await _SubstituteClient.GetMoonsByStarSystemIdAsync(starSystemId);
     }
-    public async Task<ICollection<MoonDto>> GetMoonsAsync(int starSystemId, int planetId)
+    public async Task<ICollection<MoonDto>> GetMoonsByPlanetIdAsync(int planetId)
     {
-        return await _SubstituteClient.GetMoonsAsync(starSystemId, planetId);
+        return await _SubstituteClient.GetMoonsByPlanetIdAsync(planetId);
     }
-    public async Task<ICollection<CityDto>> GetCitiesAsync(int starSystemId)
+    public async Task<ICollection<CityDto>> GetCitiesByStarSystemIdAsync(int starSystemId)
     {
-        return await _SubstituteClient.GetCitiesAsync(starSystemId);
+        return await _SubstituteClient.GetCitiesByStarSystemIdAsync(starSystemId);
     }
     public async Task<ICollection<CommodityDto>> GetCommoditiesAsync()
     {
@@ -153,5 +153,35 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
     public async Task<ICollection<TerminalDto>> GetTerminalsAsync(int starSystemId)
     {
         return await _SubstituteClient.GetTerminalsAsync(starSystemId);
+    }
+
+    public Task<ICollection<CityDto>> GetCitiesByPlanetIdAsync(int planetId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICollection<CityDto>> GetCitiesByMoonIdAsync(int moonId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICollection<OutpostDto>> GetOutpostsByStarSystemIdAsync(int starSystemId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICollection<OutpostDto>> GetOutpostsByPlanetIdAsync(int planetId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICollection<OutpostDto>> GetOutpostsByMoonIdAsync(int moonId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<UexResponseDto<ICollection<string>>> SubmitDataAsync(DataSubmitDto dataSubmitDto)
+    {
+        throw new NotImplementedException();
     }
 }

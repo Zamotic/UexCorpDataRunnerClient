@@ -4,7 +4,6 @@ using UexCorpDataRunner.Application.DataRunnerV2;
 using UexCorpDataRunner.Domain.DataRunnerV2;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface.MessengerMessages;
-using System.Linq;
 
 namespace UexCorpDataRunner.Interface.DataRunnerV2;
 
@@ -13,7 +12,7 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
     private readonly IMessenger _Messenger;
     private readonly IUexDataServiceV2 _DataService;
     private readonly ISettingsService _SettingsService;
-    //private readonly IPriceReportSubmitter _PriceReportSubmitter;
+    private readonly IDataSubmitter _DataSubmitter;
     private readonly ITerminalCommodityBuilder _TerminalCommodityBuilder;
 
     private bool _IsSelectedTerminalFocused = false;
@@ -268,13 +267,13 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         set => SetProperty(ref _SelectedTabItemIndex, value);
     }
 
-    public DataRunnerV2ViewModel(IMessenger messenger, IUexDataServiceV2 dataService, ISettingsService settingsService/*, IPriceReportSubmitter priceReportSubmitter*/, ITerminalCommodityBuilder terminalCommodityBuilder)
+    public DataRunnerV2ViewModel(IMessenger messenger, IUexDataServiceV2 dataService, ISettingsService settingsService, IDataSubmitter dataSubmitter, ITerminalCommodityBuilder terminalCommodityBuilder)
     {
         IsEnabled = true;
         _Messenger = messenger;
         _SettingsService = settingsService;
         _DataService = dataService;
-        //_PriceReportSubmitter = priceReportSubmitter;
+        _DataSubmitter = dataSubmitter;
         _TerminalCommodityBuilder = terminalCommodityBuilder;
 
         _Messenger.Register<ShowUserInterfaceMessage>(this, ShowUserInterfaceMessageHandler);

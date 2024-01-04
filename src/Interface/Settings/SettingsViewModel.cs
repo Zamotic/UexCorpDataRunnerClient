@@ -16,6 +16,7 @@ public class SettingsViewModel : ViewModelBase
     private readonly IUexDataService _DataService;
 
     private bool _UserAccessCodeChanged = false;
+    private bool _UserSecretKeyChanged = false;
     private bool _AlwaysOnTopChanged = false;
     private bool _ShowTemporaryCommodityChanged = false;
     private bool _SelectedGameVersionChanged = false;
@@ -72,6 +73,10 @@ public class SettingsViewModel : ViewModelBase
         if (e.PropertyName.Equals(nameof(_SettingsValues.SelectedSiteVersion)) == true)
         {
             _SelectedSiteVersionChanged = true;
+        }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.UserSecretKey)) == true)
+        {
+            _UserSecretKeyChanged = true;
         }
     }
 
@@ -219,7 +224,7 @@ public class SettingsViewModel : ViewModelBase
     {
         _SettingsService.SaveSettings();
         IsEnabled = false;
-        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserAccessCodeChanged, _AlwaysOnTopChanged, _ShowTemporaryCommodityChanged));
+        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserAccessCodeChanged, _AlwaysOnTopChanged, _ShowTemporaryCommodityChanged, _UserSecretKeyChanged));
     }
 
     //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)

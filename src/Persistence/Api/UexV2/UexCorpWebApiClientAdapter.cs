@@ -141,19 +141,19 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
     //    return priceReportResponse;
     //}
 
-    //public async Task<PriceReportsResponse> SubmitPriceReportsAsync(PriceReport[] priceReports)
-    //{
-    //    var priceReportDtos = _Mapper.Map<PriceReportDto[]>(priceReports);
+    public async Task<DataSubmitResponse> SubmitDataAsync(DataSubmit dataSubmit)
+    {
+        var dataSubmitDto = dataSubmit.ConvertToDto();
 
-    //    if (priceReportDtos is null)
-    //    {
-    //        return new PriceReportsResponse();
-    //    }
+        if (dataSubmitDto is null)
+        {
+            return new DataSubmitResponse();
+        }
 
-    //    UexResponseDto<ICollection<string>> responseDtos = await _WebClient.SubmitPriceReportsAsync(priceReportDtos);
+        UexResponseDto<ICollection<string>> responseDtos = await _WebClient.SubmitDataAsync(dataSubmitDto);
 
-    //    var priceReportsResponse = _Mapper.Map<PriceReportsResponse>(responseDtos);
+        var dataSubmitResponse = responseDtos.ConvertFromDto();
 
-    //    return priceReportsResponse;
-    //}
+        return dataSubmitResponse;
+    }
 }

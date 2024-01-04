@@ -12,6 +12,7 @@ public class CommodityWrapper : ObservableObject
 
     public string Name { get => _commodity.Name!; }
     public string Code { get => _commodity.Code!; }
+    public int Id { get => _commodity.Id!; }
 
     public OperationType Operation { get; private set; }
 

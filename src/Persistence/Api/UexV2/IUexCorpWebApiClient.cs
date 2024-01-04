@@ -18,8 +18,7 @@ public interface IUexCorpWebApiClient
     Task<ICollection<OutpostDto>> GetOutpostsByStarSystemIdAsync(int starSystemId);
     Task<ICollection<OutpostDto>> GetOutpostsByPlanetIdAsync(int planetId);
     Task<ICollection<OutpostDto>> GetOutpostsByMoonIdAsync(int moonId);
+    Task<UexResponseDto<ICollection<string>>> SubmitDataAsync(DataSubmitDto dataSubmitDto);
 
-    //Task<TradeportDto> GetTradeportAsync(string tradeportCode);
     //Task<UexResponseDto<string>> SubmitPriceReportAsync(PriceReportDto priceReport);
-    //Task<UexResponseDto<ICollection<string>>> SubmitPriceReportsAsync(PriceReportDto[] priceReportDtos);
 }

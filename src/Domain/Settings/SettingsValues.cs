@@ -37,6 +37,9 @@ public class SettingsValues : ObservableObject
     public GameVersion? LoadedGameVersion { get; set; }
     public bool IsGameVersionEnabled { get; set; } = true;
 
+    private string _UserSecretKey = string.Empty;
+    public string UserSecretKey { get => _UserSecretKey; set => SetProperty(ref _UserSecretKey, value); }
+
     private string _SelectedSiteVersion = SiteVersion.Version1Value;
     public string SelectedSiteVersion 
     { 

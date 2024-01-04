@@ -1,18 +1,23 @@
 ﻿using System.Net.Http.Headers;
+using System.Text;
 using UexCorpDataRunner.Common;
+using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2;
 public class UexCorpWebApiClient : IUexCorpWebApiClient
 {
+    readonly ISettingsService _SettingsService;
     readonly IUexCorpWebApiConfiguration _WebApiConfiguration;
     readonly HttpClient _HttpClient;
 
     public UexCorpWebApiClient(IUexCorpWebApiConfiguration webApiConfiguration,
-                                HttpClient httpClient)
+                                HttpClient httpClient,
+                                ISettingsService settingsService)
     {
         _WebApiConfiguration = webApiConfiguration;
         _HttpClient = httpClient;
+        _SettingsService = settingsService;
 
         if (_WebApiConfiguration.WebApiEndPointUrl is null)
         {
@@ -308,5 +313,74 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         string endPointValue = $"terminals/id_star_system/{starSystemId}";
 
         return await GenericGetCollectionAsync<TerminalDto>(endPointValue);
+    }
+
+    public async Task<UexResponseDto<ICollection<string>>> SubmitDataAsync(DataSubmitDto source)
+    {
+        string endPointValue = $"data_submit/";
+
+        // Set the full request URI
+        string absolutePath = $"{_WebApiConfiguration.DataRunnerEndpointPath}{endPointValue}";
+        if (absolutePath.EndsWith("/") == false)
+        {
+            absolutePath += "/";
+        }
+
+        string jsonContent = System.Text.Json.JsonSerializer.Serialize(source);
+        string jsonResponse = null;
+
+        _HttpClient.DefaultRequestHeaders.Add("secret_key", _SettingsService?.Settings?.UserSecretKey);
+
+        using (var content = new StringContent(jsonContent))
+        using (HttpResponseMessage response = await _HttpClient.PostAsync(absolutePath, content).ConfigureAwait(false))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body.
+                jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        UexResponseDto<ICollection<string>>? responseObject = null;
+        try
+        {
+            responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<string>>>(jsonResponse!);
+        }
+        catch
+        {
+            try
+            {
+                var responseObjectTemp = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<string>>(jsonResponse!);
+                if (responseObjectTemp is not null)
+                {
+                    responseObject = new UexResponseDto<ICollection<string>>()
+                    {
+                        Status = responseObjectTemp.Status,
+                        Code = responseObjectTemp.Code,
+                        Data = new List<string>() { string.IsNullOrEmpty(responseObjectTemp.Data) ? string.Empty : responseObjectTemp.Data }
+                    };
+                }
+            }
+            finally
+            {
+
+            }
+        }
+
+        if (responseObject is null)
+        {
+            return new UexResponseDto<ICollection<string>>()
+            {
+                Status = "No Response Received",
+                Code = 400,
+                Data = new List<string>() { "0" }
+            };
+        }
+
+        return responseObject;
     }
 }

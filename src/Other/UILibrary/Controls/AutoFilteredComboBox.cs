@@ -308,20 +308,20 @@ public class AutoFilteredComboBox : ComboBox
             this.SelectedItem = null;
             this.Text = EditableTextBox.Text = string.Empty;
         }
-        //else if (e.Key == Key.Up || e.Key == Key.Down)
-        //{
-        //	ICollectionView view = CollectionViewSource.GetDefaultView(this.ItemsSource);
-        //	if (e.Key == Key.Up)
-        //	{
-        //		view.MoveCurrentToPrevious();
-        //	}
-        //	else
-        //	{
-        //		view.MoveCurrentToNext();
-        //	}
+        else if (e.Key == Key.Up || e.Key == Key.Down)
+        {
+            //ICollectionView view = CollectionViewSource.GetDefaultView(this.ItemsSource);
+            if (e.Key == Key.Up)
+            {
+                view.MoveCurrentToPrevious();
+            }
+            else
+            {
+                view.MoveCurrentToNext();
+            }
 
-        //	e.Handled = true;
-        //}
+            e.Handled = true;
+        }
         else
         {
             base.OnPreviewKeyDown(e);

@@ -17,6 +17,5 @@ public interface IUexCorpWebApiClientAdapter
     Task<IReadOnlyCollection<Outpost>> GetOutpostsByMoonIdAsync(int moonId);
     Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync();
     Task<IReadOnlyCollection<CommodityPrice>> GetCommodityPricesAsync(int terminalId);
-    //Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport);
-    //Task<PriceReportsResponse> SubmitPriceReportsAsync(PriceReport[] priceReports);
+    Task<DataSubmitResponse> SubmitDataAsync(DataSubmit dataSubmit);
 }

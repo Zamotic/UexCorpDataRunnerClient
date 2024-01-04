@@ -254,6 +254,36 @@
                 <DockPanel.Style>
                     <Style TargetType="DockPanel">
                         <Style.Triggers>
+                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="UEX 1.0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    VerticalAlignment="Center"
+                    ToolTip="Secret Key can be found on the Account Tab of your Account Settings page">
+                    <Hyperlink
+                        NavigateUri="https://ptu.uexcorp.space/account/"
+                        Command="{Binding HyperlinkCommand}"
+                        CommandParameter="https://ptu.uexcorp.space/account/">
+                        Secret Key:
+                    </Hyperlink>
+                </TextBlock>
+                <TextBox
+                    DockPanel.Dock="Right"
+                    Text="{Binding SettingsValues.UserSecretKey}"
+                    Style="{DynamicResource StyledTextBox}"/>
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
                             <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="UEX 2.0">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Setter Property="IsEnabled" Value="False" />

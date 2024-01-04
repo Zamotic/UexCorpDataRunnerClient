@@ -29,35 +29,59 @@ public class UexDataServiceV2 : IUexDataServiceV2
         return collection;
     }
 
-    //public virtual async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(string systemCode)
-    //{
-    //    var collection = await _WebClientAdapter.GetPlanetsAsync(systemCode);
-    //    return collection;
-    //}
+    public virtual async Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(int starSystemId)
+    {
+        var collection = await _WebClientAdapter.GetPlanetsAsync(starSystemId);
+        return collection;
+    }
 
-    //public virtual async Task<IReadOnlyCollection<Satellite>> GetAllSatellitesAsync(string systemCode)
-    //{
-    //    var collection = await _WebClientAdapter.GetSatellitesAsync(systemCode);
-    //    return collection;
-    //}
+    public virtual async Task<IReadOnlyCollection<Moon>> GetAllMoonsByStarSystemIdAsync(int starSystemId)
+    {
+        var collection = await _WebClientAdapter.GetMoonsByStarSystemIdAsync(starSystemId);
+        return collection;
+    }
 
-    //public virtual async Task<IReadOnlyCollection<City>> GetAllCitiesAsync(string systemCode)
-    //{
-    //    var collection = await _WebClientAdapter.GetCitiesAsync(systemCode);
-    //    return collection;
-    //}
+    public virtual async Task<IReadOnlyCollection<Moon>> GetAllMoonsByPlanetIdAsync(int planetId)
+    {
+        var collection = await _WebClientAdapter.GetMoonsByPlanetIdAsync(planetId);
+        return collection;
+    }
 
-    //public virtual async Task<IReadOnlyCollection<Tradeport>> GetAllTradeportsAsync(string systemCode)
-    //{
-    //    var collection = await _WebClientAdapter.GetTradeportsAsync(systemCode);
-    //    return collection;
-    //}
+    public virtual async Task<IReadOnlyCollection<City>> GetAllCitiesByStarSystemIdAsync(int starSystemId)
+    {
+        var collection = await _WebClientAdapter.GetCitiesByStarSystemIdAsync(starSystemId);
+        return collection;
+    }
 
-    //public virtual async Task<Tradeport> GetTradeportAsync(string tradeportCode)
-    //{
-    //    Tradeport tradeport = await _WebClientAdapter.GetTradeportAsync(tradeportCode);
-    //    return tradeport;
-    //}
+    public virtual async Task<IReadOnlyCollection<City>> GetAllCitiesByPlanetIdAsync(int planetId)
+    {
+        var collection = await _WebClientAdapter.GetCitiesByPlanetIdAsync(planetId);
+        return collection;
+    }
+
+    public virtual async Task<IReadOnlyCollection<City>> GetAllCitiesByMoonIdAsync(int moonId)
+    {
+        var collection = await _WebClientAdapter.GetCitiesByMoonIdAsync(moonId);
+        return collection;
+    }
+
+    public virtual async Task<IReadOnlyCollection<Outpost>> GetAllOutpostsByStarSystemIdAsync(int starSystemId)
+    {
+        var collection = await _WebClientAdapter.GetOutpostsByStarSystemIdAsync(starSystemId);
+        return collection;
+    }
+
+    public virtual async Task<IReadOnlyCollection<Outpost>> GetAllOutpostsByPlanetIdAsync(int planetId)
+    {
+        var collection = await _WebClientAdapter.GetOutpostsByPlanetIdAsync(planetId);
+        return collection;
+    }
+
+    public virtual async Task<IReadOnlyCollection<Outpost>> GetAllOutpostsByMoonIdAsync(int moonId)
+    {
+        var collection = await _WebClientAdapter.GetOutpostsByMoonIdAsync(moonId);
+        return collection;
+    }
 
     public virtual async Task<IReadOnlyCollection<Commodity>> GetAllCommoditiesAsync()
     {
@@ -71,14 +95,9 @@ public class UexDataServiceV2 : IUexDataServiceV2
         return collection;
     }
 
-    //public virtual async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
-    //{
-    //    var response = await _WebClientAdapter.SubmitPriceReportAsync(priceReport);
-    //    return response;
-    //}
-    //public virtual async Task<PriceReportsResponse> SubmitPriceReportsAsync(PriceReport[] priceReports)
-    //{
-    //    var response = await _WebClientAdapter.SubmitPriceReportsAsync(priceReports);
-    //    return response;
-    //}
+    public virtual async Task<DataSubmitResponse> SubmitDataAsync(DataSubmit dataSubmit)
+    {
+        var response = await _WebClientAdapter.SubmitDataAsync(dataSubmit);
+        return response;
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.Mock.UexV2;
 using UexCorpDataRunner.Persistence.Api.UexV2;
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
@@ -14,6 +15,7 @@ public class UexCorpWebApiClientTests
 
     public UexCorpWebApiClientTests()
     {
+        ISettingsService substituteSettingsService = Substitute.For<ISettingsService>();
         IUexCorpWebApiConfiguration substituteWebConfiguration = Substitute.For<IUexCorpWebApiConfiguration>();
         substituteWebConfiguration.DataRunnerEndpointPath.Returns(string.Empty);
         substituteWebConfiguration.WebApiEndPointUrl.Returns("https://ptu.uexcorp.space/api/");
@@ -21,7 +23,7 @@ public class UexCorpWebApiClientTests
 
         _uexWebApiMockHttpMessageHandler = new UexWebApiMockHttpMessageHandler();
         HttpClient mockedHttpClient = new HttpClient(_uexWebApiMockHttpMessageHandler);
-        _webApiClient = new UexCorpWebApiClient(substituteWebConfiguration, mockedHttpClient);
+        _webApiClient = new UexCorpWebApiClient(substituteWebConfiguration, mockedHttpClient, substituteSettingsService);
     }
 
     #region     GameVersion

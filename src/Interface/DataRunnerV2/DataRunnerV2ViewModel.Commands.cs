@@ -216,20 +216,9 @@ public partial class DataRunnerV2ViewModel
         var messageQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
         _Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
 
-        await Task.Delay(500);
+        await Task.Delay(250);
 
-        //if (_UseMultipleReportSubmission)
-        //{
-        //    var multiResponse = await _PriceReportSubmitter.SubmitAllReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
-        //    bool multiAreThereAnyFailures = multiResponse.Any(x => x.Value == false);
-
-        //    string multiResponseMessage = $"Transmission Summary: {multiResponse.Count(x => x.Value == true)} Succeeded, {multiResponse.Count(x => x.Value == false)} Failed";
-        //    _Messenger.Send(new TransmissionStatusCompleteMessage(multiResponseMessage, !multiAreThereAnyFailures));
-
-        //    ClearSelectedTerminalCommandExecute();
-        //}
-
-        //var responses = await _PriceReportSubmitter.SubmitReports(Commodities, SelectedTradeport.Code, messageQueue).ConfigureAwait(false);
+        var responses = await _DataSubmitter.SubmitAllReports(Commodities, SelectedTerminal.Id, messageQueue).ConfigureAwait(false);
 
         bool areThereAnyFailures = responses.Any(x => x.Value == false);
 
