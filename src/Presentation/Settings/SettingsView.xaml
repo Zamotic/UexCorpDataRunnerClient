@@ -246,7 +246,7 @@
                 <TextBox
                     DockPanel.Dock="Right"
                     Text="{Binding SettingsValues.UserAccessCode}"
-                    Style="{DynamicResource StyledTextBox}"/>
+                    Style="{DynamicResource ReverseStyledTextBox}"/>
             </DockPanel>
             <DockPanel
                 DockPanel.Dock="Top"
@@ -276,7 +276,7 @@
                 <TextBox
                     DockPanel.Dock="Right"
                     Text="{Binding SettingsValues.UserSecretKey}"
-                    Style="{DynamicResource StyledTextBox}"/>
+                    Style="{DynamicResource ReverseStyledTextBox}"/>
             </DockPanel>
             <DockPanel
                 DockPanel.Dock="Top"
