@@ -19,7 +19,7 @@ public class UexCorpWebApiClientTests
         IUexCorpWebApiConfiguration substituteWebConfiguration = Substitute.For<IUexCorpWebApiConfiguration>();
         substituteWebConfiguration.DataRunnerEndpointPath.Returns(string.Empty);
         substituteWebConfiguration.WebApiEndPointUrl.Returns("https://ptu.uexcorp.space/api/");
-        substituteWebConfiguration.ApiKey.Returns("FoGk3H4kH1DnbSHkBRtoyyPQ/Uo/Ar0VPSXaqdVtI4RgoB4zJ25CiOH7ne5JzzbH");
+        substituteWebConfiguration.ApiKey.Returns("tFzGU35mHdBZVBVO9TMR/muwuHz8P7TimgK66fSj1wrBoCUsEL7ea9TVuJGakVvQ");
 
         _uexWebApiMockHttpMessageHandler = new UexWebApiMockHttpMessageHandler();
         HttpClient mockedHttpClient = new HttpClient(_uexWebApiMockHttpMessageHandler);
@@ -1243,7 +1243,7 @@ public class UexCorpWebApiClientTests
     }
 
     [Fact]
-    public async Task GetCommodityPricesByTerminalAsync_ShouldHaveExpectedCountOf8()
+    public async Task GetCommodityPricesByTerminalAsync_ShouldHaveExpectedCountOf14()
     {
         // Assemble
         const int terminalId = 33;
@@ -1252,7 +1252,7 @@ public class UexCorpWebApiClientTests
         var actual = await _webApiClient.GetCommodityPricesAsync(terminalId).ConfigureAwait(false);
 
         // Assert
-        actual.Should().HaveCount(8);
+        actual.Should().HaveCount(14);
     }
 
     private static ICollection<CommodityPriceDto> _ActualGetCommodityPricesAsyncValue = new List<CommodityPriceDto>();
