@@ -23,6 +23,15 @@ public partial class DataRunnerV2ViewModel
 
         try
         {
+            GameVersion currentVersion = await _DataService.GetCurrentVersionAsync();
+            if(_SettingsService.Settings.SelectedGameVersion.Equals(GameVersion.PtuValue) == true)
+            {
+                _SettingsService.Settings.CurrentApiGameVersion = currentVersion.Ptu!;
+            }
+            if (_SettingsService.Settings.SelectedGameVersion.Equals(GameVersion.LiveValue) == true)
+            {
+                _SettingsService.Settings.CurrentApiGameVersion = currentVersion.Live!;
+            }
             SystemList = await _DataService.GetAllSystemsAsync();
             SelectedSystem = null;
             _commodityList = await _DataService.GetAllCommoditiesAsync();

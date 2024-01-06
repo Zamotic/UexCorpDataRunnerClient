@@ -31,7 +31,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCurrentGameVersionAsync_ShouldHaveExpectedLiveValue()
     {
         // Assemble
-        const string ExpectedValue = "3.21.1";
+        const string ExpectedValue = "3.22";
 
         // Act
         var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);
@@ -43,7 +43,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCurrentGameVersionAsync_ShouldHaveExpectedPtuValue()
     {
         // Assemble
-        const string ExpectedValue = "3.22";
+        const string ExpectedValue = "3.22.1";
 
         // Act
         var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);

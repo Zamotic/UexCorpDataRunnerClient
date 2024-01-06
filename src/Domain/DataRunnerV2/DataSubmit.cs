@@ -9,7 +9,7 @@ public class DataSubmit
 {
     public int TerminalId { get; set; }
 
-    public string Type { get; set; } = "Commodity";
+    public string Type { get; set; } = "commodity";
 
     public bool IsProduction { get; set; }
 

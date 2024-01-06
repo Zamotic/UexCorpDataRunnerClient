@@ -130,17 +130,6 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
         return cities;
     }
 
-    //public async Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport)
-    //{
-    //    var priceReportDto = _Mapper.Map<PriceReportDto>(priceReport);
-
-    //    UexResponseDto<string> responseDto = await _WebClient.SubmitPriceReportAsync(priceReportDto);
-
-    //    var priceReportResponse = _Mapper.Map<PriceReportResponse>(responseDto);
-
-    //    return priceReportResponse;
-    //}
-
     public async Task<DataSubmitResponse> SubmitDataAsync(DataSubmit dataSubmit)
     {
         var dataSubmitDto = dataSubmit.ConvertToDto();

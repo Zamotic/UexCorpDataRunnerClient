@@ -98,10 +98,6 @@ public class CommodityWrapperToDataSubmitConverter : ICommodityWrapperToDataSubm
         {
             return "xxxxxx";
         }
-        if(settingsService.Settings.SelectedGameVersion == GameVersion.PtuValue)
-        {
-            return settingsService.Settings.LoadedGameVersion!.Ptu!;
-        }
-        return settingsService.Settings.LoadedGameVersion!.Live;
+        return settingsService.Settings.CurrentApiGameVersion;
     }
 }

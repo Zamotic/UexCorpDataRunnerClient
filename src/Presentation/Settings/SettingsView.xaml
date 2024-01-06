@@ -7,6 +7,7 @@
              xmlns:UI="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Domain="clr-namespace:UexCorpDataRunner.Domain.Common;assembly=Domain"
              presentation:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="350"
@@ -224,7 +225,7 @@
                 <DockPanel.Style>
                     <Style TargetType="DockPanel">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="UEX 2.0">
+                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="{x:Static Domain:SiteVersion.Version2Value}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
@@ -254,7 +255,7 @@
                 <DockPanel.Style>
                     <Style TargetType="DockPanel">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="UEX 1.0">
+                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="{x:Static Domain:SiteVersion.Version1Value}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
@@ -284,7 +285,7 @@
                 <DockPanel.Style>
                     <Style TargetType="DockPanel">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="UEX 2.0">
+                            <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="{x:Static Domain:SiteVersion.Version2Value}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
@@ -303,6 +304,21 @@
                     SelectedValue="{Binding SettingsValues.SelectedGameVersion}"
                     DefaultOverlayString="(Select Game Version)" />
             </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Search Style:" 
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding SearchStyleList}"
+                    SelectedValue="{Binding SettingsValues.SelectedSearchStyle}"
+                    DefaultOverlayString="(Select Search Style)" />
+            </DockPanel>
             <TextBlock
                 DockPanel.Dock="Bottom"
                 FontWeight="Bold"
@@ -319,6 +335,14 @@
             <TextBlock
                 DockPanel.Dock="Bottom"
                 Text="{Binding Version, FallbackValue='v0.0.0.0'}"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+            <DockPanel />
+            <TextBlock
+                DockPanel.Dock="Bottom"
+                Text="{Binding SettingsValues.CurrentApiGameVersion, FallbackValue='API v3.??', StringFormat='API v.{0}'}"
                 FontWeight="Bold"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

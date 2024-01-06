@@ -131,6 +131,11 @@ public class SettingsViewModel : ViewModelBase
         SiteVersion.Version1Value,
         SiteVersion.Version2Value
     };
+    public List<string> SearchStyleList { get; } = new List<string>()
+    {
+        SearchStyle.DrillDownValue,
+        SearchStyle.SearchFilterValue
+    };
 
     public string? Version { get => Domain.Globals.Settings.Version; }
 

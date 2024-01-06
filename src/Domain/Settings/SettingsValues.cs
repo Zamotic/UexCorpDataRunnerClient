@@ -55,4 +55,10 @@ public class SettingsValues : ObservableObject
         }
     }
     public SiteVersion? LoadedSiteVersion { get; set; }
+
+    private string _SelectedSearchStyle = SearchStyle.DrillDownValue;
+    public string SelectedSearchStyle { get => _SelectedSearchStyle; set => SetProperty(ref _SelectedSearchStyle, value); }
+
+    private string _CurrentApiGameVersion = string.Empty;
+    public string CurrentApiGameVersion { get => _CurrentApiGameVersion; set => SetProperty(ref _CurrentApiGameVersion, value); }
 }
