@@ -209,8 +209,7 @@ public class AutoFilteredComboBox : ComboBox
 
         //System.Diagnostics.Debug.Print("regex = {0}, property = {1}, match = {2}", regex, property, regex.IsMatch(property));
 
-        return regex.IsMatch(property);
-
+        return regex is null ? false : regex.IsMatch(property);
         //return value.ToString()
         //	.StartsWith(prefix, !this.IsCaseSensitive, System.Globalization.CultureInfo.CurrentCulture);
     }
@@ -240,6 +239,10 @@ public class AutoFilteredComboBox : ComboBox
 
     private void OnTextChanged(object sender, EventArgs e)
     {
+        if(this.IsEnabled == false)
+        {
+            return;
+        }
         if(this.IsDropDownOpen == false)
         {
             this.IsDropDownOpen = true;

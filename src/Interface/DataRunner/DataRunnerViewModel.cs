@@ -207,12 +207,11 @@ public partial class DataRunnerViewModel : ViewModelBase
         }
 
         PlanetList = await _DataService.GetAllPlanetsAsync(systemCode);
-        //SetPlanetListCVS(true);
-        SelectedPlanet = null;
         SatelliteList = await _DataService.GetAllSatellitesAsync(systemCode);
-        //SetSatelliteListCVS(true);
         TradeportList = await _DataService.GetAllTradeportsAsync(systemCode);
-        //SetTradeportListCVS(true);
+        SelectedPlanet = null;
+        SelectedSatellite = null;
+        SelectedTradeport = null;
     }
     public async Task SetCurrentTradeportAsync(string tradeportCode)
     {

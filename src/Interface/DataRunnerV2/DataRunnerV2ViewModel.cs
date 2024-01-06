@@ -200,6 +200,11 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         set => SetProperty(ref _SelectedTabItemIndex, value);
     }
 
+    public string? SelectedSearchStyle
+    {
+        get => _SettingsService?.Settings?.SelectedSearchStyle;
+    }
+
     public DataRunnerV2ViewModel(IMessenger messenger, IUexDataServiceV2 dataService, ISettingsService settingsService, IDataSubmitter dataSubmitter, ITerminalCommodityBuilder terminalCommodityBuilder)
     {
         IsEnabled = true;
@@ -230,6 +235,7 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
 
             //SetNotificationPanelText();
         }
+        OnPropertyChanged(nameof(SelectedSearchStyle));
         IsEnabled = true;
     }
 

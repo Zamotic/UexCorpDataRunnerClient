@@ -616,7 +616,7 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding SelectedSearchStyle}" Value="{x:Static Domain:SearchStyle.DrillDownValue}">
                                 <Setter Property="Visibility" Value="Collapsed" />
-                                <Setter Property="IsEnabled" Value="False" />
+                                <Setter Property="IsEnabled" Value="false" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -647,6 +647,15 @@
                     SelectedItem="{Binding SelectedTradeport}"
                     DisplayMemberPath="FullName"
                     Extensions:FocusExtension.IsFocused="{Binding IsSelectedTradeportFocused, Mode=TwoWay}">
+                    <uiLibraryControls:AutoFilteredComboBox.Style>
+                        <Style TargetType="uiLibraryControls:AutoFilteredComboBox">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedSearchStyle}" Value="{x:Static Domain:SearchStyle.DrillDownValue}">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </uiLibraryControls:AutoFilteredComboBox.Style>
                     <uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel VirtualizationMode="Recycling" />

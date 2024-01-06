@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using UexCorpDataRunner.Domain.Common;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
@@ -135,6 +136,10 @@ public partial class DataRunnerViewModel
     {
         SelectedTradeport = null;
         ClearCommodities();
+        if(_SettingsService!.Settings!.SelectedSearchStyle.Equals(SearchStyle.SearchFilterValue))
+        {
+            IsSelectedTradeportFocused = true;
+        }
     }
 
     public IRelayCommand ResetCommoditiesCommand => new RelayCommand(ResetCommoditiesCommandExecute);
