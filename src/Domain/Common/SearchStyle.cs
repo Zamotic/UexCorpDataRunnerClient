@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UexCorpDataRunner.Domain.Common;
-public class SiteVersion
+public class SearchStyle
 {
-    public const string Version1Value = "UEX 1.0";
-    public const string Version2Value = "UEX 2.0";
+    public const string DrillDownValue = "Drilldown";
+    public const string SearchFilterValue = "Search Filter";
 }
+ 

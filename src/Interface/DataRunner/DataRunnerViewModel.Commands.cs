@@ -30,6 +30,7 @@ public partial class DataRunnerViewModel
             if (SystemList.Where(x => x.IsAvailable).Count() == 1)
             {
                 SelectedSystem = SystemList.Where(x => x.IsAvailable).First();
+                IsSelectedTradeportFocused = true;
             }
 
             SetNotificationPanelText();

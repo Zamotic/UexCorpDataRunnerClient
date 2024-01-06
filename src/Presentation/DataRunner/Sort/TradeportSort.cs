@@ -12,6 +12,6 @@ public class TradeportSort : Behavior<CollectionViewSource>
         base.OnAttached();
 
         AssociatedObject.SortDescriptions.Clear();
-        AssociatedObject.SortDescriptions.Add(new SortDescription(nameof(Tradeport.Name), ListSortDirection.Ascending));
+        AssociatedObject.SortDescriptions.Add(new SortDescription(nameof(Tradeport.FullName), ListSortDirection.Ascending));
     }
 }
