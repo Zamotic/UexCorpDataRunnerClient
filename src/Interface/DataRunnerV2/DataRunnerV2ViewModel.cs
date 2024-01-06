@@ -22,11 +22,6 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         set => SetProperty(ref _IsSelectedTerminalFocused, value);
     }
 
-    //private bool _IsNotificationPanelVisible = false;
-    //public bool IsNotificationPanelVisible { get => _IsNotificationPanelVisible; set => SetProperty(ref _IsNotificationPanelVisible, value); }
-    //private string _NotificationPanelText = string.Empty;
-    //public string NotificationPanelText { get => _NotificationPanelText; set => SetProperty(ref _NotificationPanelText, value); }
-
     private IReadOnlyCollection<Commodity>? _commodityList;
 
     private IReadOnlyCollection<StarSystem> _SystemList = new List<StarSystem>();
@@ -49,8 +44,110 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
             SetProperty(ref _SelectedSystem, value);
             if (SelectedSystem != null)
             {
+                _ = UpdatePlanetListAsync(SelectedSystem.Id);
                 _ = UpdateTerminalListAsync(SelectedSystem.Id);
             }
+        }
+    }
+
+    private IReadOnlyCollection<Planet> _PlanetList = new List<Planet>();
+    public IReadOnlyCollection<Planet> PlanetList
+    {
+        get => _PlanetList;
+        set
+        {
+            SetProperty(ref _PlanetList, value);
+            //SetSystemListCVS(true);
+        }
+    }
+
+    private Planet? _SelectedPlanet = null;
+    public Planet? SelectedPlanet
+    {
+        get => _SelectedPlanet;
+        set
+        {
+            SetProperty(ref _SelectedPlanet, value);
+        }
+    }
+
+    private IReadOnlyCollection<Moon> _MoonList = new List<Moon>();
+    public IReadOnlyCollection<Moon> MoonList
+    {
+        get => _MoonList;
+        set
+        {
+            SetProperty(ref _MoonList, value);
+        }
+    }
+
+    private Moon? _SelectedMoon = null;
+    public Moon? SelectedMoon
+    {
+        get => _SelectedMoon;
+        set
+        {
+            SetProperty(ref _SelectedMoon, value);
+        }
+    }
+
+    private IReadOnlyCollection<SpaceStation> _SpaceStationList = new List<SpaceStation>();
+    public IReadOnlyCollection<SpaceStation> SpaceStationList
+    {
+        get => _SpaceStationList;
+        set
+        {
+            SetProperty(ref _SpaceStationList, value);
+        }
+    }
+
+    private SpaceStation? _SelectedSpaceStation = null;
+    public SpaceStation? SelectedSpaceStation
+    {
+        get => _SelectedSpaceStation;
+        set
+        {
+            SetProperty(ref _SelectedSpaceStation, value);
+        }
+    }
+
+    private IReadOnlyCollection<Outpost> _OutpostList = new List<Outpost>();
+    public IReadOnlyCollection<Outpost> OutpostList
+    {
+        get => _OutpostList;
+        set
+        {
+            SetProperty(ref _OutpostList, value);
+        }
+    }
+
+    private Outpost? _SelectedOutpost = null;
+    public Outpost? SelectedOutpost
+    {
+        get => _SelectedOutpost;
+        set
+        {
+            SetProperty(ref _SelectedOutpost, value);
+        }
+    }
+
+    private IReadOnlyCollection<City> _CityList = new List<City>();
+    public IReadOnlyCollection<City> CityList
+    {
+        get => _CityList;
+        set
+        {
+            SetProperty(ref _CityList, value);
+        }
+    }
+
+    private City? _SelectedCity = null;
+    public City? SelectedCity
+    {
+        get => _SelectedCity;
+        set
+        {
+            SetProperty(ref _SelectedCity, value);
         }
     }
 
@@ -85,170 +182,6 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
             }
         }
     }
-
-    //private IReadOnlyCollection<Planet> _PlanetList = new List<Planet>();
-    //public IReadOnlyCollection<Planet> PlanetList
-    //{
-    //    get => _PlanetList;
-    //    set
-    //    {
-    //        SetProperty(ref _PlanetList, value);
-    //    }
-    //}
-
-    //private readonly CollectionViewSource _PlanetListCVS = new CollectionViewSource();
-    //public ICollectionView PlanetListCVS
-    //{
-    //    get
-    //    {
-    //        return _PlanetListCVS.View;
-    //    }
-    //}
-    //private void SetPlanetListCVS(bool resetSource = false)
-    //{
-    //    var targetCVS = _PlanetListCVS;
-    //    if (targetCVS is null)
-    //    {
-    //        return;
-    //    }
-
-    //    using (targetCVS.DeferRefresh())
-    //    {
-    //        if (resetSource)
-    //        {
-    //            targetCVS.Source = PlanetList;
-    //            targetCVS.SortDescriptions.Clear();
-    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-    //        }
-
-    //        if (targetCVS.Source is null)
-    //        {
-    //            targetCVS.Source = PlanetList;
-    //            targetCVS.SortDescriptions.Clear();
-    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-    //        }
-
-    //        targetCVS.Filter += (s, e) =>
-    //        {
-    //            Planet? planet = e.Item as Planet;
-    //            if (planet is null)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            if (SelectedSystem is null)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            if (planet.System is null)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            if (planet.IsAvailable is false)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            e.Accepted = planet.System.Equals(SelectedSystem.Code);
-    //        };
-
-    //    }
-    //    OnPropertyChanged(nameof(PlanetListCVS));
-    //}
-
-    //private Planet? _SelectedPlanet = null;
-    //public Planet? SelectedPlanet
-    //{
-    //    get => _SelectedPlanet;
-    //    set
-    //    {
-    //        SetProperty(ref _SelectedPlanet, value);
-    //        //SetSatelliteListCVS();
-    //        //SetTradeportListCVS();
-    //    }
-    //}
-
-    //private IReadOnlyCollection<Satellite> _SatelliteList = new List<Satellite>();
-    //public IReadOnlyCollection<Satellite> SatelliteList
-    //{
-    //    get => _SatelliteList;
-    //    set => SetProperty(ref _SatelliteList, value);
-    //}
-
-    //private readonly CollectionViewSource _SatelliteListCVS = new CollectionViewSource();
-    //public ICollectionView SatelliteListCVS
-    //{
-    //    get
-    //    {
-    //        return _SatelliteListCVS.View;
-    //    }
-    //}
-    //private void SetSatelliteListCVS(bool resetSource = false)
-    //{
-    //    var targetCVS = _SatelliteListCVS;
-    //    if (targetCVS is null)
-    //    {
-    //        return;
-    //    }
-
-    //    using (targetCVS.DeferRefresh())
-    //    {
-    //        if (resetSource)
-    //        {
-    //            targetCVS.Source = SatelliteList;
-    //            targetCVS.SortDescriptions.Clear();
-    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-    //        }
-
-    //        if (targetCVS.Source is null)
-    //        {
-    //            targetCVS.Source = SatelliteList;
-    //            targetCVS.SortDescriptions.Clear();
-    //            targetCVS.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-    //        }
-
-    //        targetCVS.Filter += (s, e) =>
-    //        {
-    //            if (SelectedPlanet is null)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            Satellite? satellite = e.Item as Satellite;
-    //            if (satellite is null)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            if (satellite.Planet is null)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            if (satellite.IsAvailable is false)
-    //            {
-    //                e.Accepted = false;
-    //                return;
-    //            }
-    //            e.Accepted = satellite.Planet.Equals(SelectedPlanet.Code);
-    //        };
-
-    //    }
-    //    OnPropertyChanged(nameof(SatelliteListCVS));
-    //}
-
-    //private Satellite? _SelectedSatellite = null;
-    //public Satellite? SelectedSatellite
-    //{
-    //    get => _SelectedSatellite;
-    //    set
-    //    {
-    //        SetProperty(ref _SelectedSatellite, value);
-    //        //SetTradeportListCVS();
-    //    }
-    //}
 
     private IList<CommodityWrapper> _commodities = new List<CommodityWrapper>();
     public IList<CommodityWrapper> Commodities
@@ -320,34 +253,32 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
 
         TerminalList = await _DataService.GetTerminalsAsync(starSystemId);
         SelectedTerminal = null;
-        //SetPlanetListCVS(true);
-        //SelectedPlanet = null;
-        //SatelliteList = await _DataService.GetAllSatellitesAsync(systemCode);
-        ////SetSatelliteListCVS(true);
-        //TradeportList = await _DataService.GetAllTradeportsAsync(systemCode);
-        //SetTradeportListCVS(true);
     }
 
-    //public async Task UpdatePlanetListAsync(string systemCode)
-    //{
-    //    if(string.IsNullOrEmpty(systemCode))
-    //    {
-    //        return;
-    //    }
+    public async Task UpdatePlanetListAsync(int starSystemId)
+    {
+        if (starSystemId < 1)
+        {
+            return;
+        }
 
-    //    if(_IsViewModelLoaded == false)
-    //    {
-    //        return;
-    //    }
+        if (_IsViewModelLoaded == false)
+        {
+            return;
+        }
 
-    //    PlanetList = await _DataService.GetAllPlanetsAsync(systemCode);
-    //    //SetPlanetListCVS(true);
-    //    SelectedPlanet = null;
-    //    SatelliteList = await _DataService.GetAllSatellitesAsync(systemCode);
-    //    //SetSatelliteListCVS(true);
-    //    TradeportList = await _DataService.GetAllTradeportsAsync(systemCode);
-    //    //SetTradeportListCVS(true);
-    //}
+        PlanetList = await _DataService.GetAllPlanetsAsync(starSystemId);
+        MoonList = await _DataService.GetAllMoonsByStarSystemIdAsync(starSystemId);
+        SpaceStationList = await _DataService.GetAllSpaceStationsByStarSystemIdAsync(starSystemId);
+        OutpostList = await _DataService.GetAllOutpostsByStarSystemIdAsync(starSystemId);
+        CityList = await _DataService.GetAllCitiesByStarSystemIdAsync(starSystemId);
+
+        SelectedPlanet = null;
+        SelectedMoon = null;
+        SelectedSpaceStation = null;
+        SelectedOutpost = null;
+        SelectedCity = null;
+    }
     //public async Task SetCurrentTradeportAsync(string tradeportCode)
     //{
     //    var newTradeport = await _DataService.GetTradeportAsync(tradeportCode);

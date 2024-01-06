@@ -5,13 +5,13 @@ using UexCorpDataRunner.Domain.DataRunnerV2;
 
 namespace UexCorpDataRunner.Presentation.DataRunnerV2.Sort;
 
-public class TerminalSort : Behavior<CollectionViewSource>
+public class CitySort : Behavior<CollectionViewSource>
 {
     protected override void OnAttached()
     {
         base.OnAttached();
 
         AssociatedObject.SortDescriptions.Clear();
-        AssociatedObject.SortDescriptions.Add(new SortDescription(nameof(Terminal.Name), ListSortDirection.Ascending));
+        AssociatedObject.SortDescriptions.Add(new SortDescription(nameof(City.Name), ListSortDirection.Ascending));
     }
 }

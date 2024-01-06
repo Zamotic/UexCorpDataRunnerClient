@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UexCorpDataRunner.Domain.DataRunnerV2;
+﻿using UexCorpDataRunner.Domain.DataRunnerV2;
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.Mappers;
-public static class PlanetMapper
+public static class SpaceStationMapper
 {
-    public static Planet ConvertFromDto(this PlanetDto input)
+    public static SpaceStation ConvertFromDto(this SpaceStationDto input)
     {
-        Planet output = new Planet();
+        SpaceStation output = new SpaceStation();
         output.Id = input.Id;
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
@@ -22,15 +17,16 @@ public static class PlanetMapper
         output.DateModified = input.DateModified;
 
         output.StarSystemId = input.StarSystemId;
-        output.NameOrigin = input.NameOrigin;
-        output.IsLagrange = input.IsLagrange;
+        output.PlanetId = input.PlanetId;
+        output.MoonId = input.MoonId;
+        output.CityId = input.CityId;
 
         return output;
     }
 
-    public static IReadOnlyCollection<Planet> ConvertFromDto(this IEnumerable<PlanetDto> input)
+    public static IReadOnlyCollection<SpaceStation> ConvertFromDto(this IEnumerable<SpaceStationDto> input)
     {
-        List<Planet> output = new List<Planet>();
+        List<SpaceStation> output = new List<SpaceStation>();
         foreach (var item in input)
         {
             output.Add(item.ConvertFromDto());
@@ -39,9 +35,9 @@ public static class PlanetMapper
         return output.AsReadOnly();
     }
 
-    public static PlanetDto ConvertToDto(this Planet input)
+    public static SpaceStationDto ConvertToDto(this SpaceStation input)
     {
-        PlanetDto output = new PlanetDto();
+        SpaceStationDto output = new SpaceStationDto();
         output.Id = input.Id;
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
@@ -52,15 +48,16 @@ public static class PlanetMapper
         output.DateModified = input.DateModified;
 
         output.StarSystemId = input.StarSystemId;
-        output.NameOrigin = input.NameOrigin;
-        output.IsLagrange = input.IsLagrange;
+        output.PlanetId = input.PlanetId;
+        output.MoonId = input.MoonId;
+        output.CityId = input.CityId;
 
         return output;
     }
 
-    public static IReadOnlyCollection<PlanetDto> ConvertToDto(this IEnumerable<Planet> input)
+    public static IReadOnlyCollection<SpaceStationDto> ConvertToDto(this IEnumerable<SpaceStation> input)
     {
-        List<PlanetDto> output = new List<PlanetDto>();
+        List<SpaceStationDto> output = new List<SpaceStationDto>();
         foreach (var item in input)
         {
             output.Add(item.ConvertToDto());

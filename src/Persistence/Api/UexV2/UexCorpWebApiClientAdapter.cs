@@ -82,6 +82,30 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
         return moons;
     }
 
+    public async Task<IReadOnlyCollection<SpaceStation>> GetSpaceStationsByStarSystemIdAsync(int starSystemId)
+    {
+        ICollection<SpaceStationDto> spaceStationDtos = await _WebClient.GetSpaceStationsByStarSystemIdAsync(starSystemId);
+
+        var spaceStations = spaceStationDtos.ConvertFromDto();
+        return spaceStations;
+    }
+
+    public async Task<IReadOnlyCollection<SpaceStation>> GetSpaceStationsByPlanetIdAsync(int planetId)
+    {
+        ICollection<SpaceStationDto> spaceStationDtos = await _WebClient.GetSpaceStationsByPlanetIdAsync(planetId);
+
+        var spaceStations = spaceStationDtos.ConvertFromDto();
+        return spaceStations;
+    }
+
+    public async Task<IReadOnlyCollection<SpaceStation>> GetSpaceStationsByMoonIdAsync(int moonId)
+    {
+        ICollection<SpaceStationDto> spaceStationDtos = await _WebClient.GetSpaceStationsByMoonIdAsync(moonId);
+
+        var spaceStations = spaceStationDtos.ConvertFromDto();
+        return spaceStations;
+    }
+
     public async Task<IReadOnlyCollection<Outpost>> GetOutpostsByStarSystemIdAsync(int starSystemId)
     {
         ICollection<OutpostDto> outpostDtos = await _WebClient.GetOutpostsByStarSystemIdAsync(starSystemId);

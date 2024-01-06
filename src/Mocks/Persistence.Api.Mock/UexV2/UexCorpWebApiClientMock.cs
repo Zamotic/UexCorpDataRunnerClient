@@ -134,10 +134,6 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
     {
         return await _SubstituteClient.GetMoonsByPlanetIdAsync(planetId);
     }
-    public async Task<ICollection<CityDto>> GetCitiesByStarSystemIdAsync(int starSystemId)
-    {
-        return await _SubstituteClient.GetCitiesByStarSystemIdAsync(starSystemId);
-    }
     public async Task<ICollection<CommodityDto>> GetCommoditiesAsync()
     {
         return await _SubstituteClient.GetCommoditiesAsync();
@@ -154,34 +150,44 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
     {
         return await _SubstituteClient.GetTerminalsAsync(starSystemId);
     }
-
-    public Task<ICollection<CityDto>> GetCitiesByPlanetIdAsync(int planetId)
+    public async Task<ICollection<SpaceStationDto>> GetSpaceStationsByStarSystemIdAsync(int starSystemId)
     {
-        throw new NotImplementedException();
+        return await _SubstituteClient.GetSpaceStationsByStarSystemIdAsync(starSystemId);
     }
-
-    public Task<ICollection<CityDto>> GetCitiesByMoonIdAsync(int moonId)
+    public async Task<ICollection<SpaceStationDto>> GetSpaceStationsByPlanetIdAsync(int planetId)
     {
-        throw new NotImplementedException();
+        return await _SubstituteClient.GetSpaceStationsByPlanetIdAsync(planetId);
     }
-
-    public Task<ICollection<OutpostDto>> GetOutpostsByStarSystemIdAsync(int starSystemId)
+    public async Task<ICollection<SpaceStationDto>> GetSpaceStationsByMoonIdAsync(int moonId)
     {
-        throw new NotImplementedException();
+        return await _SubstituteClient.GetSpaceStationsByMoonIdAsync(moonId);
     }
-
-    public Task<ICollection<OutpostDto>> GetOutpostsByPlanetIdAsync(int planetId)
+    public async Task<ICollection<CityDto>> GetCitiesByStarSystemIdAsync(int starSystemId)
     {
-        throw new NotImplementedException();
+        return await _SubstituteClient.GetCitiesByStarSystemIdAsync(starSystemId);
     }
-
-    public Task<ICollection<OutpostDto>> GetOutpostsByMoonIdAsync(int moonId)
+    public async Task<ICollection<CityDto>> GetCitiesByPlanetIdAsync(int planetId)
     {
-        throw new NotImplementedException();
+        return await _SubstituteClient.GetCitiesByPlanetIdAsync(planetId);
     }
-
-    public Task<UexResponseDto<ICollection<string>>> SubmitDataAsync(DataSubmitDto dataSubmitDto)
+    public async Task<ICollection<CityDto>> GetCitiesByMoonIdAsync(int moonId)
     {
-        throw new NotImplementedException();
+        return await _SubstituteClient.GetCitiesByMoonIdAsync(moonId);
+    }
+    public async Task<ICollection<OutpostDto>> GetOutpostsByStarSystemIdAsync(int starSystemId)
+    {
+        return await _SubstituteClient.GetOutpostsByStarSystemIdAsync(starSystemId);
+    }
+    public async Task<ICollection<OutpostDto>> GetOutpostsByPlanetIdAsync(int planetId)
+    {
+        return await _SubstituteClient.GetOutpostsByPlanetIdAsync(planetId);
+    }
+    public async Task<ICollection<OutpostDto>> GetOutpostsByMoonIdAsync(int moonId)
+    {
+        return await _SubstituteClient.GetOutpostsByMoonIdAsync(moonId);
+    }
+    public async Task<UexResponseDto<ICollection<string>>> SubmitDataAsync(DataSubmitDto dataSubmitDto)
+    {
+        return await _SubstituteClient.SubmitDataAsync(dataSubmitDto);
     }
 }

@@ -47,6 +47,24 @@ public class UexDataServiceV2 : IUexDataServiceV2
         return collection;
     }
 
+    public virtual async Task<IReadOnlyCollection<SpaceStation>> GetAllSpaceStationsByStarSystemIdAsync(int starSystemId)
+    {
+        var collection = await _WebClientAdapter.GetSpaceStationsByStarSystemIdAsync(starSystemId);
+        return collection;
+    }
+
+    public virtual async Task<IReadOnlyCollection<SpaceStation>> GetAllSpaceStationsByPlanetIdAsync(int planetId)
+    {
+        var collection = await _WebClientAdapter.GetSpaceStationsByPlanetIdAsync(planetId);
+        return collection;
+    }
+
+    public virtual async Task<IReadOnlyCollection<SpaceStation>> GetAllSpaceStationsByMoonIdAsync(int moonId)
+    {
+        var collection = await _WebClientAdapter.GetSpaceStationsByMoonIdAsync(moonId);
+        return collection;
+    }
+
     public virtual async Task<IReadOnlyCollection<City>> GetAllCitiesByStarSystemIdAsync(int starSystemId)
     {
         var collection = await _WebClientAdapter.GetCitiesByStarSystemIdAsync(starSystemId);

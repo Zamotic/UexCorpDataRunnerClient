@@ -202,7 +202,7 @@ public class UexCorpWebApiClientTests
 
     #region     Planet
     [Fact]
-    public async Task GetPlanetsAsync_ShouldHaveExpectedCountOf4()
+    public async Task GetPlanetsAsync_ShouldHaveExpectedCountOf25()
     {
         // Assemble
         const int starSystemId = 68;
@@ -211,7 +211,7 @@ public class UexCorpWebApiClientTests
         var actual = await _webApiClient.GetPlanetsAsync(starSystemId).ConfigureAwait(false);
 
         // Assert
-        actual.Should().HaveCount(4);
+        actual.Should().HaveCount(25);
     }
 
     private static ICollection<PlanetDto> _ActualGetPlanetsAsyncValue = new List<PlanetDto>();
@@ -230,7 +230,7 @@ public class UexCorpWebApiClientTests
     public async Task GetPlanetsAsync_ShouldHaveExpectedId()
     {
         // Assemble
-        const int ExpectedId = 1;
+        const int ExpectedId = 4;
 
         // Act
         var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
@@ -602,7 +602,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCitiesAsync_ShouldHaveExpectedPlanetId()
     {
         // Assemble
-        const int ExpectedPlanetId = 1;
+        const int ExpectedPlanetId = 4;
 
         // Act
         var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
@@ -2142,7 +2142,7 @@ public class UexCorpWebApiClientTests
     #region     Terminal
 
     [Fact]
-    public async Task GetTerminalsAsync_ShouldHaveExpectedCountOf249()
+    public async Task GetTerminalsAsync_ShouldHaveExpectedCountOf290()
     {
         // Assemble
         int starSystemId = 68;
@@ -2151,7 +2151,7 @@ public class UexCorpWebApiClientTests
         var actual = await _webApiClient.GetTerminalsAsync(starSystemId).ConfigureAwait(false);
 
         // Assert
-        actual.Should().HaveCount(249);
+        actual.Should().HaveCount(290);
     }
 
     private static ICollection<TerminalDto> _ActualGetTerminalsAsyncValue = new List<TerminalDto>();
@@ -2275,7 +2275,7 @@ public class UexCorpWebApiClientTests
     public async Task GetTerminalsAsync_ShouldHaveExpectedName()
     {
         // Assemble
-        const string ExpectedValue = "ARC-L1 - Admin Office";
+        const string ExpectedValue = "Admin - ARC-L1";
 
         // Act
         var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
@@ -2365,7 +2365,7 @@ public class UexCorpWebApiClientTests
     public async Task GetTerminalsAsync_ShouldHaveExpectedPlanetName()
     {
         // Assemble
-        const string ExpectedValue = "ARC-L1";
+        const string ExpectedValue = "ArcCorp Lagrange 1";
 
         // Act
         var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);

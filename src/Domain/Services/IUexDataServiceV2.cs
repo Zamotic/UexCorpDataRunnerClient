@@ -9,6 +9,9 @@ public interface IUexDataServiceV2
     Task<IReadOnlyCollection<Planet>> GetAllPlanetsAsync(int starSystemId);
     Task<IReadOnlyCollection<Moon>> GetAllMoonsByStarSystemIdAsync(int starSystemId);
     Task<IReadOnlyCollection<Moon>> GetAllMoonsByPlanetIdAsync(int planetId);
+    Task<IReadOnlyCollection<SpaceStation>> GetAllSpaceStationsByStarSystemIdAsync(int starSystemId);
+    Task<IReadOnlyCollection<SpaceStation>> GetAllSpaceStationsByPlanetIdAsync(int planetId);
+    Task<IReadOnlyCollection<SpaceStation>> GetAllSpaceStationsByMoonIdAsync(int moonId);
     Task<IReadOnlyCollection<City>> GetAllCitiesByStarSystemIdAsync(int starSystemId);
     Task<IReadOnlyCollection<City>> GetAllCitiesByPlanetIdAsync(int planetId);
     Task<IReadOnlyCollection<City>> GetAllCitiesByMoonIdAsync(int moonId);

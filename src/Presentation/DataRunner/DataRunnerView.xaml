@@ -355,6 +355,12 @@
                 <sort:TradeportSort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
+        <CollectionViewSource x:Key="TradeportSearchListCVS" Source="{Binding TradeportList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:TradeportSearchListFilter SelectedStarSystem="{Binding SelectedSystem}" />
+                <sort:TradeportSearchSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
         <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
                 <filter:BuyableCommodityListFilter />
@@ -637,7 +643,7 @@
                 </Button>
                 <uiLibraryControls:AutoFilteredComboBox
                     DockPanel.Dock="Left"
-                    ItemsSource="{Binding Source={StaticResource TradeportListCVS}, Mode=OneWay}"
+                    ItemsSource="{Binding Source={StaticResource TradeportSearchListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedTradeport}"
                     DisplayMemberPath="FullName"
                     Extensions:FocusExtension.IsFocused="{Binding IsSelectedTradeportFocused, Mode=TwoWay}">

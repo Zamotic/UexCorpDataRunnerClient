@@ -12,6 +12,9 @@ public interface IUexCorpWebApiClient
     Task<ICollection<CommodityPriceDto>> GetCommodityPricesAsync(int terminalId);
     Task<ICollection<CommodityPriceDto>> GetCommodityPricesByCommodityIdAsync(int commodityId);
     Task<ICollection<TerminalDto>> GetTerminalsAsync(int starSystemId);
+    Task<ICollection<SpaceStationDto>> GetSpaceStationsByStarSystemIdAsync(int starSystemId);
+    Task<ICollection<SpaceStationDto>> GetSpaceStationsByPlanetIdAsync(int planetId);
+    Task<ICollection<SpaceStationDto>> GetSpaceStationsByMoonIdAsync(int moonId);
     Task<ICollection<CityDto>> GetCitiesByStarSystemIdAsync(int starSystemId);
     Task<ICollection<CityDto>> GetCitiesByPlanetIdAsync(int planetId);
     Task<ICollection<CityDto>> GetCitiesByMoonIdAsync(int moonId);

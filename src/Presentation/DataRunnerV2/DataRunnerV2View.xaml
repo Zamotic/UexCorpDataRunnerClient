@@ -12,6 +12,7 @@
       xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary"
+      xmlns:Domain="clr-namespace:UexCorpDataRunner.Domain.Common;assembly=Domain"
       presentation:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="425"
@@ -31,30 +32,48 @@
                 <sort:StarSystemSort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
+        <CollectionViewSource x:Key="TerminalSearchListCVS" Source="{Binding TerminalList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:TerminalSearchListFilter SelectedStarSystem="{Binding SelectedSystem}" />
+                <sort:TerminalSearchSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
         <CollectionViewSource x:Key="TerminalListCVS" Source="{Binding TerminalList}">
             <Behaviors:Interaction.Behaviors>
                 <filter:TerminalListFilter SelectedStarSystem="{Binding SelectedSystem}" />
                 <sort:TerminalSort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
-        <!--<CollectionViewSource x:Key="PlanetListCVS" Source="{Binding PlanetList}">
+        <CollectionViewSource x:Key="PlanetListCVS" Source="{Binding PlanetList}">
             <Behaviors:Interaction.Behaviors>
                 <filter:PlanetListFilter SelectedSystem="{Binding SelectedSystem}" />
                 <sort:PlanetSort />
             </Behaviors:Interaction.Behaviors>
-        </CollectionViewSource>-->
-        <!--<CollectionViewSource x:Key="SatelliteListCVS" Source="{Binding SatelliteList}">
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="MoonListCVS" Source="{Binding MoonList}">
             <Behaviors:Interaction.Behaviors>
-                <filter:SatelliteListFilter SelectedPlanet="{Binding SelectedPlanet}" />
-                <sort:SatelliteSort />
+                <filter:MoonListFilter SelectedPlanet="{Binding SelectedPlanet}" />
+                <sort:MoonSort />
             </Behaviors:Interaction.Behaviors>
-        </CollectionViewSource>-->
-        <!--<CollectionViewSource x:Key="TradeportListCVS" Source="{Binding TradeportList}">
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="SpaceStationListCVS" Source="{Binding SpaceStationList}">
             <Behaviors:Interaction.Behaviors>
-                <filter:TradeportListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedSatellite="{Binding SelectedSatellite}" />
-                <sort:TradeportSort />
+                <filter:SpaceStationListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}" />
+                <sort:SpaceStationSort />
             </Behaviors:Interaction.Behaviors>
-        </CollectionViewSource>-->
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="OutpostListCVS" Source="{Binding OutpostList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:OutpostListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}" />
+                <sort:OutpostSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="CityListCVS" Source="{Binding CityList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:CityListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}" />
+                <sort:CitySort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
         <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding Commodities}">
             <Behaviors:Interaction.Behaviors>
                 <filter:BuyableCommodityListFilter />
@@ -72,7 +91,7 @@
         Style="{DynamicResource MainDockPanel}">
         <DockPanel.Resources>
             <system:Double x:Key="clearButtonWidth">20</system:Double>
-            <system:Double x:Key="labelWidth">60</system:Double>
+            <system:Double x:Key="labelWidth">80</system:Double>
             <Thickness x:Key="innerMargin">2,2</Thickness>
         </DockPanel.Resources>
         <DockPanel
@@ -154,54 +173,266 @@
                     IsTabStop="False"/>
             </DockPanel>
             <DockPanel
-                Margin="{StaticResource innerMargin}"
                 DockPanel.Dock="Top">
                 <DockPanel.Style>
                     <Style TargetType="DockPanel">
-                        <Setter Property="IsEnabled" Value="True" />
                         <Style.Triggers>
-                            <DataTrigger
-                                Binding="{Binding SelectedSystem}"
-                                Value="{x:Null}">
-                                <Setter
-                                    Property="IsEnabled"
-                                    Value="False"/>
+                            <DataTrigger Binding="{Binding SelectedSearchStyle}" Value="{x:Static Domain:SearchStyle.SearchFilterValue}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </DockPanel.Style>
-                <TextBlock
-                    DockPanel.Dock="Left"
-                    Width="{StaticResource labelWidth}"
-                    Text="Terminal:"
-                    VerticalAlignment="Center"
-                    Style="{DynamicResource StyledTextBlock}"/>
-                <Button
-                    DockPanel.Dock="Right"
-                    IsTabStop="False"
-                    Width="{StaticResource clearButtonWidth}"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding ClearSelectedTerminalCommand}"
-                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
-                    <Image
-                        Source="../Images/cancel-128-red.png"
-                        Margin="-2"
-                        Height="15"
-                        Width="15"/>
-                </Button>
-                <uiLibraryControls:AutoFilteredComboBox
-                    DockPanel.Dock="Left"
-                    ItemsSource="{Binding Source={StaticResource TerminalListCVS}, Mode=OneWay}"
-                    SelectedItem="{Binding SelectedTerminal}"
-                    DisplayMemberPath="FullName"
-                    Extensions:FocusExtension.IsFocused="{Binding IsSelectedTerminalFocused, Mode=TwoWay}">
-                    <uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel VirtualizationMode="Recycling" />
-                        </ItemsPanelTemplate>
-                    </uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
-                </uiLibraryControls:AutoFilteredComboBox>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Planet:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedPlanetCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource PlanetListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedPlanet}"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Planet)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Moon:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedMoonCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource MoonListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedMoon}"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Moon)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Space Station:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedSpaceStationCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource SpaceStationListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedSpaceStation}"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Space Station)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Outpost:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedOutpostCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource OutpostListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedOutpost}"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Outpost)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="City:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedCityCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource CityListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedCity}"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select City)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Terminal:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedTerminalCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource TerminalListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedTerminal}"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Terminal)"
+                        IsTabStop="False"/>
+                </DockPanel>
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedSearchStyle}" Value="{x:Static Domain:SearchStyle.DrillDownValue}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Setter Property="IsEnabled" Value="True" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedSystem}"
+                                    Value="{x:Null}">
+                                    <Setter
+                                        Property="IsEnabled"
+                                        Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Terminal:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedTerminalCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:AutoFilteredComboBox
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource TerminalSearchListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedTerminal}"
+                        DisplayMemberPath="FullName"
+                        Extensions:FocusExtension.IsFocused="{Binding IsSelectedTerminalFocused, Mode=TwoWay}">
+                        <uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel VirtualizationMode="Recycling" />
+                            </ItemsPanelTemplate>
+                        </uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
+                    </uiLibraryControls:AutoFilteredComboBox>
+                </DockPanel>
             </DockPanel>
             <!--<DockPanel
                 Margin="{StaticResource innerMargin}"
