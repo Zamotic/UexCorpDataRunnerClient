@@ -210,6 +210,21 @@
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
+                    Text="Search Style:" 
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <UI:DefaultOverlayComboBox2
+                    DockPanel.Dock="Right"
+                    ItemsSource="{Binding SearchStyleList}"
+                    SelectedValue="{Binding SettingsValues.SelectedSearchStyle}"
+                    DefaultOverlayString="(Select Search Style)" />
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top"
+                Margin="{StaticResource propertyMargin}">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
                     Text="Site Version:" 
                     VerticalAlignment="Center"
                     Style="{DynamicResource StyledTextBlock}"/>
@@ -303,21 +318,6 @@
                     ItemsSource="{Binding GameVersionList}"
                     SelectedValue="{Binding SettingsValues.SelectedGameVersion}"
                     DefaultOverlayString="(Select Game Version)" />
-            </DockPanel>
-            <DockPanel
-                DockPanel.Dock="Top"
-                Margin="{StaticResource propertyMargin}">
-                <TextBlock
-                    DockPanel.Dock="Left"
-                    Width="{StaticResource labelWidth}"
-                    Text="Search Style:" 
-                    VerticalAlignment="Center"
-                    Style="{DynamicResource StyledTextBlock}"/>
-                <UI:DefaultOverlayComboBox2
-                    DockPanel.Dock="Right"
-                    ItemsSource="{Binding SearchStyleList}"
-                    SelectedValue="{Binding SettingsValues.SelectedSearchStyle}"
-                    DefaultOverlayString="(Select Search Style)" />
             </DockPanel>
             <TextBlock
                 DockPanel.Dock="Bottom"
