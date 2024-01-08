@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using UexCorpDataRunner.Domain.Common;
 using UexCorpDataRunner.Domain.DataRunnerV2;
 using UexCorpDataRunner.Interface.MessengerMessages;
 
@@ -15,9 +16,14 @@ public partial class DataRunnerV2ViewModel
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(_SettingsService?.Settings?.UserAccessCode) == true)
+        if (string.IsNullOrWhiteSpace(_SettingsService?.Settings?.UserSecretKey) == true)
         {
             ShowSettingsInterfaceCommandExecute();
+            return;
+        }
+
+        if (_SettingsService.Settings.SelectedSiteVersion.Equals(SiteVersion.Version2Value) == false)
+        {
             return;
         }
 

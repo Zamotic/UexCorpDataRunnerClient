@@ -22,6 +22,11 @@ public partial class DataRunnerViewModel
             return;
         }
 
+        if(_SettingsService.Settings.SelectedSiteVersion.Equals(SiteVersion.Version1Value) == false)
+        {
+            return;
+        }
+
         try
         {
             SystemList = await _DataService.GetAllSystemsAsync();
