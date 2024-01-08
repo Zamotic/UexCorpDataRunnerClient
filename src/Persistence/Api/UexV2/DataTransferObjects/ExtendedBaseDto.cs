@@ -23,7 +23,7 @@ public class ExtendedBaseDto : BaseDto
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool IsVisible { get; set; }
 
-    [JsonPropertyName("default")]
+    [JsonPropertyName("is_default")]
     [JsonConverter(typeof(UexBooleanTypeJsonConverter))]
     public bool IsDefault { get; set; }
 }

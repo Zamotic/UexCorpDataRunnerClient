@@ -16,6 +16,7 @@ public static class OutpostMapper
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
 
+        output.StarSystemId = input.StarSystemId;
         output.PlanetId = input.PlanetId;
         output.MoonId = input.MoonId;
         output.Nickname = input.Nickname;
@@ -49,6 +50,7 @@ public static class OutpostMapper
         output.DateAdded = input.DateAdded;
         output.DateModified = input.DateModified;
 
+        output.StarSystemId = input.StarSystemId;
         output.PlanetId = input.PlanetId;
         output.MoonId = input.MoonId;
         output.Nickname = input.Nickname;

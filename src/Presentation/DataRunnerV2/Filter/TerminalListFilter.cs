@@ -125,7 +125,12 @@ public class TerminalListFilter : Behavior<CollectionViewSource>
         {
             cityValue = terminal.CityId.Equals(SelectedCity.Id);
         }
-        e.Accepted = starSystemValue is true && planetValue is true && moonValue is true && spaceStationValue is true && outpostValue is true && cityValue is true;
+        e.Accepted = (starSystemValue is null || starSystemValue is true) 
+            && (planetValue is null || planetValue is true) 
+            && (moonValue is null || moonValue is true) 
+            && (spaceStationValue is null || spaceStationValue is true) 
+            && (outpostValue is null || outpostValue is true) 
+            && (cityValue is null || cityValue is true);
     }
 
     private bool ArePropertiesAllNull()

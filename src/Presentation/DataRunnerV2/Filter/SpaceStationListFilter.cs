@@ -18,9 +18,9 @@ public class SpaceStationListFilter : Behavior<CollectionViewSource>
 
     public static readonly DependencyProperty SelectedMoonProperty =
     DependencyProperty.Register(nameof(SelectedMoon), typeof(Moon), typeof(SpaceStationListFilter), new UIPropertyMetadata(OnSelectedMoonChangedCallBack));
-    public Planet SelectedMoon
+    public Moon SelectedMoon
     {
-        get { return (Planet)GetValue(SelectedMoonProperty); }
+        get { return (Moon)GetValue(SelectedMoonProperty); }
         set { SetValue(SelectedMoonProperty, value); }
     }
 

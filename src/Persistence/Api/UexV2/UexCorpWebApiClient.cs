@@ -275,7 +275,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of OutpostDto records returned from the API</returns>
     public async Task<ICollection<OutpostDto>> GetOutpostsByStarSystemIdAsync(int starSystemId)
     {
-        string endPointValue = $"cities/id_star_system/{starSystemId}";
+        string endPointValue = $"outposts/id_star_system/{starSystemId}";
 
         return await GenericGetCollectionAsync<OutpostDto>(endPointValue);
     }
@@ -287,7 +287,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of OutpostDto records returned from the API</returns>
     public async Task<ICollection<OutpostDto>> GetOutpostsByPlanetIdAsync(int planetId)
     {
-        string endPointValue = $"cities/id_planet/{planetId}";
+        string endPointValue = $"outposts/id_planet/{planetId}";
 
         return await GenericGetCollectionAsync<OutpostDto>(endPointValue);
     }
@@ -299,7 +299,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
     /// <returns>Collection containing a list of OutpostDto records returned from the API</returns>
     public async Task<ICollection<OutpostDto>> GetOutpostsByMoonIdAsync(int moonId)
     {
-        string endPointValue = $"cities/id_moon/{moonId}";
+        string endPointValue = $"outposts/id_moon/{moonId}";
 
         return await GenericGetCollectionAsync<OutpostDto>(endPointValue);
     }

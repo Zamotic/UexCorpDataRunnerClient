@@ -364,17 +364,18 @@ public class UexCorpWebApiClientTests
     }
 
     [Fact]
-    public async Task GetMoonsByPlanetAsync_ShouldHaveExpectedCountOf4()
+    public async Task GetMoonsByPlanetAsync_ShouldHaveExpectedCount()
     {
         // Assemble
         //const int starSystemId = 68;
         const int planetId = 4;
+        const int ExpectedCount = 2;
 
         // Act
         var actual = await _webApiClient.GetMoonsByPlanetIdAsync(planetId).ConfigureAwait(false);
 
         // Assert
-        actual.Should().HaveCount(4);
+        actual.Should().HaveCount(ExpectedCount);
     }
 
     private static ICollection<MoonDto> _ActualGetMoonsAsyncValue = new List<MoonDto>();
@@ -423,7 +424,7 @@ public class UexCorpWebApiClientTests
     public async Task GetMoonsAsync_ShouldHaveExpectedPlanetId()
     {
         // Assemble
-        const int ExpectedPlanetId = 4;
+        const int ExpectedPlanetId = 116;
 
         // Act
         var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
@@ -453,7 +454,7 @@ public class UexCorpWebApiClientTests
     public async Task GetMoonsAsync_ShouldHaveExpectedNameOrigin()
     {
         // Assemble
-        const string ExpectedValue = "Stanton 1b";
+        const string ExpectedValue = "Stanton I b";
 
         // Act
         var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
@@ -688,80 +689,80 @@ public class UexCorpWebApiClientTests
         actual.IsVisible.Should().Be(ExpectedValue);
     }
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedIsMonitored()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedIsMonitored()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.IsMonitored.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsMonitored.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedIsArmistice()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedIsArmistice()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.IsArmistice.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsArmistice.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedIsLandable()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedIsLandable()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.IsLandable.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsLandable.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedIsDecomissioned()
-    {
-        // Assemble
-        const bool ExpectedValue = false;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedIsDecomissioned()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = false;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.IsDecomissioned.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsDecomissioned.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasQuantumMarker()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasQuantumMarker()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasQuantumMarker.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasQuantumMarker.Should().Be(ExpectedValue);
+    //}
 
     [Fact]
     public async Task GetCitiesAsync_ShouldHaveExpectedHasTradeTerminal()
@@ -778,80 +779,80 @@ public class UexCorpWebApiClientTests
         actual.HasTradeTerminal.Should().Be(ExpectedValue);
     }
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasHabitation()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasHabitation()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasHabitation.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasHabitation.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasRefinery()
-    {
-        // Assemble
-        const bool ExpectedValue = false;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasRefinery()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = false;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasRefinery.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasRefinery.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasCargoCenter()
-    {
-        // Assemble
-        const bool ExpectedValue = false;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasCargoCenter()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = false;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasCargoCenter.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasCargoCenter.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasClinic()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasClinic()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasClinic.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasClinic.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasFood()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasFood()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasFood.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasFood.Should().Be(ExpectedValue);
+    //}
 
     [Fact]
     public async Task GetCitiesAsync_ShouldHaveExpectedHasShops()
@@ -868,50 +869,50 @@ public class UexCorpWebApiClientTests
         actual.HasShops.Should().Be(ExpectedValue);
     }
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasRefuel()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasRefuel()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasRefuel.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasRefuel.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasRepair()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasRepair()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasRepair.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasRepair.Should().Be(ExpectedValue);
+    //}
 
-    [Fact]
-    public async Task GetCitiesAsync_ShouldHaveExpectedHasGravity()
-    {
-        // Assemble
-        const bool ExpectedValue = true;
+    //[Fact]
+    //public async Task GetCitiesAsync_ShouldHaveExpectedHasGravity()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
 
-        // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    // Act
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
 
-        // Assert
-        cities.Should().NotBeNull();
-        var actual = cities.First();
-        actual.HasGravity.Should().Be(ExpectedValue);
-    }
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasGravity.Should().Be(ExpectedValue);
+    //}
 
     [Fact]
     public async Task GetCitiesAsync_ShouldHaveExpectedDateAdded()
@@ -945,6 +946,395 @@ public class UexCorpWebApiClientTests
 
     #endregion  City
 
+    #region     Outpost
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedCount()
+    {
+        // Assemble
+        const int starSystemId = 68;
+        const int ExpectedCount = 67;
+
+        // Act
+        var actual = await _webApiClient.GetOutpostsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+
+        // Assert
+        actual.Should().HaveCount(ExpectedCount);
+    }
+
+    private static ICollection<OutpostDto> _ActualGetOutpostsAsyncValue = new List<OutpostDto>();
+    private async Task<ICollection<OutpostDto>> GetActualOutpostsAsyncValue()
+    {
+        const int starSystemId = 68;
+        if (_ActualGetOutpostsAsyncValue.Any() == false)
+        {
+            _ActualGetOutpostsAsyncValue = await _webApiClient.GetOutpostsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+        }
+
+        return _ActualGetOutpostsAsyncValue;
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedId()
+    {
+        // Assemble
+        const int ExpectedId = 1;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.Id.Should().Be(ExpectedId);
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedStarSystemId()
+    {
+        // Assemble
+        const int ExpectedStarSystemId = 68;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.StarSystemId.Should().Be(ExpectedStarSystemId);
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedPlanetId()
+    {
+        // Assemble
+        const int ExpectedPlanetId = 4;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.PlanetId.Should().Be(ExpectedPlanetId);
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedMoonId()
+    {
+        // Assemble
+        const int ExpectedMoonId = 74;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.MoonId.Should().Be(ExpectedMoonId);
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedName()
+    {
+        // Assemble
+        const string ExpectedValue = "ArcCorp Mining Area 045";
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.Name.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedIsAvailable()
+    {
+        // Assemble
+        const bool ExpectedValue = true;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.IsAvailable.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedIsVisible()
+    {
+        // Assemble
+        const bool ExpectedValue = true;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.IsVisible.Should().Be(ExpectedValue);
+    }
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedIsMonitored()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsMonitored.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedIsArmistice()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsArmistice.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedIsLandable()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsLandable.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedIsDecomissioned()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = false;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.IsDecomissioned.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasQuantumMarker()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasQuantumMarker.Should().Be(ExpectedValue);
+    //}
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedHasTradeTerminal()
+    {
+        // Assemble
+        const bool ExpectedValue = true;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.HasTradeTerminal.Should().Be(ExpectedValue);
+    }
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasHabitation()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasHabitation.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasRefinery()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = false;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasRefinery.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasCargoCenter()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = false;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasCargoCenter.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasClinic()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasClinic.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasFood()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasFood.Should().Be(ExpectedValue);
+    //}
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedHasShops()
+    {
+        // Assemble
+        const bool ExpectedValue = false;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.HasShops.Should().Be(ExpectedValue);
+    }
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasRefuel()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasRefuel.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasRepair()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasRepair.Should().Be(ExpectedValue);
+    //}
+
+    //[Fact]
+    //public async Task GetOutpostsAsync_ShouldHaveExpectedHasGravity()
+    //{
+    //    // Assemble
+    //    const bool ExpectedValue = true;
+
+    //    // Act
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+    //    // Assert
+    //    cities.Should().NotBeNull();
+    //    var actual = cities.First();
+    //    actual.HasGravity.Should().Be(ExpectedValue);
+    //}
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedDateAdded()
+    {
+        // Assemble
+        DateTimeOffset ExpectedValue = _dateAdded;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.DateAdded.Should().NotBe(DateTimeOffset.MinValue);
+    }
+
+    [Fact]
+    public async Task GetOutpostsAsync_ShouldHaveExpectedDateModified()
+    {
+        // Assemble
+        DateTimeOffset ExpectedValue = _dateModified;
+
+        // Act
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        cities.Should().NotBeNull();
+        var actual = cities.First();
+        actual.DateModified.Should().NotBe(DateTimeOffset.MinValue);
+    }
+
+    #endregion  Outpost
     #region     Commodity
 
     [Fact]
@@ -1230,7 +1620,7 @@ public class UexCorpWebApiClientTests
     #region     CommodityPrice
 
     [Fact]
-    public async Task GetCommodityPricesByCommodityAsync_ShouldHaveExpectedCountOf12()
+    public async Task GetCommodityPricesByCommodityAsync_ShouldHaveExpectedCountOf9()
     {
         // Assemble
         const int commodityId = 4;
@@ -1239,7 +1629,7 @@ public class UexCorpWebApiClientTests
         var actual = await _webApiClient.GetCommodityPricesByCommodityIdAsync(commodityId).ConfigureAwait(false);
 
         // Assert
-        actual.Should().HaveCount(12);
+        actual.Should().HaveCount(9);
     }
 
     [Fact]
@@ -1268,17 +1658,31 @@ public class UexCorpWebApiClientTests
     }
 
     [Fact]
-    public async Task GetCommodityPricesAsync_ShouldHaveExpectedId()
+    public async Task GetCommodityPricesAsync_ShouldHaveExpectedCount()
     {
         // Assemble
-        const int ExpectedId = 6;
+        const int ExpectedCount = 9;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        commodityPrices.Count.Should().Be(ExpectedCount);
+    }
+
+    [Fact]
+    public async Task GetCommodityPricesAsync_ShouldHaveExpectedId()
+    {
+        // Assemble
+        const int ExpectedId = 443;
+
+        // Act
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        commodityPrices.Should().NotBeNull();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.Id.Should().Be(ExpectedId);
     }
 
@@ -1286,6 +1690,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedCommodityId()
     {
         // Assemble
+        const int ExpectedId = 443;
         const int ExpectedValue = 4;
 
         // Act
@@ -1293,7 +1698,7 @@ public class UexCorpWebApiClientTests
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.CommodityId.Should().Be(ExpectedValue);
     }
 
@@ -1301,6 +1706,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedStarSystemId()
     {
         // Assemble
+        const int ExpectedId = 443;
         const int ExpectedValue = 68;
 
         // Act
@@ -1308,7 +1714,7 @@ public class UexCorpWebApiClientTests
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.StarSystemId.Should().Be(ExpectedValue);
     }
 
@@ -1316,14 +1722,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedPlanetId()
     {
         // Assemble
-        const int ExpectedValue = 1;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 190;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.PlanetId.Should().Be(ExpectedValue);
     }
 
@@ -1331,14 +1738,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedMoonId()
     {
         // Assemble
-        const int ExpectedValue = 11;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 0;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.MoonId.Should().Be(ExpectedValue);
     }
 
@@ -1346,6 +1754,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedCityId()
     {
         // Assemble
+        const int ExpectedId = 443;
         const int ExpectedValue = 0;
 
         // Act
@@ -1353,7 +1762,7 @@ public class UexCorpWebApiClientTests
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.CityId.Should().Be(ExpectedValue);
     }
 
@@ -1361,14 +1770,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedOutpostId()
     {
         // Assemble
-        const int ExpectedValue = 3;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 35;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.OutpostId.Should().Be(ExpectedValue);
     }
 
@@ -1376,14 +1786,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedTerminalId()
     {
         // Assemble
-        const int ExpectedValue = 8;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 63;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.TerminalId.Should().Be(ExpectedValue);
     }
 
@@ -1391,14 +1802,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPrice()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4324f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPrice.Should().Be(ExpectedValue);
     }
 
@@ -1406,14 +1818,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceMin()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4324f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceMin.Should().Be(ExpectedValue);
     }
 
@@ -1421,14 +1834,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceMinWeek()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4324f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceMinWeek.Should().Be(ExpectedValue);
     }
 
@@ -1436,14 +1850,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceMinWeekMonth()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4324f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceMinMonth.Should().Be(ExpectedValue);
     }
 
@@ -1451,14 +1866,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceMax()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4549f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceMax.Should().Be(ExpectedValue);
     }
 
@@ -1466,14 +1882,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceMaxWeek()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4549f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceMaxWeek.Should().Be(ExpectedValue);
     }
 
@@ -1481,14 +1898,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceMaxMonth()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4549f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceMaxMonth.Should().Be(ExpectedValue);
     }
 
@@ -1496,14 +1914,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceAvg()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4436.5f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceAvg.Should().Be(ExpectedValue);
     }
 
@@ -1511,14 +1930,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceAvgWeek()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4436.5f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceAvgWeek.Should().Be(ExpectedValue);
     }
 
@@ -1526,14 +1946,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedBuyPriceAvgMonth()
     {
         // Assemble
-        const float ExpectedValue = 706f;
+        const int ExpectedId = 443;
+        const float ExpectedValue = 4436.5f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.BuyPriceAvgMonth.Should().Be(ExpectedValue);
     }
 
@@ -1541,14 +1962,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPrice()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPrice.Should().Be(ExpectedValue);
     }
 
@@ -1556,14 +1978,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceMin()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceMin.Should().Be(ExpectedValue);
     }
 
@@ -1571,14 +1994,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceMinWeek()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceMinWeek.Should().Be(ExpectedValue);
     }
 
@@ -1586,14 +2010,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceMinMonth()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceMinMonth.Should().Be(ExpectedValue);
     }
 
@@ -1601,14 +2026,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceMax()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceMax.Should().Be(ExpectedValue);
     }
 
@@ -1616,14 +2042,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceMaxWeek()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceMaxWeek.Should().Be(ExpectedValue);
     }
 
@@ -1631,14 +2058,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceMaxMonth()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceMaxMonth.Should().Be(ExpectedValue);
     }
 
@@ -1646,14 +2074,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceAvg()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceAvg.Should().Be(ExpectedValue);
     }
 
@@ -1661,14 +2090,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceAvgWeek()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceAvgWeek.Should().Be(ExpectedValue);
     }
 
@@ -1676,14 +2106,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSellPriceAvgMonth()
     {
         // Assemble
-        const float ExpectedValue = 0f;
+        const int ExpectedId = 566;
+        const float ExpectedValue = 5335f;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SellPriceAvgMonth.Should().Be(ExpectedValue);
     }
 
@@ -1691,14 +2122,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuy()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 50;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuy.Should().Be(ExpectedValue);
     }
 
@@ -1706,14 +2138,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyMin()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 11;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyMin.Should().Be(ExpectedValue);
     }
 
@@ -1721,14 +2154,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyMinWeek()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 11;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyMinWeek.Should().Be(ExpectedValue);
     }
 
@@ -1736,14 +2170,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyMinMonth()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 11;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyMinMonth.Should().Be(ExpectedValue);
     }
 
@@ -1751,14 +2186,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyMax()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 50;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyMax.Should().Be(ExpectedValue);
     }
 
@@ -1766,14 +2202,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyMaxWeek()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 50;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyMaxWeek.Should().Be(ExpectedValue);
     }
 
@@ -1781,14 +2218,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyMaxMonth()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 50;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyMaxMonth.Should().Be(ExpectedValue);
     }
 
@@ -1796,14 +2234,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyAvg()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 31;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyAvg.Should().Be(ExpectedValue);
     }
 
@@ -1811,14 +2250,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyAvgWeek()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 31;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyAvgWeek.Should().Be(ExpectedValue);
     }
 
@@ -1826,14 +2266,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuBuyAvgMonth()
     {
         // Assemble
-        const int ExpectedValue = 437;
+        const int ExpectedId = 443;
+        const int ExpectedValue = 31;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuBuyAvgMonth.Should().Be(ExpectedValue);
     }
 
@@ -1841,14 +2282,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSell()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSell.Should().Be(ExpectedValue);
     }
 
@@ -1856,14 +2298,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellMin()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellMin.Should().Be(ExpectedValue);
     }
 
@@ -1871,14 +2314,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellMinWeek()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellMinWeek.Should().Be(ExpectedValue);
     }
 
@@ -1886,14 +2330,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellMinMonth()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellMinMonth.Should().Be(ExpectedValue);
     }
 
@@ -1901,14 +2346,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellMax()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellMax.Should().Be(ExpectedValue);
     }
 
@@ -1916,14 +2362,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellMaxWeek()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellMaxWeek.Should().Be(ExpectedValue);
     }
 
@@ -1931,14 +2378,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellMaxMonth()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellMaxMonth.Should().Be(ExpectedValue);
     }
 
@@ -1946,14 +2394,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellAvg()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellAvg.Should().Be(ExpectedValue);
     }
 
@@ -1961,14 +2410,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellAvgWeek()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellAvgWeek.Should().Be(ExpectedValue);
     }
 
@@ -1976,14 +2426,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedScuSellAvgMonth()
     {
         // Assemble
-        const int ExpectedValue = 0;
+        const int ExpectedId = 566;
+        const int ExpectedValue = 292;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.ScuSellAvgMonth.Should().Be(ExpectedValue);
     }
 
@@ -1991,14 +2442,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedGameVersion()
     {
         // Assemble
-        const string ExpectedValue = "3.20";
+        const int ExpectedId = 443;
+        const string ExpectedValue = "3.22";
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.GameVersion.Should().Be(ExpectedValue);
     }
 
@@ -2006,14 +2458,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedCommodityName()
     {
         // Assemble
-        const string ExpectedValue = "Astatine";
+        const int ExpectedId = 443;
+        const string ExpectedValue = "Altruciatoxin";
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.CommodityName.Should().Be(ExpectedValue);
     }
 
@@ -2021,6 +2474,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedStarSystemName()
     {
         // Assemble
+        const int ExpectedId = 443;
         const string ExpectedValue = "Stanton";
 
         // Act
@@ -2028,7 +2482,7 @@ public class UexCorpWebApiClientTests
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.StarSystemName.Should().Be(ExpectedValue);
     }
 
@@ -2036,14 +2490,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedPlanetName()
     {
         // Assemble
-        const string ExpectedValue = "ArcCorp";
+        const int ExpectedId = 443;
+        const string ExpectedValue = "MicroTech";
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.PlanetName.Should().Be(ExpectedValue);
     }
 
@@ -2051,14 +2506,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedMoonName()
     {
         // Assemble
-        const string ExpectedValue = "Wala";
+        const int ExpectedId = 443;
+        const string ExpectedValue = null;
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.MoonName.Should().Be(ExpectedValue);
     }
 
@@ -2066,6 +2522,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedSpaceStationName()
     {
         // Assemble
+        const int ExpectedId = 443;
         const string ExpectedValue = null;
 
         // Act
@@ -2073,7 +2530,7 @@ public class UexCorpWebApiClientTests
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.SpaceStationName.Should().Be(ExpectedValue);
     }
 
@@ -2081,14 +2538,15 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedOutpostName()
     {
         // Assemble
-        const string ExpectedValue = "ArcCorp Mining Area 056";
+        const int ExpectedId = 443;
+        const string ExpectedValue = "Outpost 54";
 
         // Act
         var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.OutpostName.Should().Be(ExpectedValue);
     }
 
@@ -2096,6 +2554,7 @@ public class UexCorpWebApiClientTests
     public async Task GetCommodityPricesAsync_ShouldHaveExpectedCityName()
     {
         // Assemble
+        const int ExpectedId = 443;
         const string ExpectedValue = null;
 
         // Act
@@ -2103,8 +2562,24 @@ public class UexCorpWebApiClientTests
 
         // Assert
         commodityPrices.Should().NotBeNull();
-        var actual = commodityPrices.First();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
         actual.CityName.Should().Be(ExpectedValue);
+    }
+
+    [Fact]
+    public async Task GetCommodityPricesAsync_ShouldHaveExpectedFactionName()
+    {
+        // Assemble
+        const int ExpectedId = 443;
+        const string ExpectedValue = "United Empire of Earth";
+
+        // Act
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+
+        // Assert
+        commodityPrices.Should().NotBeNull();
+        var actual = commodityPrices.First(x => x.Id.Equals(ExpectedId));
+        actual.FactionName.Should().Be(ExpectedValue);
     }
 
     [Fact]

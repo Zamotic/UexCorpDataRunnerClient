@@ -189,4 +189,7 @@ public class CommodityPriceDto : BaseDto
     [JsonPropertyName("city_name")]
     public string? CityName {  get; set; }
 
+    [JsonPropertyName("faction_name")]
+    public string? FactionName { get; set; }
+
 }

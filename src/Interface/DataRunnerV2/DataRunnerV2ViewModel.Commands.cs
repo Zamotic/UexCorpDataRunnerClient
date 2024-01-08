@@ -39,6 +39,7 @@ public partial class DataRunnerV2ViewModel
             if (SystemList.Where(x => x.IsAvailable).Count() == 1)
             {
                 SelectedSystem = SystemList.Where(x => x.IsAvailable).First();
+                SelectedPlanet = null;
             }
 
             //SetNotificationPanelText();
@@ -111,6 +112,7 @@ public partial class DataRunnerV2ViewModel
     {
         //ClearSelectedPlanetCommandExecute();
         SelectedSystem = null;
+        SelectedTerminal = null;
     }
 
     public IRelayCommand ClearSelectedTerminalCommand => new RelayCommand(ClearSelectedTerminalCommandExecute, ClearSelectedTerminalCommandCanExecute);
@@ -121,41 +123,66 @@ public partial class DataRunnerV2ViewModel
     private void ClearSelectedTerminalCommandExecute()
     {
         SelectedTerminal = null;
-        IsSelectedTerminalFocused = true;
+        if(_SettingsService?.Settings?.SelectedSearchStyle.Equals(Domain.Common.SearchStyle.SearchFilterValue) == true)
+        {
+            IsSelectedTerminalFocused = true;
+        }
     }
 
-    //public IRelayCommand ClearSelectedPlanetCommand => new RelayCommand(ClearSelectedPlanetCommandExecute, ClearSelectedPlanetCommandCanExecute);
-    //private bool ClearSelectedPlanetCommandCanExecute()
-    //{
-    //    return SelectedPlanet is not null;
-    //}
-    //private void ClearSelectedPlanetCommandExecute()
-    //{
-    //    ClearSelectedSatelliteCommandExecute();
-    //    SelectedPlanet = null;
-    //}
+    public IRelayCommand ClearSelectedPlanetCommand => new RelayCommand(ClearSelectedPlanetCommandExecute, ClearSelectedPlanetCommandCanExecute);
+    private bool ClearSelectedPlanetCommandCanExecute()
+    {
+        return SelectedPlanet is not null;
+    }
+    private void ClearSelectedPlanetCommandExecute()
+    {
+        SelectedPlanet = null;
+        SelectedTerminal = null;
+    }
 
-    //public IRelayCommand ClearSelectedSatelliteCommand => new RelayCommand(ClearSelectedSatelliteCommandExecute, ClearSelectedSatelliteCommandCanExecute);
-    //private bool ClearSelectedSatelliteCommandCanExecute()
-    //{
-    //    return SelectedSatellite is not null;
-    //}
-    //private void ClearSelectedSatelliteCommandExecute()
-    //{
-    //    ClearSelectedTradeportCommandExecute();
-    //    SelectedSatellite = null;
-    //}
+    public IRelayCommand ClearSelectedMoonCommand => new RelayCommand(ClearSelectedMoonCommandExecute, ClearSelectedMoonCommandCanExecute);
+    private bool ClearSelectedMoonCommandCanExecute()
+    {
+        return SelectedMoon is not null;
+    }
+    private void ClearSelectedMoonCommandExecute()
+    {
+        SelectedMoon = null;
+        SelectedTerminal = null;
+    }
 
-    //public IRelayCommand ClearSelectedTradeportCommand => new RelayCommand(ClearSelectedTradeportCommandExecute, ClearSelectedTradeportCommandCanExecute);
-    //private bool ClearSelectedTradeportCommandCanExecute()
-    //{
-    //    return SelectedTradeport is not null;
-    //}
-    //private void ClearSelectedTradeportCommandExecute()
-    //{
-    //    SelectedTradeport = null;
-    //    ClearCommodities();
-    //}
+    public IRelayCommand ClearSelectedSpaceStationCommand => new RelayCommand(ClearSelectedSpaceStationCommandExecute, ClearSelectedSpaceStationCommandCanExecute);
+    private bool ClearSelectedSpaceStationCommandCanExecute()
+    {
+        return SelectedSpaceStation is not null;
+    }
+    private void ClearSelectedSpaceStationCommandExecute()
+    {
+        SelectedSpaceStation = null;
+        SelectedTerminal = null;
+    }
+
+    public IRelayCommand ClearSelectedOutpostCommand => new RelayCommand(ClearSelectedOutpostCommandExecute, ClearSelectedOutpostCommandCanExecute);
+    private bool ClearSelectedOutpostCommandCanExecute()
+    {
+        return SelectedOutpost is not null;
+    }
+    private void ClearSelectedOutpostCommandExecute()
+    {
+        SelectedOutpost = null;
+        SelectedTerminal = null;
+    }
+
+    public IRelayCommand ClearSelectedCityCommand => new RelayCommand(ClearSelectedCityCommandExecute, ClearSelectedCityCommandCanExecute);
+    private bool ClearSelectedCityCommandCanExecute()
+    {
+        return SelectedCity is not null;
+    }
+    private void ClearSelectedCityCommandExecute()
+    {
+        SelectedCity = null;
+        SelectedTerminal = null;
+    }
 
     public IRelayCommand ResetCommoditiesCommand => new RelayCommand(ResetCommoditiesCommandExecute);
     private void ResetCommoditiesCommandExecute()

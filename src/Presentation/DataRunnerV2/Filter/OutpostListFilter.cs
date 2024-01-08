@@ -17,9 +17,9 @@ public class OutpostListFilter : Behavior<CollectionViewSource>
 
     public static readonly DependencyProperty SelectedMoonProperty =
     DependencyProperty.Register(nameof(SelectedMoon), typeof(Moon), typeof(OutpostListFilter), new UIPropertyMetadata(OnSelectedMoonChangedCallBack));
-    public Planet SelectedMoon
+    public Moon SelectedMoon
     {
-        get { return (Planet)GetValue(SelectedMoonProperty); }
+        get { return (Moon)GetValue(SelectedMoonProperty); }
         set { SetValue(SelectedMoonProperty, value); }
     }
 
@@ -76,16 +76,28 @@ public class OutpostListFilter : Behavior<CollectionViewSource>
             e.Accepted = false;
             return;
         }
-        if (SelectedPlanet is null) 
-        { 
-            e.Accepted = outpost.MoonId.Equals(SelectedMoon.Id);
-            return;
-        }
-        if (SelectedMoon is null)
+        bool? planetValue = null;
+        if (SelectedPlanet is not null)
         {
-            e.Accepted = outpost.PlanetId.Equals(SelectedPlanet.Id);
-            return;
+            planetValue = outpost.PlanetId.Equals(SelectedPlanet.Id);
         }
-        e.Accepted = (outpost.PlanetId.Equals(SelectedPlanet.Id) && outpost.MoonId.Equals(SelectedMoon.Id));
+        bool? moonValue = null;
+        if (SelectedMoon is not null)
+        {
+            moonValue = outpost.MoonId.Equals(SelectedMoon.Id);
+        }
+        e.Accepted = (planetValue is null || planetValue is true) 
+            && (moonValue is null || moonValue is true);
+        //if (SelectedPlanet is null) 
+        //{ 
+        //    e.Accepted = outpost.MoonId.Equals(SelectedMoon.Id);
+        //    return;
+        //}
+        //if (SelectedMoon is null)
+        //{
+        //    e.Accepted = outpost.PlanetId.Equals(SelectedPlanet.Id);
+        //    return;
+        //}
+        //e.Accepted = (outpost.PlanetId.Equals(SelectedPlanet.Id) && outpost.MoonId.Equals(SelectedMoon.Id));
     }
 }

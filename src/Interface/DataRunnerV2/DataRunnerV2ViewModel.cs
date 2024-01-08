@@ -68,6 +68,13 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         set
         {
             SetProperty(ref _SelectedPlanet, value);
+            if (SelectedPlanet != null) 
+            { 
+                SelectedMoon = null;
+                SelectedSpaceStation = null;
+                SelectedOutpost = null;
+                SelectedCity = null;
+            }
         }
     }
 

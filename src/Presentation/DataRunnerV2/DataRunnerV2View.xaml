@@ -12,6 +12,7 @@
       xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary"
+      xmlns:Converters="clr-namespace:UexCorpDataRunner.UILibrary.Converters;assembly=UILibrary"
       xmlns:Domain="clr-namespace:UexCorpDataRunner.Domain.Common;assembly=Domain"
       presentation:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
@@ -26,6 +27,7 @@
     </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
         <Thickness x:Key="tabControlBorderThickness">0</Thickness>
+        <Converters:CollectionCountToBooleanConverter x:Key="collectionCountToBooleanConverter" />
         <CollectionViewSource x:Key="SystemListCVS" Source="{Binding SystemList}">
             <Behaviors:Interaction.Behaviors>
                 <filter:SystemListFilter />
@@ -40,7 +42,7 @@
         </CollectionViewSource>
         <CollectionViewSource x:Key="TerminalListCVS" Source="{Binding TerminalList}">
             <Behaviors:Interaction.Behaviors>
-                <filter:TerminalListFilter SelectedStarSystem="{Binding SelectedSystem}" />
+                <filter:TerminalListFilter SelectedStarSystem="{Binding SelectedSystem}" SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}"  SelectedSpaceStation="{Binding SelectedSpaceStation}" SelectedOutpost="{Binding SelectedOutpost}" SelectedCity="{Binding SelectedCity}" />
                 <sort:TerminalSort />
             </Behaviors:Interaction.Behaviors>
         </CollectionViewSource>
@@ -187,10 +189,19 @@
                 <DockPanel
                     Margin="{StaticResource innerMargin}"
                     DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource PlanetListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
                     <TextBlock
                         DockPanel.Dock="Left"
                         Width="{StaticResource labelWidth}"
-                        Text="Planet:"
+                        Text="Region:"
                         VerticalAlignment="Center"
                         Style="{DynamicResource StyledTextBlock}"/>
                     <Button
@@ -212,12 +223,21 @@
                         ItemsSource="{Binding Source={StaticResource PlanetListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedPlanet}"
                         DisplayMemberPath="Name"
-                        DefaultOverlayString="(Select Planet)"
+                        DefaultOverlayString="(Select Region)"
                         IsTabStop="False"/>
                 </DockPanel>
                 <DockPanel
                     Margin="{StaticResource innerMargin}"
                     DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource MoonListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
                     <TextBlock
                         DockPanel.Dock="Left"
                         Width="{StaticResource labelWidth}"
@@ -249,6 +269,15 @@
                 <DockPanel
                     Margin="{StaticResource innerMargin}"
                     DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource SpaceStationListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
                     <TextBlock
                         DockPanel.Dock="Left"
                         Width="{StaticResource labelWidth}"
@@ -280,6 +309,15 @@
                 <DockPanel
                     Margin="{StaticResource innerMargin}"
                     DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource OutpostListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
                     <TextBlock
                         DockPanel.Dock="Left"
                         Width="{StaticResource labelWidth}"
@@ -311,6 +349,15 @@
                 <DockPanel
                     Margin="{StaticResource innerMargin}"
                     DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource CityListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
                     <TextBlock
                         DockPanel.Dock="Left"
                         Width="{StaticResource labelWidth}"
@@ -342,6 +389,15 @@
                 <DockPanel
                     Margin="{StaticResource innerMargin}"
                     DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource TerminalListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
                     <TextBlock
                         DockPanel.Dock="Left"
                         Width="{StaticResource labelWidth}"
