@@ -12,6 +12,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="350"
              DataContextChanged="UserControl_DataContextChanged"
+             PreviewKeyDown="UserControl_PreviewKeyDown"
              IsEnabled="{Binding IsEnabled}">
     <Behaviors:Interaction.Triggers>
         <Behaviors:EventTrigger EventName="Loaded">
@@ -20,7 +21,7 @@
     </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        <System:Double x:Key="labelWidth">150</System:Double>
+        <System:Double x:Key="labelWidth">125</System:Double>
         <Thickness x:Key="propertyMargin">2,2</Thickness>
     </UserControl.Resources>
     <UserControl.Visibility>
@@ -222,6 +223,15 @@
             <DockPanel
                 DockPanel.Dock="Top"
                 Margin="{StaticResource propertyMargin}">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WasKonamiCodeActivated}" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
@@ -243,6 +253,9 @@
                             <DataTrigger Binding="{Binding SettingsValues.SelectedSiteVersion}" Value="{x:Static Domain:SiteVersion.Version2Value}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WasKonamiCodeActivated}" Value="false">
+                                <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

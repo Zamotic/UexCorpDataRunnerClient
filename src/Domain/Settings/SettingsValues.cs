@@ -61,4 +61,7 @@ public class SettingsValues : ObservableObject
 
     private string _CurrentApiGameVersion = string.Empty;
     public string CurrentApiGameVersion { get => _CurrentApiGameVersion; set => SetProperty(ref _CurrentApiGameVersion, value); }
+
+    private string _KonamiCode = string.Empty;
+    public string KonamiCode { get => _KonamiCode; set => SetProperty(ref _KonamiCode, value); }
 }

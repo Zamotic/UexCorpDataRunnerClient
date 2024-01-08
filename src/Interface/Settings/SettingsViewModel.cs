@@ -139,6 +139,34 @@ public class SettingsViewModel : ViewModelBase
 
     public string? Version { get => Domain.Globals.Settings.Version; }
 
+    private const string KonamiCodeString = "UUDDLRLRBA";
+    public bool WasKonamiCodeActivated
+    {
+        get
+        {
+            if (_SettingsService?.Settings?.KonamiCode.Equals(KonamiCodeString) == true)
+            {
+                return true;
+            }
+            return false;
+        }
+        set
+        {
+            if (_SettingsService?.Settings is null)
+            {
+                return;
+            }
+            if (value == true)
+            {
+
+                _SettingsService.Settings.KonamiCode = KonamiCodeString;
+                OnPropertyChanged(nameof(WasKonamiCodeActivated));
+                return;
+            }
+            _SettingsService.Settings.KonamiCode = string.Empty;
+        }
+    }
+
     public SettingsViewModel(IMessenger messenger, ISettingsService settingsService, IUexDataService dataService)
     {
         _Messenger = messenger;
