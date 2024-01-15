@@ -1,4 +1,9 @@
-﻿Version 1.0.2305.2000
+﻿Version 1.1.2401.1501
+- Updated to connect to new UEX 2.0 API
+- Added a "SiteVersion" selector to the Settings screen.
+- Added a "SearchType" selector to the Settings screen to allow users to select how they want to find Tradeport/Terminals.
+
+Version 1.0.2305.2000
 - Fixed numeric formating due to site change to cSCU values
 - Add thousands separator and reduced fixed point of values
 (Reminder: There is a setting to display temporary commodities

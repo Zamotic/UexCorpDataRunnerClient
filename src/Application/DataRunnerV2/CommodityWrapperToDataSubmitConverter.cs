@@ -20,6 +20,7 @@ public class CommodityWrapperToDataSubmitConverter : ICommodityWrapperToDataSubm
         dataSubmit.TerminalId = terminalId;
 #if DEBUG
         dataSubmit.IsProduction = false;
+        //dataSubmit.IsProduction = true;
 #else
         dataSubmit.IsProduction = true;
 #endif
