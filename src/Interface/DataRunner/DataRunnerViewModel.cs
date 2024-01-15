@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using UexCorpDataRunner.Application.Common;
 using UexCorpDataRunner.Application.DataRunner;
+using UexCorpDataRunner.Domain.Common;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface.MessengerMessages;
@@ -170,12 +171,16 @@ public partial class DataRunnerViewModel : ViewModelBase
 
     public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
-        IsEnabled = true;
+        IsEnabled = false;
     }
 
     public async void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
     {
-        if(notification != null)
+        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version1Value)
+        {
+            return;
+        }
+        if (notification != null)
         {
             if(notification.ShowTemporaryCommoditiesChanged == true)
             {
@@ -190,6 +195,10 @@ public partial class DataRunnerViewModel : ViewModelBase
 
     public void CloseTransmissionStatusMessageHandler(object sender, CloseTransmissionStatusMessage notification)
     {
+        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version1Value)
+        {
+            return;
+        }
         ClearSelectedTradeportCommandExecute();
         IsEnabled = true;
     }

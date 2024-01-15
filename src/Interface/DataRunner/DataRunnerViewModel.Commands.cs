@@ -182,6 +182,8 @@ public partial class DataRunnerViewModel
             return;
         }
 
+        IsEnabled = false;
+
         var messageQueue = new System.Collections.Concurrent.ConcurrentQueue<string>();
         _Messenger.Send(new ShowTransmissionStatusMessage(messageQueue));
 
