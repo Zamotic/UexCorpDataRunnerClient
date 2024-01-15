@@ -27,6 +27,11 @@ public partial class DataRunnerV2View : UserControl
     //public void ShowUserInterfaceNotified(ShowUserInterfaceMessage notification)
     public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
+        if (_settingsService?.Settings?.SelectedSiteVersion == Domain.Common.SiteVersion.Version1Value)
+        {
+            return;
+        }
+
         _ResizingWindow = true;
 
         double x = _Location.X;
@@ -48,6 +53,10 @@ public partial class DataRunnerV2View : UserControl
     //public void WindowMovedNotified(WindowMovedMessage notification)
     public void WindowMovedMessageHandler(object sender, WindowMovedMessage notification)
     {
+        if (_settingsService?.Settings?.SelectedSiteVersion == Domain.Common.SiteVersion.Version1Value)
+        {
+            return;
+        }
         SaveWindowLocation();
     }
 
@@ -83,7 +92,12 @@ public partial class DataRunnerV2View : UserControl
 
     public void SaveWindowLocation()
     {
-        if(_ResizingWindow == true)
+        if (_settingsService?.Settings?.SelectedSiteVersion == Domain.Common.SiteVersion.Version1Value)
+        {
+            return;
+        }
+
+        if (_ResizingWindow == true)
         {
             return;
         }
