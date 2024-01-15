@@ -180,6 +180,6 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
     }
     private string GetDataSubmitJsonResponse()
     {
-        return "{\"status\":\"ok\",\"http_code\":200,\"data\":{\"ids_reports\":[\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\"],\"date_added\":1704508278,\"username\":\"zamotic\"},\"time\":1704508278}\r\n";
+        return "{\"status\":\"ok\",\"http_code\":200,\"data\":{\"ids_reports\":[\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\"],\"date_added\":1705291596,\"username\":\"zamotic\"},\"time\":1705291596}";
     }
 }

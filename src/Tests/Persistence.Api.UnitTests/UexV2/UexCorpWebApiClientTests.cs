@@ -1335,6 +1335,7 @@ public class UexCorpWebApiClientTests
     }
 
     #endregion  Outpost
+
     #region     Commodity
 
     [Fact]
@@ -2942,4 +2943,21 @@ public class UexCorpWebApiClientTests
     }
 
     #endregion  Terminal
+
+    #region     DataSubmit
+    [Fact]
+    public async Task SubmitDataAsync_ShouldHaveExpectedCode()
+    {
+        // Assemble
+        int ExpectedValue = 200;
+        DataSubmitDto submitDto = new DataSubmitDto();
+
+        // Act
+        var actual = await _webApiClient.SubmitDataAsync(submitDto).ConfigureAwait(false);
+
+        // Assert
+        actual.Should().NotBeNull();
+        actual.Code.Should().Be(ExpectedValue);
+    }
+    #endregion  DataSubmit
 }

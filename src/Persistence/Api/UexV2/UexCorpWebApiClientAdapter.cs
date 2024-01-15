@@ -163,9 +163,14 @@ public class UexCorpWebApiClientAdapter : IUexCorpWebApiClientAdapter
             return new DataSubmitResponse();
         }
 
-        UexResponseDto<ICollection<string>> responseDtos = await _WebClient.SubmitDataAsync(dataSubmitDto);
+        UexResponseDto<DataSubmitResponseDto> responseDto = await _WebClient.SubmitDataAsync(dataSubmitDto);
 
-        var dataSubmitResponse = responseDtos.ConvertFromDto();
+        if(responseDto.Data is null)
+        {
+            return new DataSubmitResponse();
+        }
+
+        var dataSubmitResponse = responseDto.ConvertFromDto();
 
         return dataSubmitResponse;
     }

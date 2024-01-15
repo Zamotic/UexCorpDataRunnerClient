@@ -351,7 +351,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
         return await GenericGetCollectionAsync<TerminalDto>(endPointValue);
     }
 
-    public async Task<UexResponseDto<ICollection<string>>> SubmitDataAsync(DataSubmitDto source)
+    public async Task<UexResponseDto<DataSubmitResponseDto>> SubmitDataAsync(DataSubmitDto source)
     {
         string endPointValue = $"data_submit/";
 
@@ -381,25 +381,25 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             }
         }
 
-        UexResponseDto<ICollection<string>>? responseObject = null;
+        UexResponseDto<DataSubmitResponseDto>? responseObject = null;
         try
         {
-            responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<string>>>(jsonResponse!);
+            responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<DataSubmitResponseDto>>(jsonResponse!);
         }
         catch
         {
             try
             {
                 var responseObjectTemp = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<string>>(jsonResponse!);
-                if (responseObjectTemp is not null)
-                {
-                    responseObject = new UexResponseDto<ICollection<string>>()
-                    {
-                        Status = responseObjectTemp.Status,
-                        Code = responseObjectTemp.Code,
-                        Data = new List<string>() { string.IsNullOrEmpty(responseObjectTemp.Data) ? string.Empty : responseObjectTemp.Data }
-                    };
-                }
+                //if (responseObjectTemp is not null)
+                //{
+                //    responseObject = new UexResponseDto<DataSubmitResponseDto>()
+                //    {
+                //        Status = responseObjectTemp.Status,
+                //        Code = responseObjectTemp.Code,
+                //        Data = new List<string>() { string.IsNullOrEmpty(responseObjectTemp.Data) ? string.Empty : responseObjectTemp.Data }
+                //    };
+                //}
             }
             finally
             {
@@ -409,11 +409,11 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
 
         if (responseObject is null)
         {
-            return new UexResponseDto<ICollection<string>>()
+            return new UexResponseDto<DataSubmitResponseDto>()
             {
                 Status = "No Response Received",
                 Code = 400,
-                Data = new List<string>() { "0" }
+                Data = new DataSubmitResponseDto()
             };
         }
 

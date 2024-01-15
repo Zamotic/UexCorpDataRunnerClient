@@ -186,7 +186,7 @@ public class UexCorpWebApiClientMock : IUexCorpWebApiClient
     {
         return await _SubstituteClient.GetOutpostsByMoonIdAsync(moonId);
     }
-    public async Task<UexResponseDto<ICollection<string>>> SubmitDataAsync(DataSubmitDto dataSubmitDto)
+    public async Task<UexResponseDto<DataSubmitResponseDto>> SubmitDataAsync(DataSubmitDto dataSubmitDto)
     {
         return await _SubstituteClient.SubmitDataAsync(dataSubmitDto);
     }
