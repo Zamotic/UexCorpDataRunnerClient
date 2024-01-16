@@ -44,14 +44,13 @@ public class CommodityWrapperToDataSubmitConverter : ICommodityWrapperToDataSubm
         {
             dataSubmitPrice.BuyPrice = GetCurrentPrice(commodity);
             dataSubmitPrice.BuyScu = GetCurrentScu(commodity);
-            dataSubmitPrice.BuyStatus = 0;
+            dataSubmitPrice.BuyStatus = GetCurrentStatus(commodity);
             return dataSubmitPrice;
         }
 
         dataSubmitPrice.SellPrice = GetCurrentPrice(commodity);
         dataSubmitPrice.SellScu = GetCurrentScu(commodity);
-        dataSubmitPrice.SellStatus = 0;
-
+        dataSubmitPrice.SellStatus = GetCurrentStatus(commodity);
 
         return dataSubmitPrice;
     }
@@ -74,6 +73,10 @@ public class CommodityWrapperToDataSubmitConverter : ICommodityWrapperToDataSubm
         }
 
         return 0;
+    }
+    private int GetCurrentStatus(CommodityWrapper commodity)
+    {
+        return commodity.CurrentStatus;
     }
 
     private string GetUserSecretKey(ISettingsService settingsService)

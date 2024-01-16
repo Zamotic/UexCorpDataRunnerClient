@@ -59,7 +59,7 @@ public partial class App : System.Windows.Application
         services.AddCommon()
                 .AddApplication()
 #if DEBUG
-//                .AddPersistenceApiMock()
+                .AddPersistenceApiMock()
 #endif
                 .AddPersistenceApi()
                 .AddInterface()

@@ -51,6 +51,19 @@ public class CommodityWrapper : ObservableObject
         }
     }
 
+
+    private short _currentStatus = 0;
+    public short CurrentStatus
+    {
+        get => _currentStatus;
+        set
+        {
+            SetProperty(ref _currentStatus, value);
+            ValidateScuIsWithinTolerances();
+            SetMarkForSubmittalValue();
+        }
+    }
+
     public decimal MinPrice { get => _commodity.BuyPrice; }
     public decimal MaxPrice { get => _commodity.SellPrice; }
 

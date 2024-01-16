@@ -6,7 +6,7 @@
         xmlns:Presentation="clr-namespace:UexCorpDataRunner.Presentation;assembly=Presentation"
         mc:Ignorable="d"
         Title="UEX Corp DataRunner Client" 
-        Height="700" Width="425"
+        Height="700" Width="522"
         WindowStartupLocation="CenterScreen"
         LocationChanged="Window_LocationChanged"
         SizeChanged="Window_LocationChanged">

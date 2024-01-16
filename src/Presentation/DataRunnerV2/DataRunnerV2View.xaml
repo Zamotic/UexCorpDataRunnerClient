@@ -16,7 +16,7 @@
       xmlns:Domain="clr-namespace:UexCorpDataRunner.Domain.Common;assembly=Domain"
       presentation:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="425"
+      d:DesignHeight="700" d:DesignWidth="505"
       d:DataContext="{d:DesignInstance Type=local:DataRunnerV2ViewModelData, IsDesignTimeCreatable=True}"
       DataContextChanged="UserControl_DataContextChanged"
       IsEnabled="{Binding IsEnabled}">
@@ -674,6 +674,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
@@ -707,11 +708,11 @@
                             <Border
                                 Grid.Row="0"
                                 Grid.Column="2"
-                                Padding="5"
+                                Padding="2"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
-                                    Text="Min"
+                                    Text="Status"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
@@ -724,26 +725,28 @@
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
+                                    Text="Min"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
                                     Text="Max"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
                                     Foreground="{DynamicResource textForegroundBrush}" />
                             </Border>
-                            <!--<Border
-                                Padding="5"
-                                BorderThickness=".25"
-                                BorderBrush="{DynamicResource gridBorderBrush}">
-                                <TextBlock
-                                    Text="Best"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    Foreground="{DynamicResource textForegroundBrush}" />
-                            </Border>-->
                             <Border
                                 Grid.Row="0"
-                                Grid.Column="4"
+                                Grid.Column="5"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -761,7 +764,7 @@
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
                                 ItemsSource="{Binding Source={StaticResource BuyableCommodityListCVS}}"
-                                ItemTemplate="{StaticResource itemsControlItemTemplate}"
+                                ItemTemplate="{StaticResource itemsControlItemTemplateV2}"
                                 HorizontalAlignment="Left"
                                 Width="{StaticResource itemsControlWidth}">
                                 <ItemsControl.Style>
@@ -803,6 +806,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
                                 <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
@@ -836,11 +840,11 @@
                             <Border
                                 Grid.Row="0"
                                 Grid.Column="2"
-                                Padding="5"
+                                Padding="2"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
-                                    Text="Min"
+                                    Text="Status"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
@@ -853,7 +857,7 @@
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
                                 <TextBlock
-                                    Text="Max"
+                                    Text="Min"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
@@ -862,6 +866,19 @@
                             <Border
                                 Grid.Row="0"
                                 Grid.Column="4"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Max"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="5"
                                 Padding="5"
                                 BorderThickness=".25"
                                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -879,7 +896,7 @@
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ItemsControl
                                 ItemsSource="{Binding Source={StaticResource SellableCommodityListCVS}}"
-                                ItemTemplate="{StaticResource itemsControlItemTemplate}"
+                                ItemTemplate="{StaticResource itemsControlItemTemplateV2}"
                                 HorizontalAlignment="Left"
                                 Width="{StaticResource itemsControlWidth}">
                                 <ItemsControl.Style>

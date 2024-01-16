@@ -201,6 +201,25 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         }
     }
 
+    private IList<Status> _StatusList = new List<Status>()
+    {
+        new Status() { Id = 0, Name = "0 - Out of Stock" },
+        new Status() { Id = 1, Name = "1 - Very Low" },
+        new Status() { Id = 2, Name = "2 - Low" },
+        new Status() { Id = 3, Name = "3 - Medium" },
+        new Status() { Id = 4, Name = "4 - High" },
+        new Status() { Id = 5, Name = "5 - Very High" },
+        new Status() { Id = 6, Name = "6 - No Demand (Max)" },
+    };
+    public IList<Status> StatusList
+    {
+        get => _StatusList;
+        //set
+        //{
+        //    SetProperty(ref _StatusList, value);
+        //}
+    }
+
     private int _SelectedTabItemIndex = 0;
     public int SelectedTabItemIndex
     {

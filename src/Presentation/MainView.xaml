@@ -10,7 +10,7 @@
              xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
              presentation:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="450">
+             d:DesignHeight="650" d:DesignWidth="530">
     <Grid>
         <TabControl
             DockPanel.Dock="Top"
