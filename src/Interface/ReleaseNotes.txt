@@ -1,5 +1,5 @@
 ﻿Version 1.1.2401.1501
-- Updated to connect to new UEX 2.0 API
+- Updated to connect to new UEX 2.0 API and added "Status" to the data points of commodities.
 - Added a "SiteVersion" selector to the Settings screen.
 - Added a "SearchType" selector to the Settings screen to allow users to select how they want to find Tradeport/Terminals.
 
