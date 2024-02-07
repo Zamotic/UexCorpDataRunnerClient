@@ -140,11 +140,19 @@ public partial class DataRunnerV2View : UserControl
         }
     }
 
+    private int LastTabIndex = 0;
     private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         TabControl? obj = sender as TabControl;
         if (obj is null)
             return;
+
+        if (LastTabIndex == obj.SelectedIndex)
+        {
+            return;
+        }
+
+        LastTabIndex = obj.SelectedIndex;
 
         if(obj.SelectedIndex == 0)
         {             

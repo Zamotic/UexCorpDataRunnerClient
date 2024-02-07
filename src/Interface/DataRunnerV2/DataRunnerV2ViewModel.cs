@@ -203,13 +203,14 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
 
     private IList<Status> _StatusList = new List<Status>()
     {
-        new Status() { Id = 0, Name = "0 - No Stock (No Supply)" },
-        new Status() { Id = 1, Name = "1 - Very Low" },
-        new Status() { Id = 2, Name = "2 - Low" },
-        new Status() { Id = 3, Name = "3 - Medium" },
-        new Status() { Id = 4, Name = "4 - High" },
-        new Status() { Id = 5, Name = "5 - Very High" },
-        new Status() { Id = 6, Name = "6 - Max Stock (No Demand)" },
+        new Status() { Id = 0, Name = "0 - No Value Submitted" },
+        new Status() { Id = 1, Name = "1 - Out of Stock" },
+        new Status() { Id = 2, Name = "2 - Very Low" },
+        new Status() { Id = 3, Name = "3 - Low" },
+        new Status() { Id = 4, Name = "4 - Medium" },
+        new Status() { Id = 5, Name = "5 - High" },
+        new Status() { Id = 6, Name = "6 - Very High" },
+        new Status() { Id = 7, Name = "7 - Max Inventory" },
     };
     public IList<Status> StatusList
     {
