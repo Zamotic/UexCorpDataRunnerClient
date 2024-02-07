@@ -171,7 +171,12 @@ public partial class DataRunnerViewModel : ViewModelBase
 
     public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
-        IsEnabled = false;
+        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version2Value)
+        {
+            return;
+        }
+
+        IsEnabled = true;
     }
 
     public async void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)

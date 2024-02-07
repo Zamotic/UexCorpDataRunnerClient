@@ -249,16 +249,16 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
 
     public void ShowUserInterfaceMessageHandler(object sender, ShowUserInterfaceMessage notification)
     {
-        IsEnabled = false;
-    }
-
-    public async void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
-    {
-        if(_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version1Value)
+        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version1Value)
         {
             return;
         }
 
+        IsEnabled = true;
+    }
+
+    public async void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
+    {
         if (notification != null)
         {
             //    if(notification.ShowTemporaryCommoditiesChanged == true)
