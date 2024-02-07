@@ -200,7 +200,7 @@ public partial class DataRunnerViewModel : ViewModelBase
 
     public void CloseTransmissionStatusMessageHandler(object sender, CloseTransmissionStatusMessage notification)
     {
-        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version1Value)
+        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version2Value)
         {
             return;
         }
