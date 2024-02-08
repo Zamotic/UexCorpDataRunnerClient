@@ -181,7 +181,7 @@ public partial class DataRunnerViewModel : ViewModelBase
 
     public async void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
     {
-        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version1Value)
+        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version2Value)
         {
             return;
         }
@@ -226,6 +226,7 @@ public partial class DataRunnerViewModel : ViewModelBase
         SelectedPlanet = null;
         SelectedSatellite = null;
         SelectedTradeport = null;
+        ClearSelectedPlanetCommandExecute();
     }
     public async Task SetCurrentTradeportAsync(string tradeportCode)
     {

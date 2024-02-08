@@ -259,6 +259,10 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
 
     public async void CloseSettingsInterfaceMessageHandler(object sender, CloseSettingsInterfaceMessage notification)
     {
+        if (_SettingsService?.Settings?.SelectedSiteVersion == SiteVersion.Version1Value)
+        {
+            return;
+        }
         if (notification != null)
         {
             //    if(notification.ShowTemporaryCommoditiesChanged == true)
