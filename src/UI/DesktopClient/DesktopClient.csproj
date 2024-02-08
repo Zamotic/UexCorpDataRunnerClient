@@ -8,7 +8,7 @@
 	<AssemblyName>UexCorpDataRunner.exe</AssemblyName>
 	<RootNamespace>UexCorpDataRunner.DesktopClient</RootNamespace>
 	<StartupObject>UexCorpDataRunner.DesktopClient.App</StartupObject>
-	<Version>1.1.2401.1501</Version>
+	<Version>1.2.2402.0720</Version>
 	<ApplicationIcon>Images\uexlogo.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -28,11 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="System.Text.Json" Version="7.0.2" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
