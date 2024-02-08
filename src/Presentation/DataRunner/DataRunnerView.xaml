@@ -455,6 +455,7 @@
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding Source={StaticResource SystemListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSystem}"
+                    IsSynchronizedWithCurrentItem="False"
                     DisplayMemberPath="Name"
                     DefaultOverlayString="(Select System)"
                     IsTabStop="False"/>
@@ -512,6 +513,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource PlanetListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedPlanet}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name" 
                         DefaultOverlayString="(Select Planet)"
                         IsTabStop="False"/>
@@ -557,6 +559,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource SatelliteListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedSatellite}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name"
                         DefaultOverlayString="(Select Satellite)"
                         IsTabStop="False"/>
@@ -602,6 +605,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource TradeportListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedTradeport}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name" 
                         DefaultOverlayString="(Select Tradeport)"
                         IsTabStop="False"/>
@@ -645,6 +649,7 @@
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding Source={StaticResource TradeportSearchListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedTradeport}"
+                    IsSynchronizedWithCurrentItem="False"
                     DisplayMemberPath="FullName"
                     Extensions:FocusExtension.IsFocused="{Binding IsSelectedTradeportFocused, Mode=TwoWay}">
                     <uiLibraryControls:AutoFilteredComboBox.Style>

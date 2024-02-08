@@ -210,6 +210,7 @@ public partial class DataRunnerViewModel : ViewModelBase
 
     public async Task UpdatePlanetListAsync(string systemCode)
     {
+
         if(string.IsNullOrEmpty(systemCode))
         {
             return;
@@ -223,10 +224,9 @@ public partial class DataRunnerViewModel : ViewModelBase
         PlanetList = await _DataService.GetAllPlanetsAsync(systemCode);
         SatelliteList = await _DataService.GetAllSatellitesAsync(systemCode);
         TradeportList = await _DataService.GetAllTradeportsAsync(systemCode);
-        SelectedPlanet = null;
-        SelectedSatellite = null;
-        SelectedTradeport = null;
-        ClearSelectedPlanetCommandExecute();
+        //SelectedPlanet = null;
+        //SelectedSatellite = null;
+        //SelectedTradeport = null;
     }
     public async Task SetCurrentTradeportAsync(string tradeportCode)
     {

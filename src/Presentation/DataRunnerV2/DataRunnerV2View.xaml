@@ -170,6 +170,7 @@
                     DockPanel.Dock="Left"
                     ItemsSource="{Binding Source={StaticResource SystemListCVS}, Mode=OneWay}"
                     SelectedItem="{Binding SelectedSystem}"
+                    IsSynchronizedWithCurrentItem="False"
                     DisplayMemberPath="Name"
                     DefaultOverlayString="(Select System)"
                     IsTabStop="False"/>
@@ -222,6 +223,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource PlanetListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedPlanet}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name"
                         DefaultOverlayString="(Select Region)"
                         IsTabStop="False"/>
@@ -262,6 +264,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource MoonListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedMoon}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name"
                         DefaultOverlayString="(Select Moon)"
                         IsTabStop="False"/>
@@ -302,6 +305,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource SpaceStationListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedSpaceStation}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name"
                         DefaultOverlayString="(Select Space Station)"
                         IsTabStop="False"/>
@@ -342,6 +346,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource OutpostListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedOutpost}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name"
                         DefaultOverlayString="(Select Outpost)"
                         IsTabStop="False"/>
@@ -382,6 +387,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource CityListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedCity}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name"
                         DefaultOverlayString="(Select City)"
                         IsTabStop="False"/>
@@ -422,6 +428,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource TerminalListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedTerminal}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="Name"
                         DefaultOverlayString="(Select Terminal)"
                         IsTabStop="False"/>
@@ -480,6 +487,7 @@
                         DockPanel.Dock="Left"
                         ItemsSource="{Binding Source={StaticResource TerminalSearchListCVS}, Mode=OneWay}"
                         SelectedItem="{Binding SelectedTerminal}"
+                        IsSynchronizedWithCurrentItem="False"
                         DisplayMemberPath="FullName"
                         Extensions:FocusExtension.IsFocused="{Binding IsSelectedTerminalFocused, Mode=TwoWay}">
                         <uiLibraryControls:AutoFilteredComboBox.Style>
