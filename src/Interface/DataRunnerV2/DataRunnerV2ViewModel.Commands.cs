@@ -16,14 +16,14 @@ public partial class DataRunnerV2ViewModel
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(_SettingsService?.Settings?.UserSecretKey) == true)
+        if (_SettingsService?.Settings?.SelectedSiteVersion.Equals(SiteVersion.Version2Value) == false)
         {
-            ShowSettingsInterfaceCommandExecute();
             return;
         }
 
-        if (_SettingsService.Settings.SelectedSiteVersion.Equals(SiteVersion.Version2Value) == false)
+        if (string.IsNullOrWhiteSpace(_SettingsService?.Settings?.UserSecretKey) == true)
         {
+            ShowSettingsInterfaceCommandExecute();
             return;
         }
 
