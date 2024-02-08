@@ -76,12 +76,12 @@ public partial class SettingsView : UserControl
         {
             return false;
         }
-
-        if (lastPressedCharacters.Take(10).IsAMatch(KonamiCodeList) == false)
+        
+        if (lastPressedCharacters.Skip(lastPressedCharacters.Count - 10).Take(10).IsAMatch(KonamiCodeList) == false)
         {
             if(lastPressedCharacters.Count > 10)
             {
-                lastPressedCharacters.RemoveAt(10);
+                lastPressedCharacters.RemoveAt(0);
             }
             return false;
         }
