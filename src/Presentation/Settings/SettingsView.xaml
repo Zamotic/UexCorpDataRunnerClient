@@ -275,7 +275,7 @@
                 <TextBox
                     DockPanel.Dock="Right"
                     Text="{Binding SettingsValues.UserAccessCode}"
-                    Style="{DynamicResource ReverseStyledTextBox}"/>
+                    Style="{DynamicResource StyledTextBox}"/>
             </DockPanel>
             <DockPanel
                 DockPanel.Dock="Top"

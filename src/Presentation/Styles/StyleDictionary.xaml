@@ -10,6 +10,7 @@
         <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
         <Setter Property="Foreground" Value="{DynamicResource textForegroundBrush}" />
     </Style>
+    
     <Style x:Key="StyledHeaderTextBlock" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -18,8 +19,8 @@
 
     <Style x:Key="ReverseStyledTextBox" TargetType="TextBox">
         <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
-        <Setter Property="Background" Value="{DynamicResource textForegroundBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource mainBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource fieldLightBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource fieldLightForegroundBrush}" />
     </Style>
 
     <Style x:Key="StyledTextBox" TargetType="TextBox">
