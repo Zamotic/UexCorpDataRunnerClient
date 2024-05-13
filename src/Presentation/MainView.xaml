@@ -20,10 +20,10 @@
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </Style>
             </TabControl.ItemContainerStyle>
-            <TabItem
+            <!--<TabItem
                 Header="V1" >
                 <DataRunner:DataRunnerView />
-            </TabItem>
+            </TabItem>-->
             <TabItem
                 Header="V2">
                 <DataRunnerV2:DataRunnerV2View />
