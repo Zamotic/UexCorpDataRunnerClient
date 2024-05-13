@@ -5,6 +5,8 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
 {
     Dictionary<Type, Dictionary<string, dynamic>> _cacheDictionary = new Dictionary<Type, Dictionary<string, dynamic>>();
 
+    readonly object _lockObject = new object();
+
     public UexCacheDataServiceV2(IUexCorpWebApiClientAdapter webApiClientAdapter)
         : base(webApiClientAdapter)
     {
@@ -31,8 +33,15 @@ public class UexCacheDataServiceV2 : UexDataServiceV2
         }
 
         gameVersion = await base.GetCurrentVersionAsync();
-        var collectionDictionary = new Dictionary<string, dynamic>() { { string.Empty, gameVersion } };
-        _cacheDictionary.Add(type, collectionDictionary);
+        lock(_lockObject)
+        {
+            if (_cacheDictionary.Keys.Contains(type) == false)
+            {
+                var collectionDictionary = new Dictionary<string, dynamic>() { { string.Empty, gameVersion } };
+                _cacheDictionary.Add(type, collectionDictionary);
+            }
+        }
+
         return gameVersion;
     }
 
