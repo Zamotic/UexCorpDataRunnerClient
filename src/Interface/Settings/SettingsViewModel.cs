@@ -13,7 +13,7 @@ public class SettingsViewModel : ViewModelBase
 {
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
-    private readonly IUexDataService _DataService;
+    private readonly IUexDataServiceV2 _DataService;
 
     private bool _UserAccessCodeChanged = false;
     private bool _UserSecretKeyChanged = false;
@@ -128,7 +128,7 @@ public class SettingsViewModel : ViewModelBase
     };
     public List<string> SiteVersionList { get; } = new List<string>()
     {
-        SiteVersion.Version1Value,
+        //SiteVersion.Version1Value,
         SiteVersion.Version2Value
     };
     public List<string> SearchStyleList { get; } = new List<string>()
@@ -167,7 +167,7 @@ public class SettingsViewModel : ViewModelBase
         }
     }
 
-    public SettingsViewModel(IMessenger messenger, ISettingsService settingsService, IUexDataService dataService)
+    public SettingsViewModel(IMessenger messenger, ISettingsService settingsService, IUexDataServiceV2 dataService)
     {
         _Messenger = messenger;
         _Messenger.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
