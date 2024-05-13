@@ -1,4 +1,8 @@
-﻿Version 1.2.2402.0913
+﻿Version 1.2.2402.1011
+ - Fixed a bug with the display of min/max prices.
+ - Fixed a bug where the listed price wasn't showing for buy operations.
+
+Version 1.2.2402.0913
 - Fixed a theming issue with the Secret Key text boxes
 
 Version 1.1.2401.1501

@@ -19,6 +19,10 @@ public class CommodityWrapper : ObservableObject
     {
         get
         {
+            if (Operation == OperationType.Buy)
+            {
+                return _commodityPrice.BuyPrice;
+            }
             return _commodityPrice.SellPrice;
         }
     }
@@ -64,8 +68,28 @@ public class CommodityWrapper : ObservableObject
         }
     }
 
-    public decimal MinPrice { get => _commodity.BuyPrice; }
-    public decimal MaxPrice { get => _commodity.SellPrice; }
+    public decimal MinPrice 
+    { 
+        get
+        {
+            if(Operation == OperationType.Buy)
+            {
+                return _commodityPrice.BuyPriceMin;
+            }
+            return _commodityPrice.SellPriceMin;
+        }
+    }
+    public decimal MaxPrice
+    {
+        get
+        {
+            if (Operation == OperationType.Buy)
+            {
+                return _commodityPrice.BuyPriceMax;
+            }
+            return _commodityPrice.SellPriceMax;
+        }
+    }
 
     public bool? _IsPriceWithinTolerance = null;
     public bool? IsPriceWithinTolerance
