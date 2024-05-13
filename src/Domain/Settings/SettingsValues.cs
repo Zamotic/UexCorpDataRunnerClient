@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using UexCorpDataRunner.Domain.Common;
-using UexCorpDataRunner.Domain.DataRunner;
+using UexCorpDataRunner.Domain.DataRunnerV2;
 
 namespace UexCorpDataRunner.Domain.Settings;
 public class SettingsValues : ObservableObject
@@ -40,7 +40,7 @@ public class SettingsValues : ObservableObject
     private string _UserSecretKey = string.Empty;
     public string UserSecretKey { get => _UserSecretKey; set => SetProperty(ref _UserSecretKey, value); }
 
-    private string _SelectedSiteVersion = SiteVersion.Version1Value;
+    private string _SelectedSiteVersion = SiteVersion.Version2Value;
     public string SelectedSiteVersion 
     { 
         get => _SelectedSiteVersion;
