@@ -20,13 +20,13 @@ public static class StartupExtensions
         services.AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddUexCorpWebApiConfiguration()
                 .AddTransient<HttpLoggingHandler>()
-                .Configure<HttpClientFactoryOptions>("UEX1.0", options =>
-                {
-                    options.HttpMessageHandlerBuilderActions.Add(builder =>
-                    {
-                        builder.AdditionalHandlers.Insert(0, builder.Services.GetRequiredService<HttpLoggingHandler>());
-                    });
-                })
+                //.Configure<HttpClientFactoryOptions>("UEX1.0", options =>
+                //{
+                //    options.HttpMessageHandlerBuilderActions.Add(builder =>
+                //    {
+                //        builder.AdditionalHandlers.Insert(0, builder.Services.GetRequiredService<HttpLoggingHandler>());
+                //    });
+                //})
                 .Configure<HttpClientFactoryOptions>("UEX2.0", options =>
                 {
                     options.HttpMessageHandlerBuilderActions.Add(builder =>
@@ -34,13 +34,13 @@ public static class StartupExtensions
                         builder.AdditionalHandlers.Insert(0, builder.Services.GetRequiredService<HttpLoggingHandler>());
                     });
                 })
-                .AddSingleton<Uex.IUexCorpWebApiClientAdapter, Uex.UexCorpWebApiClientAdapter>()
+                //.AddSingleton<Uex.IUexCorpWebApiClientAdapter, Uex.UexCorpWebApiClientAdapter>()
                 .AddSingleton<UexV2.IUexCorpWebApiClientAdapter, UexV2.UexCorpWebApiClientAdapter>()
-                .AddSingleton<IUexDataService, UexCacheDataService>()
+                //.AddSingleton<IUexDataService, UexCacheDataService>()
                 .AddSingleton<IUexDataServiceV2, UexCacheDataServiceV2>()
                 ;
 
-        services.AddHttpClient<Uex.IUexCorpWebApiClient, Uex.UexCorpWebApiClient>("UEX1.0");
+        //services.AddHttpClient<Uex.IUexCorpWebApiClient, Uex.UexCorpWebApiClient>("UEX1.0");
         services.AddHttpClient<UexV2.IUexCorpWebApiClient, UexV2.UexCorpWebApiClient>("UEX2.0");
 
         return services;
@@ -57,7 +57,7 @@ public static class StartupExtensions
             throw new Exception("Configuration cannot be null.");
         }
 
-        services.AddSingleton<Uex.IUexCorpWebApiConfiguration>(configuration.GetSection(Uex.UexCorpWebApiConfiguration.ConfigurationSectionName).Get<Uex.UexCorpWebApiConfiguration>());
+        //services.AddSingleton<Uex.IUexCorpWebApiConfiguration>(configuration.GetSection(Uex.UexCorpWebApiConfiguration.ConfigurationSectionName).Get<Uex.UexCorpWebApiConfiguration>());
         services.AddSingleton<UexV2.IUexCorpWebApiConfiguration>(configuration.GetSection(UexV2.UexCorpWebApiConfiguration.ConfigurationSectionName).Get<UexV2.UexCorpWebApiConfiguration>());
 
         return services;
