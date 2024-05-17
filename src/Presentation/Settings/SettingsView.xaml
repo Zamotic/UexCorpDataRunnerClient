@@ -296,9 +296,9 @@
                     VerticalAlignment="Center"
                     ToolTip="Secret Key can be found on the Account Tab of your Account Settings page">
                     <Hyperlink
-                        NavigateUri="https://ptu.uexcorp.space/account/"
+                        NavigateUri="https://uexcorp.space/account"
                         Command="{Binding HyperlinkCommand}"
-                        CommandParameter="https://ptu.uexcorp.space/account/">
+                        CommandParameter="https://uexcorp.space/account">
                         Secret Key:
                     </Hyperlink>
                 </TextBlock>
