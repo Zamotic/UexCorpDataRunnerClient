@@ -223,7 +223,7 @@
             <DockPanel
                 DockPanel.Dock="Top"
                 Margin="{StaticResource propertyMargin}">
-                <DockPanel.Style>
+                <!--<DockPanel.Style>
                     <Style TargetType="DockPanel">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding WasKonamiCodeActivated}" Value="false">
@@ -231,7 +231,7 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </DockPanel.Style>
+                </DockPanel.Style>-->
                 <TextBlock
                     DockPanel.Dock="Left"
                     Width="{StaticResource labelWidth}"
@@ -244,7 +244,7 @@
                     SelectedValue="{Binding SettingsValues.SelectedSiteVersion}"
                     DefaultOverlayString="(Select Site Version)" />
             </DockPanel>
-            <DockPanel
+            <!--<DockPanel
                 DockPanel.Dock="Top"
                 Margin="{StaticResource propertyMargin}">
                 <DockPanel.Style>
@@ -276,7 +276,7 @@
                     DockPanel.Dock="Right"
                     Text="{Binding SettingsValues.UserAccessCode}"
                     Style="{DynamicResource StyledTextBox}"/>
-            </DockPanel>
+            </DockPanel>-->
             <DockPanel
                 DockPanel.Dock="Top"
                 Margin="{StaticResource propertyMargin}">

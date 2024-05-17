@@ -53,6 +53,7 @@ public class SettingsService : ISettingsService
         {
             loadedSettingsFile.Settings.SelectedSiteVersion = SiteVersion.Version2Value;
         }
+        loadedSettingsFile.Settings.KonamiCode = string.Empty;
 
         _Settings = loadedSettingsFile.Settings;
     }

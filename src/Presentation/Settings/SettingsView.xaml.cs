@@ -58,35 +58,35 @@ public partial class SettingsView : UserControl
             case Key.Right:
             case Key.B:
             case Key.A:
-                    lastPressedCharacters.Add(e.Key);
-                CheckIfLastPressedCharactersAreKonamiCode();
-                    break;
+                //lastPressedCharacters.Add(e.Key);
+                //CheckIfLastPressedCharactersAreKonamiCode();
+                break;
             default:
                 lastPressedCharacters.Clear();
                 break;
         }
     }
 
-    List<Key> KonamiCodeList = new List<Key> { Key.Up, Key.Up, Key.Down, Key.Down, Key.Left, Key.Right, Key.Left, Key.Right, Key.B, Key.A };
-    private bool CheckIfLastPressedCharactersAreKonamiCode()
-    {
-        Interface.Settings.SettingsViewModel? settingsViewModel = this.DataContext as Interface.Settings.SettingsViewModel;
+    //List<Key> KonamiCodeList = new List<Key> { Key.Up, Key.Up, Key.Down, Key.Down, Key.Left, Key.Right, Key.Left, Key.Right, Key.B, Key.A };
+    //private bool CheckIfLastPressedCharactersAreKonamiCode()
+    //{
+    //    Interface.Settings.SettingsViewModel? settingsViewModel = this.DataContext as Interface.Settings.SettingsViewModel;
 
-        if(settingsViewModel is null)
-        {
-            return false;
-        }
+    //    if(settingsViewModel is null)
+    //    {
+    //        return false;
+    //    }
         
-        if (lastPressedCharacters.Skip(lastPressedCharacters.Count - 10).Take(10).IsAMatch(KonamiCodeList) == false)
-        {
-            if(lastPressedCharacters.Count > 10)
-            {
-                lastPressedCharacters.RemoveAt(0);
-            }
-            return false;
-        }
+    //    if (lastPressedCharacters.Skip(lastPressedCharacters.Count - 10).Take(10).IsAMatch(KonamiCodeList) == false)
+    //    {
+    //        if(lastPressedCharacters.Count > 10)
+    //        {
+    //            lastPressedCharacters.RemoveAt(0);
+    //        }
+    //        return false;
+    //    }
 
-        settingsViewModel.WasKonamiCodeActivated = true;
-        return true;
-    }
+    //    settingsViewModel.WasKonamiCodeActivated = true;
+    //    return true;
+    //}
 }
