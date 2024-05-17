@@ -1,4 +1,7 @@
-﻿Version 1.2.2405.1707
+﻿Version 1.2.2405.17094
+ - Fixed an issue with the settings file when the application was loading for the first time.
+
+Version 1.2.2405.1707
  - Corrected a reference to the Account Settings page where users generate their Secret Key.
 
 Version 1.2.2405.1315
