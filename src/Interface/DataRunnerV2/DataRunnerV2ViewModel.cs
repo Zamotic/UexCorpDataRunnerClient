@@ -263,6 +263,13 @@ public partial class DataRunnerV2ViewModel : ViewModelBase
         {
             return;
         }
+        if (notification.UserSecretKeyChanged == true)
+        {
+            if(string.IsNullOrEmpty(_SettingsService?.Settings?.UserSecretKey) == false)
+            {
+                await ViewModelLoadedCommandExecuteAsync(sender).ConfigureAwait(false);
+            }
+        }
         if (notification != null)
         {
             //    if(notification.ShowTemporaryCommoditiesChanged == true)
