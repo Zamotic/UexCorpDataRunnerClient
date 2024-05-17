@@ -1,4 +1,7 @@
-﻿Version 1.2.2405.1315
+﻿Version 1.2.2405.1707
+ - Corrected a reference to the Account Settings page where users generate their Secret Key.
+
+Version 1.2.2405.1315
  - Removed references to version 1.0 objects.
  - Fixed a bug causing a crash when loading multiple game versions asyncronously.
  - Set version 2.0 for fulltime use now that 3.23 and new site has launched.
