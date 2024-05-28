@@ -62,45 +62,45 @@ public class CommodityPrice : BaseModel
 
     //public decimal SellPriceAvgMonth { get; set; }
 
-    public int ScuBuy { get; set; }
+    public decimal ScuBuy { get; set; }
 
-    public int ScuBuyMin { get; set; }
+    public decimal ScuBuyMin { get; set; }
 
-    //public int ScuBuyMinWeek { get; set; }
+    //public decimal ScuBuyMinWeek { get; set; }
 
-    //public int ScuBuyMinMonth { get; set; }
+    //public decimal ScuBuyMinMonth { get; set; }
 
-    public int ScuBuyMax { get; set; }
+    public decimal ScuBuyMax { get; set; }
 
-    //public int ScuBuyMaxWeek { get; set; }
+    //public decimal ScuBuyMaxWeek { get; set; }
 
-    //public int ScuBuyMaxMonth { get; set; }
+    //public decimal ScuBuyMaxMonth { get; set; }
 
-    public int ScuBuyAvg { get; set; }
+    public decimal ScuBuyAvg { get; set; }
 
-    //public int ScuBuyAvgWeek { get; set; }
+    //public decimal ScuBuyAvgWeek { get; set; }
 
-    //public int ScuBuyAvgMonth { get; set; }
+    //public decimal ScuBuyAvgMonth { get; set; }
 
-    public int ScuSell { get; set; }
+    public decimal ScuSell { get; set; }
 
-    public int ScuSellMin { get; set; }
+    public decimal ScuSellMin { get; set; }
 
-    //public int ScuSellMinWeek { get; set; }
+    //public decimal ScuSellMinWeek { get; set; }
 
-    //public int ScuSellMinMonth { get; set; }
+    //public decimal ScuSellMinMonth { get; set; }
 
-    public int ScuSellMax { get; set; }
+    public decimal ScuSellMax { get; set; }
 
-    //public int ScuSellMaxWeek { get; set; }
+    //public decimal ScuSellMaxWeek { get; set; }
 
-    //public int ScuSellMaxMonth { get; set; }
+    //public decimal ScuSellMaxMonth { get; set; }
 
-    public int ScuSellAvg { get; set; }
+    public decimal ScuSellAvg { get; set; }
 
-    //public int ScuSellAvgWeek { get; set; }
+    //public decimal ScuSellAvgWeek { get; set; }
 
-    //public int ScuSellAvgMonth { get; set; }
+    //public decimal ScuSellAvgMonth { get; set; }
 
     public string? GameVersion { get; set; }
 

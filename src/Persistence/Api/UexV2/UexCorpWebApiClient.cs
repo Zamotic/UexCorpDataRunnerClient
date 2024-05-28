@@ -1,8 +1,10 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Text;
 using UexCorpDataRunner.Common;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
+using UexCorpDataRunner.Persistence.Api.UexV2.Mappers;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2;
 public class UexCorpWebApiClient : IUexCorpWebApiClient
@@ -74,7 +76,17 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             }
         }
 
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<T>>>(responseJson);
+        UexResponseDto<ICollection<T>>? responseObject = null;
+        try
+        {
+            responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<T>>>(responseJson);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error deserializing response");
+            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.StackTrace);
+        }
 
         if (responseObject is null)
         {

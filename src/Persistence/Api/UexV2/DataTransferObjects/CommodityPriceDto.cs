@@ -106,64 +106,64 @@ public class CommodityPriceDto : BaseDto
     public float SellPriceAvgMonth { get; set; }
 
     [JsonPropertyName("scu_buy")]
-    public int ScuBuy { get; set; }
+    public float ScuBuy { get; set; }
 
     [JsonPropertyName("scu_buy_min")]
-    public int ScuBuyMin { get; set; }
+    public float ScuBuyMin { get; set; }
 
     [JsonPropertyName("scu_buy_min_week")]
-    public int ScuBuyMinWeek { get; set; }
+    public float ScuBuyMinWeek { get; set; }
 
     [JsonPropertyName("scu_buy_min_month")]
-    public int ScuBuyMinMonth { get; set; }
+    public float ScuBuyMinMonth { get; set; }
 
     [JsonPropertyName("scu_buy_max")]
-    public int ScuBuyMax { get; set; }
+    public float ScuBuyMax { get; set; }
 
     [JsonPropertyName("scu_buy_max_week")]
-    public int ScuBuyMaxWeek { get; set; }
+    public float ScuBuyMaxWeek { get; set; }
 
     [JsonPropertyName("scu_buy_max_month")]
-    public int ScuBuyMaxMonth { get; set; }
+    public float ScuBuyMaxMonth { get; set; }
 
     [JsonPropertyName("scu_buy_avg")]
-    public int ScuBuyAvg { get; set; }
+    public float ScuBuyAvg { get; set; }
 
     [JsonPropertyName("scu_buy_avg_week")]
-    public int ScuBuyAvgWeek { get; set; }
+    public float ScuBuyAvgWeek { get; set; }
 
     [JsonPropertyName("scu_buy_avg_month")]
-    public int ScuBuyAvgMonth { get; set; }
+    public float ScuBuyAvgMonth { get; set; }
 
     [JsonPropertyName("scu_sell")]
-    public int ScuSell { get; set; }
+    public float ScuSell { get; set; }
 
     [JsonPropertyName("scu_sell_min")]
-    public int ScuSellMin { get; set; }
+    public float ScuSellMin { get; set; }
 
     [JsonPropertyName("scu_sell_min_week")]
-    public int ScuSellMinWeek { get; set; }
+    public float ScuSellMinWeek { get; set; }
 
     [JsonPropertyName("scu_sell_min_month")]
-    public int ScuSellMinMonth { get; set; }
+    public float ScuSellMinMonth { get; set; }
 
     [JsonPropertyName("scu_sell_max")]
-    public int ScuSellMax { get; set; }
+    public float ScuSellMax { get; set; }
 
     [JsonPropertyName("scu_sell_max_week")]
-    public int ScuSellMaxWeek { get; set; }
+    public float ScuSellMaxWeek { get; set; }
 
     [JsonPropertyName("scu_sell_max_month")]
-    public int ScuSellMaxMonth { get; set; }
+    public float ScuSellMaxMonth { get; set; }
 
     [JsonPropertyName("scu_sell_avg")]
-    public int ScuSellAvg { get; set; }
+    public float ScuSellAvg { get; set; }
 
     [JsonPropertyName("scu_sell_avg_week")]
-    public int ScuSellAvgWeek { get; set; }
+    public float ScuSellAvgWeek { get; set; }
 
     [JsonPropertyName("scu_sell_avg_month")]
-    public int ScuSellAvgMonth { get; set; }
+    public float ScuSellAvgMonth { get; set; }
 
     [JsonPropertyName("game_version")]
     public string? GameVersion {  get; set; }
