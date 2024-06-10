@@ -1,4 +1,7 @@
-﻿Version 1.2.2405.28002
+﻿Version 1.2.2406.9021
+ - Updated the splashscreen and application icons to UEX 2.0 versions.
+
+Version 1.2.2405.28002
  - Fixed a bug with data type mismatches when loading data from the API.
 
 Version 1.2.2405.17094
