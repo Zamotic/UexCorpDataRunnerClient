@@ -41,13 +41,15 @@ public partial class ImageCaptureService
             return null;
 
         IClipboardImageConverter clipboardImageConverter = ClipboardImageConverterFactory.GetConverter(formats[0]);
-        Image? image = clipboardImageConverter.GetClipboardImage();
+        Image? image = clipboardImageConverter.GetClipboardImage(dataObject);
 
         return image;
     }
 
     public static Image? GetBitmapScreenshot(string processName)
     {
+        System.Diagnostics.Stopwatch sw = new();
+        sw.Start();
         Image? img = null;
 
         //https://ourcodeworld.com/articles/read/890/how-to-solve-csharp-exception-current-thread-must-be-set-to-single-thread-apartment-sta-mode-before-ole-calls-can-be-made-ensure-that-your-main-function-has-stathreadattribute-marked-on-it
@@ -66,7 +68,7 @@ public partial class ImageCaptureService
             //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.sendkeys?view=windowsdesktop-6.0#remarks
             SendKeys.SendWait("%({PRTSC})");
 
-            Thread.Sleep(200);
+            //Thread.Sleep(100);
 
             //The GetImage function in WPF gets a bitmapsource image
             //This could be replaced with the Winforms getimage since that returns an image
@@ -74,11 +76,10 @@ public partial class ImageCaptureService
 
             //Uses the user32.dll to make sure the clipboard is empty and closed 
             //Without this you might get errors that the clipboard is already open
-            IntPtr clipWindow = WindowsOSLevelCalls.GetOpenClipboardWindow();
-            WindowsOSLevelCalls.OpenClipboard(clipWindow);
-            WindowsOSLevelCalls.EmptyClipboard();
+            //IntPtr clipWindow = WindowsOSLevelCalls.GetOpenClipboardWindow();
+            //WindowsOSLevelCalls.OpenClipboard(clipWindow);
+            //WindowsOSLevelCalls.EmptyClipboard();
             WindowsOSLevelCalls.CloseClipboard();
-            Thread.Sleep(100);
         });
 
         //Run your code from a thread that joins the STA Thread
@@ -86,7 +87,8 @@ public partial class ImageCaptureService
         t.SetApartmentState(ApartmentState.STA);
         t.Start();
         t.Join();
-
+        sw.Stop();
+        Debug.WriteLine($"Time to get screenshot: {sw.ElapsedMilliseconds}ms");
         return img;
     }
 }

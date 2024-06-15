@@ -14,6 +14,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{A59C9509-5348-46DA-9429-2FAB98868D34}"
 	ProjectSection(SolutionItems) = preProject
 		.EditorConfig = .EditorConfig
+		..\..\..\..\..\Desktop\Sample.png = ..\..\..\..\..\Desktop\Sample.png
+		..\..\..\..\..\Desktop\Sample2.png = ..\..\..\..\..\Desktop\Sample2.png
+		..\..\..\..\..\Desktop\Sample3.png = ..\..\..\..\..\Desktop\Sample3.png
+		..\..\..\..\..\Desktop\Sample4.png = ..\..\..\..\..\Desktop\Sample4.png
+		..\..\..\..\..\Desktop\Sample5.png = ..\..\..\..\..\Desktop\Sample5.png
 	EndProjectSection
 EndProject
 Global

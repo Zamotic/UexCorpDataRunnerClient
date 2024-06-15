@@ -7,9 +7,15 @@ public static class ClipboardImageConverterFactory
 
     public static IClipboardImageConverter GetConverter(string format)
     {
-        switch (format)
+        switch (format.ToUpper())
         {
-            case "png":
+            case "BITMAP":
+                if (!_ClipboardImageConverterList.ContainsKey(format))
+                {
+                    _ClipboardImageConverterList.Add(format, new ClipboardConverters.BitmapClipboardImageConverter());
+                }
+                return _ClipboardImageConverterList[format];
+            case "PNG":
                 if(!_ClipboardImageConverterList.ContainsKey(format))
                 {
                     _ClipboardImageConverterList.Add(format, new ClipboardConverters.PngClipboardImageConverter());

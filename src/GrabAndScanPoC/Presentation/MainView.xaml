@@ -6,6 +6,7 @@
 			 xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
 			 xmlns:local="clr-namespace:GrabAndScanPoC.Presentation" 
              xmlns:interface="clr-namespace:GrabAndScanPoC.Interface;assembly=GrabAndScanPoc.Interface" 
+             xmlns:Converters="clr-namespace:GrabAndScanPoc.Presentation.Converters"
              d:DataContext="{d:DesignInstance Type=interface:MainViewModel}"
              mc:Ignorable="d"
 			 local:ViewModelLocator.AutoWireViewModel="True"
@@ -15,8 +16,12 @@
 			<Behaviors:InvokeCommandAction Command="{Binding ViewModelLoadedCommand}"/>
 		</Behaviors:EventTrigger>
 	</Behaviors:Interaction.Triggers>
-	<Grid>
-		<DockPanel
+    <UserControl.Resources>
+        <Converters:ImageToBitmapSourceConverter x:Key="ImageToBitmapSourceConverter" />
+    </UserControl.Resources>
+    <DockPanel>
+        <DockPanel
+			DockPanel.Dock="Top"
 			LastChildFill="False">
 			<TextBlock
 				DockPanel.Dock="Top"
@@ -29,6 +34,18 @@
                 DockPanel.Dock="Top"
                 Content="Grab"
                 Command="{Binding GrabProcessImage}" />
+            <Button
+                DockPanel.Dock="Top"
+                Content="Start"
+                Command="{Binding StartAutoGrabImage}" />
+            <Button
+                DockPanel.Dock="Top"
+                Content="Stop"
+                Command="{Binding StopAutoGrabImage}" />
         </DockPanel>
-	</Grid>
+        <Image
+            DockPanel.Dock="Top"
+            Source="{Binding GrabbedImage, Converter={StaticResource ImageToBitmapSourceConverter}}"
+            Stretch="Fill" />
+    </DockPanel>
 </UserControl>

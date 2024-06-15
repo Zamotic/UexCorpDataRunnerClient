@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 namespace GrabAndScanPoC.Imaging.ImageRetrieval.ClipboardConverters;
 public interface IClipboardImageConverter
 {
-    public Image? GetClipboardImage();
+    public Image? GetClipboardImage(System.Windows.IDataObject dataObject);
 }
