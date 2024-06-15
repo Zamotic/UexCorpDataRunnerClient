@@ -27,7 +27,7 @@ public partial class ImageCaptureService
         return IntPtr.Zero;
     }
 
-    public Image? GetClipboardImage()
+    public static Image? GetClipboardImage()
     {
         if (Clipboard.ContainsImage() == false)
         {
@@ -46,7 +46,7 @@ public partial class ImageCaptureService
         return image;
     }
 
-    public Image? GetBitmapScreenshot(string processName)
+    public static Image? GetBitmapScreenshot(string processName)
     {
         Image? img = null;
 
