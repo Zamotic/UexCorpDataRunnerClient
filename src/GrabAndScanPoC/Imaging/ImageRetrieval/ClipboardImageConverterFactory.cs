@@ -1,11 +1,6 @@
-﻿using GrabAndScanPoc.Imaging.ImageRetrieval.ClipboardConverters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GrabAndScanPoC.Imaging.ImageRetrieval.ClipboardConverters;
 
-namespace GrabAndScanPoc.Imaging.ImageRetrieval;
+namespace GrabAndScanPoC.Imaging.ImageRetrieval;
 public static class ClipboardImageConverterFactory
 {
     static Dictionary<string, IClipboardImageConverter> _ClipboardImageConverterList = new ();

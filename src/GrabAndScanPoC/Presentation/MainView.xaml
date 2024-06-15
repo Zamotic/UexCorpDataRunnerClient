@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="GrabAndScanPoC.Presentation.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+			 xmlns:local="clr-namespace:GrabAndScanPoC.Presentation" 
+             xmlns:interface="clr-namespace:GrabAndScanPoC.Interface;assembly=GrabAndScanPoc.Interface" 
+             d:DataContext="{d:DesignInstance Type=interface:MainViewModel}"
+             mc:Ignorable="d"
+			 local:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Behaviors:Interaction.Triggers>
+		<Behaviors:EventTrigger EventName="Loaded">
+			<Behaviors:InvokeCommandAction Command="{Binding ViewModelLoadedCommand}"/>
+		</Behaviors:EventTrigger>
+	</Behaviors:Interaction.Triggers>
+	<Grid>
+		<DockPanel
+			LastChildFill="False">
+			<TextBlock
+				DockPanel.Dock="Top"
+				Text="Processes:" />
+			<ComboBox
+				DockPanel.Dock="Top"
+				ItemsSource="{Binding ProcessList}"
+				SelectedItem="{Binding SelectedProcess}" />
+		</DockPanel>
+	</Grid>
+</UserControl>

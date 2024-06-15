@@ -1,11 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>GrabAndScanPoc.Interface</RootNamespace>
-    <AssemblyName>GrabAndScanPoc.Interface</AssemblyName>
+    <RootNamespace>GrabAndScanPoC.Interface</RootNamespace>
+    <AssemblyName>GrabAndScanPoC.Interface</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Imaging\Imaging.csproj" />
+  </ItemGroup>
 
 </Project>

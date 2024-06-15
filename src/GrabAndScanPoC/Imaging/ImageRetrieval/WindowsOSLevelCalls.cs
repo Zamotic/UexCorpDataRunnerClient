@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace GrabAndScanPoc.Imaging.ImageRetrieval;
+namespace GrabAndScanPoC.Imaging.ImageRetrieval;
 public partial class ImageCaptureService
 {
     private class WindowsOSLevelCalls

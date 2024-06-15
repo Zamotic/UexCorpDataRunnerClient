@@ -6,8 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>GrabAndScanPoc.Imaging</RootNamespace>
-    <AssemblyName>GrabAndScanPoc.Imaging</AssemblyName>
+    <RootNamespace>GrabAndScanPoC.Imaging</RootNamespace>
+    <AssemblyName>GrabAndScanPoC.Imaging</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,8 +1,8 @@
-﻿using GrabAndScanPoc.Imaging.ImageRetrieval.ClipboardConverters;
+﻿using GrabAndScanPoC.Imaging.ImageRetrieval.ClipboardConverters;
 using System.Diagnostics;
 using Clipboard = System.Windows.Clipboard;
 
-namespace GrabAndScanPoc.Imaging.ImageRetrieval;
+namespace GrabAndScanPoC.Imaging.ImageRetrieval;
 
 public partial class ImageCaptureService
 {
