@@ -68,7 +68,7 @@ public partial class ImageCaptureService
             //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.sendkeys?view=windowsdesktop-6.0#remarks
             SendKeys.SendWait("%({PRTSC})");
 
-            //Thread.Sleep(100);
+            Thread.Sleep(100);
 
             //The GetImage function in WPF gets a bitmapsource image
             //This could be replaced with the Winforms getimage since that returns an image
@@ -78,7 +78,7 @@ public partial class ImageCaptureService
             //Without this you might get errors that the clipboard is already open
             //IntPtr clipWindow = WindowsOSLevelCalls.GetOpenClipboardWindow();
             //WindowsOSLevelCalls.OpenClipboard(clipWindow);
-            //WindowsOSLevelCalls.EmptyClipboard();
+            WindowsOSLevelCalls.EmptyClipboard();
             WindowsOSLevelCalls.CloseClipboard();
         });
 
