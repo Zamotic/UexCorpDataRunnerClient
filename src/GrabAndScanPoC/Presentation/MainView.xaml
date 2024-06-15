@@ -46,6 +46,6 @@
         <Image
             DockPanel.Dock="Top"
             Source="{Binding GrabbedImage, Converter={StaticResource ImageToBitmapSourceConverter}}"
-            Stretch="Fill" />
+            Stretch="UniformToFill" />
     </DockPanel>
 </UserControl>
