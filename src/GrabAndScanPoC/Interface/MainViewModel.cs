@@ -17,4 +17,15 @@ public partial class MainViewModel : ObservableObject
     {
         ProcessList = ImageCaptureService.GetAllWindowHandleNames();
     }
+
+    public IRelayCommand GrabProcessImage { get => new RelayCommand(GrabProcessImageExecute); }
+    private void GrabProcessImageExecute()
+    {
+        if (SelectedProcess is null)
+        {
+            return;
+        }
+
+        var image = ImageCaptureService.GetBitmapScreenshot(SelectedProcess);
+    }
 }

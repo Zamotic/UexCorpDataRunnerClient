@@ -25,6 +25,10 @@
 				DockPanel.Dock="Top"
 				ItemsSource="{Binding ProcessList}"
 				SelectedItem="{Binding SelectedProcess}" />
-		</DockPanel>
+            <Button
+                DockPanel.Dock="Top"
+                Content="Grab"
+                Command="{Binding GrabProcessImage}" />
+        </DockPanel>
 	</Grid>
 </UserControl>
