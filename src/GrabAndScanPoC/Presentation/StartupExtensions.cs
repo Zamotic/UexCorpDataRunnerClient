@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using GrabAndScanPoc.Presentation.Services;
+using GrabAndScanPoC.Common;
 using GrabAndScanPoC.Core.Messengers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +14,7 @@ public static class StartupExtensions
         SubscribeToServiceProviderBuilt(services);
 
         services.AddSingleton<MainView>();
+        services.AddScoped<IMessageBoxService, MessageBoxService>();
 
         return services;
     }

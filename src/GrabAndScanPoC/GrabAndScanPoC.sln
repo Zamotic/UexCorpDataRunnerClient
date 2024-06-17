@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{AC107942-6B0B-44C3-9ACA-58F18583279D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{AC107942-6B0B-44C3-9ACA-58F18583279D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{622C4409-3E22-41A4-A854-8BB7FAC234B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interface", "Interface\Interface.csproj", "{622C4409-3E22-41A4-A854-8BB7FAC234B0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Presentation\Presentation.csproj", "{99B485E1-35B6-4FE0-A5CA-AF5D667E92F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imaging", "Imaging\Imaging.csproj", "{B4F18D3E-D1B8-40ED-B926-784A804657F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imaging", "Imaging\Imaging.csproj", "{B4F18D3E-D1B8-40ED-B926-784A804657F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{A59C9509-5348-46DA-9429-2FAB98868D34}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4562
 		Samples\Sample4.png = Samples\Sample4.png
 		Samples\Sample5.png = Samples\Sample5.png
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{2E9BEC28-83DC-45E5-A3E3-4328B8F75EB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{B4F18D3E-D1B8-40ED-B926-784A804657F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4F18D3E-D1B8-40ED-B926-784A804657F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F18D3E-D1B8-40ED-B926-784A804657F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9BEC28-83DC-45E5-A3E3-4328B8F75EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9BEC28-83DC-45E5-A3E3-4328B8F75EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9BEC28-83DC-45E5-A3E3-4328B8F75EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9BEC28-83DC-45E5-A3E3-4328B8F75EB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
