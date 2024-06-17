@@ -2,5 +2,5 @@
 
 public interface ITextExtractor
 {
-    public string ExtractTextFromImage(System.Drawing.Image image);
+    public string? ExtractTextFromImage(System.Drawing.Image image);
 }

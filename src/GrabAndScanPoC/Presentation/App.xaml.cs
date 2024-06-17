@@ -6,6 +6,8 @@ using System.Data;
 using System.Windows;
 using GrabAndScanPoC.Interface;
 using GrabAndScanPoC.Imaging;
+using Microsoft.VisualBasic.Logging;
+using System.Diagnostics;
 
 namespace GrabAndScanPoC.Presentation;
 /// <summary>
@@ -16,8 +18,17 @@ public partial class App : Application
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static IConfiguration? Configuration { get; private set; }
 
+    private static TraceSource ts =
+            new TraceSource("Tesseract");
+
     public App()
     {
+        SourceSwitch sourceSwitch = new SourceSwitch("Tesseract", "Verbose");
+        ts.Switch = sourceSwitch;
+        int idxConsole = ts.Listeners.Add(new ConsoleTraceListener());
+        var fileListener = new FileLogTraceListener();
+        idxConsole = ts.Listeners.Add(fileListener);
+
         Configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
