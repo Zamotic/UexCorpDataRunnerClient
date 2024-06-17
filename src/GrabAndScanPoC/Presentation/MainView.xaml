@@ -30,18 +30,42 @@
 				DockPanel.Dock="Top"
 				ItemsSource="{Binding ProcessList}"
 				SelectedItem="{Binding SelectedProcess}" />
-            <Button
+            <UniformGrid
+                DockPanel.Dock="Top" 
+                Rows="2">
+                <DockPanel>
+                    <Button
+                        DockPanel.Dock="Top"
+                        Content="Grab"
+                        Command="{Binding GrabProcessImage}" />
+                    <Button
+                        DockPanel.Dock="Top"
+                        Content="Extract Text"
+                        Command="{Binding ExtractText}" />
+                </DockPanel>
+                <DockPanel>
+                    <Button
+                        DockPanel.Dock="Top"
+                        Content="Start"
+                        Command="{Binding StartAutoGrabImage}" />
+                    <Button
+                        DockPanel.Dock="Top"
+                        Content="Stop"
+                        Command="{Binding StopAutoGrabImage}" />
+                </DockPanel>
+            </UniformGrid>
+        </DockPanel>
+        <DockPanel
+			DockPanel.Dock="Bottom"
+			LastChildFill="False">
+            <TextBlock
+				DockPanel.Dock="Top"
+				Text="Processes:" />
+            <TextBox
                 DockPanel.Dock="Top"
-                Content="Grab"
-                Command="{Binding GrabProcessImage}" />
-            <Button
-                DockPanel.Dock="Top"
-                Content="Start"
-                Command="{Binding StartAutoGrabImage}" />
-            <Button
-                DockPanel.Dock="Top"
-                Content="Stop"
-                Command="{Binding StopAutoGrabImage}" />
+                Height="100"
+                IsReadOnly="True"
+                Text="{Binding ImageExtractText}" />
         </DockPanel>
         <Image
             DockPanel.Dock="Top"

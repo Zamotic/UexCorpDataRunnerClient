@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Windows;
 using GrabAndScanPoC.Interface;
+using GrabAndScanPoC.Imaging;
 
 namespace GrabAndScanPoC.Presentation;
 /// <summary>
@@ -40,7 +41,8 @@ public partial class App : Application
 
         //Logger?.Information("Configuring Services");
 
-        services.AddInterface()
+        services.AddImaging()
+                .AddInterface()
                 .AddPresentation();
 
         services.AddSingleton<MainWindow>();
