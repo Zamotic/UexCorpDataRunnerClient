@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UexCorpDataRunner.Application.Common;
+﻿namespace UexCorpDataRunner.Application.Common;
 
 public interface IMinimizedVewModel
 {

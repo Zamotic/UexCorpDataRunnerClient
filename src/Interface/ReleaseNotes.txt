@@ -1,4 +1,39 @@
-﻿Version 1.0.2303.2221
+﻿Version 1.2.2406.9021
+ - Updated the splashscreen and application icons to UEX 2.0 versions.
+
+Version 1.2.2405.28002
+ - Fixed a bug with data type mismatches when loading data from the API.
+
+Version 1.2.2405.17094
+ - Fixed an issue with the settings file when the application was loading for the first time.
+
+Version 1.2.2405.1707
+ - Corrected a reference to the Account Settings page where users generate their Secret Key.
+
+Version 1.2.2405.1315
+ - Removed references to version 1.0 objects.
+ - Fixed a bug causing a crash when loading multiple game versions asyncronously.
+ - Set version 2.0 for fulltime use now that 3.23 and new site has launched.
+
+Version 1.2.2402.1011
+ - Fixed a bug with the display of min/max prices.
+ - Fixed a bug where the listed price wasn't showing for buy operations.
+
+Version 1.2.2402.0913
+- Fixed a theming issue with the Secret Key text boxes
+
+Version 1.1.2401.1501
+- Updated to connect to new UEX 2.0 API and added "Status" to the data points of commodities.
+- Added a "SiteVersion" selector to the Settings screen.
+- Added a "SearchType" selector to the Settings screen to allow users to select how they want to find Tradeport/Terminals.
+
+Version 1.0.2305.2000
+- Fixed numeric formating due to site change to cSCU values
+- Add thousands separator and reduced fixed point of values
+(Reminder: There is a setting to display temporary commodities
+that is useful during invictus!)
+
+Version 1.0.2303.2221
 - Added SCU area to add the available SCU for buy or sell orders
 - Automatically selected "Stanton" when no other systems are available
 - Added a path to submit multiple price reports at a time (Disabled)

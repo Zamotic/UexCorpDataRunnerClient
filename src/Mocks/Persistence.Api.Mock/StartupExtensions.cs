@@ -12,12 +12,20 @@ public static class StartupExtensions
     public static IServiceCollection AddPersistenceApiMock(this IServiceCollection services)
     {
         services
-                .AddSingleton<UexWebApiMockHttpMessageHandler>()
-                .ConfigureAll<HttpClientFactoryOptions>(options =>
+                //.AddSingleton<UexWebApiMockHttpMessageHandler>()
+                .AddSingleton<UexV2.UexWebApiMockHttpMessageHandler>()
+                //.Configure<HttpClientFactoryOptions>("UEX1.0", options =>
+                //{
+                //    options.HttpMessageHandlerBuilderActions.Add(builder =>
+                //    {
+                //        builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<UexWebApiMockHttpMessageHandler>());
+                //    });
+                //})
+                .Configure<HttpClientFactoryOptions>("UEX2.0", options =>
                 {
                     options.HttpMessageHandlerBuilderActions.Add(builder =>
                     {
-                        builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<UexWebApiMockHttpMessageHandler>());
+                        builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<UexV2.UexWebApiMockHttpMessageHandler>());
                     });
                 })
                 //.AddSingleton<IHttpClientFactory, UexMockHttpClientFactory>()

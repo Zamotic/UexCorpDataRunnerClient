@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using UexCorpDataRunner.Common;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Persistence.Api.Common;
 using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
@@ -9,10 +10,13 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
 {
     readonly IUexCorpWebApiConfiguration _WebApiConfiguration;
     readonly HttpClient _HttpClient;
+    readonly AesEncryption _AesEncryption;
 
     public UexCorpWebApiClient(IUexCorpWebApiConfiguration webApiConfiguration,
                                 HttpClient httpClient)
     {
+        _AesEncryption = new(Domain.Globals.SimpleCipherKey);
+
         _WebApiConfiguration = webApiConfiguration;
         _HttpClient = httpClient;
 
@@ -41,7 +45,7 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             throw new Exception("ApiKey cannot be empty");
         }
 
-        string decryptedKey = UexCorpDataRunner.Common.SimpleCipher.Decrypt(_WebApiConfiguration.ApiKey, Domain.Globals.SimpleCipherKey);
+        string decryptedKey = _AesEncryption.Decrypt(_WebApiConfiguration.ApiKey);
         return decryptedKey;
     }
 
@@ -302,36 +306,40 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             absolutePath += "/";
         }
 
-        string responseJson = string.Empty;
-        using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
+        try
         {
-            if (response.IsSuccessStatusCode)
+            string responseJson = string.Empty;
+            using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
             {
-                // Parse the response body.
-                responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response body.
+                    responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    response.EnsureSuccessStatusCode();
+                }
             }
-            else
+
+            var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<T>>>(responseJson);
+
+            if (responseObject is null)
             {
-                response.EnsureSuccessStatusCode();
+                return new List<T>();
+            }
+
+            if (responseObject.Data is null)
+            {
+                return new List<T>();
+            }
+
+            if (responseObject.Code.Equals(200) == true)
+            {
+                return responseObject.Data;
             }
         }
-
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<ICollection<T>>>(responseJson);
-
-        if (responseObject is null)
-        {
-            return new List<T>();
-        }
-
-        if (responseObject.Data is null)
-        {
-            return new List<T>();
-        }
-
-        if (responseObject.Code.Equals(200) == true)
-        {
-            return responseObject.Data;
-        }
+        finally { }
 
         return new List<T>();
     }
@@ -345,36 +353,40 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
             absolutePath += "/";
         }
 
-        string responseJson = string.Empty;
-        using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
+        try
         {
-            if (response.IsSuccessStatusCode)
+            string responseJson = string.Empty;
+            using (HttpResponseMessage response = await _HttpClient.GetAsync(absolutePath).ConfigureAwait(false))
             {
-                // Parse the response body.
-                responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response body.
+                    responseJson = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    response.EnsureSuccessStatusCode();
+                }
             }
-            else
+
+            var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<T>>(responseJson);
+
+            if (responseObject is null)
             {
-                response.EnsureSuccessStatusCode();
+                return new T();
+            }
+
+            if (responseObject.Data is null)
+            {
+                return new T();
+            }
+
+            if (responseObject.Code.Equals(200) == true)
+            {
+                return responseObject.Data;
             }
         }
-
-        var responseObject = System.Text.Json.JsonSerializer.Deserialize<UexResponseDto<T>>(responseJson);
-
-        if (responseObject is null)
-        {
-            return new T();
-        }
-
-        if (responseObject.Data is null)
-        {
-            return new T();
-        }
-
-        if (responseObject.Code.Equals(200) == true)
-        {
-            return responseObject.Data;
-        }
+        finally { }
 
         return new T();
     }

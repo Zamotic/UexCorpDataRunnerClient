@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using UexCorpDataRunner.Domain.DataRunner;
+using UexCorpDataRunner.Domain.Common;
+using UexCorpDataRunner.Domain.DataRunnerV2;
 
 namespace UexCorpDataRunner.Domain.Settings;
 public class SettingsValues : ObservableObject
@@ -34,4 +35,33 @@ public class SettingsValues : ObservableObject
     private string _SelectedGameVersion = GameVersion.LiveValue;
     public string SelectedGameVersion { get => _SelectedGameVersion; set => SetProperty(ref _SelectedGameVersion, value); }
     public GameVersion? LoadedGameVersion { get; set; }
+    public bool IsGameVersionEnabled { get; set; } = true;
+
+    private string _UserSecretKey = string.Empty;
+    public string UserSecretKey { get => _UserSecretKey; set => SetProperty(ref _UserSecretKey, value); }
+
+    private string _SelectedSiteVersion = SiteVersion.Version2Value;
+    public string SelectedSiteVersion 
+    { 
+        get => _SelectedSiteVersion;
+        set
+        {
+            SetProperty(ref _SelectedSiteVersion, value);
+            if(_SelectedSiteVersion.Equals(SiteVersion.Version2Value) == true)
+            {
+
+                IsGameVersionEnabled = false;
+            }
+        }
+    }
+    public SiteVersion? LoadedSiteVersion { get; set; }
+
+    private string _SelectedSearchStyle = SearchStyle.DrillDownValue;
+    public string SelectedSearchStyle { get => _SelectedSearchStyle; set => SetProperty(ref _SelectedSearchStyle, value); }
+
+    private string _CurrentApiGameVersion = string.Empty;
+    public string CurrentApiGameVersion { get => _CurrentApiGameVersion; set => SetProperty(ref _CurrentApiGameVersion, value); }
+
+    private string _KonamiCode = string.Empty;
+    public string KonamiCode { get => _KonamiCode; set => SetProperty(ref _KonamiCode, value); }
 }

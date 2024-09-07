@@ -1,4 +1,5 @@
 ﻿using UexCorpDataRunner.Domain.DataRunner;
+using UexCorpDataRunner.Persistence.Api.UexV2;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex;
 public class UexCacheDataService : UexDataService

@@ -1,0 +1,938 @@
+﻿<UserControl
+      x:Class="UexCorpDataRunner.Presentation.DataRunnerV2.DataRunnerV2View"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
+      xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2"
+      xmlns:sort="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Sort"
+      xmlns:filter="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Filter"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
+      xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
+      xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary"
+      xmlns:Converters="clr-namespace:UexCorpDataRunner.UILibrary.Converters;assembly=UILibrary"
+      xmlns:Domain="clr-namespace:UexCorpDataRunner.Domain.Common;assembly=Domain"
+      presentation:ViewModelLocator.AutoWireViewModel="True"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="505"
+      d:DataContext="{d:DesignInstance Type=local:DataRunnerV2ViewModelData, IsDesignTimeCreatable=True}"
+      DataContextChanged="UserControl_DataContextChanged"
+      IsEnabled="{Binding IsEnabled}">
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="Loaded">
+            <Behaviors:InvokeCommandAction Command="{Binding ViewModelLoadedCommand}"/>
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
+    <UserControl.Resources>
+        <Thickness x:Key="tabControlBorderThickness">0</Thickness>
+        <Converters:CollectionCountToBooleanConverter x:Key="collectionCountToBooleanConverter" />
+        <CollectionViewSource x:Key="SystemListCVS" Source="{Binding SystemList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:SystemListFilter />
+                <sort:StarSystemSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="TerminalSearchListCVS" Source="{Binding TerminalList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:TerminalSearchListFilter SelectedStarSystem="{Binding SelectedSystem}" />
+                <sort:TerminalSearchSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="TerminalListCVS" Source="{Binding TerminalList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:TerminalListFilter SelectedStarSystem="{Binding SelectedSystem}" SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}"  SelectedSpaceStation="{Binding SelectedSpaceStation}" SelectedOutpost="{Binding SelectedOutpost}" SelectedCity="{Binding SelectedCity}" />
+                <sort:TerminalSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="PlanetListCVS" Source="{Binding PlanetList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:PlanetListFilter SelectedSystem="{Binding SelectedSystem}" />
+                <sort:PlanetSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="MoonListCVS" Source="{Binding MoonList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:MoonListFilter SelectedPlanet="{Binding SelectedPlanet}" />
+                <sort:MoonSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="SpaceStationListCVS" Source="{Binding SpaceStationList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:SpaceStationListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}" />
+                <sort:SpaceStationSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="OutpostListCVS" Source="{Binding OutpostList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:OutpostListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}" />
+                <sort:OutpostSort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="CityListCVS" Source="{Binding CityList}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:CityListFilter SelectedPlanet="{Binding SelectedPlanet}" SelectedMoon="{Binding SelectedMoon}" />
+                <sort:CitySort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding Commodities}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:BuyableCommodityListFilter />
+                <sort:CommoditySort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="SellableCommodityListCVS" Source="{Binding Commodities}">
+            <Behaviors:Interaction.Behaviors>
+                <filter:SellableCommodityListFilter />
+                <sort:CommoditySort />
+            </Behaviors:Interaction.Behaviors>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <DockPanel
+        Style="{DynamicResource MainDockPanel}">
+        <DockPanel.Resources>
+            <system:Double x:Key="clearButtonWidth">20</system:Double>
+            <system:Double x:Key="labelWidth">80</system:Double>
+            <Thickness x:Key="innerMargin">2,2</Thickness>
+        </DockPanel.Resources>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <DockPanel.Style>
+                <Style TargetType="DockPanel">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsNotificationPanelVisible}"
+                            Value="True">
+                            <Setter 
+                                Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
+            <TextBlock
+                DockPanel.Dock="Top"
+                Padding="5"
+                FontWeight="Bold"
+                Height="25"
+                MaxHeight="25"
+                Text="{Binding NotificationPanelText}"
+                HorizontalAlignment="Center"
+                Foreground="{DynamicResource textBoldForegroundBrush}"/>
+        </DockPanel>
+        <DockPanel
+            DockPanel.Dock="Top">
+            <Button
+                DockPanel.Dock="Right"
+                Padding="5"
+                Command="{Binding ShowSettingsInterfaceCommand}"
+                IsTabStop="False">
+                <Image
+                    Source="../Images/settings-128-black.png"
+                    Margin="-2"
+                    Height="25"
+                    Width="25"/>
+            </Button>
+            <Button
+                DockPanel.Dock="Left"
+                Command="{Binding HideUserInterfaceCommand}"
+                Padding="0,7"
+                FontWeight="Bold"
+                Content="Hide"
+                IsTabStop="False"/>
+        </DockPanel>
+        <DockPanel>
+            <DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="System:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ClearSelectedSystemCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
+                <uiLibraryControls:DefaultOverlayComboBox2
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding Source={StaticResource SystemListCVS}, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedSystem}"
+                    IsSynchronizedWithCurrentItem="False"
+                    DisplayMemberPath="Name"
+                    DefaultOverlayString="(Select System)"
+                    IsTabStop="False"/>
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedSearchStyle}" Value="{x:Static Domain:SearchStyle.SearchFilterValue}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource PlanetListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Region:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedPlanetCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource PlanetListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedPlanet}"
+                        IsSynchronizedWithCurrentItem="False"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Region)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource MoonListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Moon:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedMoonCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource MoonListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedMoon}"
+                        IsSynchronizedWithCurrentItem="False"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Moon)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource SpaceStationListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Space Station:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedSpaceStationCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource SpaceStationListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedSpaceStation}"
+                        IsSynchronizedWithCurrentItem="False"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Space Station)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource OutpostListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Outpost:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedOutpostCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource OutpostListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedOutpost}"
+                        IsSynchronizedWithCurrentItem="False"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Outpost)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource CityListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="City:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedCityCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource CityListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedCity}"
+                        IsSynchronizedWithCurrentItem="False"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select City)"
+                        IsTabStop="False"/>
+                </DockPanel>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource TerminalListCVS}, Path=Count, Converter={StaticResource collectionCountToBooleanConverter}}" Value="false">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Terminal:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedTerminalCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:DefaultOverlayComboBox2
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource TerminalListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedTerminal}"
+                        IsSynchronizedWithCurrentItem="False"
+                        DisplayMemberPath="Name"
+                        DefaultOverlayString="(Select Terminal)"
+                        IsTabStop="False"/>
+                </DockPanel>
+            </DockPanel>
+            <DockPanel
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedSearchStyle}" Value="{x:Static Domain:SearchStyle.DrillDownValue}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <DockPanel
+                    Margin="{StaticResource innerMargin}"
+                    DockPanel.Dock="Top">
+                    <DockPanel.Style>
+                        <Style TargetType="DockPanel">
+                            <Setter Property="IsEnabled" Value="True" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SelectedSystem}"
+                                    Value="{x:Null}">
+                                    <Setter
+                                        Property="IsEnabled"
+                                        Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DockPanel.Style>
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Width="{StaticResource labelWidth}"
+                        Text="Terminal:"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource StyledTextBlock}"/>
+                    <Button
+                        DockPanel.Dock="Right"
+                        IsTabStop="False"
+                        Width="{StaticResource clearButtonWidth}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearSelectedTerminalCommand}"
+                        Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                        <Image
+                            Source="../Images/cancel-128-red.png"
+                            Margin="-2"
+                            Height="15"
+                            Width="15"/>
+                    </Button>
+                    <uiLibraryControls:AutoFilteredComboBox
+                        DockPanel.Dock="Left"
+                        ItemsSource="{Binding Source={StaticResource TerminalSearchListCVS}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedTerminal}"
+                        IsSynchronizedWithCurrentItem="False"
+                        DisplayMemberPath="FullName"
+                        Extensions:FocusExtension.IsFocused="{Binding IsSelectedTerminalFocused, Mode=TwoWay}">
+                        <uiLibraryControls:AutoFilteredComboBox.Style>
+                            <Style TargetType="uiLibraryControls:AutoFilteredComboBox">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedSearchStyle}" Value="{x:Static Domain:SearchStyle.DrillDownValue}">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </uiLibraryControls:AutoFilteredComboBox.Style>
+                        <uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel VirtualizationMode="Recycling" />
+                            </ItemsPanelTemplate>
+                        </uiLibraryControls:AutoFilteredComboBox.ItemsPanel>
+                    </uiLibraryControls:AutoFilteredComboBox>
+                </DockPanel>
+            </DockPanel>
+            <!--<DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedSystem}"
+                                Value="{x:Null}">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Planet:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ClearSelectedPlanetCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
+                <uiLibraryControls:DefaultOverlayComboBox2
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding Source={StaticResource PlanetListCVS}, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedPlanet}"
+                    DisplayMemberPath="Name" 
+                    DefaultOverlayString="(Select Planet)"
+                    IsTabStop="False"/>
+            </DockPanel>
+            <DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedPlanet}"
+                                Value="{x:Null}">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Satellite:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ClearSelectedSatelliteCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
+                <uiLibraryControls:DefaultOverlayComboBox2
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding Source={StaticResource SatelliteListCVS}, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedSatellite}"
+                    DisplayMemberPath="Name"
+                    DefaultOverlayString="(Select Satellite)"
+                    IsTabStop="False"/>
+            </DockPanel>
+            <DockPanel
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top">
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding SelectedPlanet}"
+                                Value="{x:Null}">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Width="{StaticResource labelWidth}"
+                    Text="Tradeport:"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource StyledTextBlock}"/>
+                <Button
+                    DockPanel.Dock="Right"
+                    IsTabStop="False"
+                    Width="{StaticResource clearButtonWidth}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ClearSelectedTradeportCommand}"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True">
+                    <Image
+                        Source="../Images/cancel-128-red.png"
+                        Margin="-2"
+                        Height="15"
+                        Width="15"/>
+                </Button>
+                <uiLibraryControls:DefaultOverlayComboBox2
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding Source={StaticResource TradeportListCVS}, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedTradeport}"
+                    DisplayMemberPath="Name" 
+                    DefaultOverlayString="(Select Tradeport)"
+                    IsTabStop="False"/>
+            </DockPanel>-->
+            <UniformGrid
+                DockPanel.Dock="Bottom"
+                Columns="2">
+                <Button
+                    Command="{Binding ResetCommoditiesCommand}"
+                    Padding="0,7"
+                    FontWeight="Bold"
+                    Content="Reset"
+                    IsTabStop="False"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"/>
+                <Button
+                    Command="{Binding SubmitCommoditiesCommand}"
+                    Padding="0,7"
+                    FontWeight="Bold"
+                    Content="Submit"
+                    TabIndex="10"
+                    Extensions:RelayCommandExtensions.IsCommandUpdateEnabled="True"
+                    Style="{DynamicResource SubmitButton}"/>
+            </UniformGrid>
+            <TabControl
+                Margin="{StaticResource innerMargin}"
+                DockPanel.Dock="Top"
+                Style="{StaticResource Style-TabControl-Main}"
+                TabIndex="0"
+                SelectedIndex="{Binding SelectedTabItemIndex}"
+                SelectionChanged="TabControl_SelectionChanged">
+                <TabItem
+                    Header="Buy Price">
+                    <DockPanel
+                        Background="{DynamicResource primaryControlBackgroundBrush}">
+                        <Grid
+                            Margin="0,0,16,0"
+                            DockPanel.Dock="Top"
+                            Height="25">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="New"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Supply"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Status"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Min"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Max"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="5"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Submit?"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                        </Grid>
+                        <ScrollViewer
+                            DockPanel.Dock="Top"
+                            Name="BuyTabScrollViewer"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ItemsControl
+                                ItemsSource="{Binding Source={StaticResource BuyableCommodityListCVS}}"
+                                ItemTemplate="{StaticResource itemsControlItemTemplateV2}"
+                                HorizontalAlignment="Left"
+                                Width="{StaticResource itemsControlWidth}">
+                                <ItemsControl.Style>
+                                    <Style TargetType="ItemsControl">
+                                        <Setter Property="IsEnabled" Value="True" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding Source={StaticResource BuyableCommodityListCVS}}"
+                                                Value="{x:Null}">
+                                                <Setter
+                                                    Property="IsEnabled"
+                                                    Value="False"/>
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding Source={StaticResource BuyableCommodityListCVS}}"
+                                                Value="0">
+                                                <Setter
+                                                    Property="IsEnabled"
+                                                    Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ItemsControl.Style>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </TabItem>
+                <TabItem
+                    Header="Sell Price">
+                    <DockPanel
+                        Background="{DynamicResource primaryControlBackgroundBrush}">
+                        <Grid
+                            Margin="0,0,16,0"
+                            DockPanel.Dock="Top"
+                            Height="25">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
+                                <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="New"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Supply"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Padding="2"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Status"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Min"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Max"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="5"
+                                Padding="5"
+                                BorderThickness=".25"
+                                BorderBrush="{DynamicResource gridBorderBrush}">
+                                <TextBlock
+                                    Text="Submit?"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource textForegroundBrush}" />
+                            </Border>
+                        </Grid>
+                        <ScrollViewer
+                            Name="SellTabScrollViewer"
+                            DockPanel.Dock="Top"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ItemsControl
+                                ItemsSource="{Binding Source={StaticResource SellableCommodityListCVS}}"
+                                ItemTemplate="{StaticResource itemsControlItemTemplateV2}"
+                                HorizontalAlignment="Left"
+                                Width="{StaticResource itemsControlWidth}">
+                                <ItemsControl.Style>
+                                    <Style TargetType="ItemsControl">
+                                        <Setter Property="IsEnabled" Value="True" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding Source={StaticResource SellableCommodityListCVS}}"
+                                                Value="{x:Null}">
+                                                <Setter
+                                                    Property="IsEnabled"
+                                                    Value="False"/>
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding Source={StaticResource SellableCommodityListCVS}}"
+                                                Value="0">
+                                                <Setter
+                                                    Property="IsEnabled"
+                                                    Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ItemsControl.Style>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

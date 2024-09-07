@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Windows.Input;
 using UexCorpDataRunner.Application.Common;
+using UexCorpDataRunner.Domain.Common;
 using UexCorpDataRunner.Domain.DataRunner;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Domain.Settings;
@@ -13,12 +13,14 @@ public class SettingsViewModel : ViewModelBase
 {
     private readonly IMessenger _Messenger;
     private readonly ISettingsService _SettingsService;
-    private readonly IUexDataService _DataService;
+    private readonly IUexDataServiceV2 _DataService;
 
     private bool _UserAccessCodeChanged = false;
+    private bool _UserSecretKeyChanged = false;
     private bool _AlwaysOnTopChanged = false;
     private bool _ShowTemporaryCommodityChanged = false;
-    private bool _SelectedGaveVersionChanged = false;
+    private bool _SelectedGameVersionChanged = false;
+    private bool _SelectedSiteVersionChanged = false;
 
     private SettingsValues? _SettingsValues;
     public SettingsValues? SettingsValues
@@ -66,7 +68,15 @@ public class SettingsViewModel : ViewModelBase
         }
         if (e.PropertyName.Equals(nameof(_SettingsValues.SelectedGameVersion)) == true)
         {
-            _SelectedGaveVersionChanged = true;
+            _SelectedGameVersionChanged = true;
+        }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.SelectedSiteVersion)) == true)
+        {
+            _SelectedSiteVersionChanged = true;
+        }
+        if (e.PropertyName.Equals(nameof(_SettingsValues.UserSecretKey)) == true)
+        {
+            _UserSecretKeyChanged = true;
         }
     }
 
@@ -116,10 +126,48 @@ public class SettingsViewModel : ViewModelBase
         GameVersion.LiveValue,
         GameVersion.PtuValue
     };
+    public List<string> SiteVersionList { get; } = new List<string>()
+    {
+        //SiteVersion.Version1Value,
+        SiteVersion.Version2Value
+    };
+    public List<string> SearchStyleList { get; } = new List<string>()
+    {
+        SearchStyle.DrillDownValue,
+        SearchStyle.SearchFilterValue
+    };
 
     public string? Version { get => Domain.Globals.Settings.Version; }
 
-    public SettingsViewModel(IMessenger messenger, ISettingsService settingsService, IUexDataService dataService)
+    //private const string KonamiCodeString = "UUDDLRLRBA";
+    //public bool WasKonamiCodeActivated
+    //{
+    //    get
+    //    {
+    //        if (_SettingsService?.Settings?.KonamiCode.Equals(KonamiCodeString) == true)
+    //        {
+    //            return true;
+    //        }
+    //        return false;
+    //    }
+    //    set
+    //    {
+    //        if (_SettingsService?.Settings is null)
+    //        {
+    //            return;
+    //        }
+    //        if (value == true)
+    //        {
+
+    //            _SettingsService.Settings.KonamiCode = KonamiCodeString;
+    //            OnPropertyChanged(nameof(WasKonamiCodeActivated));
+    //            return;
+    //        }
+    //        _SettingsService.Settings.KonamiCode = string.Empty;
+    //    }
+    //}
+
+    public SettingsViewModel(IMessenger messenger, ISettingsService settingsService, IUexDataServiceV2 dataService)
     {
         _Messenger = messenger;
         _Messenger.Register<ShowSettingsInterfaceMessage>(this, ShowSettingsInterfaceMessageHandler);
@@ -166,7 +214,7 @@ public class SettingsViewModel : ViewModelBase
     }
 
     bool _IsViewModelLoaded = false;
-    public ICommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
+    public IRelayCommand ViewModelLoadedCommand => new RelayCommand<object>(async (sender) => await ViewModelLoadedCommandExecuteAsync(sender));
     public async Task ViewModelLoadedCommandExecuteAsync(object? sender)
     {
         if(_IsViewModelLoaded is true)
@@ -183,7 +231,7 @@ public class SettingsViewModel : ViewModelBase
         _IsViewModelLoaded = true;
     }
 
-    public ICommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);
+    public IRelayCommand HyperlinkCommand => new RelayCommand<object>(HyperlinkCommandExecute);
     private void HyperlinkCommandExecute(object? linkUrl)
     {
         if(linkUrl is null)
@@ -204,12 +252,12 @@ public class SettingsViewModel : ViewModelBase
         System.Diagnostics.Process.Start(psi);
     }
 
-    public ICommand CloseSettingsInterfaceCommand => new RelayCommand(CloseSettingsInterfaceCommandExecute);
+    public IRelayCommand CloseSettingsInterfaceCommand => new RelayCommand(CloseSettingsInterfaceCommandExecute);
     private void CloseSettingsInterfaceCommandExecute()
     {
         _SettingsService.SaveSettings();
         IsEnabled = false;
-        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserAccessCodeChanged, _AlwaysOnTopChanged, _ShowTemporaryCommodityChanged));
+        _Messenger.Send(new CloseSettingsInterfaceMessage(_UserAccessCodeChanged, _AlwaysOnTopChanged, _ShowTemporaryCommodityChanged, _UserSecretKeyChanged));
     }
 
     //public void ShowSettingsInterfaceNotified(ShowSettingsInterfaceMessage notification)

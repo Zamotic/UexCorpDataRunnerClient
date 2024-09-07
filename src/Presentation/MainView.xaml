@@ -4,12 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:DataRunner="clr-namespace:UexCorpDataRunner.Presentation.DataRunner"
+             xmlns:DataRunnerV2="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2"
              xmlns:Settings="clr-namespace:UexCorpDataRunner.Presentation.Settings"
              xmlns:Minimized="clr-namespace:UexCorpDataRunner.Presentation.Minimized"
+             xmlns:presentation="clr-namespace:UexCorpDataRunner.Presentation"
+             presentation:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="530">
     <Grid>
-        <DataRunner:DataRunnerView />
+        <TabControl
+            DockPanel.Dock="Top"
+            SelectedIndex="{Binding SelectedTabControlIndex}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <!--<TabItem
+                Header="V1" >
+                <DataRunner:DataRunnerView />
+            </TabItem>-->
+            <TabItem
+                Header="V2">
+                <DataRunnerV2:DataRunnerV2View />
+            </TabItem>
+        </TabControl>
         <DataRunner:TransmissionStatusView />
         <DataRunner:ReleaseNotesView />
         <Minimized:MinimizedView />

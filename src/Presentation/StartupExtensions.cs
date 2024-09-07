@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using UexCorpDataRunner.Presentation.DataRunner;
+using UexCorpDataRunner.Presentation.DataRunnerV2;
 using UexCorpDataRunner.Presentation.Minimized;
 using UexCorpDataRunner.Presentation.Settings;
 using UexCorpDataRunner.Interface.MessengerMessages;
@@ -14,10 +15,12 @@ public static class StartupExtensions
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
         SubscribeToServiceProviderBuilt(services);
-
+        
+        services.AddSingleton<SettingsView>();
         services.AddSingleton<TransmissionStatusView>();
         services.AddSingleton<ReleaseNotesView>();
-        services.AddSingleton<DataRunnerView>();
+        //services.AddSingleton<DataRunnerView>();
+        services.AddSingleton<DataRunnerV2View>();
         services.AddSingleton<MinimizedView>();
         services.AddSingleton<SettingsView>();
 

@@ -8,6 +8,8 @@
     <Color x:Key="primaryControlBackgroundColor">#fcfcfc</Color>
     <Color x:Key="headerBackgroundColor">#fcfcfc</Color>
     <Color x:Key="fieldBackgroundColor">#fcfcfc</Color>
+    <Color x:Key="fieldLightBackgroundColor">#fcfcfc</Color>
+    <Color x:Key="fieldLightForegroundColor">#000000</Color>
     <Color x:Key="selectedTabBackgroundColor">#f7f7f7</Color>
     <Color x:Key="unselectedTabBackgroundColor">#e0e0e0</Color>
     <Color x:Key="gridBorderColor">#808080</Color>
@@ -30,6 +32,8 @@
     <SolidColorBrush x:Key="primaryControlBackgroundBrush" Color="{StaticResource primaryControlBackgroundColor}"/>
     <SolidColorBrush x:Key="headerBackgroundBrush" Color="{StaticResource headerBackgroundColor}"/>
     <SolidColorBrush x:Key="fieldBackgroundBrush" Color="{StaticResource fieldBackgroundColor}"/>
+    <SolidColorBrush x:Key="fieldLightBackgroundBrush" Color="{StaticResource fieldLightBackgroundColor}"/>
+    <SolidColorBrush x:Key="fieldLightForegroundBrush" Color="{StaticResource fieldLightForegroundColor}"/>
     <SolidColorBrush x:Key="selectedTabBackgroundBrush" Color="{StaticResource selectedTabBackgroundColor}"/>
     <SolidColorBrush x:Key="unselectedTabBackgroundBrush" Color="{StaticResource unselectedTabBackgroundColor}"/>
     <SolidColorBrush x:Key="gridBorderBrush" Color="{StaticResource gridBorderColor}"/>
