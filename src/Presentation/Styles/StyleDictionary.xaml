@@ -3,21 +3,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
     </Style>
 
     <Style x:Key="StyledTextBlock" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
         <Setter Property="Foreground" Value="{DynamicResource textForegroundBrush}" />
     </Style>
+    
     <Style x:Key="StyledHeaderTextBlock" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="{DynamicResource textBoldForegroundBrush}" />
     </Style>
 
+    <Style x:Key="ReverseStyledTextBox" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
+        <Setter Property="Background" Value="{DynamicResource fieldLightBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource fieldLightForegroundBrush}" />
+    </Style>
+
     <Style x:Key="StyledTextBox" TargetType="TextBox">
-        <Setter Property="FontFamily" Value="{StaticResource Nanito}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Nanito}" />
         <Setter Property="Background" Value="{DynamicResource mainBackgroundBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource textForegroundBrush}" />
     </Style>

@@ -77,7 +77,7 @@ public class CommodityDataTextExtractor : ITextExtractor
                 g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
                             0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
             }
-        }
+}
         return newBitmap;
     }
 

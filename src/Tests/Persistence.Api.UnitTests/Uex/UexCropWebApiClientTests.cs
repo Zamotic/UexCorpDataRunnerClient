@@ -9,8 +9,10 @@ using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
 namespace UexCorpDataRunner.Persistence.Api.UnitTests.Uex;
 public class UexCropWebApiClientTests
 {
-    DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 26, 2, 25, 15, TimeSpan.Zero);
-    DateTimeOffset _dateModified = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
+    DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 26, 2, 25, 15, TimeSpan.FromHours(0)); 
+    DateTimeOffset _dateModified = new DateTimeOffset(1970, 01, 01, 00, 00, 00, TimeSpan.FromHours(0));
+    //DateTimeOffset _dateAdded = new DateTimeOffset(2020, 12, 25, 23, 25, 15, TimeSpan.FromHours(3));
+    //DateTimeOffset _dateModified = new DateTimeOffset(2022, 06, 04, 20, 00, 06, TimeSpan.FromHours(3));
 
     IUexCorpWebApiClient _webApiClient;
     UexWebApiMockHttpMessageHandler _uexWebApiMockHttpMessageHandler;
@@ -20,7 +22,7 @@ public class UexCropWebApiClientTests
         Mock<IUexCorpWebApiConfiguration> mockWebConfiguration = new Mock<IUexCorpWebApiConfiguration>();
         mockWebConfiguration.SetupGet(g => g.DataRunnerEndpointPath).Returns(string.Empty);
         mockWebConfiguration.SetupGet(g => g.WebApiEndPointUrl).Returns("https://portal.uexcorp.space/api/");
-        mockWebConfiguration.SetupGet(g => g.ApiKey).Returns("K/xTGFxZfXVaaY2Ep+4YLihaisyiwcnI7IvP5U3CNkabBxMcsMXUWDrr5T5n3Doh");
+        mockWebConfiguration.SetupGet(g => g.ApiKey).Returns("+7LIrgPBb5qyCf+W5avas6RlWRkRX/K0crETuv3Z+lH9uHfR/hTeNaRSU99Xlwho");
 
         //var httpClientFactory = new UexMockHttpClientFactory(mockWebConfiguration.Object);
         _uexWebApiMockHttpMessageHandler = new UexWebApiMockHttpMessageHandler(); //httpClientFactory.GetMockHttpMessageHandler();
@@ -975,7 +977,7 @@ public class UexCropWebApiClientTests
 
 
     [Fact]
-    public async Task GetCommoditiesAsync_ShouldHaveExpectedCountOf69()
+    public async Task GetCommoditiesAsync_ShouldHaveExpectedCountOf80()
     {
         // Assemble
 
@@ -983,7 +985,7 @@ public class UexCropWebApiClientTests
         var actual = await _webApiClient.GetCommoditiesAsync().ConfigureAwait(false);
 
         // Assert
-        actual.Should().HaveCount(69);
+        actual.Should().HaveCount(80);
     }
 
     [Fact]
@@ -1035,7 +1037,7 @@ public class UexCropWebApiClientTests
     public async Task GetCommoditiesAsync_ShouldHaveExpectedBuyPrice()
     {
         // Assemble
-        const decimal ExpectedValue = 1.01m;
+        const decimal ExpectedValue = 100m;
 
         // Act
         var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
@@ -1050,7 +1052,7 @@ public class UexCropWebApiClientTests
     public async Task GetCommoditiesAsync_ShouldHaveExpectedSellPrice()
     {
         // Assemble
-        const decimal ExpectedValue = 1.21m;
+        const decimal ExpectedValue = 120m;
 
         // Act
         var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
@@ -1080,7 +1082,7 @@ public class UexCropWebApiClientTests
     public async Task GetCommoditiesAsync_ShouldHaveDateModified()
     {
         // Assemble
-        DateTimeOffset ExpectedValue = new DateTimeOffset(2022, 07, 02, 00, 00, 11, TimeSpan.Zero);
+        DateTimeOffset ExpectedValue = new DateTimeOffset(2023, 05, 20, 03, 00, 27, TimeSpan.Zero);
 
         // Act
         var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
@@ -1330,7 +1332,7 @@ public class UexCropWebApiClientTests
     public async Task GetTradeportAsync_ShouldHaveExpectedDateModified()
     {
         // Assemble
-        DateTimeOffset ExpectedValue = new DateTimeOffset(2022, 6, 7, 20, 0, 22, TimeSpan.Zero);
+        DateTimeOffset ExpectedValue = new DateTimeOffset(2023, 5, 19, 19, 0, 30, TimeSpan.Zero);
 
         // Act
         var actual = await GetActualTradeportAsyncValue().ConfigureAwait(false);

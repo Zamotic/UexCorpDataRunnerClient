@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UexCorpDataRunner.Domain.DataRunner;
-using UexCorpDataRunner.Persistence.Api.Uex.DataTransferObjects;
+﻿using UexCorpDataRunner.Domain.DataRunner;
 
 namespace UexCorpDataRunner.Persistence.Api.Uex;
 public interface IUexCorpWebApiClientAdapter
@@ -17,6 +11,6 @@ public interface IUexCorpWebApiClientAdapter
     Task<IReadOnlyCollection<Tradeport>> GetTradeportsAsync(string systemCode);
     Task<IReadOnlyCollection<Commodity>> GetCommoditiesAsync();
     Task<Tradeport> GetTradeportAsync(string tradeportCode);
-    Task<PriceReportResponse> SubmitPriceReportAsync(Domain.DataRunner.PriceReport priceReport);
+    Task<PriceReportResponse> SubmitPriceReportAsync(PriceReport priceReport);
     Task<PriceReportsResponse> SubmitPriceReportsAsync(PriceReport[] priceReports);
 }

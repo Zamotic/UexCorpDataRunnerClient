@@ -13,6 +13,8 @@ using UexCorpDataRunner.Persistence.Api;
 using UexCorpDataRunner.Persistence.Api.Mock;
 using UexCorpDataRunner.Presentation;
 using UexCorpDataRunner.Interface.MessengerMessages;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace UexCorpDataRunner.DesktopClient;
 
@@ -55,13 +57,13 @@ public partial class App : System.Windows.Application
         Logger?.Information("Configuring Services");
 
         services.AddCommon()
+                .AddApplication()
 #if DEBUG
-                //.AddPersistenceApiMock()
+                .AddPersistenceApiMock()
 #endif
                 .AddPersistenceApi()
-                .AddPresentation()
                 .AddInterface()
-                .AddApplication();
+                .AddPresentation();
 
         services.AddSingleton<MainWindow>();
     }
@@ -76,6 +78,9 @@ public partial class App : System.Windows.Application
             {
                 throw new Exception("ServiceProvider was not properly loaded");
             }
+
+            EventManager.RegisterClassHandler(typeof(TextBox), UIElement.KeyDownEvent, new KeyEventHandler(UIElement_KeyDown));
+            EventManager.RegisterClassHandler(typeof(ComboBox), UIElement.KeyDownEvent, new KeyEventHandler(UIElement_KeyDown));
 
             var messenger = ServiceProvider.GetRequiredService<IMessenger>();
             if (messenger is null)
@@ -142,6 +147,30 @@ public partial class App : System.Windows.Application
                 skinDict.UpdateSource();
             else
                 dict.Source = dict.Source;
+        }
+    }
+
+    void UIElement_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter) MoveToNextUIElement(e);
+    }
+
+    void MoveToNextUIElement(KeyEventArgs e)
+    {
+        // Creating a FocusNavigationDirection object and setting it to a
+        // local field that contains the direction selected.
+        FocusNavigationDirection focusDirection = FocusNavigationDirection.Next;
+
+        // MoveFocus takes a TraveralReqest as its argument.
+        TraversalRequest request = new TraversalRequest(focusDirection);
+
+        // Gets the element with keyboard focus.
+        UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
+
+        // Change keyboard focus.
+        if (elementWithFocus != null)
+        {
+            if (elementWithFocus.MoveFocus(request)) e.Handled = true;
         }
     }
 }

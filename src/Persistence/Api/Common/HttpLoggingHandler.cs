@@ -53,7 +53,12 @@ public class HttpLoggingHandler : DelegatingHandler
         catch (Exception ex)
         {
             _Logger.Warning(ex, $"Error in {nameof(HttpLoggingHandler)}: {0}");
-            throw;
+
+            using(StringContent content = new StringContent(ex.Message))
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.GatewayTimeout) { Content = content };
+            }
+            //throw;
         }
     }
 

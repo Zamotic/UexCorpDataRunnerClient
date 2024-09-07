@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using UexCorpDataRunner.Application.DataRunner;
+using UexCorpDataRunner.Application.DataRunnerV2;
 using UexCorpDataRunner.Application.Settings;
 using UexCorpDataRunner.Domain.Services;
 
@@ -11,8 +11,11 @@ public static class StartupExtensions
     {
         services.AddSingleton<ISettingsService, SettingsService>();
         services.AddScoped<ICommodityWrapperToPriceReportConverter, CommodityWrapperToPriceReportConverter>();
+        services.AddScoped<ICommodityWrapperToDataSubmitConverter, CommodityWrapperToDataSubmitConverter>();
         services.AddScoped<IPriceReportSubmitter, PriceReportSubmitter>();
+        services.AddScoped<IDataSubmitter, DataSubmitter>();
         services.AddScoped<ITradeportCommodityBuilder, TradeportCommodityBuilder>();
+        services.AddScoped<ITerminalCommodityBuilder, TerminalCommodityBuilder>();
 
         return services;
     }

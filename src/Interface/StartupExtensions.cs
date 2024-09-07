@@ -2,6 +2,7 @@
 using System.Reflection;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Interface.DataRunner;
+using UexCorpDataRunner.Interface.DataRunnerV2;
 using UexCorpDataRunner.Interface.Minimized;
 using UexCorpDataRunner.Interface.Settings;
 
@@ -12,9 +13,11 @@ public static class StartupExtensions
     {
         services.AddSingleton<TransmissionStatusViewModel>();
         services.AddSingleton<ReleaseNotesViewModel>();
-        services.AddSingleton<DataRunnerViewModel>();
+        //services.AddSingleton<DataRunnerViewModel>();
+        services.AddSingleton<DataRunnerV2ViewModel>();
         services.AddSingleton<MinimizedViewModel>();
         services.AddSingleton<SettingsViewModel>();
+        services.AddSingleton<MainViewModel>();
 
         return services;
     }

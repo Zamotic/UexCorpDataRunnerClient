@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UexCorpDataRunner.Domain.Common;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Domain.Settings;
 
@@ -47,6 +48,12 @@ public class SettingsService : ISettingsService
             CreateNewSettingsFile();
             return;
         }
+
+        if(loadedSettingsFile.Settings!.SelectedSiteVersion == SiteVersion.Version1Value)
+        {
+            loadedSettingsFile.Settings.SelectedSiteVersion = SiteVersion.Version2Value;
+        }
+        loadedSettingsFile.Settings.KonamiCode = string.Empty;
 
         _Settings = loadedSettingsFile.Settings;
     }
