@@ -18,7 +18,7 @@ public class UexCorpWebApiClientTests
         ISettingsService substituteSettingsService = Substitute.For<ISettingsService>();
         IUexCorpWebApiConfiguration substituteWebConfiguration = Substitute.For<IUexCorpWebApiConfiguration>();
         substituteWebConfiguration.DataRunnerEndpointPath.Returns(string.Empty);
-        substituteWebConfiguration.WebApiEndPointUrl.Returns("https://ptu.uexcorp.space/api/");
+        substituteWebConfiguration.WebApiEndPointUrl.Returns("https://api.uexcorp.space/2.0/");
         substituteWebConfiguration.ApiKey.Returns("tFzGU35mHdBZVBVO9TMR/muwuHz8P7TimgK66fSj1wrBoCUsEL7ea9TVuJGakVvQ");
 
         _uexWebApiMockHttpMessageHandler = new UexWebApiMockHttpMessageHandler();
@@ -34,7 +34,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "3.22";
 
         // Act
-        var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);
+        var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(true);
 
         // Assert
         actual.Live.Should().Be(ExpectedValue);
@@ -46,7 +46,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "3.22.1";
 
         // Act
-        var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(false);
+        var actual = await _webApiClient.GetCurrentVersionAsync().ConfigureAwait(true);
 
         // Assert
         actual.Ptu.Should().Be(ExpectedValue);
@@ -61,7 +61,7 @@ public class UexCorpWebApiClientTests
         // Assemble
 
         // Act
-        var actual = await _webApiClient.GetSystemsAsync().ConfigureAwait(false);
+        var actual = await _webApiClient.GetSystemsAsync().ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(2);
@@ -72,7 +72,7 @@ public class UexCorpWebApiClientTests
     {
         if (_ActualGetSystemsAsyncValue.Any() == false)
         {
-            _ActualGetSystemsAsyncValue = await _webApiClient.GetSystemsAsync().ConfigureAwait(false);
+            _ActualGetSystemsAsyncValue = await _webApiClient.GetSystemsAsync().ConfigureAwait(true);
         }
 
         return _ActualGetSystemsAsyncValue;
@@ -85,7 +85,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 64;
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -100,7 +100,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Pyro";
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -115,7 +115,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "PY";
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -130,7 +130,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -145,7 +145,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -160,7 +160,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -175,7 +175,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -190,7 +190,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(false);
+        var systems = await GetActualSystemsAsyncValue().ConfigureAwait(true);
 
         // Assert
         systems.Should().NotBeNull();
@@ -208,7 +208,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
 
         // Act
-        var actual = await _webApiClient.GetPlanetsAsync(starSystemId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetPlanetsAsync(starSystemId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(25);
@@ -220,7 +220,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
         if (_ActualGetPlanetsAsyncValue.Any() == false)
         {
-            _ActualGetPlanetsAsyncValue = await _webApiClient.GetPlanetsAsync(starSystemId).ConfigureAwait(false);
+            _ActualGetPlanetsAsyncValue = await _webApiClient.GetPlanetsAsync(starSystemId).ConfigureAwait(true);
         }
 
         return _ActualGetPlanetsAsyncValue;
@@ -233,7 +233,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 4;
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -248,7 +248,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedStarSystemId = 68;
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -263,7 +263,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ArcCorp";
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -278,7 +278,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ARC";
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -293,7 +293,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -308,7 +308,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -323,7 +323,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -338,7 +338,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(false);
+        var planets = await GetActualPlanetsAsyncValue().ConfigureAwait(true);
 
         // Assert
         planets.Should().NotBeNull();
@@ -357,7 +357,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
 
         // Act
-        var actual = await _webApiClient.GetMoonsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetMoonsByStarSystemIdAsync(starSystemId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(12);
@@ -372,7 +372,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedCount = 2;
 
         // Act
-        var actual = await _webApiClient.GetMoonsByPlanetIdAsync(planetId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetMoonsByPlanetIdAsync(planetId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(ExpectedCount);
@@ -384,7 +384,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
         if (_ActualGetMoonsAsyncValue.Any() == false)
         {
-            _ActualGetMoonsAsyncValue = await _webApiClient.GetMoonsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+            _ActualGetMoonsAsyncValue = await _webApiClient.GetMoonsByStarSystemIdAsync(starSystemId).ConfigureAwait(true);
         }
 
         return _ActualGetMoonsAsyncValue;
@@ -397,7 +397,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 1;
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -412,7 +412,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedStarSystemId = 68;
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -427,7 +427,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedPlanetId = 116;
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -442,7 +442,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Aberdeen";
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -457,7 +457,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Stanton I b";
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -472,7 +472,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ABE";
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -487,7 +487,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -502,7 +502,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -517,7 +517,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -532,7 +532,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(false);
+        var moons = await GetActualMoonsAsyncValue().ConfigureAwait(true);
 
         // Assert
         moons.Should().NotBeNull();
@@ -551,7 +551,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
 
         // Act
-        var actual = await _webApiClient.GetCitiesByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetCitiesByStarSystemIdAsync(starSystemId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(4);
@@ -563,7 +563,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
         if (_ActualGetCitiesAsyncValue.Any() == false)
         {
-            _ActualGetCitiesAsyncValue = await _webApiClient.GetCitiesByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+            _ActualGetCitiesAsyncValue = await _webApiClient.GetCitiesByStarSystemIdAsync(starSystemId).ConfigureAwait(true);
         }
 
         return _ActualGetCitiesAsyncValue;
@@ -576,7 +576,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 1;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -591,7 +591,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedStarSystemId = 68;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -606,7 +606,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedPlanetId = 4;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -621,7 +621,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedMoonId = 0;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -636,7 +636,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Area 18";
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -651,7 +651,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "AR18";
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -666,7 +666,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -681,7 +681,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -696,7 +696,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -711,7 +711,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -726,7 +726,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -741,7 +741,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = false;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -756,7 +756,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -771,7 +771,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -786,7 +786,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -801,7 +801,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = false;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -816,7 +816,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = false;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -831,7 +831,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -846,7 +846,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -861,7 +861,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -876,7 +876,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -891,7 +891,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -906,7 +906,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -921,7 +921,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -936,7 +936,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualCitiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -956,7 +956,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedCount = 67;
 
         // Act
-        var actual = await _webApiClient.GetOutpostsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetOutpostsByStarSystemIdAsync(starSystemId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(ExpectedCount);
@@ -968,7 +968,7 @@ public class UexCorpWebApiClientTests
         const int starSystemId = 68;
         if (_ActualGetOutpostsAsyncValue.Any() == false)
         {
-            _ActualGetOutpostsAsyncValue = await _webApiClient.GetOutpostsByStarSystemIdAsync(starSystemId).ConfigureAwait(false);
+            _ActualGetOutpostsAsyncValue = await _webApiClient.GetOutpostsByStarSystemIdAsync(starSystemId).ConfigureAwait(true);
         }
 
         return _ActualGetOutpostsAsyncValue;
@@ -981,7 +981,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 1;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -996,7 +996,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedStarSystemId = 68;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1011,7 +1011,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedPlanetId = 4;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1026,7 +1026,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedMoonId = 74;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1041,7 +1041,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ArcCorp Mining Area 045";
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1056,7 +1056,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1071,7 +1071,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1086,7 +1086,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1101,7 +1101,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1116,7 +1116,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1131,7 +1131,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = false;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1146,7 +1146,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1161,7 +1161,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1176,7 +1176,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1191,7 +1191,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = false;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1206,7 +1206,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = false;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1221,7 +1221,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1236,7 +1236,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1251,7 +1251,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1266,7 +1266,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1281,7 +1281,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1296,7 +1296,7 @@ public class UexCorpWebApiClientTests
     //    const bool ExpectedValue = true;
 
     //    // Act
-    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+    //    var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
     //    // Assert
     //    cities.Should().NotBeNull();
@@ -1311,7 +1311,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1326,7 +1326,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(false);
+        var cities = await GetActualOutpostsAsyncValue().ConfigureAwait(true);
 
         // Assert
         cities.Should().NotBeNull();
@@ -1344,7 +1344,7 @@ public class UexCorpWebApiClientTests
         // Assemble
 
         // Act
-        var actual = await _webApiClient.GetCommoditiesAsync().ConfigureAwait(false);
+        var actual = await _webApiClient.GetCommoditiesAsync().ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(80);
@@ -1355,7 +1355,7 @@ public class UexCorpWebApiClientTests
     {
         if (_ActualGetCommoditiesAsyncValue.Any() == false)
         {
-            _ActualGetCommoditiesAsyncValue = await _webApiClient.GetCommoditiesAsync().ConfigureAwait(false);
+            _ActualGetCommoditiesAsyncValue = await _webApiClient.GetCommoditiesAsync().ConfigureAwait(true);
         }
 
         return _ActualGetCommoditiesAsyncValue;
@@ -1368,7 +1368,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 1;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1383,7 +1383,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 0;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1398,7 +1398,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Agricultural Supplies";
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1413,7 +1413,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "AGRSU";
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1428,7 +1428,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Agricultural";
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1443,7 +1443,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 99.2308f;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1458,7 +1458,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 119.556f;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1473,7 +1473,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1488,7 +1488,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1503,7 +1503,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1518,7 +1518,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1533,7 +1533,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1548,7 +1548,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = true;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1563,7 +1563,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1578,7 +1578,7 @@ public class UexCorpWebApiClientTests
         const bool ExpectedValue = false;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1593,7 +1593,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1608,7 +1608,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(false);
+        var commodities = await GetActualCommoditiesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodities.Should().NotBeNull();
@@ -1627,7 +1627,7 @@ public class UexCorpWebApiClientTests
         const int commodityId = 4;
 
         // Act
-        var actual = await _webApiClient.GetCommodityPricesByCommodityIdAsync(commodityId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetCommodityPricesByCommodityIdAsync(commodityId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(9);
@@ -1640,7 +1640,7 @@ public class UexCorpWebApiClientTests
         const int terminalId = 33;
 
         // Act
-        var actual = await _webApiClient.GetCommodityPricesAsync(terminalId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetCommodityPricesAsync(terminalId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(14);
@@ -1652,7 +1652,7 @@ public class UexCorpWebApiClientTests
         const int commodityId = 4;
         if (_ActualGetCommodityPricesAsyncValue.Any() == false)
         {
-            _ActualGetCommodityPricesAsyncValue = await _webApiClient.GetCommodityPricesByCommodityIdAsync(commodityId).ConfigureAwait(false);
+            _ActualGetCommodityPricesAsyncValue = await _webApiClient.GetCommodityPricesByCommodityIdAsync(commodityId).ConfigureAwait(true);
         }
 
         return _ActualGetCommodityPricesAsyncValue;
@@ -1665,7 +1665,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedCount = 9;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1679,7 +1679,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 443;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1695,7 +1695,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 4;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1711,7 +1711,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 68;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1727,7 +1727,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 190;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1743,7 +1743,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 0;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1759,7 +1759,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 0;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1775,7 +1775,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 35;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1791,7 +1791,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 63;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1807,7 +1807,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4324f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1823,7 +1823,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4324f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1839,7 +1839,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4324f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1855,7 +1855,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4324f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1871,7 +1871,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4549f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1887,7 +1887,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4549f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1903,7 +1903,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4549f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1919,7 +1919,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4436.5f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1935,7 +1935,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4436.5f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1951,7 +1951,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 4436.5f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1967,7 +1967,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1983,7 +1983,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -1999,7 +1999,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2015,7 +2015,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2031,7 +2031,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2047,7 +2047,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2063,7 +2063,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2079,7 +2079,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2095,7 +2095,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2111,7 +2111,7 @@ public class UexCorpWebApiClientTests
         const float ExpectedValue = 5335f;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2127,7 +2127,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 50;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2143,7 +2143,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 11;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2159,7 +2159,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 11;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2175,7 +2175,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 11;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2191,7 +2191,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 50;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2207,7 +2207,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 50;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2223,7 +2223,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 50;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2239,7 +2239,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 31;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2255,7 +2255,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 31;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2271,7 +2271,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 31;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2287,7 +2287,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2303,7 +2303,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2319,7 +2319,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2335,7 +2335,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2351,7 +2351,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2367,7 +2367,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2383,7 +2383,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2399,7 +2399,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2415,7 +2415,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2431,7 +2431,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedValue = 292;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2447,7 +2447,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "3.22";
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2463,7 +2463,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Altruciatoxin";
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2479,7 +2479,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Stanton";
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2495,7 +2495,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "MicroTech";
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2511,7 +2511,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = null;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2527,7 +2527,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = null;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2543,7 +2543,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Outpost 54";
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2559,7 +2559,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = null;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2575,7 +2575,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "United Empire of Earth";
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2590,7 +2590,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2605,7 +2605,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(false);
+        var commodityPrices = await GetActualCommodityPricesAsyncValue().ConfigureAwait(true);
 
         // Assert
         commodityPrices.Should().NotBeNull();
@@ -2624,7 +2624,7 @@ public class UexCorpWebApiClientTests
         int starSystemId = 68;
 
         // Act
-        var actual = await _webApiClient.GetTerminalsAsync(starSystemId).ConfigureAwait(false);
+        var actual = await _webApiClient.GetTerminalsAsync(starSystemId).ConfigureAwait(true);
 
         // Assert
         actual.Should().HaveCount(290);
@@ -2636,7 +2636,7 @@ public class UexCorpWebApiClientTests
         int starSystemId = 68;
         if (_ActualGetTerminalsAsyncValue.Any() == false)
         {
-            _ActualGetTerminalsAsyncValue = await _webApiClient.GetTerminalsAsync(starSystemId).ConfigureAwait(false);
+            _ActualGetTerminalsAsyncValue = await _webApiClient.GetTerminalsAsync(starSystemId).ConfigureAwait(true);
         }
 
         return _ActualGetTerminalsAsyncValue;
@@ -2649,7 +2649,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 1;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2664,7 +2664,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 68;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2679,7 +2679,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 326;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2694,7 +2694,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 0;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2709,7 +2709,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 1;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2724,7 +2724,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 0;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2739,7 +2739,7 @@ public class UexCorpWebApiClientTests
         const int ExpectedId = 0;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2754,7 +2754,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Admin - ARC-L1";
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2769,7 +2769,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ARC-L1";
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2784,7 +2784,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ARCL1";
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2799,7 +2799,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "commodity";
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2814,7 +2814,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = null;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2829,7 +2829,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "Stanton";
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2844,7 +2844,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ArcCorp Lagrange 1";
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2859,7 +2859,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = null;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2874,7 +2874,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = "ARC-L1 Wide Forest Station";
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2889,7 +2889,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = null;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2904,7 +2904,7 @@ public class UexCorpWebApiClientTests
         const string ExpectedValue = null;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2919,7 +2919,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateAdded;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2934,7 +2934,7 @@ public class UexCorpWebApiClientTests
         DateTimeOffset ExpectedValue = _dateModified;
 
         // Act
-        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(false);
+        var terminals = await GetActualTerminalsAsyncValue().ConfigureAwait(true);
 
         // Assert
         terminals.Should().NotBeNull();
@@ -2953,7 +2953,7 @@ public class UexCorpWebApiClientTests
         DataSubmitDto submitDto = new DataSubmitDto();
 
         // Act
-        var actual = await _webApiClient.SubmitDataAsync(submitDto).ConfigureAwait(false);
+        var actual = await _webApiClient.SubmitDataAsync(submitDto).ConfigureAwait(true);
 
         // Assert
         actual.Should().NotBeNull();

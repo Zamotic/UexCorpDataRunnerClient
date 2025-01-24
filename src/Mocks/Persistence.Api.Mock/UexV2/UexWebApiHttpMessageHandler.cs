@@ -30,7 +30,7 @@ public class UexWebApiMockHttpMessageHandler : FakeResponseHandler
 
     private void AddFakeResponses()
     {
-        string uri = "https://uexcorp.space/api/2.0/";
+        string uri = "https://api.uexcorp.space/2.0/";
 
         AddFakeResponse(new Uri($"{uri}game_versions/"), GetResponseMessage(GetGameVersionJsonResponse()));
 
