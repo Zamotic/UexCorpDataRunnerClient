@@ -1,7 +1,8 @@
-﻿using UexCorpDataRunner.Domain.DataRunner;
+﻿using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 using UexCorpDataRunner.Domain.Services;
 using UexCorpDataRunner.Persistence.Api.Common;
 using UexCorpDataRunner.Persistence.Api.UexV2;
+using NSubstitute.Extensions;
 
 namespace Persistence.Api.Tests.Integration.UexV2;
 
@@ -11,8 +12,14 @@ public class UexCorpWebApiClientTests
 
     public UexCorpWebApiClientTests()
     {
-        IUexCorpWebApiConfiguration uexCorpWebApiConfiguration = NSubstitute.Substitute.For<IUexCorpWebApiConfiguration>();
+        IUexCorpWebApiConfiguration uexCorpWebApiConfiguration = Substitute.For<IUexCorpWebApiConfiguration>();
+        uexCorpWebApiConfiguration.WebApiEndPointUrl.Returns("https://api.uexcorp.space/");
+        uexCorpWebApiConfiguration.DataRunnerEndpointPath.Returns("2.0/");
+        uexCorpWebApiConfiguration.ApiKey.Returns("tFzGU35mHdBZVBVO9TMR/muwuHz8P7TimgK66fSj1wrBoCUsEL7ea9TVuJGakVvQ");
+
         ISettingsService settingsService = NSubstitute.Substitute.For<ISettingsService>();
+
+
         HttpClient httpClient = new HttpClient();
 
         _sut = new(uexCorpWebApiConfiguration, httpClient, settingsService);
@@ -22,7 +29,7 @@ public class UexCorpWebApiClientTests
     public async void GetDataParameters_Should_ReturnExpectedValues()
     {
         // Arrange
-        DataParameters expected = new()
+        DataParametersDto expected = new()
         {
             Global = new()
             {
@@ -34,10 +41,10 @@ public class UexCorpWebApiClientTests
         };
 
         // Act
-        DataParameters actual = await _sut.GetDataParametersAsync();
+        DataParametersDto actual = await _sut.GetDataParametersAsync();
 
         // Assert
-        actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBeEquivalentTo(expected);
     }
 }
 

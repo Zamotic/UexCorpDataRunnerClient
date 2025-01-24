@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Nsubstitute" />
-    <Using Include="Shouldy" />
+    <Using Include="NSubstitute" />
+    <Using Include="Shouldly" />
     <Using Include="Xunit" />
   </ItemGroup>
 

@@ -431,4 +431,16 @@ public class UexCorpWebApiClient : IUexCorpWebApiClient
 
         return responseObject;
     }
+
+
+    /// <summary>
+    /// Returns a <DataParametersDto> object
+    /// </summary>
+    /// <returns>An object containing values for the DataParameters returned from the API</returns>
+    public async Task<DataParametersDto> GetDataParametersAsync()
+    {
+        string endPointValue = $"data_parameters/";
+
+        return await GenericGetSingleAsync<DataParametersDto>(endPointValue);
+    }
 }
