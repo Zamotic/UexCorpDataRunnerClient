@@ -1,8 +1,6 @@
 ﻿using UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
 using UexCorpDataRunner.Domain.Services;
-using UexCorpDataRunner.Persistence.Api.Common;
 using UexCorpDataRunner.Persistence.Api.UexV2;
-using NSubstitute.Extensions;
 
 namespace Persistence.Api.Tests.Integration.UexV2;
 
