@@ -44,5 +44,28 @@ public class UexCorpWebApiClientTests
         // Assert
         actual.ShouldBeEquivalentTo(expected);
     }
+
+
+    [Fact]
+    public async void GetUser_Should_ReturnExpectedValues()
+    {
+        // Arrange
+        DataParametersDto expected = new()
+        {
+            Global = new()
+            {
+                IsAcceptingReports = true,
+                GameVersion = "4.0",
+                GameVersionPtu = "4.0.1",
+                EvaluationPeriodDays = 90
+            }
+        };
+
+        // Act
+        DataParametersDto actual = await _sut.GetDataParametersAsync();
+
+        // Assert
+        actual.ShouldBeEquivalentTo(expected);
+    }
 }
 
