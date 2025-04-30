@@ -24,7 +24,7 @@ public class UexCorpWebApiClientTests
     }
 
     [Fact]
-    public async void GetDataParameters_Should_ReturnExpectedValues()
+    public async Task GetDataParameters_Should_ReturnExpectedValues()
     {
         // Arrange
         DataParametersDto expected = new()
@@ -32,8 +32,8 @@ public class UexCorpWebApiClientTests
             Global = new()
             {
                 IsAcceptingReports = true,
-                GameVersion = "4.0",
-                GameVersionPtu = "4.0.1",
+                GameVersion = "4.1",
+                GameVersionPtu = "4.1.1",
                 EvaluationPeriodDays = 90
             }
         };
