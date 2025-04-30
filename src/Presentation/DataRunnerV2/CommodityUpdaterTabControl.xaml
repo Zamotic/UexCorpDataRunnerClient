@@ -35,109 +35,23 @@
             Header="Buy Price">
             <DockPanel
                 Background="{DynamicResource primaryControlBackgroundBrush}">
-                <Grid
-                    Margin="0,0,16,0"
-                    DockPanel.Dock="Top"
-                    Height="25">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
-                    </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Padding="2"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="New"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Padding="2"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Supply"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Padding="2"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Status"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="3"
-                        Padding="5"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Min"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="4"
-                        Padding="5"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Max"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="5"
-                        Padding="5"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Submit?"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                </Grid>
+                <local:CommodityUpdaterTabHeader
+                    DockPanel.Dock="Top" />
                 <ScrollViewer
                     DockPanel.Dock="Top"
                     Name="BuyTabScrollViewer"
                     ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ItemsControl
                         ItemsSource="{Binding Source={StaticResource BuyableCommodityListCVS}}"
-                        ItemTemplate="{StaticResource itemsControlItemTemplateV2}"
                         HorizontalAlignment="Left"
                         Width="{StaticResource itemsControlWidth}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <local:CommodityUpdaterItemControl />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
                         <ItemsControl.Style>
                             <Style TargetType="ItemsControl">
                                 <Setter Property="IsEnabled" Value="True" />
@@ -167,109 +81,23 @@
             Header="Sell Price">
             <DockPanel
                 Background="{DynamicResource primaryControlBackgroundBrush}">
-                <Grid
-                    Margin="0,0,16,0"
-                    DockPanel.Dock="Top"
-                    Height="25">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
-                        <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
-                    </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Padding="2"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="New"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Padding="2"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Supply"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Padding="2"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Status"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="3"
-                        Padding="5"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Min"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="4"
-                        Padding="5"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Max"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="5"
-                        Padding="5"
-                        BorderThickness=".25"
-                        BorderBrush="{DynamicResource gridBorderBrush}">
-                        <TextBlock
-                            Text="Submit?"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            Foreground="{DynamicResource textForegroundBrush}" />
-                    </Border>
-                </Grid>
+                <local:CommodityUpdaterTabHeader
+                    DockPanel.Dock="Top" />
                 <ScrollViewer
                     Name="SellTabScrollViewer"
                     DockPanel.Dock="Top"
                     ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ItemsControl
                         ItemsSource="{Binding Source={StaticResource SellableCommodityListCVS}}"
-                        ItemTemplate="{StaticResource itemsControlItemTemplateV2}"
                         HorizontalAlignment="Left"
                         Width="{StaticResource itemsControlWidth}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <local:CommodityUpdaterItemControl />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
                         <ItemsControl.Style>
                             <Style TargetType="ItemsControl">
                                 <Setter Property="IsEnabled" Value="True" />

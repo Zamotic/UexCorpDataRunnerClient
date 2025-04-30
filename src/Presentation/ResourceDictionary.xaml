@@ -361,7 +361,7 @@
         </DockPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="itemsControlItemTemplateV2">
+    <!--<DataTemplate x:Key="itemsControlItemTemplateV2">
         <DockPanel>
             <DockPanel.Resources>
                 <Thickness x:Key="itemsControlBorderPadding">6</Thickness>
@@ -649,5 +649,5 @@
                 </Border>
             </Grid>
         </DockPanel>
-    </DataTemplate>
+    </DataTemplate>-->
 </ResourceDictionary>
