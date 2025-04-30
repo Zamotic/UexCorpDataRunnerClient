@@ -119,10 +119,13 @@ public class CommodityWrapper : ObservableObject
         }
     }
 
+    public List<short> ContainerSizes { get; set; } = new List<short>();
+
     public CommodityWrapper(Commodity commodity, CommodityPrice commodityPrice)
     {
         _commodity = commodity;
         _commodityPrice = commodityPrice;
+        ContainerSizes.AddRange(commodityPrice.ContainerSizes);
         SetOperationType();
     }
 

@@ -30,6 +30,12 @@ public class CommodityWrapperToDataSubmitConverter : ICommodityWrapperToDataSubm
         {
             var dataSubmitPrice = GetDataSubmitPrice(commodity);
             dataSubmit.DataSubmitPrices.Add(dataSubmitPrice);
+
+            dataSubmit.ContainerSizes.Clear();
+            foreach(short value in commodity.ContainerSizes)
+            {
+                dataSubmit.ContainerSizes.Add(value);
+            }
         }
 
         return dataSubmit;

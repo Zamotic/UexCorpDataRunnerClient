@@ -12,6 +12,7 @@ public static class DataSubmitMapper
         output.Type = input.Type;
         output.IsProduction = input.IsProduction;
         output.FactionAffinity = input.FactionAffinity;
+        output.ContainerSizes = input.ContainerSizes?.Split(',').Select(s => short.Parse(s)).ToList() ?? new List<short>();
         output.Details = input.Details;
         output.GameVersion = input.GameVersion;
 
@@ -39,6 +40,7 @@ public static class DataSubmitMapper
         output.Type = input.Type;
         output.IsProduction = input.IsProduction;
         output.FactionAffinity = input.FactionAffinity;
+        output.ContainerSizes = string.Join(",", input.ContainerSizes);
         output.Details = input.Details;
         output.GameVersion = input.GameVersion;
 

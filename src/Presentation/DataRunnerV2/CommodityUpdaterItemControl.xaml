@@ -1,0 +1,374 @@
+﻿<UserControl x:Class="UexCorpDataRunner.Presentation.DataRunnerV2.CommodityUpdaterItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
+             xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary"
+             mc:Ignorable="d" 
+             d:DesignHeight="55" d:DesignWidth="580"
+             Loaded="UserControl_Loaded">
+    <DockPanel>
+        <DockPanel.Resources>
+            <Thickness x:Key="itemsControlBorderPadding">6</Thickness>
+            <system:Double x:Key="itemsControlGridHeight">35</system:Double>
+        </DockPanel.Resources>
+        <TextBlock
+            DockPanel.Dock="Top"
+            Text="{Binding Name}"
+            Margin="2,4,0,1"
+            FontWeight="Bold"
+            Foreground="{DynamicResource textBoldForegroundBrush}"/>
+        <Grid
+            DockPanel.Dock="Top"
+            Height="{StaticResource itemsControlGridHeight}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
+                <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
+                <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
+                <ColumnDefinition Width="{StaticResource containerSizeSelectionColumnWidth}" />
+                <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
+                <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
+                <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
+            </Grid.ColumnDefinitions>
+            <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
+                    <Rectangle
+                        Margin="0,0,0,-2"
+                        StrokeThickness="0,0,0,0"
+                        Stroke="Black"
+                        Fill="{DynamicResource fieldBackgroundBrush}" />
+                    <TextBlock
+                        Text="{Binding ListedPrice, StringFormat={StaticResource numberFormat}}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource textForegroundBrush}" />
+                    <uiLibraryControls:ClickSelectTextBox
+                        Text="{Binding CurrentPrice, StringFormat={StaticResource numberFormat}}"
+                        FontWeight="Bold"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        MouseDoubleClick="ClickSelectTextBox_MouseDoubleClick">
+                        <uiLibraryControls:ClickSelectTextBox.Style>
+                            <Style
+                                TargetType="uiLibraryControls:ClickSelectTextBox">
+                                <Setter Property="BorderBrush" Value="{DynamicResource fieldBackgroundBrush}" />
+                                <Setter Property="Background" Value="{DynamicResource fieldBackgroundBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource textBoldForegroundBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding CurrentPrice}"
+                                        Value="{x:Null}">
+                                        <Setter
+                                            Property="Background"
+                                            Value="Transparent" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="Transparent"/>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding IsPriceWithinTolerance}"
+                                        Value="True">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource acceptableBackgroundBrush}" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="{DynamicResource acceptableBackgroundBrush}"/>
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="{DynamicResource enteredForegroundBrush}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                            Binding="{Binding IsPriceWithinTolerance}"
+                                            Value="False">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource unacceptableBackgroundBrush}" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="{DynamicResource unacceptableBackgroundBrush}"/>
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="{DynamicResource enteredForegroundBrush}" />
+                                    </DataTrigger>
+                                    <Trigger
+                                        Property="IsFocused"
+                                        Value="True">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="{DynamicResource textBoldForegroundBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </uiLibraryControls:ClickSelectTextBox.Style>
+                    </uiLibraryControls:ClickSelectTextBox>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
+                    <Rectangle
+                        Margin="0,0,0,-2"
+                        StrokeThickness="0,0,0,0"
+                        Stroke="Black"
+                        Fill="{DynamicResource fieldBackgroundBrush}" />
+                    <TextBlock
+                        Text="SCU"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource textForegroundBrush}" />
+                    <uiLibraryControls:ClickSelectTextBox
+                        Text="{Binding CurrentScu, StringFormat={StaticResource numberFormat}}"
+                        FontWeight="Bold"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center">
+                        <uiLibraryControls:ClickSelectTextBox.Style>
+                            <Style
+                                TargetType="uiLibraryControls:ClickSelectTextBox">
+                                <Setter Property="BorderBrush" Value="{DynamicResource fieldBackgroundBrush}" />
+                                <Setter Property="Background" Value="{DynamicResource fieldBackgroundBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource textBoldForegroundBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding CurrentScu}"
+                                        Value="{x:Null}">
+                                        <Setter
+                                            Property="Background"
+                                            Value="Transparent" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="Transparent"/>
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding IsScuWithinTolerance}"
+                                        Value="True">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource acceptableBackgroundBrush}" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="{DynamicResource acceptableBackgroundBrush}"/>
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="{DynamicResource enteredForegroundBrush}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding IsScuWithinTolerance}"
+                                        Value="False">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource unacceptableBackgroundBrush}" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="{DynamicResource unacceptableBackgroundBrush}"/>
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="{DynamicResource enteredForegroundBrush}" />
+                                    </DataTrigger>
+                                    <Trigger
+                                        Property="IsFocused"
+                                        Value="True">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter
+                                            Property="BorderBrush"
+                                            Value="{DynamicResource fieldBackgroundBrush}" />
+                                        <Setter
+                                            Property="Foreground"
+                                            Value="{DynamicResource textBoldForegroundBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </uiLibraryControls:ClickSelectTextBox.Style>
+                    </uiLibraryControls:ClickSelectTextBox>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="2"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
+                    <Rectangle
+                        Margin="0,0,0,-2"
+                        StrokeThickness="0,0,0,0"
+                        Stroke="Black"
+                        Fill="{DynamicResource fieldBackgroundBrush}" />
+                    <ComboBox
+                        ItemsSource="{Binding DataContext.StatusList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DataRunnerV2View}}}"
+                        DisplayMemberPath="Name"
+                        SelectedValue="{Binding CurrentStatus}"
+                        SelectedValuePath="Id"
+                        Style="{StaticResource StylizedComboBox}"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Background="{DynamicResource fieldBackgroundBrush}"
+                        Foreground="{DynamicResource textBoldForegroundBrush}"
+                        BorderBrush="{DynamicResource gridBorderBrush}"/>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="3"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
+                    <Grid.Resources>
+                        <HorizontalAlignment x:Key="containerSizeHorizontalAlignment">Center</HorizontalAlignment>
+                        <VerticalAlignment x:Key="containerSizeVerticalAlignment">Center</VerticalAlignment>
+                        <system:Double x:Key="baseFontSize">12</system:Double>
+                        <Thickness x:Key="containerTextPadding">-2</Thickness>
+                    </Grid.Resources>
+                    <UniformGrid
+                        Rows="2"
+                        Columns="3"
+                        Margin="-4">
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="1"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="2"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="4"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="8"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="16"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="32"
+                            Click="Button_Click" />
+                    </UniformGrid>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="4"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
+                    <TextBlock
+                        DockPanel.Dock="Right"
+                        Text="{Binding MinPrice, StringFormat={StaticResource numberFormat}, FallbackValue=0.0}"
+                        Margin="15,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        Foreground="{DynamicResource textForegroundBrush}" />
+                    <Image
+                        Source="/Presentation;component/Images/triangle-128-LightGray.png"
+                        Margin="-40,0,0,0"
+                        Height="12"
+                        Width="12"
+                        RenderTransformOrigin=".5, .5">
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="180" />
+                        </Image.RenderTransform>
+                    </Image>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="5"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
+                    <TextBlock
+                        Text="{Binding MaxPrice, StringFormat={StaticResource numberFormat}, FallbackValue=0.0}"
+                        Margin="15,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        Foreground="{DynamicResource textForegroundBrush}" />
+                    <Image
+                        Source="/Presentation;component/Images/triangle-128-LightGray.png"
+                        Margin="-40,0,0,0"
+                        Height="12"
+                        Width="12"/>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="6"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
+                    <CheckBox
+                        IsChecked="{Binding MarkedForSubmittal}"
+                        Margin="0,0,0,0"
+                        IsTabStop="false"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="White"
+                        Foreground="{DynamicResource textForegroundBrush}" />
+                </Grid>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>
