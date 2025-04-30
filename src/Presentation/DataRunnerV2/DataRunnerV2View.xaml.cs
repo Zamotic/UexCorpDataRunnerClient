@@ -140,28 +140,28 @@ public partial class DataRunnerV2View : UserControl
         }
     }
 
-    private int LastTabIndex = 0;
-    private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        TabControl? obj = sender as TabControl;
-        if (obj is null)
-            return;
+    //private int LastTabIndex = 0;
+    //private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    //{
+    //    TabControl? obj = sender as TabControl;
+    //    if (obj is null)
+    //        return;
 
-        if (LastTabIndex == obj.SelectedIndex)
-        {
-            return;
-        }
+    //    if (LastTabIndex == obj.SelectedIndex)
+    //    {
+    //        return;
+    //    }
 
-        LastTabIndex = obj.SelectedIndex;
+    //    LastTabIndex = obj.SelectedIndex;
 
-        if(obj.SelectedIndex == 0)
-        {             
-            BuyTabScrollViewer.ScrollToTop();
-            return;
-        }
+    //    if(obj.SelectedIndex == 0)
+    //    {             
+    //        BuyTabScrollViewer.ScrollToTop();
+    //        return;
+    //    }
 
-        SellTabScrollViewer.ScrollToTop();
-    }
+    //    SellTabScrollViewer.ScrollToTop();
+    //}
 
     //private void ItemsControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     //{
