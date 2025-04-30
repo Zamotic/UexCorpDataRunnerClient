@@ -8,7 +8,7 @@
              xmlns:sort="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Sort"
              xmlns:filter="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2.Filter"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="505">
+             d:DesignHeight="700" d:DesignWidth="580">
     <UserControl.Resources>
         <Thickness x:Key="innerMargin">2,2</Thickness>
         <CollectionViewSource x:Key="BuyableCommodityListCVS" Source="{Binding Commodities}">

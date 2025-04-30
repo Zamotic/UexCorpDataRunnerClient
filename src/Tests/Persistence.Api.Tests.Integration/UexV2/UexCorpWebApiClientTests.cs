@@ -44,5 +44,34 @@ public class UexCorpWebApiClientTests
         // Assert
         actual.ShouldBeEquivalentTo(expected);
     }
+
+    [Fact]
+    public async Task GetCommodityPrices_Should_ReturnExpectedValues()
+    {
+        // Arrange
+        int terminalId = 1;
+        CommodityPriceDto expected = new()
+        {
+            Id = 375,
+            TerminalId = 1,
+            StarSystemId = 68,
+            StarSystemName = "Stanton",
+            SpaceStationName = "ARC-L1 Wide Forest Station",
+            PlanetId = 4,
+            PlanetName = "ArcCorp",
+            CommodityId = 70, 
+            CommodityName = "Stims",
+            ContainerSizes = "1,2,4,8,16,32",
+            DateAdded = DateTimeOffset.Parse("12/26/2023 7:37:24 PM +00:00"),
+            FactionName = "United Empire of Earth",
+            GameVersion = "4.1",
+        };
+
+        // Act
+        ICollection<CommodityPriceDto> actual = await _sut.GetCommodityPricesAsync(terminalId);
+
+        // Assert
+        actual.FirstOrDefault().ShouldBeEquivalentTo(expected);
+    }
 }
 

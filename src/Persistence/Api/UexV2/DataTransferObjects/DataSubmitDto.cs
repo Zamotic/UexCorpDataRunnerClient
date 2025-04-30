@@ -23,6 +23,9 @@ public class DataSubmitDto
     [JsonPropertyName("faction_affinity")]
     public int FactionAffinity { get; set; }
 
+    [JsonPropertyName("container_sizes ")]
+    public string? ContainerSizes { get; set; }
+
     [JsonPropertyName("details")]
     public string? Details { get; set; }
 

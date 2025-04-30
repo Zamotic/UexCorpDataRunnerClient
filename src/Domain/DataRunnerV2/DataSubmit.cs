@@ -17,6 +17,8 @@ public class DataSubmit
 
     public int FactionAffinity { get; set; }
 
+    public ICollection<short> ContainerSizes { get; set; } = new List<short>();
+
     public string? Details { get; set; }
 
     public string? GameVersion { get; set; }

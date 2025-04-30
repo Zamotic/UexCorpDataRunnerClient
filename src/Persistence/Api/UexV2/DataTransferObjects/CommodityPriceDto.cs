@@ -165,6 +165,9 @@ public class CommodityPriceDto : BaseDto
     [JsonPropertyName("scu_sell_avg_month")]
     public float ScuSellAvgMonth { get; set; }
 
+    [JsonPropertyName("container_sizes")]
+    public string? ContainerSizes { get; set; } = string.Empty;
+
     [JsonPropertyName("game_version")]
     public string? GameVersion {  get; set; }
 

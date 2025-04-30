@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UexCorpDataRunner.Presentation.DataRunnerV2"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="25" d:DesignWidth="580">
     <Grid
         Margin="0,0,16,0"
         Height="25">
@@ -16,6 +16,7 @@
             <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
             <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
             <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
+            <ColumnDefinition Width="{StaticResource containerSizeSelectionColumnWidth}" />
             <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
             <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
             <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
@@ -62,11 +63,11 @@
         <Border
             Grid.Row="0"
             Grid.Column="3"
-            Padding="5"
+            Padding="2"
             BorderThickness=".25"
             BorderBrush="{DynamicResource gridBorderBrush}">
             <TextBlock
-                Text="Min"
+                Text="Cont. Size"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Background="Transparent"
@@ -79,7 +80,7 @@
             BorderThickness=".25"
             BorderBrush="{DynamicResource gridBorderBrush}">
             <TextBlock
-                Text="Max"
+                Text="Min"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Background="Transparent"
@@ -88,6 +89,19 @@
         <Border
             Grid.Row="0"
             Grid.Column="5"
+            Padding="5"
+            BorderThickness=".25"
+            BorderBrush="{DynamicResource gridBorderBrush}">
+            <TextBlock
+                Text="Max"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                Foreground="{DynamicResource textForegroundBrush}" />
+        </Border>
+        <Border
+            Grid.Row="0"
+            Grid.Column="6"
             Padding="5"
             BorderThickness=".25"
             BorderBrush="{DynamicResource gridBorderBrush}">

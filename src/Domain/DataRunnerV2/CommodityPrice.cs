@@ -117,4 +117,6 @@ public class CommodityPrice : BaseModel
     public string? OutpostName { get; set; }
 
     public string? CityName { get; set; }
+
+    public List<short> ContainerSizes { get; set; } = new List<short>();
 }

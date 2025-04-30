@@ -6,13 +6,14 @@
     xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary">
 
     <system:String x:Key="numberFormat">#,0.#</system:String>
-    <system:Double x:Key="itemsControlWidth">470</system:Double>
+    <system:Double x:Key="itemsControlWidth">550</system:Double>
     <GridLength x:Key="newPriceColumnWidth">80</GridLength>
     <GridLength x:Key="minPriceColumnWidth">80</GridLength>
     <GridLength x:Key="maxPriceColumnWidth">80</GridLength>
     <GridLength x:Key="scuColumnWidth">80</GridLength>
     <GridLength x:Key="statusColumnWidth">80</GridLength>
     <GridLength x:Key="submitColumnWidth">70</GridLength>
+    <GridLength x:Key="containerSizeSelectionColumnWidth">80</GridLength>
 
     <Style x:Key="StylizedComboBox" TargetType="{x:Type ComboBox}">
         <Setter Property="Template">

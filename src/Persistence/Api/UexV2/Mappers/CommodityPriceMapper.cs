@@ -37,6 +37,10 @@ public static class CommodityPriceMapper
         output.SellPriceAvg = Convert.ToDecimal(input.SellPriceAvg);
         //output.SellPriceAvgWeek = Convert.ToDecimal(input.SellPriceAvgWeek);
         //output.SellPriceAvgMonth = Convert.ToDecimal(input.SellPriceAvgMonth);
+        if (string.IsNullOrWhiteSpace(input.ContainerSizes) == false)
+        {
+            output.ContainerSizes.AddRange(input.ContainerSizes.Split(',').ToList().Select(x => short.TryParse(x, out short result) ? result : (short)0));
+        }
 
         return output;
     }
@@ -86,6 +90,7 @@ public static class CommodityPriceMapper
         output.SellPriceAvg = Convert.ToSingle(input.SellPriceAvg);
         //output.SellPriceAvgWeek = Convert.ToSingle(input.SellPriceAvgWeek);
         //output.SellPriceAvgMonth = Convert.ToSingle(input.SellPriceAvgMonth);
+        output.ContainerSizes = string.Join(',', input.ContainerSizes);
 
         return output;
     }

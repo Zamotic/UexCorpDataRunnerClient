@@ -8,7 +8,8 @@
              xmlns:uiLibraryControls="clr-namespace:UexCorpDataRunner.UILibrary.Controls;assembly=UILibrary"
              xmlns:Extensions="clr-namespace:UexCorpDataRunner.UILibrary.Extensions;assembly=UILibrary"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="55" d:DesignWidth="580"
+             Loaded="UserControl_Loaded">
     <DockPanel>
         <DockPanel.Resources>
             <Thickness x:Key="itemsControlBorderPadding">6</Thickness>
@@ -30,6 +31,7 @@
                 <ColumnDefinition Width="{StaticResource newPriceColumnWidth}" />
                 <ColumnDefinition Width="{StaticResource scuColumnWidth}" />
                 <ColumnDefinition Width="{StaticResource statusColumnWidth}" />
+                <ColumnDefinition Width="{StaticResource containerSizeSelectionColumnWidth}" />
                 <ColumnDefinition Width="{StaticResource minPriceColumnWidth}" />
                 <ColumnDefinition Width="{StaticResource maxPriceColumnWidth}" />
                 <ColumnDefinition Width="{StaticResource submitColumnWidth}" />
@@ -56,8 +58,7 @@
                         FontWeight="Bold"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
-                        Extensions:MouseDoubleClickBehavior.MouseDoubleClick="{Binding Path=DataContext.MouseDoubleClickBehaviorDoubleClicked,  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                        Extensions:MouseDoubleClickBehavior.CommandParameter="{Binding}">
+                        MouseDoubleClick="ClickSelectTextBox_MouseDoubleClick">
                         <uiLibraryControls:ClickSelectTextBox.Style>
                             <Style
                                 TargetType="uiLibraryControls:ClickSelectTextBox">
@@ -217,7 +218,7 @@
                         Stroke="Black"
                         Fill="{DynamicResource fieldBackgroundBrush}" />
                     <ComboBox
-                        ItemsSource="{Binding Path=DataContext.StatusList,  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                        ItemsSource="{Binding DataContext.StatusList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DataRunnerV2View}}}"
                         DisplayMemberPath="Name"
                         SelectedValue="{Binding CurrentStatus}"
                         SelectedValuePath="Id"
@@ -236,6 +237,80 @@
                 BorderThickness=".25"
                 BorderBrush="{DynamicResource gridBorderBrush}">
                 <Grid>
+                    <Grid.Resources>
+                        <HorizontalAlignment x:Key="containerSizeHorizontalAlignment">Center</HorizontalAlignment>
+                        <VerticalAlignment x:Key="containerSizeVerticalAlignment">Center</VerticalAlignment>
+                        <system:Double x:Key="baseFontSize">12</system:Double>
+                        <Thickness x:Key="containerTextPadding">-2</Thickness>
+                    </Grid.Resources>
+                    <UniformGrid
+                        Rows="2"
+                        Columns="3"
+                        Margin="-4">
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="1"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="2"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="4"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="8"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="16"
+                            Click="Button_Click" />
+                        <Button
+                            HorizontalContentAlignment="{StaticResource containerSizeHorizontalAlignment}"
+                            VerticalContentAlignment="{StaticResource containerSizeVerticalAlignment}"
+                            FontSize="{StaticResource baseFontSize}"
+                            Background="{StaticResource acceptableBackgroundBrush}"
+                            Foreground="White"
+                            Padding="{StaticResource containerTextPadding}"
+                            Content="32"
+                            Click="Button_Click" />
+                    </UniformGrid>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="4"
+                Padding="{StaticResource itemsControlBorderPadding}"
+                BorderThickness=".25"
+                BorderBrush="{DynamicResource gridBorderBrush}">
+                <Grid>
                     <TextBlock
                         DockPanel.Dock="Right"
                         Text="{Binding MinPrice, StringFormat={StaticResource numberFormat}, FallbackValue=0.0}"
@@ -245,7 +320,7 @@
                         Background="Transparent"
                         Foreground="{DynamicResource textForegroundBrush}" />
                     <Image
-                        Source="./Images/triangle-128-LightGray.png"
+                        Source="/Presentation;component/Images/triangle-128-LightGray.png"
                         Margin="-40,0,0,0"
                         Height="12"
                         Width="12"
@@ -258,7 +333,7 @@
             </Border>
             <Border
                 Grid.Row="0"
-                Grid.Column="4"
+                Grid.Column="5"
                 Padding="{StaticResource itemsControlBorderPadding}"
                 BorderThickness=".25"
                 BorderBrush="{DynamicResource gridBorderBrush}">
@@ -271,7 +346,7 @@
                         Background="Transparent"
                         Foreground="{DynamicResource textForegroundBrush}" />
                     <Image
-                        Source="./Images/triangle-128-LightGray.png"
+                        Source="/Presentation;component/Images/triangle-128-LightGray.png"
                         Margin="-40,0,0,0"
                         Height="12"
                         Width="12"/>
@@ -279,7 +354,7 @@
             </Border>
             <Border
                 Grid.Row="0"
-                Grid.Column="5"
+                Grid.Column="6"
                 Padding="{StaticResource itemsControlBorderPadding}"
                 BorderThickness=".25"
                 BorderBrush="{DynamicResource gridBorderBrush}">

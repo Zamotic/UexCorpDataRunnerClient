@@ -16,7 +16,7 @@
       xmlns:Domain="clr-namespace:UexCorpDataRunner.Domain.Common;assembly=Domain"
       presentation:ViewModelLocator.AutoWireViewModel="True"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="505"
+      d:DesignHeight="700" d:DesignWidth="585"
       d:DataContext="{d:DesignInstance Type=local:DataRunnerV2ViewModelData, IsDesignTimeCreatable=True}"
       DataContextChanged="UserControl_DataContextChanged"
       IsEnabled="{Binding IsEnabled}">
