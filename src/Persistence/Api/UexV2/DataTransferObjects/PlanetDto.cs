@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using UexCorpDataRunner.Persistence.Api.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
-public class PlanetDto : ExtendedBaseDto
+public class PlanetDto : LocationBaseDto
 {
-    [JsonPropertyName("id_star_system")]
-    public int StarSystemId { get; set; }
+    //[JsonPropertyName("id_star_system")]
+    //public int StarSystemId { get; set; }
 
     [JsonPropertyName("name_origin")]
     public string? NameOrigin { get; set; }
