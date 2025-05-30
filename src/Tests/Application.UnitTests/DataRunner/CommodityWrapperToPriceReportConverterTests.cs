@@ -18,7 +18,7 @@ public class CommodityWrapperToPriceReportConverterTests
         { 
             UserAccessCode = accessCode,
             SelectedGameVersion = GameVersion.LiveValue,
-            LoadedGameVersion = new GameVersion() { Live = "3.17.4", Ptu = "3.18" }
+            LoadedGameVersion = new UexCorpDataRunner.Domain.DataRunnerV2.GameVersion() { Live = "3.17.4", Ptu = "3.18" }
         });
 
         _converter = new CommodityWrapperToPriceReportConverter(mockSettingsService.Object);
