@@ -2,10 +2,10 @@
 using UexCorpDataRunner.Persistence.Api.Converters;
 
 namespace UexCorpDataRunner.Persistence.Api.UexV2.DataTransferObjects;
-public class TerminalDto : ExtendedBaseDto
+public class TerminalDto : LocationBaseDto
 {
-    [JsonPropertyName("id_star_system")]
-    public int StarSystemId { get; set; }
+    //[JsonPropertyName("id_star_system")]
+    //public int StarSystemId { get; set; }
 
     [JsonPropertyName("star_system_name")]
     public string? StarSystemName { get; set; }
@@ -40,11 +40,11 @@ public class TerminalDto : ExtendedBaseDto
     [JsonPropertyName("city_name")]
     public string? CityName { get; set; }
 
-    [JsonPropertyName("id_faction")]
-    public int FactionId { get; set; }
+    //[JsonPropertyName("id_faction")]
+    //public int FactionId { get; set; }
 
-    [JsonPropertyName("nickname")]
-    public string? Nickname { get; set; }
+    //[JsonPropertyName("nickname")]
+    //public string? Nickname { get; set; }
 
     [JsonPropertyName("type")]
     public string? Type { get; set; }

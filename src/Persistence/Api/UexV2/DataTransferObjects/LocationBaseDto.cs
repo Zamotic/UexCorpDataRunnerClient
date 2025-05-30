@@ -8,7 +8,7 @@ public class LocationBaseDto : ExtendedBaseDto
     public int StarSystemId { get; set; }
 
     [JsonPropertyName("id_faction")]
-    public int FactionId { get; set; }
+    public int? FactionId { get; set; }
 
     [JsonPropertyName("nickname")]
     public string? Nickname{ get; set; }
