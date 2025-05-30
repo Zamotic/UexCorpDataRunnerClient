@@ -1,5 +1,5 @@
-﻿Version 1.2.2504.101
- - Added container size handling to submissions.
+﻿Version 1.2.2505.29021
+ - Fixed a bug where null faction_ids were breaking the response from the API.
 
 Version 1.2.2406.9021
  - Updated the splashscreen and application icons to UEX 2.0 versions.
