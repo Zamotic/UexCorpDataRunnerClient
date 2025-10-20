@@ -1,4 +1,7 @@
-﻿Version 1.2.2505.29021
+﻿Version 1.2.2510.20022
+ - Fixed a bug where null faction_ids were breaking the response from the API.
+ 
+ Version 1.2.2505.29021
  - Fixed a bug where null faction_ids were breaking the response from the API.
 
 Version 1.2.2406.9021
